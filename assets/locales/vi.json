@@ -1,0 +1,20 @@
+{
+    "auth":{
+        "login_title":"Đăng nhập",
+        "student_tab":"Sinh viên",
+        "teacher_tab":"Giảng viên",
+        "student_label":"Mã sinh viên",
+        "teacher_label":"Mã giảng viên",
+        "student_hint":"Nhập mã sinh viên",
+        "teacher_hint":"Nhập mã sinh viên",
+        "password_hint":"Nhập mật khẩu đăng nhập",
+        "password_label":"Mật khẩu",
+        "error_message":"Tài khoản/ mật khẩu không đúng",
+        "login_button":"Đăng nhập",
+        "forgot_button":"Quên mật khẩu",
+        "email_label":"Email",
+        "email_hint":"Nhập email nhận mã",
+        "send_code_button":"Gửi mã",
+        "help_button":"Trợ giúp"
+    }
+}
