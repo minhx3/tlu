@@ -5,12 +5,15 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/configuration/constant/view_state.dart';
 
+enum ButtonType { outline, system }
+
 class ButtonView extends StatelessWidget {
   final String title;
   final Function onTap;
   final double verticalSpacing;
   final double horizontalSpacing;
   final ViewState viewState;
+  final ButtonType type;
 
   const ButtonView(
       {Key key,
@@ -18,6 +21,7 @@ class ButtonView extends StatelessWidget {
       this.onTap,
       this.verticalSpacing = 0,
       this.horizontalSpacing = 0,
+      this.type = ButtonType.system,
       this.viewState = ViewState.idle})
       : super(key: key);
   @override
@@ -28,23 +32,36 @@ class ButtonView extends StatelessWidget {
           top: verticalSpacing,
           right: horizontalSpacing),
       child: Material(
-        color: AppColor.primaryColor,
+        color: type == ButtonType.system
+            ? AppColor.primaryColor
+            : AppColor.whiteColor,
         borderRadius: BorderRadius.circular(3),
         child: InkWell(
-          splashColor: AppColor.primaryColor.withOpacity(0.5),
+          splashColor: type == ButtonType.system
+              ? AppColor.primaryColor.withOpacity(0.5)
+              : Colors.transparent,
           onTap: () {
             onTap();
           },
           child: Container(
             alignment: Alignment.center,
             height: 50,
+            decoration: BoxDecoration(
+                border: type == ButtonType.system
+                    ? null
+                    : Border.all(color: Colors.black45, width: 1.5)),
             child: viewState == ViewState.loading
                 ? centerloading(size: 20)
                 : Text(
                     title.tr,
                     textAlign: TextAlign.center,
                     style: fontInter(13,
-                        fontWeight: FontWeight.bold, color: Colors.white),
+                        fontWeight: type == ButtonType.system
+                            ? FontWeight.bold
+                            : FontWeight.w500,
+                        color: type == ButtonType.system
+                            ? Colors.white
+                            : Colors.black),
                   ),
           ),
         ),

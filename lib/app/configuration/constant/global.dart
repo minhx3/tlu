@@ -84,3 +84,11 @@ showMessage({String title, String message, Duration duration}) => Get.snackbar(
 delay(Function onCompleted, {int time = 2}) {
   Future.delayed(Duration(seconds: time)).whenComplete(onCompleted);
 }
+
+var boxShadow = BoxDecoration(boxShadow: [
+  BoxShadow(
+    blurRadius: 6,
+    spreadRadius: 2,
+    color: Colors.black.withOpacity(0.15),
+  ),
+], color: AppColor.whiteColor);

@@ -4,16 +4,34 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/link_view.dart';
 
-enum AppBarType { info, navigator, tab, chat, notfication, button }
+enum AppBarType { info, navigator, tab, chat, notfication, button, icon }
 
 class AppBarView extends StatelessWidget {
   final AppBarType type;
   final String title;
   final String subTitle;
-  const AppBarView({Key key, this.type, this.title, this.subTitle})
+  final Function onBack;
+  final String buttonTitle;
+  final String iconLeading;
+  final Color iconTintColor;
+  final bool automaticallyImplyLeading;
+  final Function onAction;
+  const AppBarView(
+      {Key key,
+      this.type,
+      this.title,
+      this.onBack,
+      this.automaticallyImplyLeading = true,
+      this.subTitle,
+      this.buttonTitle,
+      this.onAction,
+      this.iconTintColor,
+      this.iconLeading})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,15 +75,20 @@ class AppBarView extends StatelessWidget {
                           width: 20,
                           height: 20,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          pushTo(Routes.NOTIFICATION);
+                        },
                       ),
-                      Container(
-                        margin: EdgeInsets.only(bottom: 20, left: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: AppColor.errorColor),
-                        height: 10,
-                        width: 10,
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 20, left: 10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: AppColor.errorColor),
+                          height: 10,
+                          width: 10,
+                        ),
                       )
                     ],
                   )
@@ -82,12 +105,19 @@ class AppBarView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.arrow_back_ios,
-                      color: AppColor.textColor,
-                    ),
+                    automaticallyImplyLeading == false
+                        ? SizedBox()
+                        : InkWell(
+                            onTap: () {
+                              pop();
+                            },
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              color: AppColor.textColor,
+                            ),
+                          ),
                     Expanded(
-                      child: Text("Tin tức & sự kiện",
+                      child: Text(title,
                           style: fontInter(16,
                               fontWeight: FontWeight.w600,
                               color: AppColor.textColor)),
@@ -136,9 +166,14 @@ class AppBarView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.arrow_back_ios,
-                      color: AppColor.whiteColor,
+                    InkWell(
+                      onTap: () {
+                        onBack != null ? onBack() : pop();
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: AppColor.whiteColor,
+                      ),
                     ),
                     Text("Tin tức & sự kiện",
                         style: fontInter(16,
@@ -154,9 +189,14 @@ class AppBarView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.arrow_back_ios,
-                      color: AppColor.textColor,
+                    InkWell(
+                      onTap: () {
+                        pop();
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: AppColor.textColor,
+                      ),
                     ),
                     Expanded(
                       child: Text("Tin tức & sự kiện",
@@ -178,31 +218,93 @@ class AppBarView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    Icon(Icons.arrow_back_ios, color: AppColor.whiteColor),
+                    InkWell(
+                      child: Icon(Icons.arrow_back_ios,
+                          color: AppColor.whiteColor),
+                      onTap: () {
+                        pop();
+                      },
+                    ),
                     Expanded(
-                      child: Text("Tin tức & sự kiện",
+                      child: Text(title ?? "",
                           style: fontInter(16,
                               fontWeight: FontWeight.w600,
                               color: AppColor.whiteColor)),
                     ),
-                    SizedBox(
-                      height: 35,
-                      width: 95,
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: AppColor.errorColor,
-                            borderRadius: BorderRadius.circular(3)),
-                        padding: EdgeInsets.symmetric(horizontal: 8),
+                    InkWell(
+                      onTap: () {},
+                      child: SizedBox(
                         height: 35,
-                        child: Text("Xem điểm",
-                            style: fontInter(12,
-                                fontWeight: FontWeight.w600,
-                                color: AppColor.whiteColor)),
+                        width: 95,
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: AppColor.errorColor,
+                              borderRadius: BorderRadius.circular(3)),
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          height: 35,
+                          child: Text(buttonTitle,
+                              style: fontInter(12,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.whiteColor)),
+                        ),
                       ),
                     )
                   ],
                 ));
+            break;
+          case AppBarType.icon:
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              height: 60,
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  InkWell(
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: AppColor.textColor,
+                    ),
+                    onTap: () {
+                      pop();
+                    },
+                  ),
+                  Expanded(
+                    child: Text(title ?? "",
+                        style: fontInter(16,
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.textColor)),
+                  ),
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      IconButton(
+                        icon: Image.asset(
+                          iconLeading,
+                          width: 20,
+                          height: 20,
+                        ),
+                        onPressed: () {
+                          onAction();
+                        },
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 20, left: 20),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: AppColor.errorColor),
+                          height: 10,
+                          width: 10,
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            );
+
             break;
         }
 
@@ -217,7 +319,7 @@ class AppBarView extends StatelessWidget {
                   child: Text("Tin tức & sự kiện",
                       style: fontInter(16,
                           fontWeight: FontWeight.w600,
-                          color: AppColor.whiteColor)),
+                          color: AppColor.textColor)),
                 ),
                 SizedBox(
                   height: 35,
@@ -265,6 +367,9 @@ class AppBarView extends StatelessWidget {
         break;
       case AppBarType.button:
         return AppColor.appBarDarkBackground;
+        break;
+      case AppBarType.icon:
+        return AppColor.appBarWhiteBackground;
         break;
     }
     return AppColor.appBarDarkBackground;
