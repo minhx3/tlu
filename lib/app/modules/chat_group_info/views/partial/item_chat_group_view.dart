@@ -58,7 +58,7 @@ class _ItemChatGroupBaseView extends StatelessWidget {
   Widget build(BuildContext context) {
     return PressableView(
       borderRadius: 3,
-      colorBackground: AppColor.whiteColor,
+      backgroundColor: AppColor.whiteColor,
       onPressed: onPressed,
       child: Container(
         alignment: Alignment.center,

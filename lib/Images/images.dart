@@ -16,6 +16,7 @@ class Images {
   static const String icAdd = 'assets/images/ic_add.png';
   static const String menuGroup = 'assets/images/menuGroup.png';
   static const String background = 'assets/images/background.png';
+  static const String icLogout = 'assets/images/ic_logout.png';
   static const String noteIcon = 'assets/images/noteIcon.png';
   static const String menuSettings = 'assets/images/menuSettings.png';
   static const String icEdit = 'assets/images/ic_edit.png';

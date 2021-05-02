@@ -40,8 +40,6 @@ class _AppBarView extends StatelessWidget with PreferredSizeWidget {
 class _ListContentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: InfoStudentView(),
-    );
+    return InfoTeacherView();
   }
 }

@@ -80,7 +80,7 @@ class _ItemStudentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PressableView(
-      colorBackground: Colors.transparent,
+      backgroundColor: Colors.transparent,
       onPressed: onPressed,
       child: Container(
         height: 74,
