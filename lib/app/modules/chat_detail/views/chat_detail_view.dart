@@ -315,7 +315,7 @@ class _IconAttachmentView extends StatelessWidget {
   Widget build(BuildContext context) {
     return PressableView(
       borderRadius: 4,
-      colorBackground: Colors.transparent,
+      backgroundColor: Colors.transparent,
       onPressed: onPressed,
       child: Container(
         constraints: BoxConstraints(maxHeight: 40),
