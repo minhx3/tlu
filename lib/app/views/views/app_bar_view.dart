@@ -7,7 +7,16 @@ import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/link_view.dart';
 
-enum AppBarType { info, navigator, tab, chat, notfication, button, icon }
+enum AppBarType {
+  info,
+  navigator,
+  tab,
+  chat,
+  notfication,
+  button,
+  icon,
+  detail
+}
 
 class AppBarView extends StatelessWidget {
   final AppBarType type;
@@ -19,6 +28,10 @@ class AppBarView extends StatelessWidget {
   final Color iconTintColor;
   final bool automaticallyImplyLeading;
   final Function onAction;
+  final List<Widget> actions;
+  final Color titleColor;
+  final Color backgroundColor;
+
   const AppBarView(
       {Key key,
       this.type,
@@ -29,7 +42,10 @@ class AppBarView extends StatelessWidget {
       this.buttonTitle,
       this.onAction,
       this.iconTintColor,
-      this.iconLeading})
+      this.iconLeading,
+      this.actions,
+      this.titleColor,
+      this.backgroundColor})
       : super(key: key);
 
   @override
@@ -37,7 +53,7 @@ class AppBarView extends StatelessWidget {
     return Container(
       height: 60 + context.mediaQueryPadding.top,
       padding: EdgeInsets.only(top: context.mediaQueryPadding.top),
-      color: getColor(),
+      color: backgroundColor ?? getColor(),
       child: Builder(builder: (context) {
         switch (type) {
           case AppBarType.info:
@@ -157,8 +173,7 @@ class AppBarView extends StatelessWidget {
                 ));
             break;
           case AppBarType.chat:
-            // TODO: Handle this case.
-            break;
+            return _ChatAppBar();
           case AppBarType.navigator:
             return Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),
@@ -220,7 +235,7 @@ class AppBarView extends StatelessWidget {
                   children: [
                     InkWell(
                       child: Icon(Icons.arrow_back_ios,
-                          color: AppColor.whiteColor),
+                          color: iconTintColor ?? AppColor.whiteColor),
                       onTap: () {
                         pop();
                       },
@@ -229,7 +244,7 @@ class AppBarView extends StatelessWidget {
                       child: Text(title ?? "",
                           style: fontInter(16,
                               fontWeight: FontWeight.w600,
-                              color: AppColor.whiteColor)),
+                              color: titleColor ?? AppColor.whiteColor)),
                     ),
                     InkWell(
                       onTap: () {},
@@ -252,7 +267,6 @@ class AppBarView extends StatelessWidget {
                     )
                   ],
                 ));
-            break;
           case AppBarType.icon:
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 15),
@@ -306,6 +320,40 @@ class AppBarView extends StatelessWidget {
             );
 
             break;
+          case AppBarType.detail:
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              height: 60,
+              color: AppColor.whiteColor,
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  automaticallyImplyLeading == false
+                      ? SizedBox()
+                      : InkWell(
+                          onTap: () {
+                            pop();
+                          },
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: AppColor.textColor,
+                          ),
+                        ),
+                  Expanded(
+                    child: Text(title,
+                        style: fontInter(16,
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.textColor)),
+                  ),
+                  actions != null
+                      ? Stack(
+                          alignment: Alignment.center,
+                          children: [...actions],
+                        )
+                      : SizedBox.shrink()
+                ],
+              ),
+            );
         }
 
         return Container(
@@ -343,35 +391,61 @@ class AppBarView extends StatelessWidget {
     );
   }
 
-  getColor() {
+  Color getColor() {
     switch (type) {
       case AppBarType.info:
         // TODO: Handle this case.
         return AppColor.appBarWhiteBackground;
-        break;
-
       case AppBarType.navigator:
         // TODO: Handle this case.
         return AppColor.appBarDarkBackground;
-
-        break;
       case AppBarType.tab:
         return AppColor.appBarWhiteBackground;
-
-        break;
       case AppBarType.chat:
-        // TODO: Handle this case.
-        break;
+        return AppColor.appBarWhiteBackground;
       case AppBarType.notfication:
         return AppColor.appBarWhiteBackground;
-        break;
       case AppBarType.button:
         return AppColor.appBarDarkBackground;
-        break;
       case AppBarType.icon:
         return AppColor.appBarWhiteBackground;
-        break;
+      case AppBarType.detail:
+        return AppColor.appBarWhiteBackground;
     }
     return AppColor.appBarDarkBackground;
+  }
+}
+
+class _ChatAppBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 15),
+      height: 60,
+      color: AppColor.whiteColor,
+      alignment: Alignment.centerLeft,
+      child: Row(
+        children: [
+          Expanded(
+            child: Text("Chat",
+                style: fontInter(16,
+                    fontWeight: FontWeight.w600, color: AppColor.textColor)),
+          ),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              IconButton(
+                icon: Image.asset(
+                  Images.icEdit,
+                  width: 20,
+                  height: 20,
+                ),
+                onPressed: () {},
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

@@ -26,7 +26,9 @@ dependencies:
   flutter_animator: ^2.1.0
   cached_network_image: ^2.5.1
   flutter_swiper: ^1.1.6
-
+  keyboard_attachable: ^1.0.3
+  flutter_keyboard_visibility: ^3.1.0
+  
   flutter:
     sdk: flutter
 
