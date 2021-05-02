@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
+import 'package:thanglong_university/app/modules/chat/views/chat_view.dart';
 import 'package:thanglong_university/app/modules/education/views/education_view.dart';
 import 'package:thanglong_university/app/modules/home/views/home_view.dart';
+import 'package:thanglong_university/app/modules/profile/views/profile_view.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/image_view.dart';
@@ -24,9 +26,8 @@ class IndexView extends GetView<IndexController> {
                     color: Colors.orange,
                   ),
                   EducationView(),
-                  Container(
-                    color: Colors.orange,
-                  )
+                  ChatView(),
+                  ProfileView()
                 ],
               ),
               bottomNavigationBar: BottomNavigationBar(
@@ -40,7 +41,7 @@ class IndexView extends GetView<IndexController> {
                         index == controller.rxTabIndex()
                             ? e.iconSelected
                             : e.icon,
-                        type: index == 4 ? Type.network : Type.assets,
+                        type: index == 4 ? Type.assets : Type.assets,
                         width: 24,
                         height: 24,
                         color: index == controller.rxTabIndex()
