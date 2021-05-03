@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/modules/education/views/education_view.dart';
 import 'package:thanglong_university/app/modules/home/views/home_view.dart';
+import 'package:thanglong_university/app/modules/schedule/views/schedule_view.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/image_view.dart';
@@ -20,9 +21,7 @@ class IndexView extends GetView<IndexController> {
                 index: controller.rxTabIndex(),
                 children: [
                   HomeView(),
-                  Container(
-                    color: Colors.orange,
-                  ),
+                  ScheduleView(),
                   EducationView(),
                   Container(
                     color: Colors.orange,

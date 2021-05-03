@@ -8,6 +8,7 @@ import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/modules/education/views/education_subject_item_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
+import 'package:thanglong_university/app/views/views/button_view.dart';
 
 import '../controllers/education_controller.dart';
 
@@ -25,7 +26,7 @@ class EducationView extends GetView<EducationController> {
           ),
           Expanded(
             child: ListView(
-              padding: EdgeInsets.zero,
+              padding: EdgeInsets.only(bottom: 30),
               children: [
                 Container(
                   padding: EdgeInsets.all(20),
@@ -71,6 +72,13 @@ class EducationView extends GetView<EducationController> {
                       20,
                       (index) => EducationSubjectItemView(
                           space: index == 0 ? 0 : 16)).toList(),
+                ),
+                ButtonView(
+                  title: "Chi tiết môn",
+                  type: ButtonType.outline,
+                  horizontalSpacing: 16,
+                  verticalSpacing: 16,
+                  onTap: () {},
                 )
               ],
             ),

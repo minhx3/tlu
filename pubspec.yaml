@@ -26,6 +26,7 @@ dependencies:
   flutter_animator: ^2.1.0
   cached_network_image: ^2.5.1
   flutter_swiper: ^1.1.6
+  syncfusion_flutter_calendar: ^18.4.49
 
   flutter:
     sdk: flutter

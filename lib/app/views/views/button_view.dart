@@ -34,7 +34,7 @@ class ButtonView extends StatelessWidget {
       child: Material(
         color: type == ButtonType.system
             ? AppColor.primaryColor
-            : AppColor.whiteColor,
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(3),
         child: InkWell(
           splashColor: type == ButtonType.system

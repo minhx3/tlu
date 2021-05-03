@@ -218,38 +218,42 @@ class AppBarView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    InkWell(
-                      child: Icon(Icons.arrow_back_ios,
-                          color: AppColor.whiteColor),
-                      onTap: () {
-                        pop();
-                      },
-                    ),
+                    automaticallyImplyLeading == true
+                        ? InkWell(
+                            child: Icon(Icons.arrow_back_ios,
+                                color: AppColor.whiteColor),
+                            onTap: () {
+                              pop();
+                            },
+                          )
+                        : SizedBox(),
                     Expanded(
                       child: Text(title ?? "",
                           style: fontInter(16,
                               fontWeight: FontWeight.w600,
                               color: AppColor.whiteColor)),
                     ),
-                    InkWell(
-                      onTap: () {},
-                      child: SizedBox(
-                        height: 35,
-                        width: 95,
-                        child: Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: AppColor.errorColor,
-                              borderRadius: BorderRadius.circular(3)),
-                          padding: EdgeInsets.symmetric(horizontal: 8),
-                          height: 35,
-                          child: Text(buttonTitle,
-                              style: fontInter(12,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColor.whiteColor)),
-                        ),
-                      ),
-                    )
+                    buttonTitle == null
+                        ? SizedBox()
+                        : InkWell(
+                            onTap: () {},
+                            child: SizedBox(
+                              height: 35,
+                              width: 95,
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: AppColor.errorColor,
+                                    borderRadius: BorderRadius.circular(3)),
+                                padding: EdgeInsets.symmetric(horizontal: 8),
+                                height: 35,
+                                child: Text(buttonTitle,
+                                    style: fontInter(12,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColor.whiteColor)),
+                              ),
+                            ),
+                          )
                   ],
                 ));
             break;

@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/modules/education/controllers/education_controller.dart';
 import 'package:thanglong_university/app/modules/home/controllers/home_controller.dart';
+import 'package:thanglong_university/app/modules/schedule/controllers/schedule_controller.dart';
 
 import '../controllers/index_controller.dart';
 
 class IndexBinding extends Bindings {
   @override
   void dependencies() {
+    Get.lazyPut<ScheduleController>(
+      () => ScheduleController(),
+    );
     Get.lazyPut<HomeController>(
       () => HomeController(),
     );

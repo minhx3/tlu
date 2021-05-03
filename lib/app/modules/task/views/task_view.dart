@@ -21,6 +21,7 @@ class TaskView extends GetView<TaskController> {
           children: [
             AppBarView(
               type: AppBarType.button,
+              title: "Chi tiết task",
               buttonTitle: "Thêm note",
             ),
             Expanded(

@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 
 import 'package:thanglong_university/app/modules/auth/bindings/auth_binding.dart';
 import 'package:thanglong_university/app/modules/auth/views/auth_view.dart';
+import 'package:thanglong_university/app/modules/detai_class/bindings/detai_class_binding.dart';
+import 'package:thanglong_university/app/modules/detai_class/views/detai_class_view.dart';
 import 'package:thanglong_university/app/modules/detail_new/bindings/detail_new_binding.dart';
 import 'package:thanglong_university/app/modules/detail_new/views/detail_new_view.dart';
 import 'package:thanglong_university/app/modules/education/bindings/education_binding.dart';
@@ -14,6 +16,8 @@ import 'package:thanglong_university/app/modules/index/bindings/index_binding.da
 import 'package:thanglong_university/app/modules/index/views/index_view.dart';
 import 'package:thanglong_university/app/modules/notification/bindings/notification_binding.dart';
 import 'package:thanglong_university/app/modules/notification/views/notification_view.dart';
+import 'package:thanglong_university/app/modules/schedule/bindings/schedule_binding.dart';
+import 'package:thanglong_university/app/modules/schedule/views/schedule_view.dart';
 import 'package:thanglong_university/app/modules/task/bindings/task_binding.dart';
 import 'package:thanglong_university/app/modules/task/views/task_view.dart';
 import 'package:thanglong_university/app/modules/test_schedule/bindings/test_schedule_binding.dart';
@@ -71,6 +75,16 @@ class AppPages {
       name: _Paths.TEST_SCHEDULE,
       page: () => TestScheduleView(),
       binding: TestScheduleBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAI_CLASS,
+      page: () => DetaiClassView(),
+      binding: DetaiClassBinding(),
+    ),
+    GetPage(
+      name: _Paths.SCHEDULE,
+      page: () => ScheduleView(),
+      binding: ScheduleBinding(),
     ),
   ];
 }

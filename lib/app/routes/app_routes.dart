@@ -11,6 +11,8 @@ abstract class Routes {
   static const EDUCATION = _Paths.EDUCATION;
   static const TRANSCRIPT = _Paths.TRANSCRIPT;
   static const TEST_SCHEDULE = _Paths.TEST_SCHEDULE;
+  static const DETAI_CLASS = _Paths.DETAI_CLASS;
+  static const SCHEDULE = _Paths.SCHEDULE;
 }
 
 abstract class _Paths {
@@ -23,4 +25,6 @@ abstract class _Paths {
   static const EDUCATION = '/education';
   static const TRANSCRIPT = '/transcript';
   static const TEST_SCHEDULE = '/test-schedule';
+  static const DETAI_CLASS = '/detai-class';
+  static const SCHEDULE = '/schedule';
 }
