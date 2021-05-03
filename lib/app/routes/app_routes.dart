@@ -13,6 +13,10 @@ abstract class Routes {
   static const TEST_SCHEDULE = _Paths.TEST_SCHEDULE;
   static const DETAI_CLASS = _Paths.DETAI_CLASS;
   static const SCHEDULE = _Paths.SCHEDULE;
+  static const CHAT_DETAIL = _Paths.CHAT_DETAIL;
+  static const CHAT_GROUP_INFO = _Paths.CHAT_GROUP_INFO;
+  static const USER_INFO = _Paths.USER_INFO;
+  static const PROFILE = _Paths.PROFILE;
 }
 
 abstract class _Paths {
@@ -27,4 +31,8 @@ abstract class _Paths {
   static const TEST_SCHEDULE = '/test-schedule';
   static const DETAI_CLASS = '/detai-class';
   static const SCHEDULE = '/schedule';
+  static const CHAT_DETAIL = '/chat-detail';
+  static const CHAT_GROUP_INFO = '/chat-group-info';
+  static const USER_INFO = '/user-info';
+  static const PROFILE = '/profile';
 }

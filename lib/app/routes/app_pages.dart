@@ -6,6 +6,10 @@ import 'package:thanglong_university/app/modules/auth/bindings/auth_binding.dart
 import 'package:thanglong_university/app/modules/auth/views/auth_view.dart';
 import 'package:thanglong_university/app/modules/detai_class/bindings/detai_class_binding.dart';
 import 'package:thanglong_university/app/modules/detai_class/views/detai_class_view.dart';
+import 'package:thanglong_university/app/modules/chat_detail/bindings/chat_detail_binding.dart';
+import 'package:thanglong_university/app/modules/chat_detail/views/chat_detail_view.dart';
+import 'package:thanglong_university/app/modules/chat_group_info/bindings/chat_group_info_binding.dart';
+import 'package:thanglong_university/app/modules/chat_group_info/views/chat_group_info_view.dart';
 import 'package:thanglong_university/app/modules/detail_new/bindings/detail_new_binding.dart';
 import 'package:thanglong_university/app/modules/detail_new/views/detail_new_view.dart';
 import 'package:thanglong_university/app/modules/education/bindings/education_binding.dart';
@@ -18,12 +22,16 @@ import 'package:thanglong_university/app/modules/notification/bindings/notificat
 import 'package:thanglong_university/app/modules/notification/views/notification_view.dart';
 import 'package:thanglong_university/app/modules/schedule/bindings/schedule_binding.dart';
 import 'package:thanglong_university/app/modules/schedule/views/schedule_view.dart';
+import 'package:thanglong_university/app/modules/profile/bindings/profile_binding.dart';
+import 'package:thanglong_university/app/modules/profile/views/profile_view.dart';
 import 'package:thanglong_university/app/modules/task/bindings/task_binding.dart';
 import 'package:thanglong_university/app/modules/task/views/task_view.dart';
 import 'package:thanglong_university/app/modules/test_schedule/bindings/test_schedule_binding.dart';
 import 'package:thanglong_university/app/modules/test_schedule/views/test_schedule_view.dart';
 import 'package:thanglong_university/app/modules/transcript/bindings/transcript_binding.dart';
 import 'package:thanglong_university/app/modules/transcript/views/transcript_view.dart';
+import 'package:thanglong_university/app/modules/user_info/bindings/user_info_binding.dart';
+import 'package:thanglong_university/app/modules/user_info/views/user_info_view.dart';
 
 part 'app_routes.dart';
 
@@ -85,6 +93,26 @@ class AppPages {
       name: _Paths.SCHEDULE,
       page: () => ScheduleView(),
       binding: ScheduleBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHAT_DETAIL,
+      page: () => ChatDetailView(),
+      binding: ChatDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHAT_GROUP_INFO,
+      page: () => ChatGroupInfoView(),
+      binding: ChatGroupInfoBinding(),
+    ),
+    GetPage(
+      name: _Paths.USER_INFO,
+      page: () => UserInfoView(),
+      binding: UserInfoBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => ProfileView(),
+      binding: ProfileBinding(),
     ),
   ];
 }

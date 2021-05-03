@@ -27,7 +27,9 @@ dependencies:
   cached_network_image: ^2.5.1
   flutter_swiper: ^1.1.6
   syncfusion_flutter_calendar: ^18.4.49
-
+  keyboard_attachable: ^1.0.3
+  flutter_keyboard_visibility: ^3.1.0
+  
   flutter:
     sdk: flutter
 
