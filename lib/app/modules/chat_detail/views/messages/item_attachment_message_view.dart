@@ -35,12 +35,16 @@ class ItemAttachmentMessageView extends StatelessWidget {
               SizedBox(
                 width: 12,
               ),
-              Text(
-                fileName ?? '',
-                style: fontInter(14,
-                    textDecoration: TextDecoration.underline,
-                    fontWeight: FontWeight.w500,
-                    color: AppColor.sectionTermColor),
+              Expanded(
+                child: Text(
+                  fileName ?? '',
+                  maxLines: 1,
+                  overflow: TextOverflow.clip,
+                  style: fontInter(14,
+                      textDecoration: TextDecoration.underline,
+                      fontWeight: FontWeight.w500,
+                      color: AppColor.sectionTermColor),
+                ),
               )
             ],
           )),
