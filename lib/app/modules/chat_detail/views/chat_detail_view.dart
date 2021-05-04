@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +88,7 @@ class _BottomChatView extends GetView<ChatDetailController> {
           KeyboardVisibilityBuilder(
             builder: (c, isVisible) {
               return AnimatedContainer(
-                width: isVisible ? 0 : Screen.width * 0.5,
+                width: isVisible ? 0 : Get.width * 0.5,
                 duration: Duration(milliseconds: 200),
                 child: _CommonAttachmentView(),
               );
@@ -191,7 +189,6 @@ class _InputChatView extends StatelessWidget {
                     isDense: true,
                     filled: true,
                   ),
-
                   enableSuggestions: false,
                   autocorrect: false,
                   minLines: 1,
@@ -235,8 +232,8 @@ Cô Thảo''',
           ),
           ItemRawMessageView(
             isMyMessage: true,
-            senderName: 'Nguyễn Quốc Hưng',
-            text: "sủa?",
+            senderName: '',
+            text: "Vâng ạ.",
           ),
           ItemAttachmentMessageView(
             isMyMessage: false,
@@ -266,14 +263,13 @@ Cô Thảo''',
           ),
           ItemRawMessageView(
             senderName: 'Nguyễn Tiến Lùi',
-            text: "Dkm, app như lol, đéo tải được file a e ạ. Vote 1*",
+            text: "App lỗi, không tải được. Vote 1*",
           ),
           ItemReplyMessageView(
             isMyMessage: true,
-            originalMessage:
-                '''Dkm, app như lol, đéo tải được file a e ạ. Vote 1*''',
+            originalMessage: '''App lỗi, không tải được. Vote 1*''',
             senderAvatarUrl: null,
-            text: 'Đéo dùng thì cút dùm @@',
+            text: 'Không xài thì xoá app đi.',
             userReply: 'Bạn đã trả lời tin nhắn của Nguyễn Tiến Lùi',
           ),
           ItemRawMessageView(
@@ -282,12 +278,16 @@ Cô Thảo''',
           ),
           ItemRawMessageView(
             senderName: 'TS. Đàm Thị Phương Thảo',
-            text:
-                "Bạn Lùi nói bậy, mai nộp bản kiểm điểm cho cô nhé. Đừng nhờn.",
+            text: "Các em tải lại file nhé.",
+          ),
+          ItemAttachmentMessageView(
+            isMyMessage: false,
+            senderName: 'TS. Đàm Thị Phương Thảo',
+            fileName: 'diem_thuyet_trinh_v2.docx',
+            senderAvatarUrl: null,
           ),
           ItemReplyMessageView(
-            originalMessage:
-                '''Bạn Lùi nói bậy, mai nộp bản kiểm điểm cho cô nhé. Đừng nhờn.''',
+            originalMessage: '''Các em tải lại file nhé.''',
             senderAvatarUrl: null,
             text: 'Vâng ạ :((((',
             userReply:
@@ -295,8 +295,8 @@ Cô Thảo''',
           ),
           ItemRawMessageView(
             isMyMessage: true,
-            senderName: 'Nguyễn Quốc Hưng',
-            text: "Ngu vl.",
+            senderName: '',
+            text: "Tải được rồi đó a e.",
           ),
         ],
         //itemCount: 20,

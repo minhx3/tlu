@@ -16,6 +16,10 @@ class ItemBaseMessageView extends StatelessWidget {
     this.isMyMessage = false,
   }) : super(key: key);
 
+  bool _isVisibleSenderName() {
+    return senderName != null && senderName.isNotEmpty;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,25 +28,28 @@ class ItemBaseMessageView extends StatelessWidget {
           : CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              width: 50,
-            ),
-            Expanded(
-              child: Text(
-                senderName ?? '',
-                maxLines: 1,
-                textAlign:
-                    isMyMessage == true ? TextAlign.right : TextAlign.left,
-                overflow: TextOverflow.ellipsis,
-                style: fontInter(12,
-                    fontWeight: FontWeight.w600,
-                    color: AppColor.labelMessageTextColor),
+        Visibility(
+          visible: _isVisibleSenderName(),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: 50,
               ),
-            ),
-          ],
+              Expanded(
+                child: Text(
+                  senderName ?? '',
+                  maxLines: 1,
+                  textAlign:
+                      isMyMessage == true ? TextAlign.right : TextAlign.left,
+                  overflow: TextOverflow.ellipsis,
+                  style: fontInter(12,
+                      fontWeight: FontWeight.w600,
+                      color: AppColor.labelMessageTextColor),
+                ),
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: 5,
