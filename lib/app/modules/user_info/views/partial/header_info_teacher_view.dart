@@ -4,6 +4,10 @@ import 'package:thanglong_university/app/modules/user_info/views/partial/avatar_
 import 'package:thanglong_university/app/modules/user_info/views/partial/item_info_view.dart';
 
 class HeaderInfoTeacherView extends StatelessWidget {
+  final bool isAllowEdit;
+
+  const HeaderInfoTeacherView({Key key, this.isAllowEdit = false})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +17,7 @@ class HeaderInfoTeacherView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          AvatarUserNameView(),
+          AvatarUserNameView(isAllowEdit: isAllowEdit),
           ItemInfoView(
             label: 'Số điện thoại:',
             value: '0342299014',

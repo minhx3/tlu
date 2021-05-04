@@ -32,7 +32,10 @@ class _StudentProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: EdgeInsets.only(top: Get.mediaQuery.padding.top, bottom: 20),
-      children: [HeaderInfoStudentView(), SettingsStudentSectionView()],
+      children: [
+        HeaderInfoStudentView(isAllowEdit: true),
+        SettingsStudentSectionView()
+      ],
     );
   }
 }
@@ -44,7 +47,7 @@ class _TeacherProfileView extends StatelessWidget {
       padding: EdgeInsets.only(top: Get.mediaQuery.padding.top, bottom: 20),
       itemBuilder: (context, index) {
         if (index == 0) {
-          return HeaderInfoTeacherView();
+          return HeaderInfoTeacherView(isAllowEdit: true);
         } else if (index == 1) {
           return HeaderTimeTableView();
         } else if (index == 5 - 1) {
