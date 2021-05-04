@@ -41,7 +41,7 @@ class AppBarView extends StatelessWidget {
       this.subTitle,
       this.buttonTitle,
       this.onAction,
-      this.iconTintColor,
+      this.iconTintColor = AppColor.whiteColor,
       this.iconLeading,
       this.actions,
       this.titleColor,
@@ -236,7 +236,7 @@ class AppBarView extends StatelessWidget {
                     automaticallyImplyLeading == true
                         ? InkWell(
                             child: Icon(Icons.arrow_back_ios,
-                                color: AppColor.whiteColor),
+                                color: iconTintColor ?? AppColor.whiteColor),
                             onTap: () {
                               pop();
                             },

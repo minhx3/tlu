@@ -15,6 +15,8 @@ class Images {
   static const String arrrowTimeLeft = 'assets/images/arrrowTimeLeft.png';
   static const String dotFill = 'assets/images/dotFill.png';
   static const String menuFacebook = 'assets/images/menuFacebook.png';
+  static const String icGreySquareEdit =
+      'assets/images/ic_grey_square_edit.png';
   static const String icAdd = 'assets/images/ic_add.png';
   static const String arrowTimeRight = 'assets/images/arrowTimeRight.png';
   static const String menuGroup = 'assets/images/menuGroup.png';

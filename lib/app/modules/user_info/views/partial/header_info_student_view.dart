@@ -5,6 +5,10 @@ import 'package:thanglong_university/app/modules/user_info/views/partial/item_in
 import 'package:thanglong_university/app/modules/user_info/views/partial/label_value_info_view.dart';
 
 class HeaderInfoStudentView extends StatelessWidget {
+  final bool isAllowEdit;
+
+  const HeaderInfoStudentView({Key key, this.isAllowEdit = false})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +17,7 @@ class HeaderInfoStudentView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AvatarUserNameView(),
+          AvatarUserNameView(isAllowEdit: isAllowEdit),
           _CommonInfoView(),
           _EmailInfoView(),
           _BranchView()

@@ -7,7 +7,7 @@ class InfoTeacherView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 12, bottom: 20),
+      padding: const EdgeInsets.only(top: 0, bottom: 20),
       color: AppColor.whiteColor,
       child: ListView(
         children: [
