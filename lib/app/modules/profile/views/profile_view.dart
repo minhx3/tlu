@@ -23,7 +23,7 @@ class ProfileView extends GetView<ProfileController> {
 class _ContentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _TeacherProfileView();
+    return _StudentProfileView();
   }
 }
 
@@ -31,6 +31,7 @@ class _StudentProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: EdgeInsets.only(top: Get.mediaQuery.padding.top, bottom: 20),
       children: [HeaderInfoStudentView(), SettingsStudentSectionView()],
     );
   }
@@ -40,7 +41,7 @@ class _TeacherProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: EdgeInsets.only(top: Screen.topSafeHeight, bottom: 20),
+      padding: EdgeInsets.only(top: Get.mediaQuery.padding.top, bottom: 20),
       itemBuilder: (context, index) {
         if (index == 0) {
           return HeaderInfoTeacherView();

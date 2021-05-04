@@ -39,6 +39,7 @@ class _SettingsItemListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
+      padding: EdgeInsets.zero,
       physics: NeverScrollableScrollPhysics(),
       children: [
         _ItemDarkModeSettingView(),
