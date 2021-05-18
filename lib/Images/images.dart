@@ -8,6 +8,7 @@ class Images {
   static const String tick = 'assets/images/Tick.png';
   static const String noteIconProgress = 'assets/images/noteIconProgress.png';
   static const String icVoice = 'assets/images/ic_voice.png';
+  static const String place = 'assets/images/place.png';
   static const String icPeople = 'assets/images/ic_people.png';
   static const String timeClock = 'assets/images/timeClock.png';
   static const String dismssIcon = 'assets/images/dismssIcon.png';

@@ -1,6 +1,30 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
+  static const black = Colors.black;
+  static const c000333 = Color(0xff000333);
+  static const c333333 = Color(0xff333333);
+  static const c4d4d4d = Color(0xff4d4d4d);
+  static const ce6e6e6 = Color(0xffe6e6e6);
+  static const cf2f2f2 = Color(0xfff2f2f2);
+  static const ce3e3e3 = Color(0xffe3e3e3);
+  static const cfafafa = Color(0xfffafafa);
+  static const c33355a = Color(0xff33355a);
+  static const cfc7171 = Color(0xffFC7171);
+  static const cfc2626 = Color(0xfffc2626);
+  static const cb3b3b3 = Color(0xffb3b3b3);
+  static const c808080 = Color(0xff808080);
+  static const c8c8c8c = Color(0xff808080);
+  static const cbfbfbf = Color(0xffbfbfbf);
+  static const cd9d9d9 = Color(0xffd9d9d9);
+  static const c14174B = Color(0xff14174B);
+  static const c010A58 = Color(0xff010A58);
+  static const cf6f6f6 = Color(0xfff6f6f6);
+  static const c595C82 = Color(0xff595C82);
+  static const c404040 = Color(0xff404040);
+  static const c909090 = Color(0xff909090);
+  static const c9d9daa = Color(0xff9d9daa);
+
   static const Color primaryColor = Color(0xffFF6660);
   static const Color errorColor = Color(0xffFC7171);
   static const Color textColor = Color(0xff000333);

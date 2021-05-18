@@ -14,7 +14,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: AppColor.homeBackground,
+        color: AppColor.cf6f6f6,
         child: Column(
           children: [
             AppBarView(

@@ -89,6 +89,6 @@ var boxShadow = BoxDecoration(boxShadow: [
   BoxShadow(
     blurRadius: 6,
     spreadRadius: 2,
-    color: Colors.black.withOpacity(0.15),
+    color: Colors.black.withOpacity(0.07),
   ),
 ], color: AppColor.whiteColor);

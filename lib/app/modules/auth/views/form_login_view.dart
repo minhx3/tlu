@@ -19,10 +19,11 @@ class FormLoginView extends GetView<AuthController> {
       child: Obx(() => Column(
             children: [
               Container(
-                  height: 30,
+                  height: 34,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(3),
-                      color: AppColor.inputBackground),
+                      border: Border.all(width: 1, color: AppColor.ce6e6e6),
+                      borderRadius: BorderRadius.circular(16),
+                      color: AppColor.cf2f2f2),
                   child: Row(
                     children: [
                       tabItem(0, LocaleKeys.auth_student_tab.tr),
@@ -37,31 +38,20 @@ class FormLoginView extends GetView<AuthController> {
                     ? LocaleKeys.auth_student_hint.tr
                     : LocaleKeys.auth_teacher_hint.tr,
                 verticalSpacing: 20,
-                hasError: true,
               ),
               TextFieldView(
                 label: LocaleKeys.auth_password_label.tr,
                 hintText: LocaleKeys.auth_password_hint.tr,
                 obscureText: true,
-                verticalSpacing: 20,
+                verticalSpacing: 12,
               ),
               ButtonView(
-                verticalSpacing: 25,
+                verticalSpacing: 17,
                 title: LocaleKeys.auth_login_button.tr,
                 onTap: () {
                   pushReplaceAllTo(Routes.INDEX);
                 },
               ),
-              Container(
-                alignment: Alignment.center,
-                child: LinkView(
-                  LocaleKeys.auth_forgot_button.tr,
-                  onTap: () {
-                    controller.rxForgotPassword(true);
-                  },
-                ),
-                height: 50,
-              )
             ],
           )),
     );
@@ -75,17 +65,19 @@ class FormLoginView extends GetView<AuthController> {
         },
         child: Container(
           alignment: Alignment.center,
+          height: 28,
+          margin: EdgeInsets.all(2),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(3),
+              borderRadius: BorderRadius.circular(16),
               color: controller.tabIndex() == index
-                  ? AppColor.textColor
+                  ? AppColor.c33355a
                   : Colors.transparent),
           child: Text(
             title,
             style: fontInter(12,
                 color: controller.tabIndex() == index
                     ? Colors.white
-                    : AppColor.textColor,
+                    : AppColor.c4d4d4d,
                 fontWeight: FontWeight.bold),
           ),
         ),

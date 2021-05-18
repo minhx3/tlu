@@ -12,7 +12,7 @@ class MenuView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 15),
-      height: 107,
+      height: 100,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -24,26 +24,41 @@ class MenuView extends GetView<HomeController> {
       ),
       decoration: BoxDecoration(
           border: Border(
-              bottom: BorderSide(color: AppColor.inputBackground),
-              top: BorderSide(color: AppColor.inputBackground))),
+        bottom: BorderSide(color: AppColor.ce6e6e6),
+      )),
     );
   }
 
   Column menuItem(MenuHomeItem item) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Image.asset(
-          item.icon,
-          height: 70,
-          width: 70,
-          fit: BoxFit.contain,
+        Container(
+          height: 54,
+          width: 54,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, 3),
+                  blurRadius: 5,
+                  spreadRadius: 3,
+                  color: AppColor.c010A58.withOpacity(0.1),
+                ),
+              ],
+              color: AppColor.cfc2626),
+          padding: EdgeInsets.all(16),
+          child: Image.asset(
+            item.icon,
+            fit: BoxFit.contain,
+            color: AppColor.whiteColor,
+          ),
+          margin: EdgeInsets.only(bottom: 8),
         ),
         Text(
           item.title,
           style: fontInter(11,
-              fontWeight: FontWeight.w600,
-              color: AppColor.appBarDarkBackground.withOpacity(0.3)),
+              fontWeight: FontWeight.w600, color: AppColor.c595C82),
         )
       ],
     );

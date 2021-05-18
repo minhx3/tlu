@@ -16,7 +16,7 @@ class EducationView extends GetView<EducationController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColor.educationBackground,
+      color: AppColor.cf2f2f2,
       child: Column(
         children: [
           AppBarView(
@@ -30,14 +30,12 @@ class EducationView extends GetView<EducationController> {
               children: [
                 Container(
                   padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      color: AppColor.blockEducationBackground,
-                      borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     children: [
                       counterView(
                           title: "128/140",
                           subTitle: "3.24",
+                          hasProgress: true,
                           onTap: () {
                             pushTo(Routes.TRANSCRIPT);
                           }),
@@ -45,12 +43,17 @@ class EducationView extends GetView<EducationController> {
                           title: "12 tín chỉ",
                           subTitle: "4 môn",
                           type: 2,
-                          space: 16,
+                          space: 5,
                           onTap: () {
                             pushTo(Routes.TEST_SCHEDULE);
                           }),
                     ],
                   ),
+                ),
+                Container(
+                  height: 1,
+                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  color: AppColor.ce6e6e6,
                 ),
                 Padding(
                   padding:
@@ -58,8 +61,7 @@ class EducationView extends GetView<EducationController> {
                   child: Text(
                     "Kỳ 2 - 2020-2021",
                     style: fontInter(14,
-                        fontWeight: FontWeight.w600,
-                        color: AppColor.labelColor),
+                        fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -71,10 +73,10 @@ class EducationView extends GetView<EducationController> {
                   children: List.generate(
                       20,
                       (index) => EducationSubjectItemView(
-                          space: index == 0 ? 0 : 16)).toList(),
+                          space: index == 0 ? 0 : 5)).toList(),
                 ),
                 ButtonView(
-                  title: "Chi tiết môn",
+                  title: "Xem thêm các kì trước",
                   type: ButtonType.outline,
                   horizontalSpacing: 16,
                   verticalSpacing: 16,
@@ -92,6 +94,7 @@ class EducationView extends GetView<EducationController> {
       {int type = 1,
       String title,
       String subTitle,
+      bool hasProgress = false,
       double space = 0,
       Function onTap}) {
     return InkWell(
@@ -101,82 +104,105 @@ class EducationView extends GetView<EducationController> {
       child: Container(
         margin: EdgeInsets.only(top: space),
         decoration: boxShadow.copyWith(
-            color:
-                type == 1 ? AppColor.appBarDarkBackground : AppColor.whiteColor,
+            color: type == 1 ? AppColor.c000333 : AppColor.whiteColor,
             borderRadius: BorderRadius.circular(5)),
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        height: 80,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
           children: [
-            Expanded(
-              flex: 2,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    type == 1 ? "Xếp danh sách ngay:" : "Tín chỉ học trong kì:",
-                    style: fontInter(14,
-                        fontWeight: FontWeight.w600,
-                        color: type == 1
-                            ? AppColor.errorColor
-                            : AppColor.labelColor),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        type == 1
+                            ? "Tính chỉ hoàn thành:"
+                            : "Tín chỉ trong học kì:",
+                        style: fontInter(14,
+                            fontWeight: FontWeight.w600,
+                            color: type == 1
+                                ? AppColor.c9d9daa
+                                : AppColor.c8c8c8c),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        title ?? "",
+                        style: fontInter(type == 1 ? 28 : 16,
+                            fontWeight: FontWeight.w600,
+                            color: type == 1
+                                ? AppColor.whiteColor
+                                : AppColor.c000333),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
-                  Text(
-                    title ?? "",
-                    style: fontInter(type == 1 ? 24 : 18,
-                        fontWeight: FontWeight.w600,
-                        color: type == 1
-                            ? AppColor.whiteColor
-                            : AppColor.appBarDarkBackground),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  width: 1,
+                  height: 50,
+                  color: AppColor.whiteColor.withOpacity(0.15),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        type == 1 ? "ĐTBTL" : "Lịch thi",
+                        style: fontInter(14,
+                            fontWeight: FontWeight.w600,
+                            color: type == 1
+                                ? AppColor.c9d9daa
+                                : AppColor.c8c8c8c),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        subTitle ?? "",
+                        style: fontInter(type == 1 ? 28 : 16,
+                            fontWeight: FontWeight.w600,
+                            color: type == 1
+                                ? AppColor.whiteColor
+                                : AppColor.appBarDarkBackground),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Image.asset(Images.arrowRight,
+                    height: 14,
+                    color: type == 1
+                        ? AppColor.whiteColor
+                        : AppColor.appBarDarkBackground)
+              ],
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 15),
-              width: 1,
-              height: 50,
-              color: AppColor.whiteColor.withOpacity(0.15),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    type == 1 ? "DTBTL" : "Lịch thi",
-                    style: fontInter(14,
-                        fontWeight: FontWeight.w600,
-                        color: type == 1
-                            ? AppColor.errorColor
-                            : AppColor.labelColor),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    subTitle ?? "",
-                    style: fontInter(type == 1 ? 24 : 18,
-                        fontWeight: FontWeight.w600,
-                        color: type == 1
-                            ? AppColor.whiteColor
-                            : AppColor.appBarDarkBackground),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-            Image.asset(Images.arrowRight,
-                height: 14,
-                color: type == 1
-                    ? AppColor.whiteColor
-                    : AppColor.appBarDarkBackground)
+            hasProgress == false
+                ? SizedBox()
+                : Container(
+                    alignment: Alignment.center,
+                    height: 50,
+                    child: Container(
+                        height: 7,
+                        margin: EdgeInsets.only(top: 20),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(7),
+                          child: LinearProgressIndicator(
+                            backgroundColor:
+                                AppColor.whiteColor.withOpacity(0.15),
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(AppColor.cfc2626),
+                            value: 0.5,
+                          ),
+                        )),
+                  )
           ],
         ),
       ),

@@ -7,17 +7,29 @@ import 'app/utils/auto_size/src/auto_size.dart';
 import 'generated/locales.g.dart';
 
 void main() {
-  runAutoSizeApp(
-      GetMaterialApp(
-        title: "Application",
-        // initialRoute: AppPages.INITIAL,
-        initialRoute: Routes.INDEX,
-        getPages: AppPages.routes,
-        initialBinding: AppBinding(),
-        locale: Locale(Constant.defautLocale),
-        defaultTransition: Transition.cupertino,
-        translationsKeys: AppTranslation.translations,
-      ),
-      height: Constant.designHeight,
-      width: Constant.designWidth);
+  print(GetPlatform.isMobile);
+  GetPlatform.isWeb
+      ? runApp(GetMaterialApp(
+          title: "Application",
+          // initialRoute: AppPages.INITIAL,
+          initialRoute: Routes.AUTH,
+          getPages: AppPages.routes,
+          initialBinding: AppBinding(),
+          locale: Locale(Constant.defautLocale),
+          defaultTransition: Transition.cupertino,
+          translationsKeys: AppTranslation.translations,
+        ))
+      : runAutoSizeApp(
+          GetMaterialApp(
+            title: "Application",
+            // initialRoute: AppPages.INITIAL,
+            initialRoute: Routes.INDEX,
+            getPages: AppPages.routes,
+            initialBinding: AppBinding(),
+            locale: Locale(Constant.defautLocale),
+            defaultTransition: Transition.cupertino,
+            translationsKeys: AppTranslation.translations,
+          ),
+          height: Constant.designHeight,
+          width: Constant.designWidth);
 }

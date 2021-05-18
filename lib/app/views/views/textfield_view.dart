@@ -37,11 +37,11 @@ class TextFieldView extends GetView {
             child: Text(
               label,
               style: fontInter(12,
-                  color: AppColor.labelColor, fontWeight: FontWeight.w600),
+                  color: AppColor.c333333, fontWeight: FontWeight.w600),
             ),
           ),
           Material(
-            color: AppColor.inputBackground,
+            color: AppColor.cfafafa,
             borderRadius: BorderRadius.circular(3),
             child: InkWell(
               splashColor: AppColor.primaryColor.withOpacity(0.5),
@@ -57,9 +57,9 @@ class TextFieldView extends GetView {
                           width: 1,
                           color: hasError == true
                               ? AppColor.errorColor
-                              : Colors.transparent)),
+                              : AppColor.ce3e3e3)),
                   alignment: Alignment.center,
-                  height: 50,
+                  height: 40,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,10 +76,10 @@ class TextFieldView extends GetView {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: hintText,
-                              isDense: false,
+                              isDense: true,
                               isCollapsed: false,
-                              hintStyle: fontInter(14,
-                                  color: AppColor.hintTextColor,
+                              hintStyle: fontInter(12,
+                                  color: AppColor.cbfbfbf,
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.w500)),
                         ),

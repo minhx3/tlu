@@ -13,7 +13,7 @@ class CardSubjectView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 170,
+      height: 160,
       padding: EdgeInsets.symmetric(vertical: 16),
       child: Swiper(
         controller: controller.swiperController,
@@ -23,12 +23,9 @@ class CardSubjectView extends GetView<HomeController> {
           pushTo(Routes.TASK);
         },
         itemBuilder: (BuildContext context, int index) {
-          return Opacity(
-            child: cardContentView(),
-            opacity: controller.rxCardIndex() == index ? 1 : 0.2,
-          );
+          return cardContentView();
         },
-        viewportFraction: 0.8,
+        viewportFraction: 0.85,
         containerWidth: double.maxFinite,
         scale: 1,
         itemCount: 3,
@@ -40,8 +37,7 @@ class CardSubjectView extends GetView<HomeController> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: boxShadow.copyWith(
-          color: AppColor.appBarDarkBackground,
-          borderRadius: BorderRadius.circular(5)),
+          color: AppColor.c000333, borderRadius: BorderRadius.circular(5)),
       padding: EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -49,54 +45,73 @@ class CardSubjectView extends GetView<HomeController> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Text(
-                  "Tài chính quốc tế \nTỉ giá hối đoái (P.1) ",
+                  "Kinh tế học về những vấn đề xã hội",
                   style: fontInter(16,
+                      fontWeight: FontWeight.w600, color: AppColor.cfafafa),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 40),
+                decoration: BoxDecoration(
+                    color: AppColor.errorColor,
+                    borderRadius: BorderRadius.circular(5)),
+                height: 18,
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                child: Text(
+                  "PG122",
+                  style: fontInter(10,
                       fontWeight: FontWeight.w600, color: AppColor.whiteColor),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Image.asset(
-                Images.cardNotify,
-                height: 16,
-              ),
             ],
           ),
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 4),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Text(
-                "Bài tập trắc nghiệm lấy điểm chuyên cần.Thời gian thực hiện: 8 phút",
+            height: 1.5,
+            color: AppColor.c14174B,
+            margin: EdgeInsets.only(top: 16, bottom: 8),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(Images.timeClock,
+                  height: 13, color: AppColor.cfc7171),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "10h00 - 16/01/2021",
                 style: fontInter(12,
-                    fontWeight: FontWeight.w500, color: AppColor.subTextColor),
+                    fontWeight: FontWeight.w600, color: AppColor.cfc7171),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-            ),
-            decoration: BoxDecoration(
-                border:
-                    Border(bottom: BorderSide(color: AppColor.subTextColor))),
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
-                Images.timeClock,
-                height: 20,
+                Images.place,
+                height: 13,
               ),
               SizedBox(
                 width: 10,
               ),
               Text(
-                "10h00 - 16/01/2021",
-                style: fontInter(14,
-                    fontWeight: FontWeight.w600, color: AppColor.errorColor),
+                "Phòng B605",
+                style: fontInter(12,
+                    fontWeight: FontWeight.w600, color: AppColor.cd9d9d9),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),

@@ -29,6 +29,7 @@ dependencies:
   syncfusion_flutter_calendar: ^18.4.49
   keyboard_attachable: ^1.0.3
   flutter_keyboard_visibility: ^3.1.0
+  responsive_builder: ^0.3.0
   
   flutter:
     sdk: flutter

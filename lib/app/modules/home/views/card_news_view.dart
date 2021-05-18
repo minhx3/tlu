@@ -25,7 +25,8 @@ class CardNewsView extends GetView<HomeController> {
                     fontWeight: FontWeight.w600, color: AppColor.textColor)),
           ),
           Container(
-            height: 255,
+            height: 85,
+            margin: EdgeInsets.only(top: 10),
             child: Swiper(
               controller: SwiperController(),
               onIndexChanged: controller.setCard,
@@ -36,7 +37,6 @@ class CardNewsView extends GetView<HomeController> {
                 return cardContentView();
               },
               viewportFraction: 0.8,
-              containerWidth: double.maxFinite,
               scale: 1,
               itemCount: 3,
             ),
@@ -46,72 +46,72 @@ class CardNewsView extends GetView<HomeController> {
     );
   }
 
-  Container cardContentView() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-      decoration: boxShadow.copyWith(
-          boxShadow: [BoxShadow(color: AppColor.subTextColor.withOpacity(0.8))],
-          color: AppColor.whiteColor,
-          borderRadius: BorderRadius.circular(5)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            height: 152,
-            child: ImageView(
-              "https://vinades.vn/uploads/news/2019_12/chi-nhai-tran-ceo-beauty-dental-chup-anh-voi-sinh-vien-tlu.jpg",
-              height: 152,
-              fit: BoxFit.fitWidth,
+  Widget cardContentView() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Container(
+        decoration: boxShadow.copyWith(boxShadow: [
+          BoxShadow(color: AppColor.subTextColor.withOpacity(0.8))
+        ], color: AppColor.whiteColor, borderRadius: BorderRadius.circular(5)),
+        child: Row(
+          children: [
+            Container(
+              height: 85,
+              width: 113,
+              child: ImageView(
+                "https://vinades.vn/uploads/news/2019_12/chi-nhai-tran-ceo-beauty-dental-chup-anh-voi-sinh-vien-tlu.jpg",
+                height: 85,
+                width: 113,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+            Expanded(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: Column(
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Tin nổi bật".toUpperCase(),
+                          style: fontInter(11,
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.cfc7171),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 6),
+                          height: 15,
+                          width: 1,
+                          color: AppColor.c000333.withOpacity(0.3),
+                        ),
+                        Text(
+                          "16/01/2021",
+                          style: fontInter(11,
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.c000333.withOpacity(0.3)),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                     Text(
-                      "Tin nổi bật".toUpperCase(),
-                      style: fontInter(11,
-                          fontWeight: FontWeight.w600,
-                          color: AppColor.errorColor),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: 24,
-                      child: Container(
-                        height: 15,
-                        width: 1,
-                        color: AppColor.appBarDarkBackground.withOpacity(0.3),
-                      ),
-                    ),
-                    Text(
-                      "16/01/2021",
-                      style: fontInter(11,
-                          fontWeight: FontWeight.w600,
-                          color:
-                              AppColor.appBarDarkBackground.withOpacity(0.3)),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                        "1988: Thêm một đêm đại nhạc hội thành công của Đại học Thăng Long",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: fontInter(14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.textColor)),
                   ],
                 ),
-                Text(
-                    "1988: Thêm một đêm đại nhạc hội thành công của Đại học Thăng Long",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: fontInter(14,
-                        fontWeight: FontWeight.w600,
-                        color: AppColor.textColor)),
-              ],
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -32,9 +32,8 @@ class ButtonView extends StatelessWidget {
           top: verticalSpacing,
           right: horizontalSpacing),
       child: Material(
-        color: type == ButtonType.system
-            ? AppColor.primaryColor
-            : Colors.transparent,
+        color:
+            type == ButtonType.system ? AppColor.cfc2626 : Colors.transparent,
         borderRadius: BorderRadius.circular(3),
         child: InkWell(
           splashColor: type == ButtonType.system
@@ -45,23 +44,23 @@ class ButtonView extends StatelessWidget {
           },
           child: Container(
             alignment: Alignment.center,
-            height: 50,
+            height: 40,
             decoration: BoxDecoration(
                 border: type == ButtonType.system
                     ? null
-                    : Border.all(color: Colors.black45, width: 1.5)),
+                    : Border.all(color: AppColor.cd9d9d9, width: 1)),
             child: viewState == ViewState.loading
                 ? centerloading(size: 20)
                 : Text(
                     title.tr,
                     textAlign: TextAlign.center,
-                    style: fontInter(13,
+                    style: fontInter(14,
                         fontWeight: type == ButtonType.system
                             ? FontWeight.bold
-                            : FontWeight.w500,
+                            : FontWeight.w600,
                         color: type == ButtonType.system
                             ? Colors.white
-                            : Colors.black),
+                            : AppColor.c000333),
                   ),
           ),
         ),

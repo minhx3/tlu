@@ -72,12 +72,12 @@ class AppBarView extends StatelessWidget {
                         Text("Chào buổi sáng",
                             style: fontInter(14,
                                 fontWeight: FontWeight.w600,
-                                color: AppColor.textColor)),
+                                color: AppColor.c000333)),
                         Text(
                           "Ngô Tiên Tiến",
                           style: fontInter(18,
                               fontWeight: FontWeight.w600,
-                              color: AppColor.errorColor),
+                              color: AppColor.cfc2626),
                         )
                       ],
                     ),
@@ -101,7 +101,7 @@ class AppBarView extends StatelessWidget {
                           margin: EdgeInsets.only(bottom: 20, left: 10),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: AppColor.errorColor),
+                              color: AppColor.cfc2626),
                           height: 10,
                           width: 10,
                         ),

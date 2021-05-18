@@ -7,80 +7,116 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/modules/auth/views/form_forgot_view.dart';
 import 'package:thanglong_university/app/modules/auth/views/form_login_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
-import 'package:thanglong_university/app/views/views/button_view.dart';
 import 'package:thanglong_university/app/views/views/link_view.dart';
-import 'package:thanglong_university/app/views/views/textfield_view.dart';
 import 'package:thanglong_university/generated/locales.g.dart';
 import '../controllers/auth_controller.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class AuthView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
-    return AppContainer(
-      child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        body: Stack(
-          children: [
-            Image.asset(
-              Images.background,
-              fit: BoxFit.fitHeight,
-              height: double.infinity,
-              width: double.infinity,
-            ),
-            ListView(
+    return ResponsiveBuilder(builder: (context, info) {
+      // Check the sizing information here and return your UI
+      print(info.screenSize);
+      if (info.deviceScreenType == DeviceScreenType.desktop) {
+        return Container(color: Colors.blue);
+      } else {
+        return AppContainer(
+          child: Scaffold(
+            resizeToAvoidBottomPadding: false,
+            body: Stack(
               children: [
-                Obx(() => SafeArea(
-                        child: Row(
-                      children: [
-                        Container(
-                          width: 265,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                height: 135,
-                                child: Image.asset(
-                                  Images.logo,
-                                  width: 187,
-                                  height: 87,
+                Image.asset(
+                  Images.background,
+                  fit: BoxFit.fill,
+                  height: double.infinity,
+                  width: double.infinity,
+                ),
+                Container(
+                  color: AppColor.whiteColor,
+                  margin: EdgeInsets.only(right: 110),
+                  child: Obx(() => SafeArea(
+                          child: Row(
+                        children: [
+                          Container(
+                            width: 265,
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Container(
+                                  alignment: Alignment.center,
+                                  height: 135,
+                                  child: Image.asset(
+                                    Images.logo,
+                                    width: 187,
+                                    height: 87,
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                height: 40,
-                                margin: EdgeInsets.symmetric(vertical: 20),
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  controller.rxForgotPassword() == true
-                                      ? LocaleKeys.auth_forgot_button.tr
-                                      : LocaleKeys.auth_login_title.tr,
-                                  style: fontInter(18,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColor.textColor),
+                                Container(
+                                  height: 40,
+                                  margin: EdgeInsets.symmetric(vertical: 10),
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    controller.rxForgotPassword() == true
+                                        ? LocaleKeys.auth_forgot_button.tr
+                                        : LocaleKeys.auth_login_title.tr,
+                                    style: fontInter(18,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColor.c000333),
+                                  ),
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              width: 0.5,
+                                              color: AppColor.c8c8c8c))),
                                 ),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            width: 0.5,
-                                            color: AppColor.lineColor))),
-                              ),
-                              controller.rxForgotPassword() == true
-                                  ? FormForgotView()
-                                  : FormLoginView()
-                            ],
+                                controller.rxForgotPassword() == true
+                                    ? FormForgotView()
+                                    : FormLoginView()
+                              ],
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: SizedBox(),
-                        )
-                      ],
-                    ))),
+                          Expanded(
+                            child: SizedBox(),
+                          ),
+                        ],
+                      ))),
+                ),
+                Obx(() => Container(
+                      alignment: Alignment.bottomLeft,
+                      padding: EdgeInsets.only(
+                          left: 16,
+                          right: 126,
+                          bottom: 24 + context.mediaQueryViewInsets.bottom),
+                      child: Row(
+                        children: [
+                          LinkView(
+                            controller.rxForgotPassword() == true
+                                ? LocaleKeys.auth_login_button.tr
+                                : LocaleKeys.auth_forgot_button.tr,
+                            textColor: AppColor.cb3b3b3,
+                            onTap: () {
+                              controller.rxForgotPassword(
+                                  !controller.rxForgotPassword());
+                            },
+                          ),
+                          Expanded(
+                            child: SizedBox(),
+                          ),
+                          LinkView(
+                            LocaleKeys.auth_help_button.tr,
+                            textColor: AppColor.cb3b3b3,
+                            onTap: () {},
+                          )
+                        ],
+                      ),
+                    ))
               ],
-            )
-          ],
-        ),
-      ),
-    );
+            ),
+          ),
+        );
+      }
+    });
   }
 }
