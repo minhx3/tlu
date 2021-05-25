@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
-import 'package:thanglong_university/app/modules/schedule/views/filter_view.dart';
 import 'package:thanglong_university/app/modules/schedule/views/header_view.dart';
 import 'package:thanglong_university/app/modules/schedule/views/month_view.dart';
 import 'package:thanglong_university/app/modules/schedule/views/schedule_item_view.dart';
+import 'package:thanglong_university/app/modules/schedule/views/section_view.dart';
 import 'package:thanglong_university/app/modules/schedule/views/week_time_view.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
@@ -19,7 +20,7 @@ class ScheduleView extends GetView<ScheduleController> {
     return AppContainer(
       systemUiOverlayStyle: SystemUiOverlayStyle.light,
       child: Scaffold(
-        backgroundColor: AppColor.homeBackground,
+        backgroundColor: AppColor.cf2f2f2,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -27,22 +28,31 @@ class ScheduleView extends GetView<ScheduleController> {
               automaticallyImplyLeading: false,
               type: AppBarType.button,
               title: "Lịch trình",
+              iconLeading: Images.iconStar,
+              iconTintColor: AppColor.cffb359,
             ),
             HeaderView(),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    WeekTimeView(),
-                    MonthView(),
-                    FilterView(),
-                    ScheduleItemView()
-                  ],
-                ),
-              ),
-            )
+            Obx(() => Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: [
+                        controller.tagIndex() == 0
+                            ? SizedBox()
+                            : WeekTimeView(),
+                        controller.tagIndex() == 0 || controller.tagIndex() == 2
+                            ? SizedBox(
+                                height: 10,
+                              )
+                            : SectionView(),
+                        controller.tagIndex() == 2 ? MonthView() : SizedBox(),
+                        controller.tagIndex() == 2 ? SectionView() : SizedBox(),
+                        ScheduleItemView()
+                      ],
+                    ),
+                  ),
+                ))
           ],
         ),
       ),

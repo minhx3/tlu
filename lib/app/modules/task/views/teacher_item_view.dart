@@ -48,8 +48,21 @@ class TeacherItemView extends GetView {
                   ),
                 ),
               ),
-              Image.asset(TabImages.tabConversation,
-                  width: 25, height: 25, color: AppColor.subTextColor)
+              Container(
+                decoration: BoxDecoration(
+                    color: AppColor.cfc7171,
+                    borderRadius: BorderRadius.circular(5)),
+                height: 18,
+                padding: EdgeInsets.symmetric(horizontal: 4),
+                alignment: Alignment.center,
+                child: Text(
+                  "PG122",
+                  style: fontInter(10,
+                      fontWeight: FontWeight.w600, color: AppColor.whiteColor),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
         ),

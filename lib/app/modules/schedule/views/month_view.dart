@@ -1,60 +1,106 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
-import 'package:thanglong_university/app/modules/schedule/views/week_time_view.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:thanglong_university/app/modules/schedule/controllers/schedule_controller.dart';
 
-class MonthView extends GetView {
+class MonthView extends GetView<ScheduleController> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 16,
-        ),
-        SizedBox(
-          height: 40,
-          child: WeekTimeView(
-            timeViewType: TimeViewType.month,
+        Container(
+          height: 331,
+          child: SfCalendar(
+            view: CalendarView.month,
+            monthViewSettings: MonthViewSettings(
+              dayFormat: 'EEE',
+              navigationDirection: MonthNavigationDirection.horizontal,
+            ),
+            headerHeight: 0,
+            controller: controller.calendarController,
+            viewHeaderHeight: 40,
+            viewHeaderStyle: ViewHeaderStyle(
+                dayTextStyle: fontInter(12,
+                    fontWeight: FontWeight.w600, color: AppColor.cb3b3b3),
+                dateTextStyle: TextStyle(color: Colors.red, fontSize: 25)),
+            firstDayOfWeek: 1,
+            backgroundColor: AppColor.cf2f2f2,
+            todayHighlightColor: Colors.red,
+            onTap: (details) {
+              int checkDay = details.date.day;
+              controller.setCurrentDay(checkDay);
+              controller.calendarController.selectedDate = details.date;
+            },
+            monthCellBuilder:
+                (BuildContext buildContext, MonthCellDetails details) {
+              int currentMonth = DateTime.now().month;
+              int currentYear = DateTime.now().year;
+
+              int checkMonth = details.date.month;
+              bool isSunday = details.date.weekday == 7;
+
+              int checkYear = details.date.year;
+              bool isDayInMonth =
+                  (currentMonth == checkMonth && currentYear == checkYear);
+
+              bool isHasEvent = false;
+              bool isSelected = controller.currentDay() == details.date.day &&
+                  currentMonth == checkMonth;
+              return viewItem(
+                  isSelected, details, isDayInMonth, isSunday, isHasEvent);
+            },
           ),
         ),
         Container(
-          height: 331,
-          margin: EdgeInsets.symmetric(vertical: 12),
-          child: SfCalendar(
-            view: CalendarView.month,
-            headerHeight: 0,
-            viewHeaderHeight: 40,
-            viewHeaderStyle: ViewHeaderStyle(
-                dayTextStyle: fontInter(16,
-                    fontWeight: FontWeight.w600, color: AppColor.subTextColor),
-                dateTextStyle: TextStyle(color: Colors.grey, fontSize: 25)),
-            selectionDecoration: BoxDecoration(),
-            scheduleViewSettings: ScheduleViewSettings(
-                weekHeaderSettings:
-                    WeekHeaderSettings(backgroundColor: AppColor.errorColor)),
-            monthCellBuilder:
-                (BuildContext buildContext, MonthCellDetails details) {
-              print(
-                details.date.day.toString(),
-              );
-              return Container(
-                alignment: Alignment.center,
-                child: Text(
-                  details.date.day.toString(),
-                  style: fontInter(14,
-                      fontWeight: FontWeight.w600,
-                      color: AppColor.appBarDarkBackground),
-                ),
-              );
-            },
-          ),
+          height: 1,
+          margin: EdgeInsets.symmetric(vertical: 10),
+          color: AppColor.cd9d9d9,
+        )
+      ],
+    );
+  }
+
+  Widget viewItem(bool isSelected, MonthCellDetails details, bool isDayInMonth,
+      bool isSunday, bool isHasEvent) {
+    return Stack(
+      children: [
+        Container(
+          alignment: Alignment.center,
           decoration: BoxDecoration(
-              color: AppColor.whiteColor,
-              borderRadius: BorderRadius.circular(5)),
+              borderRadius: BorderRadius.circular(3),
+              color:
+                  isSelected == true ? AppColor.c000333 : Colors.transparent),
+          child: Text(
+            details.date.day.toString(),
+            style: fontInter(14,
+                fontWeight: FontWeight.w600,
+                color: isDayInMonth == true
+                    ? isSunday
+                        ? isSelected == true
+                            ? AppColor.whiteColor
+                            : AppColor.cdc3649
+                        : isSelected == true
+                            ? AppColor.whiteColor
+                            : AppColor.c000333
+                    : AppColor.cbfbfbf),
+          ),
         ),
+        Visibility(
+          visible: isHasEvent,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 5,
+              width: 5,
+              margin: EdgeInsets.only(bottom: 5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(3),
+                  color: AppColor.cfc7171),
+            ),
+          ),
+        )
       ],
     );
   }

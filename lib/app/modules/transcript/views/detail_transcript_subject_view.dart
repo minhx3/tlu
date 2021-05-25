@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
 
 import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
@@ -11,30 +12,51 @@ import 'package:thanglong_university/app/views/views/button_view.dart';
 class DetailTranscriptSubjectView extends GetView {
   @override
   Widget build(BuildContext context) {
-    return AppContainer(
-      child: Center(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 16),
-          padding: EdgeInsets.only(bottom: 16),
-          decoration: BoxDecoration(
-              color: AppColor.whiteColor,
-              borderRadius: BorderRadius.circular(5)),
+    return SlideInUp(
+      child: AppContainer(
+        child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              header(),
-              section(),
-              section(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                child: rowItem(title: "Tổng kết", value: "3"),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                    color: AppColor.whiteColor,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    header(),
+                    section(),
+                    section(),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                      child: rowItem(title: "Tổng kết", value: "3"),
+                    ),
+                    ButtonView(
+                      title: "Chi tiết môn",
+                      type: ButtonType.outline,
+                      horizontalSpacing: 16,
+                      onTap: () {},
+                    )
+                  ],
+                ),
               ),
-              ButtonView(
-                title: "Chi tiết môn",
-                type: ButtonType.outline,
-                horizontalSpacing: 16,
-                onTap: () {},
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: GestureDetector(
+                  onTap: () {
+                    pop();
+                  },
+                  child: Image.asset(
+                    Images.dismissIcon,
+                    width: 36,
+                    height: 36,
+                  ),
+                ),
               )
             ],
           ),
@@ -84,7 +106,7 @@ class DetailTranscriptSubjectView extends GetView {
       {String title,
       String value,
       bool showLine = false,
-      double fontSize = 16,
+      double fontSize = 14,
       double padding = 0,
       bool isSubItem = false,
       Color color}) {
@@ -105,18 +127,14 @@ class DetailTranscriptSubjectView extends GetView {
               title,
               style: fontInter(fontSize,
                   fontWeight: FontWeight.w500,
-                  color: isSubItem
-                      ? AppColor.subTextColor
-                      : AppColor.sectionTermColor),
+                  color: isSubItem ? AppColor.c808080 : AppColor.c333333),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             )),
             Text(
               "3",
-              style: fontInter(
-                fontSize,
-                fontWeight: FontWeight.w500,
-              ),
+              style: fontInter(fontSize,
+                  fontWeight: FontWeight.w500, color: AppColor.c000333),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             )
@@ -126,7 +144,7 @@ class DetailTranscriptSubjectView extends GetView {
 
   Container header() {
     return Container(
-        height: 74,
+        height: 56,
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -134,9 +152,19 @@ class DetailTranscriptSubjectView extends GetView {
           children: [
             Row(
               children: [
+                Expanded(
+                  child: Text(
+                    "Thương mại quốc tế",
+                    style: fontInter(16,
+                        fontWeight: FontWeight.w600,
+                        color: AppColor.whiteColor),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
                 Container(
                   decoration: BoxDecoration(
-                      color: AppColor.errorColor,
+                      color: AppColor.cfc7171,
                       borderRadius: BorderRadius.circular(5)),
                   height: 18,
                   padding: EdgeInsets.symmetric(horizontal: 4),
@@ -150,27 +178,7 @@ class DetailTranscriptSubjectView extends GetView {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Expanded(
-                  child: SizedBox(),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    pop();
-                  },
-                  child: Image.asset(
-                    Images.dismssIcon,
-                    width: 14,
-                    height: 14,
-                  ),
-                )
               ],
-            ),
-            Text(
-              "Thương mại quốc tế",
-              style: fontInter(18,
-                  fontWeight: FontWeight.w600, color: AppColor.whiteColor),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

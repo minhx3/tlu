@@ -7,6 +7,7 @@ import 'package:thanglong_university/app/modules/transcript/views/detail_transcr
 import 'package:thanglong_university/app/modules/transcript/views/transcript_filter_view.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
+import 'package:thanglong_university/app/views/views/link_view.dart';
 
 import '../controllers/transcript_controller.dart';
 
@@ -15,7 +16,7 @@ class TranscriptView extends GetView<TranscriptController> {
   Widget build(BuildContext context) {
     return Obx(() => AppContainer(
           child: Scaffold(
-              backgroundColor: AppColor.appBarDarkBackground,
+              backgroundColor: AppColor.cf2f2f2,
               body: Column(
                 children: [
                   AppBarView(
@@ -67,9 +68,9 @@ class TranscriptView extends GetView<TranscriptController> {
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 10),
           child: Text(
-            "Học kỳ 1 - 2020-2021",
+            "Môn đại cương",
             style: fontInter(12,
-                color: AppColor.sectionTermColor, fontWeight: FontWeight.w600),
+                color: AppColor.c4d4d4d, fontWeight: FontWeight.w600),
           ),
         ),
         Container(
@@ -82,6 +83,14 @@ class TranscriptView extends GetView<TranscriptController> {
             shrinkWrap: true,
             children: List.generate(5, transcripItem).toList(),
           ),
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: LinkView(
+            "Xem môn chưa có điểm",
+            textColor: AppColor.c000333.withOpacity(.5),
+          ),
+          height: 50,
         )
       ],
     );
@@ -120,11 +129,12 @@ class TranscriptView extends GetView<TranscriptController> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 "6.7",
-                style: fontInter(14, fontWeight: FontWeight.w600),
+                style: fontInter(14,
+                    fontWeight: FontWeight.w600, color: AppColor.c31B27C),
               ),
             ),
             Image.asset(
-              Images.iconPage,
+              Images.infoIcon,
               width: 20,
               height: 20,
             )

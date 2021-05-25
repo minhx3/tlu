@@ -35,33 +35,29 @@ class HeaderView extends GetView<ScheduleController> {
                     Text(
                       "01/02/2021",
                       style: fontInter(16,
-                          color: Colors.red, fontWeight: FontWeight.w600),
+                          color: AppColor.cfc7171, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
               ),
             ),
             Container(
-              decoration: BoxDecoration(
-                  color: AppColor.whiteColor.withOpacity(0.2),
-                  border:
-                      Border.all(color: AppColor.whiteColor.withOpacity(0.2)),
-                  borderRadius: BorderRadius.circular(3)),
-              child: Row(
-                children: [
-                  tabItem("Tuần", 1, (tag) {
-                    controller.setTag(tag);
-                  }),
-                  Container(
-                    width: 1,
-                    height: 20,
-                    color: AppColor.whiteColor.withOpacity(0.2),
-                  ),
-                  tabItem("Tháng", 2, (tag) {
-                    controller.setTag(tag);
-                  }),
-                ],
-              ),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(15)),
+              child: Obx(() => Row(
+                    children: [
+                      tabItem("Tuần", 1, (tag) {
+                        controller.setTag(tag);
+                      }, isSelected: controller.tagIndex() == 1),
+                      Container(
+                        width: 4,
+                        height: 20,
+                      ),
+                      tabItem("Tháng", 2, (tag) {
+                        controller.setTag(tag);
+                      }, isSelected: controller.tagIndex() == 2),
+                    ],
+                  )),
             )
           ],
         ),
@@ -70,7 +66,7 @@ class HeaderView extends GetView<ScheduleController> {
   }
 
   InkWell tabItem(String title, int tag, onTap(int tag),
-      {bool isSelected = true}) {
+      {bool isSelected = false}) {
     return InkWell(
       onTap: () {
         onTap(tag);
@@ -81,14 +77,16 @@ class HeaderView extends GetView<ScheduleController> {
         padding: EdgeInsets.symmetric(horizontal: 8),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: isSelected ? Colors.transparent : AppColor.whiteColor,
-            borderRadius: BorderRadius.circular(3)),
+            color: isSelected == false
+                ? Colors.white.withOpacity(0.15)
+                : AppColor.whiteColor,
+            borderRadius: BorderRadius.circular(15)),
         child: Text(title ?? "",
             style: fontInter(13,
                 fontWeight: FontWeight.w600,
-                color: isSelected
-                    ? AppColor.whiteColor.withOpacity(0.5)
-                    : AppColor.appBarDarkBackground)),
+                color: isSelected == true
+                    ? AppColor.c000333
+                    : AppColor.whiteColor)),
       ),
     );
   }

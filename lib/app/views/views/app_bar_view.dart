@@ -13,6 +13,7 @@ enum AppBarType {
   tab,
   chat,
   notfication,
+  white,
   button,
   icon,
   detail
@@ -53,7 +54,9 @@ class AppBarView extends StatelessWidget {
     return Container(
       height: 60 + context.mediaQueryPadding.top,
       padding: EdgeInsets.only(top: context.mediaQueryPadding.top),
-      color: backgroundColor ?? getColor(),
+      decoration: boxShadow.copyWith(
+        color: backgroundColor ?? getColor(),
+      ),
       child: Builder(builder: (context) {
         switch (type) {
           case AppBarType.info:
@@ -226,6 +229,44 @@ class AppBarView extends StatelessWidget {
                   ],
                 ));
             break;
+          case AppBarType.white:
+            return Container(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                height: 60,
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        pop();
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: AppColor.textColor,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(title,
+                          style: fontInter(16,
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.textColor)),
+                    ),
+                    iconLeading != null
+                        ? IconButton(
+                            icon: Image.asset(
+                              iconLeading,
+                              width: 20,
+                              height: 20,
+                              color: iconTintColor,
+                            ),
+                            onPressed: () {
+                              pushTo(Routes.NOTIFICATION);
+                            },
+                          )
+                        : SizedBox(),
+                  ],
+                ));
+            break;
           case AppBarType.button:
             return Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),
@@ -248,27 +289,19 @@ class AppBarView extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                               color: titleColor ?? AppColor.whiteColor)),
                     ),
-                    buttonTitle == null
-                        ? SizedBox()
-                        : InkWell(
-                            onTap: () {},
-                            child: SizedBox(
-                              height: 35,
-                              width: 95,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: AppColor.errorColor,
-                                    borderRadius: BorderRadius.circular(3)),
-                                padding: EdgeInsets.symmetric(horizontal: 8),
-                                height: 35,
-                                child: Text(buttonTitle,
-                                    style: fontInter(12,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColor.whiteColor)),
-                              ),
+                    iconLeading != null
+                        ? IconButton(
+                            icon: Image.asset(
+                              iconLeading,
+                              width: 20,
+                              height: 20,
+                              color: iconTintColor,
                             ),
+                            onPressed: () {
+                              pushTo(Routes.NOTIFICATION);
+                            },
                           )
+                        : SizedBox(),
                   ],
                 ));
           case AppBarType.icon:
@@ -415,6 +448,9 @@ class AppBarView extends StatelessWidget {
         return AppColor.appBarWhiteBackground;
       case AppBarType.detail:
         return AppColor.appBarWhiteBackground;
+      case AppBarType.white:
+        return AppColor.whiteColor;
+        break;
     }
     return AppColor.appBarDarkBackground;
   }

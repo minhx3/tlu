@@ -84,7 +84,7 @@ class TestScheduleView extends GetView<TestScheduleController> {
 
   Container rowItem() {
     return Container(
-      margin: EdgeInsets.only(top: 16),
+      margin: EdgeInsets.only(top: 5),
       padding: EdgeInsets.all(16),
       height: 66,
       decoration: BoxDecoration(
@@ -99,12 +99,12 @@ class TestScheduleView extends GetView<TestScheduleController> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: fontInter(14,
-                    fontWeight: FontWeight.w600, color: AppColor.textColor),
+                    fontWeight: FontWeight.w600, color: AppColor.c808080),
               ),
               Text(
                 "GE303",
                 style: fontInter(14,
-                    fontWeight: FontWeight.w600, color: AppColor.hintTextColor),
+                    fontWeight: FontWeight.w600, color: AppColor.cbfbfbf),
               )
             ],
           ),
@@ -124,14 +124,14 @@ class TestScheduleView extends GetView<TestScheduleController> {
                 textAlign: TextAlign.end,
                 overflow: TextOverflow.ellipsis,
                 style: fontInter(14,
-                    fontWeight: FontWeight.w600, color: AppColor.textColor),
+                    fontWeight: FontWeight.w600, color: AppColor.c31B27C),
               ),
               Text(
                 "Nghỉ quá buổi",
                 textAlign: TextAlign.end,
                 maxLines: 1,
                 style: fontInter(14,
-                    fontWeight: FontWeight.w600, color: AppColor.hintTextColor),
+                    fontWeight: FontWeight.w600, color: AppColor.cbfbfbf),
               )
             ],
           )
@@ -156,7 +156,7 @@ class TestScheduleView extends GetView<TestScheduleController> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "(Học kỳ II Nhóm 1 năm 2020-2021)",
+              "Sinh viên mang theo Thẻ sinh viên + CMND",
               textAlign: TextAlign.center,
               style: fontInter(13,
                   fontWeight: FontWeight.w500,
@@ -221,18 +221,10 @@ class TestScheduleView extends GetView<TestScheduleController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Lịch dự thi",
-              style: fontInter(16,
-                  fontWeight: FontWeight.w600, color: AppColor.whiteColor),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
               "(Học kỳ II Nhóm 1 năm 2020-2021)",
               style: fontInter(13,
                   fontWeight: FontWeight.w500,
-                  color: AppColor.whiteColor.withOpacity(0.5)),
+                  color: AppColor.whiteColor.withOpacity(0.7)),
             ),
           ],
         ));

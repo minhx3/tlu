@@ -17,6 +17,9 @@ abstract class Routes {
   static const CHAT_GROUP_INFO = _Paths.CHAT_GROUP_INFO;
   static const USER_INFO = _Paths.USER_INFO;
   static const PROFILE = _Paths.PROFILE;
+  static const RESGISTER_SUBJECT_TERM = _Paths.RESGISTER_SUBJECT_TERM;
+  static const SUBJECT_LIST_TERM = _Paths.SUBJECT_LIST_TERM;
+  static const SUBJECT_LIST_CART = _Paths.SUBJECT_LIST_CART;
 }
 
 abstract class _Paths {
@@ -35,4 +38,7 @@ abstract class _Paths {
   static const CHAT_GROUP_INFO = '/chat-group-info';
   static const USER_INFO = '/user-info';
   static const PROFILE = '/profile';
+  static const RESGISTER_SUBJECT_TERM = '/resgister-subject-term';
+  static const SUBJECT_LIST_TERM = '/subject-list-term';
+  static const SUBJECT_LIST_CART = '/subject-list-cart';
 }

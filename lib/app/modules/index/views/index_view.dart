@@ -7,7 +7,6 @@ import 'package:thanglong_university/app/modules/education/views/education_view.
 import 'package:thanglong_university/app/modules/home/views/home_view.dart';
 import 'package:thanglong_university/app/modules/schedule/views/schedule_view.dart';
 import 'package:thanglong_university/app/modules/profile/views/profile_view.dart';
-import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/image_view.dart';
 
