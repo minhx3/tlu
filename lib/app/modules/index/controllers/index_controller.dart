@@ -8,6 +8,8 @@ class IndexController extends AppController {
 
   final rxTabIndex = 0.obs;
   List<TabItem> tabsList;
+  List<String> sideMenuList = [];
+  final rxSideBarIndex = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,6 +21,14 @@ class IndexController extends AppController {
       TabItem(TabImages.tabConversation, TabImages.tabConversationS),
       TabItem(TabImages.tabHome, TabImages.tabHomeS),
     ];
+
+    sideMenuList = [
+      "Home",
+      "Thời khóa biểu",
+      "Đào tạo",
+      "Tin tức và sự kiện",
+      "Thiết lập"
+    ];
   }
 
   @override
@@ -29,4 +39,5 @@ class IndexController extends AppController {
   @override
   void onClose() {}
   void setTab(int index) => rxTabIndex(index);
+  setSideBar(int index) => rxSideBarIndex(index);
 }

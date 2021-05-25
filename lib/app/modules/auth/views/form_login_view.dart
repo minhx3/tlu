@@ -8,7 +8,6 @@ import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/modules/auth/controllers/auth_controller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
-import 'package:thanglong_university/app/views/views/link_view.dart';
 import 'package:thanglong_university/app/views/views/textfield_view.dart';
 import 'package:thanglong_university/generated/locales.g.dart';
 

@@ -5,13 +5,22 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:thanglong_university/app/modules/schedule/controllers/schedule_controller.dart';
 
+import '../../../configuration/constant/global.dart';
+
 class MonthView extends GetView<ScheduleController> {
+  final double height;
+  final Color backgroundColor;
+  final bool showLine;
+  MonthView(
+      {this.height = 331,
+      this.backgroundColor = AppColor.cf2f2f2,
+      this.showLine = true});
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          height: 331,
+          height: height,
           child: SfCalendar(
             view: CalendarView.month,
             monthViewSettings: MonthViewSettings(
@@ -26,7 +35,6 @@ class MonthView extends GetView<ScheduleController> {
                     fontWeight: FontWeight.w600, color: AppColor.cb3b3b3),
                 dateTextStyle: TextStyle(color: Colors.red, fontSize: 25)),
             firstDayOfWeek: 1,
-            backgroundColor: AppColor.cf2f2f2,
             todayHighlightColor: Colors.red,
             onTap: (details) {
               int checkDay = details.date.day;
@@ -53,11 +61,13 @@ class MonthView extends GetView<ScheduleController> {
             },
           ),
         ),
-        Container(
-          height: 1,
-          margin: EdgeInsets.symmetric(vertical: 10),
-          color: AppColor.cd9d9d9,
-        )
+        showLine == true
+            ? Container(
+                height: 1,
+                margin: EdgeInsets.symmetric(vertical: 10),
+                color: AppColor.ce9e9e9,
+              )
+            : SizedBox()
       ],
     );
   }

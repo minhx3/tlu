@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 import 'package:get/get.dart';
-import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
@@ -11,6 +10,9 @@ import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/image_view.dart';
 
 class CardNewsView extends GetView<HomeController> {
+  final bool isWeb;
+
+  CardNewsView({this.isWeb = false});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -58,12 +60,18 @@ class CardNewsView extends GetView<HomeController> {
             Container(
               height: 85,
               width: 113,
-              child: ImageView(
-                "https://vinades.vn/uploads/news/2019_12/chi-nhai-tran-ceo-beauty-dental-chup-anh-voi-sinh-vien-tlu.jpg",
-                height: 85,
-                width: 113,
-                fit: BoxFit.cover,
-              ),
+              child: isWeb == false
+                  ? ImageView(
+                      "https://vinades.vn/uploads/news/2019_12/chi-nhai-tran-ceo-beauty-dental-chup-anh-voi-sinh-vien-tlu.jpg",
+                      height: 85,
+                      width: 113,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.network(
+                      "https://vinades.vn/uploads/news/2019_12/chi-nhai-tran-ceo-beauty-dental-chup-anh-voi-sinh-vien-tlu.jpg",
+                      height: 85,
+                      width: 113,
+                      fit: BoxFit.cover),
             ),
             Expanded(
               child: Padding(

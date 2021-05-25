@@ -6,24 +6,78 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/modules/auth/views/form_forgot_view.dart';
 import 'package:thanglong_university/app/modules/auth/views/form_login_view.dart';
+import 'package:thanglong_university/app/modules/auth/views/form_login_web_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/link_view.dart';
 import 'package:thanglong_university/generated/locales.g.dart';
+import '../../../configuration/constant/color.dart';
 import '../controllers/auth_controller.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
+import 'form_login_view.dart';
 
 class AuthView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(builder: (context, info) {
       // Check the sizing information here and return your UI
-      print(info.screenSize);
       if (info.deviceScreenType == DeviceScreenType.desktop) {
-        return Container(color: Colors.blue);
+        return Scaffold(
+          body: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              Container(
+                height: 1080,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      width: Get.width * 0.65,
+                      child: Stack(
+                        children: [
+                          Image.network(
+                            Images.schoolBackground,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
+                          Positioned(
+                            left: 35,
+                            top: 35,
+                            child: Image.network(
+                              Images.logoWeb,
+                              fit: BoxFit.contain,
+                              width: 250,
+                              height: 100,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: Get.width - Get.width * 0.65,
+                      child: Stack(
+                        children: [
+                          Image.network(
+                            Images.loginBackground,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
+                          Center(child: FormLoginWebView())
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
       } else {
         return AppContainer(
           child: Scaffold(
-            resizeToAvoidBottomPadding: false,
+            //   resizeToAvoidBottomPadding: false,
             body: Stack(
               children: [
                 Image.asset(
@@ -34,12 +88,12 @@ class AuthView extends GetView<AuthController> {
                 ),
                 Container(
                   color: AppColor.whiteColor,
-                  margin: EdgeInsets.only(right: 110),
+                  margin: EdgeInsets.only(right: Get.width - Get.width * 0.75),
                   child: Obx(() => SafeArea(
                           child: Row(
                         children: [
                           Container(
-                            width: 265,
+                            width: Get.width * 0.75,
                             padding: EdgeInsets.symmetric(horizontal: 20),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -87,7 +141,7 @@ class AuthView extends GetView<AuthController> {
                       alignment: Alignment.bottomLeft,
                       padding: EdgeInsets.only(
                           left: 16,
-                          right: 126,
+                          right: Get.width - Get.width * 0.75 + 16,
                           bottom: 24 + context.mediaQueryViewInsets.bottom),
                       child: Row(
                         children: [
