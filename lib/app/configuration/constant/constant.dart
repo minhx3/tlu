@@ -4,4 +4,7 @@ class Constant {
   static const String defautLocale = Constant.vietnamese;
   static const String vietnamese = "vi";
   static const String english = "en";
+  static const String universityCode = "TLU";
+  static const String student = "STUDENT";
+  static const String teacher = "TEACHER";
 }

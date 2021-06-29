@@ -63,7 +63,7 @@ class TaskView extends GetView<TaskController> {
               padding: EdgeInsets.symmetric(horizontal: 4),
               alignment: Alignment.center,
               child: Text(
-                "PG122",
+                "${controller.subjectItem?.subjectId?.prerequisiteSubjectId ?? ""}",
                 style: fontInter(10,
                     fontWeight: FontWeight.w600, color: AppColor.whiteColor),
                 maxLines: 2,
@@ -76,7 +76,7 @@ class TaskView extends GetView<TaskController> {
           ],
         ),
         Text(
-          "Tài chính quốc tế \nTỉ giá hối đoái (P.1) ",
+          "${controller.subjectItem?.subjectId?.name ?? ""}",
           textAlign: TextAlign.left,
           style: fontInter(24,
               fontWeight: FontWeight.w700, color: AppColor.c000333),
@@ -106,7 +106,7 @@ class TaskView extends GetView<TaskController> {
                     width: 7,
                   ),
                   Text(
-                    "TCQUOCTE1.1",
+                    "${controller.subjectItem?.subjectId?.prerequisiteSubjectId ?? ""}",
                     style: fontInter(12,
                         fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
                     maxLines: 2,

@@ -23,7 +23,7 @@ void main() {
           GetMaterialApp(
             title: "Application",
             // initialRoute: AppPages.INITIAL,
-            initialRoute: Routes.INDEX,
+            initialRoute: Routes.AUTH,
             getPages: AppPages.routes,
             initialBinding: AppBinding(),
             locale: Locale(Constant.defautLocale),

@@ -1,12 +1,18 @@
 import 'package:get/get.dart';
+import 'package:thanglong_university/app/configuration/base/app_controller.dart';
+import 'package:thanglong_university/app/model/user_model.dart';
+import 'package:thanglong_university/app/service/api/app_client.dart';
 
-class ProfileController extends GetxController {
+class ProfileController extends AppController {
   //TODO: Implement ProfileController
 
   final count = 0.obs;
+  final rxUserInfo = Rx<UserModel>();
+  static ProfileController get to => Get.find();
   @override
   void onInit() {
     super.onInit();
+    getUserInfo();
   }
 
   @override
@@ -17,4 +23,15 @@ class ProfileController extends GetxController {
   @override
   void onClose() {}
   void increment() => count.value++;
+
+  getUserInfo() async {
+    showLoading();
+    final result = await Appclient.shared.getUserInfo();
+    if (result != null) {
+      1.delay(() {
+        hideLoading();
+        rxUserInfo(result);
+      });
+    }
+  }
 }

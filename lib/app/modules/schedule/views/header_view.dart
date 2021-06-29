@@ -33,7 +33,7 @@ class HeaderView extends GetView<ScheduleController> {
                           fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      "01/02/2021",
+                      "${controller.getToday()}",
                       style: fontInter(16,
                           color: AppColor.cfc7171, fontWeight: FontWeight.w600),
                     ),

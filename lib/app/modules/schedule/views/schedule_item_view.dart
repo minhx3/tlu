@@ -5,9 +5,13 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/schedule_model.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 
 class ScheduleItemView extends GetView {
+  final ScheduleModel item;
+
+  ScheduleItemView(this.item);
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -28,7 +32,7 @@ class ScheduleItemView extends GetView {
                   padding: EdgeInsets.all(8),
                 ),
                 Text(
-                  "10:00 - 11:50",
+                  "${item.startTime.hours}:${item.startTime.minutes} - ${item.endTime.hours}:${item.endTime.minutes}",
                   style: fontInter(14,
                       color: Colors.red, fontWeight: FontWeight.w600),
                 )
@@ -61,7 +65,7 @@ class ScheduleItemView extends GetView {
                       SizedBox(
                         width: 20,
                       ),
-                      blockView("Địa điểm:", "Phòng 302 Tòa A3"),
+                      blockView("Địa điểm:", "${item.address}"),
                       Expanded(
                         child: SizedBox(),
                       ),
@@ -93,7 +97,7 @@ class ScheduleItemView extends GetView {
             children: [
               Expanded(
                 child: Text(
-                  "Thương mại quốc tế",
+                  "${item.title ?? ""}",
                   style: fontInter(16,
                       fontWeight: FontWeight.w600,
                       color: AppColor.appBarDarkBackground),
@@ -108,7 +112,7 @@ class ScheduleItemView extends GetView {
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                 alignment: Alignment.center,
                 child: Text(
-                  "PG122",
+                  "${item?.subjectClassId ?? ""}",
                   style: fontInter(10,
                       fontWeight: FontWeight.w600, color: AppColor.whiteColor),
                   maxLines: 2,
@@ -121,7 +125,7 @@ class ScheduleItemView extends GetView {
             height: 4,
           ),
           Text(
-            "Các hiệp định thương mại tự do FTA(Có tệp đính kèm tham khảo)",
+            "${item.content ?? ""}",
             style: fontInter(12,
                 fontWeight: FontWeight.w400, color: AppColor.subTextColor),
             maxLines: 2,
@@ -174,7 +178,7 @@ class ScheduleItemView extends GetView {
             overflow: TextOverflow.ellipsis,
           ),
           Text(
-            "• Chuẩn bị slide thuyết trình\n• Câu hỏi phản biện các nhóm khác",
+            "${item.note ?? ""}",
             style: fontInter(12,
                 fontWeight: FontWeight.w500, color: AppColor.subTextColor),
             overflow: TextOverflow.ellipsis,

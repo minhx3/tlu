@@ -12,6 +12,8 @@ class TextFieldView extends GetView {
   final bool obscureText;
   final String label;
   final bool hasError;
+  final TextEditingController controller;
+  final TextInputType keyboardType;
   const TextFieldView({
     Key key,
     this.label,
@@ -19,6 +21,8 @@ class TextFieldView extends GetView {
     this.obscureText = false,
     this.hintText,
     this.onTap,
+    this.keyboardType,
+    this.controller,
     this.verticalSpacing = 16,
     this.horizontalSpacing = 0,
   }) : super(key: key);
@@ -68,6 +72,8 @@ class TextFieldView extends GetView {
                         child: TextField(
                           obscuringCharacter: "*",
                           cursorHeight: 16,
+                          keyboardType: this.keyboardType,
+                          controller: this.controller,
                           keyboardAppearance: Brightness.light,
                           obscureText: obscureText,
                           style: fontInter(14,

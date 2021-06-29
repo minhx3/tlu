@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:thanglong_university/app/modules/schedule/controllers/schedule_controller.dart';
+import 'package:thanglong_university/app/views/views/calendar/flutter_calendar.dart';
 
 import '../../../configuration/constant/global.dart';
 
@@ -18,47 +18,44 @@ class MonthView extends GetView<ScheduleController> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          height: height,
-          child: SfCalendar(
-            view: CalendarView.month,
-            monthViewSettings: MonthViewSettings(
-              dayFormat: 'EEE',
-              navigationDirection: MonthNavigationDirection.horizontal,
-            ),
-            headerHeight: 0,
-            controller: controller.calendarController,
-            viewHeaderHeight: 40,
-            viewHeaderStyle: ViewHeaderStyle(
-                dayTextStyle: fontInter(12,
-                    fontWeight: FontWeight.w600, color: AppColor.cb3b3b3),
-                dateTextStyle: TextStyle(color: Colors.red, fontSize: 25)),
-            firstDayOfWeek: 1,
-            todayHighlightColor: Colors.red,
-            onTap: (details) {
-              int checkDay = details.date.day;
-              controller.setCurrentDay(checkDay);
-              controller.calendarController.selectedDate = details.date;
-            },
-            monthCellBuilder:
-                (BuildContext buildContext, MonthCellDetails details) {
-              int currentMonth = DateTime.now().month;
-              int currentYear = DateTime.now().year;
+          child: Calendar(
+            isExpandable: true,
+            showHeaderControl: false,
+            showExpandControl: false,
+            calendarController: controller.calendarController,
+            weekDays: [
+              "Th 2",
+              "Th 3",
+              "Th 4",
+              "Th 5",
+              "Th 6",
+              "Th 7",
+              "CN",
+            ],
+            dayBuilder: (c, date) {
+              int currentMonth = controller.currentDate.month;
+              int currentYear = controller.currentDate.year;
 
-              int checkMonth = details.date.month;
-              bool isSunday = details.date.weekday == 7;
+              int checkMonth = date.month;
+              bool isSunday = date.weekday == 7;
 
-              int checkYear = details.date.year;
+              int checkYear = date.year;
               bool isDayInMonth =
                   (currentMonth == checkMonth && currentYear == checkYear);
 
-              bool isHasEvent = false;
-              bool isSelected = controller.currentDay() == details.date.day &&
+              bool isHasEvent = [15, 16, 17, 20, 29].contains(date.day) &&
+                  currentMonth == checkMonth;
+              bool isSelected = controller.currentDate.day == date.day &&
                   currentMonth == checkMonth;
               return viewItem(
-                  isSelected, details, isDayInMonth, isSunday, isHasEvent);
+                  isSelected, date, isDayInMonth, isSunday, isHasEvent);
             },
+            onSelectedRangeChange: (range) =>
+                print("Range is ${range.item1}, ${range.item2}"),
+            // onDateSelected: (date) => handleNewDate(date),
           ),
         ),
         showLine == true
@@ -72,7 +69,7 @@ class MonthView extends GetView<ScheduleController> {
     );
   }
 
-  Widget viewItem(bool isSelected, MonthCellDetails details, bool isDayInMonth,
+  Widget viewItem(bool isSelected, DateTime date, bool isDayInMonth,
       bool isSunday, bool isHasEvent) {
     return Stack(
       children: [
@@ -83,7 +80,7 @@ class MonthView extends GetView<ScheduleController> {
               color:
                   isSelected == true ? AppColor.c000333 : Colors.transparent),
           child: Text(
-            details.date.day.toString(),
+            date.day.toString(),
             style: fontInter(14,
                 fontWeight: FontWeight.w600,
                 color: isDayInMonth == true

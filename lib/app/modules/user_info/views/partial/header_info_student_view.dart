@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
+import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/avatar_user_name_view.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/item_info_view.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/label_value_info_view.dart';
@@ -30,40 +32,41 @@ class HeaderInfoStudentView extends StatelessWidget {
 class _CommonInfoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(
-          height: 26,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Obx(() => Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            LabelValueInfoView(
-              label: 'Khoá:',
-              value: 'QH-E-2018',
-              isHozSeparated: true,
+            SizedBox(
+              height: 26,
             ),
-            LabelValueInfoView(
-              label: 'Số điện thoại:',
-              value: '0342299014',
-              isHozSeparated: true,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                LabelValueInfoView(
+                  label: 'Khoá:',
+                  value:
+                      "${ProfileController.to.rxUserInfo()?.classInfo?.classInfoId ?? ""}",
+                  isHozSeparated: true,
+                ),
+                LabelValueInfoView(
+                  label: 'Số điện thoại:',
+                  value: "${ProfileController.to.rxUserInfo()?.mobile ?? ""}",
+                  isHozSeparated: true,
+                ),
+                LabelValueInfoView(
+                  label: 'Ngày sinh',
+                  value: "${ProfileController.to.rxUserInfo()?.dob ?? ""}",
+                ),
+              ],
             ),
-            LabelValueInfoView(
-              label: 'Ngày sinh',
-              value: '25/04/2000',
+            SizedBox(
+              height: 12,
+            ),
+            Divider(
+              height: 1,
+              color: AppColor.lineSectionColor,
             ),
           ],
-        ),
-        SizedBox(
-          height: 12,
-        ),
-        Divider(
-          height: 1,
-          color: AppColor.lineSectionColor,
-        ),
-      ],
-    );
+        ));
   }
 }
 
@@ -72,7 +75,7 @@ class _EmailInfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ItemInfoView(
       label: 'Email:',
-      value: 'ngotienpro123@gmail.com',
+      value: "${ProfileController.to.rxUserInfo()?.email ?? ""}",
     );
   }
 }
@@ -98,7 +101,8 @@ class _BranchView extends StatelessWidget {
             ),
             LabelValueInfoView(
               label: 'Lớp:',
-              value: 'CLC 2',
+              value:
+                  "${ProfileController.to.rxUserInfo()?.classInfo?.classInfoId ?? ""}",
             ),
           ],
         ),

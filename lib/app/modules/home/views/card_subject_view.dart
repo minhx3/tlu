@@ -6,34 +6,36 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/calendar_model.dart';
 import 'package:thanglong_university/app/modules/home/controllers/home_controller.dart';
-import 'package:thanglong_university/app/routes/app_pages.dart';
 
 class CardSubjectView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 160,
-      padding: EdgeInsets.symmetric(vertical: 16),
-      child: Swiper(
-        controller: controller.swiperController,
-        onIndexChanged: controller.setCard,
-        onTap: (index) {
-          // controller.swiperController.move(index);
-          pushTo(Routes.TASK);
-        },
-        itemBuilder: (BuildContext context, int index) {
-          return cardContentView();
-        },
-        viewportFraction: 0.85,
-        containerWidth: double.maxFinite,
-        scale: 1,
-        itemCount: 3,
-      ),
-    );
+    return Obx(() => Container(
+          height: 160,
+          padding: EdgeInsets.symmetric(vertical: 16),
+          child: Swiper(
+            controller: controller.swiperController,
+            onIndexChanged: (index) {
+              controller.setCard(index);
+            },
+            onTap: (index) {
+              // controller.swiperController.move(index);
+              // pushTo(Routes.TASK, arguments: controller.rxCalendarList[index]);
+            },
+            itemBuilder: (BuildContext context, int index) {
+              return cardContentView(controller.rxCalendarList[index]);
+            },
+            viewportFraction: 0.85,
+            containerWidth: double.maxFinite,
+            scale: 1,
+            itemCount: controller.rxCalendarList().length,
+          ),
+        ));
   }
 
-  Container cardContentView() {
+  Widget cardContentView(CalendarModel item) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: boxShadow.copyWith(
@@ -49,7 +51,7 @@ class CardSubjectView extends GetView<HomeController> {
             children: [
               Expanded(
                 child: Text(
-                  "Kinh tế học về những vấn đề xã hội",
+                  "${item.subjectClassId ?? ""}",
                   style: fontInter(16,
                       fontWeight: FontWeight.w600, color: AppColor.cfafafa),
                   maxLines: 2,
@@ -65,7 +67,7 @@ class CardSubjectView extends GetView<HomeController> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                 child: Text(
-                  "PG122",
+                  "${item?.subjectClassId ?? ""}",
                   style: fontInter(10,
                       fontWeight: FontWeight.w600, color: AppColor.whiteColor),
                   maxLines: 2,
@@ -89,7 +91,7 @@ class CardSubjectView extends GetView<HomeController> {
                 width: 10,
               ),
               Text(
-                "10h00 - 16/01/2021",
+                "${item.startTime?.getDay() ?? ""}",
                 style: fontInter(12,
                     fontWeight: FontWeight.w600, color: AppColor.cfc7171),
                 maxLines: 2,
@@ -109,7 +111,7 @@ class CardSubjectView extends GetView<HomeController> {
                 width: 10,
               ),
               Text(
-                "Phòng B605",
+                "Phòng ${item?.address ?? ""}",
                 style: fontInter(12,
                     fontWeight: FontWeight.w600, color: AppColor.cd9d9d9),
                 maxLines: 2,

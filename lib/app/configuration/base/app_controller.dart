@@ -14,4 +14,7 @@ class AppController extends GetxController {
   }
 
   String getLanguage() => Storage.getLanguage();
+
+  showLoading() => rxViewState(ViewState.loading);
+  hideLoading() => rxViewState(ViewState.idle);
 }

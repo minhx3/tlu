@@ -4,34 +4,42 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
+import 'package:thanglong_university/app/modules/schedule/controllers/schedule_controller.dart';
 
 enum TimeViewType { week, month }
 
-class WeekTimeView extends GetView {
+class WeekTimeView extends GetView<ScheduleController> {
   final TimeViewType timeViewType;
 
   WeekTimeView({this.timeViewType = TimeViewType.week});
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Obx(() => Container(
         height: 55,
         child: Row(
           children: [
             InkWell(
+              onTap: () {
+                if (timeViewType == TimeViewType.week) {
+                  controller.previousWeek();
+                } else {
+                  controller.previousMonth();
+                }
+              },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Image.asset(
                   Images.arrrowTimeLeft,
                   width: 7,
-                  color: timeViewType == TimeViewType.week
-                      ? AppColor.appBarDarkBackground
-                      : AppColor.hintTextColor,
+                  color: AppColor.c8c8c8c,
                 ),
               ),
             ),
             Expanded(
               child: Text(
-                timeViewType == TimeViewType.week ? "01-07/02/2021" : "Tháng 2",
+                timeViewType == TimeViewType.week
+                    ? "${controller.rxWeekDay()}"
+                    : "${controller.rxWeekDay()}",
                 textAlign: TextAlign.center,
                 style: fontInter(16,
                     color: AppColor.appBarDarkBackground,
@@ -39,29 +47,28 @@ class WeekTimeView extends GetView {
               ),
             ),
             InkWell(
+              onTap: () {
+                if (timeViewType == TimeViewType.week) {
+                  controller.nextWeek();
+                } else {
+                  controller.nextMonth();
+                }
+              },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Image.asset(
                   Images.arrowTimeRight,
                   width: 7,
-                  color: timeViewType == TimeViewType.week
-                      ? AppColor.appBarDarkBackground
-                      : AppColor.hintTextColor,
+                  color: AppColor.c8c8c8c,
                 ),
               ),
             ),
           ],
         ),
         decoration: BoxDecoration(
-            color: timeViewType == TimeViewType.week
-                ? Colors.transparent
-                : Colors.white,
-            borderRadius: timeViewType == TimeViewType.month
-                ? BorderRadius.circular(3)
-                : null,
+            color: Colors.transparent,
             border: Border(
-                bottom: timeViewType == TimeViewType.week
-                    ? BorderSide(color: AppColor.educationBackground, width: 1)
-                    : BorderSide.none)));
+                bottom: BorderSide(
+                    color: AppColor.educationBackground, width: 1)))));
   }
 }

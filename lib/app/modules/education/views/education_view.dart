@@ -32,21 +32,33 @@ class EducationView extends GetView<EducationController> {
                   padding: EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      counterView(
-                          title: "128/140",
-                          subTitle: "3.24",
-                          hasProgress: true,
-                          onTap: () {
-                            pushTo(Routes.TRANSCRIPT);
-                          }),
-                      counterView(
-                          title: "12 tín chỉ",
-                          subTitle: "4 môn",
-                          type: 2,
-                          space: 5,
-                          onTap: () {
-                            pushTo(Routes.TEST_SCHEDULE);
-                          }),
+                      Obx(() {
+                        final data = controller.rxProcess();
+                        return counterView(
+                            title:
+                                "${data?.completeCredits ?? 0}/${data?.sumCredits ?? 0}",
+                            subTitle: "${data?.gpa ?? 0}",
+                            hasProgress: true,
+                            value: (data?.completeCredits ?? 0) /
+                                (data?.sumCredits ?? 0),
+                            onTap: () {
+                              pushTo(Routes.TRANSCRIPT);
+                            });
+                      }),
+                      Obx(() {
+                        final data = controller.rxProcess();
+                        final count = controller.rxScheduleList().length;
+                        return counterView(
+                            title: "${data?.sumCreditsInSemster ?? 0} tín chỉ",
+                            subTitle: "${count ?? 0} môn",
+                            space: 10,
+                            type: 2,
+                            value: (data?.completeCredits ?? 0) /
+                                (data?.sumCredits ?? 0),
+                            onTap: () {
+                              pushTo(Routes.TEST_SCHEDULE);
+                            });
+                      }),
                     ],
                   ),
                 ),
@@ -55,26 +67,43 @@ class EducationView extends GetView<EducationController> {
                   margin: EdgeInsets.symmetric(horizontal: 16),
                   color: AppColor.ce6e6e6,
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: Text(
-                    "Kỳ 2 - 2020-2021",
-                    style: fontInter(14,
-                        fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                ListView(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: List.generate(
-                      20,
-                      (index) => EducationSubjectItemView(
-                          space: index == 0 ? 0 : 5)).toList(),
-                ),
+                Obx(() => Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          child: Text(
+                            "${controller.rxMapSubjectList()?.keys?.first ?? ""}",
+                            style: fontInter(14,
+                                fontWeight: FontWeight.w600,
+                                color: AppColor.c4d4d4d),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        ListView(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics: NeverScrollableScrollPhysics(),
+                          children:
+                              (controller.rxMapSubjectList()?.values?.first ??
+                                      [])
+                                  .map((item) => EducationSubjectItemView(
+                                      item: item,
+                                      space: (controller
+                                                          .rxMapSubjectList()
+                                                          ?.values
+                                                          ?.first ??
+                                                      [])
+                                                  .indexOf(item) ==
+                                              0
+                                          ? 0
+                                          : 5))
+                                  .toList(),
+                        ),
+                      ],
+                    )),
                 ButtonView(
                   title: "Xem thêm các kì trước",
                   type: ButtonType.outline,
@@ -95,6 +124,7 @@ class EducationView extends GetView<EducationController> {
       String title,
       String subTitle,
       bool hasProgress = false,
+      double value,
       double space = 0,
       Function onTap}) {
     return InkWell(
@@ -199,7 +229,7 @@ class EducationView extends GetView<EducationController> {
                                 AppColor.whiteColor.withOpacity(0.15),
                             valueColor:
                                 AlwaysStoppedAnimation<Color>(AppColor.cfc2626),
-                            value: 0.5,
+                            value: value,
                           ),
                         )),
                   )

@@ -1,4 +1,5 @@
 import 'package:get_storage/get_storage.dart';
+import 'package:thanglong_university/app/configuration/constant/constant.dart';
 import 'package:thanglong_university/app/configuration/constant/key.dart';
 
 class Storage {
@@ -21,4 +22,8 @@ class Storage {
 
   static setLanguage(String value) => set(Keys.locale, value);
   static getLanguage() => get(Keys.locale);
+  static setUserType(String value) => set(Keys.userType, value);
+  static getUserType() => get(Keys.userType);
 }
+
+bool isTeacher = Storage.getUserType() == Constant.teacher ? true : false;

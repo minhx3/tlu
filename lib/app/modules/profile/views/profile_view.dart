@@ -7,6 +7,7 @@ import 'package:thanglong_university/app/modules/profile/views/partial/item_head
 import 'package:thanglong_university/app/modules/profile/views/partial/settings_student_section_view.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/header_info_student_view.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/header_info_teacher_view.dart';
+import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'package:thanglong_university/app/utils/screen/screen.dart';
 import '../controllers/profile_controller.dart';
 
@@ -23,7 +24,7 @@ class ProfileView extends GetView<ProfileController> {
 class _ContentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _StudentProfileView();
+    return isTeacher ? _TeacherProfileView() : _StudentProfileView();
   }
 }
 
@@ -47,7 +48,7 @@ class _TeacherProfileView extends StatelessWidget {
       padding: EdgeInsets.only(top: Get.mediaQuery.padding.top, bottom: 20),
       itemBuilder: (context, index) {
         if (index == 0) {
-          return HeaderInfoTeacherView(isAllowEdit: true);
+          return HeaderInfoTeacherView(isAllowEdit: false);
         } else if (index == 1) {
           return HeaderTimeTableView();
         } else if (index == 5 - 1) {

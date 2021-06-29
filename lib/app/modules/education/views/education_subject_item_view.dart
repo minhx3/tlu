@@ -4,12 +4,14 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/subject_model.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 
 class EducationSubjectItemView extends GetView {
+  final SubjectModel item;
   final double space;
 
-  EducationSubjectItemView({this.space = 5});
+  EducationSubjectItemView({this.item, this.space = 5});
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -28,7 +30,7 @@ class EducationSubjectItemView extends GetView {
               children: [
                 Expanded(
                   child: Text(
-                    "Thương mại quốc tế",
+                    "${item.subjectId?.name ?? ""}",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: fontInter(16,
@@ -42,7 +44,7 @@ class EducationSubjectItemView extends GetView {
                   padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                   alignment: Alignment.center,
                   child: Text(
-                    "TMQUOCTE1.1",
+                    "${item.subjectId?.prerequisiteSubjectId ?? ""}",
                     style: fontInter(10,
                         fontWeight: FontWeight.w600,
                         color: AppColor.whiteColor),
@@ -54,9 +56,11 @@ class EducationSubjectItemView extends GetView {
             ),
             Row(
               children: [
-                item("Thời gian:", "T2, 1-3\nT2, 1-3"),
-                item("Địa điểm:", "B301"),
-                item("Số tín chỉ:", "3 Tín", isLast: true),
+                itemView("Thời gian:", "T2, 1-3\nT2, 1-3"),
+                itemView("Địa điểm:", "B301"),
+                itemView("Số tín chỉ:",
+                    "${item?.prerequisiteSubject?.credits ?? 0} Tín",
+                    isLast: true),
               ],
             )
           ],
@@ -65,7 +69,7 @@ class EducationSubjectItemView extends GetView {
     );
   }
 
-  Widget item(String title, String subTitle, {bool isLast = false}) {
+  Widget itemView(String title, String subTitle, {bool isLast = false}) {
     return Container(
       width: 85,
       padding: EdgeInsets.only(top: 16),

@@ -26,17 +26,17 @@ changeLanguage(String locale) {
   Get.updateLocale(Locale(locale));
 }
 
-showLoading({bool isTransparent = false}) => Get.dialog(
+showLoadingGlobal({bool isTransparent = true}) => Get.dialog(
     WillPopScope(
       onWillPop: () async => false,
       child: Center(
-        child: SizedBox(
-          height: 35,
-          child: CircularProgressIndicator(
-            backgroundColor: Colors.white.withOpacity(0.5),
-            strokeWidth: 2,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-          ),
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.8),
+              borderRadius: BorderRadius.circular(10)),
+          width: 80,
+          height: 80,
+          child: centerloading(size: 30),
         ),
       ),
     ),
@@ -45,7 +45,7 @@ showLoading({bool isTransparent = false}) => Get.dialog(
         ? Colors.black.withOpacity(0.5)
         : Colors.transparent);
 
-hideLoading() => pop();
+hideLoadingGlobal() => pop();
 
 centerloading({double size = 35, Color backgroundColor, Color activeColor}) =>
     Center(

@@ -14,4 +14,5 @@ abstract class Keys {
   static const String businessArea = "businessArea";
   static const String shopId = "shopId";
   static const String merchantId = "merchantId";
+  static const String userType = "userType";
 }
