@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/calendar_model.dart';
+import 'package:thanglong_university/app/model/schedule_model.dart';
 import 'package:thanglong_university/app/modules/home/controllers/home_controller.dart';
 
 class CardSubjectView extends GetView<HomeController> {
@@ -35,7 +37,20 @@ class CardSubjectView extends GetView<HomeController> {
         ));
   }
 
-  Widget cardContentView(CalendarModel item) {
+  Widget cardContentView(ScheduleModel item) {
+    String timeEvent() {
+      DateTime startDate = DateTime.fromMicrosecondsSinceEpoch(item.startTime).toLocal();
+      DateTime endDate = DateTime.fromMicrosecondsSinceEpoch(item.endTime).toLocal();
+
+      String startTime = DateFormat('hh#mm').format(startDate);
+      String endTime = DateFormat('hh#mm').format(endDate);
+
+      // 10h00 - 10h50 - 16/04/2021
+
+      String time = '$startTime - $endTime - ${item.day}';
+      return time.replaceAll('#', 'h');
+    }
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: boxShadow.copyWith(
@@ -51,7 +66,7 @@ class CardSubjectView extends GetView<HomeController> {
             children: [
               Expanded(
                 child: Text(
-                  "${item.subjectClassId ?? ""}",
+                  "${item.subjectName ?? ""}",
                   style: fontInter(16,
                       fontWeight: FontWeight.w600, color: AppColor.cfafafa),
                   maxLines: 2,
@@ -67,7 +82,7 @@ class CardSubjectView extends GetView<HomeController> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                 child: Text(
-                  "${item?.subjectClassId ?? ""}",
+                  "${item?.subjectId ?? ""}",
                   style: fontInter(10,
                       fontWeight: FontWeight.w600, color: AppColor.whiteColor),
                   maxLines: 2,
@@ -91,7 +106,7 @@ class CardSubjectView extends GetView<HomeController> {
                 width: 10,
               ),
               Text(
-                "${item.startTime?.getDay() ?? ""}",
+                timeEvent(),
                 style: fontInter(12,
                     fontWeight: FontWeight.w600, color: AppColor.cfc7171),
                 maxLines: 2,

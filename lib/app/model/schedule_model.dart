@@ -22,6 +22,7 @@ class ScheduleModel {
     this.note,
     this.subjectClassId,
     this.title,
+    this.subjectId,
     this.taskId,
     this.listSession,
     this.recurrent,
@@ -30,8 +31,8 @@ class ScheduleModel {
 
   String address;
   String content;
-  ScheduleModelEndTime startTime;
-  ScheduleModelEndTime endTime;
+  int startTime;
+  int endTime;
   String day;
   String customerId;
   String subjectName;
@@ -40,6 +41,7 @@ class ScheduleModel {
   String note;
   String subjectClassId;
   String title;
+  String subjectId;
   String taskId;
   List<ListSession> listSession;
   List<Recurrent> recurrent;
@@ -48,8 +50,8 @@ class ScheduleModel {
   ScheduleModel copyWith({
     String address,
     String content,
-    ScheduleModelEndTime startTime,
-    ScheduleModelEndTime endTime,
+    int startTime,
+    int endTime,
     String day,
     String customerId,
     String subjectName,
@@ -58,6 +60,7 @@ class ScheduleModel {
     String note,
     String subjectClassId,
     String title,
+    String subjectId,
     String taskId,
     List<ListSession> listSession,
     List<Recurrent> recurrent,
@@ -76,6 +79,7 @@ class ScheduleModel {
         note: note ?? this.note,
         subjectClassId: subjectClassId ?? this.subjectClassId,
         title: title ?? this.title,
+        subjectId: subjectId ?? this.subjectId,
         taskId: taskId ?? this.taskId,
         listSession: listSession ?? this.listSession,
         recurrent: recurrent ?? this.recurrent,
@@ -85,8 +89,8 @@ class ScheduleModel {
   factory ScheduleModel.fromJson(Map<String, dynamic> json) => ScheduleModel(
     address: json["address"] == null ? null : json["address"],
     content: json["content"] == null ? null : json["content"],
-    startTime: json["startTime"] == null ? null : ScheduleModelEndTime.fromJson(json["startTime"]),
-    endTime: json["endTime"] == null ? null : ScheduleModelEndTime.fromJson(json["endTime"]),
+    startTime: json["startTime"] == null ? null : json["startTime"],
+    endTime: json["endTime"] == null ? null : json["endTime"],
     day: json["day"] == null ? null : json["day"],
     customerId: json["customerId"] == null ? null : json["customerId"],
     subjectName: json["subjectName"] == null ? null : json["subjectName"],
@@ -95,6 +99,7 @@ class ScheduleModel {
     note: json["note"] == null ? null : json["note"],
     subjectClassId: json["subjectClassId"] == null ? null : json["subjectClassId"],
     title: json["title"] == null ? null : json["title"],
+    subjectId: json["subjectId"] == null ? null : json["subjectId"],
     taskId: json["taskId"] == null ? null : json["taskId"],
     listSession: json["listSession"] == null ? null : List<ListSession>.from(json["listSession"].map((x) => ListSession.fromJson(x))),
     recurrent: json["recurrent"] == null ? null : List<Recurrent>.from(json["recurrent"].map((x) => Recurrent.fromJson(x))),
@@ -104,8 +109,8 @@ class ScheduleModel {
   Map<String, dynamic> toJson() => {
     "address": address == null ? null : address,
     "content": content == null ? null : content,
-    "startTime": startTime == null ? null : startTime.toJson(),
-    "endTime": endTime == null ? null : endTime.toJson(),
+    "startTime": startTime == null ? null : startTime,
+    "endTime": endTime == null ? null : endTime,
     "day": day == null ? null : day,
     "customerId": customerId == null ? null : customerId,
     "subjectName": subjectName == null ? null : subjectName,
@@ -114,81 +119,11 @@ class ScheduleModel {
     "note": note == null ? null : note,
     "subjectClassId": subjectClassId == null ? null : subjectClassId,
     "title": title == null ? null : title,
+    "subjectId": subjectId == null ? null : subjectId,
     "taskId": taskId == null ? null : taskId,
     "listSession": listSession == null ? null : List<dynamic>.from(listSession.map((x) => x.toJson())),
     "recurrent": recurrent == null ? null : List<dynamic>.from(recurrent.map((x) => x.toJson())),
     "teacher": teacher == null ? null : teacher.toJson(),
-  };
-}
-
-class ScheduleModelEndTime {
-  ScheduleModelEndTime({
-    this.date,
-    this.day,
-    this.hours,
-    this.minutes,
-    this.month,
-    this.seconds,
-    this.time,
-    this.timezoneOffset,
-    this.year,
-  });
-
-  int date;
-  int day;
-  int hours;
-  int minutes;
-  int month;
-  int seconds;
-  int time;
-  int timezoneOffset;
-  int year;
-
-  ScheduleModelEndTime copyWith({
-    int date,
-    int day,
-    int hours,
-    int minutes,
-    int month,
-    int seconds,
-    int time,
-    int timezoneOffset,
-    int year,
-  }) =>
-      ScheduleModelEndTime(
-        date: date ?? this.date,
-        day: day ?? this.day,
-        hours: hours ?? this.hours,
-        minutes: minutes ?? this.minutes,
-        month: month ?? this.month,
-        seconds: seconds ?? this.seconds,
-        time: time ?? this.time,
-        timezoneOffset: timezoneOffset ?? this.timezoneOffset,
-        year: year ?? this.year,
-      );
-
-  factory ScheduleModelEndTime.fromJson(Map<String, dynamic> json) => ScheduleModelEndTime(
-    date: json["date"] == null ? null : json["date"],
-    day: json["day"] == null ? null : json["day"],
-    hours: json["hours"] == null ? null : json["hours"],
-    minutes: json["minutes"] == null ? null : json["minutes"],
-    month: json["month"] == null ? null : json["month"],
-    seconds: json["seconds"] == null ? null : json["seconds"],
-    time: json["time"] == null ? null : json["time"],
-    timezoneOffset: json["timezoneOffset"] == null ? null : json["timezoneOffset"],
-    year: json["year"] == null ? null : json["year"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "date": date == null ? null : date,
-    "day": day == null ? null : day,
-    "hours": hours == null ? null : hours,
-    "minutes": minutes == null ? null : minutes,
-    "month": month == null ? null : month,
-    "seconds": seconds == null ? null : seconds,
-    "time": time == null ? null : time,
-    "timezoneOffset": timezoneOffset == null ? null : timezoneOffset,
-    "year": year == null ? null : year,
   };
 }
 
@@ -203,15 +138,15 @@ class ListSession {
 
   String id;
   String name;
-  ListSessionEndTime startTime;
-  ListSessionEndTime endTime;
+  Time startTime;
+  Time endTime;
   int durationMinus;
 
   ListSession copyWith({
     String id,
     String name,
-    ListSessionEndTime startTime,
-    ListSessionEndTime endTime,
+    Time startTime,
+    Time endTime,
     int durationMinus,
   }) =>
       ListSession(
@@ -225,8 +160,8 @@ class ListSession {
   factory ListSession.fromJson(Map<String, dynamic> json) => ListSession(
     id: json["id"] == null ? null : json["id"],
     name: json["name"] == null ? null : json["name"],
-    startTime: json["startTime"] == null ? null : ListSessionEndTime.fromJson(json["startTime"]),
-    endTime: json["endTime"] == null ? null : ListSessionEndTime.fromJson(json["endTime"]),
+    startTime: json["startTime"] == null ? null : Time.fromJson(json["startTime"]),
+    endTime: json["endTime"] == null ? null : Time.fromJson(json["endTime"]),
     durationMinus: json["durationMinus"] == null ? null : json["durationMinus"],
   );
 
@@ -239,8 +174,8 @@ class ListSession {
   };
 }
 
-class ListSessionEndTime {
-  ListSessionEndTime({
+class Time {
+  Time({
     this.hours,
     this.minutes,
     this.seconds,
@@ -250,18 +185,18 @@ class ListSessionEndTime {
   int minutes;
   int seconds;
 
-  ListSessionEndTime copyWith({
+  Time copyWith({
     int hours,
     int minutes,
     int seconds,
   }) =>
-      ListSessionEndTime(
+      Time(
         hours: hours ?? this.hours,
         minutes: minutes ?? this.minutes,
         seconds: seconds ?? this.seconds,
       );
 
-  factory ListSessionEndTime.fromJson(Map<String, dynamic> json) => ListSessionEndTime(
+  factory Time.fromJson(Map<String, dynamic> json) => Time(
     hours: json["hours"] == null ? null : json["hours"],
     minutes: json["minutes"] == null ? null : json["minutes"],
     seconds: json["seconds"] == null ? null : json["seconds"],

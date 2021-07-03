@@ -67,20 +67,20 @@ class Appclient {
     }
   }
 
-  Future<List<CalendarModel>> getCalendarList() async {
-    Map<String, dynamic> data = {};
-    final result = await EventRouter(EventEndpoint.getEvents, data: data).call;
-
-    if (result?.statusCode == 200) {
-      List<CalendarModel> list = [];
-      result.data.forEach((e) {
-        list.add(CalendarModel.fromJson(e));
-      });
-      return list;
-    } else {
-      return null;
-    }
-  }
+  // Future<List<ScheduleModel>> getCalendarList() async {
+  //   Map<String, dynamic> data = {};
+  //   final result = await EventRouter(EventEndpoint.getEvents, data: data).call;
+  //
+  //   if (result?.statusCode == 200) {
+  //     List<ScheduleModel> list = [];
+  //     result.data.forEach((e) {
+  //       list.add(ScheduleModel.fromJson(e));
+  //     });
+  //     return list;
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   Future<AlertModel> getAlertRegister() async {
     final result = await SubjectRouter(SubjectEndpoint.getAlertRegister).call;
