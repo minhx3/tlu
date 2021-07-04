@@ -160,7 +160,7 @@ class AuthView extends GetView<AuthController> {
                       ),
                     ),
                     KeyboardAware(builder: (c, s) {
-                      print(s.keyboardHeight);
+                      print("Keboard height: ${s.keyboardHeight.toString()}");
 
                       return s.isKeyboardOpen == true
                           ? SizedBox()

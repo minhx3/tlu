@@ -14,16 +14,17 @@ abstract class ForgotStatus {
 }
 
 class AuthController extends AppController {
-  //TODO: Implement AuthController
   final rxForgotPassword = false.obs;
   final tabIndex = 0.obs;
   final forgotStatus = ForgotStatus.requestOTP.obs;
+  final rxErrMessage = "".obs;
+  final rxUserNameValidate = "".obs;
+  final rxPasswordValidate = "".obs;
+
   final TextEditingController usernameTextEdit =
       TextEditingController(text: "A00374");
   final TextEditingController passwordTextEdit =
       TextEditingController(text: "02011900");
-
-  final rxErrUserNamePassword = "".obs;
 
   @override
   void onInit() {
@@ -37,50 +38,47 @@ class AuthController extends AppController {
 
   @override
   void onClose() {}
+
   void setTab(int index) {
     // usernameTextEdit?.clear();
     // passwordTextEdit?.clear();
-    rxErrUserNamePassword("");
+    rxErrMessage("");
+    rxUserNameValidate("");
+    rxPasswordValidate("");
     tabIndex(index);
   }
 
   void setForgotStatus(int value) => forgotStatus(value);
 
   loginUser() async {
-    bool isCheckUserPassword =
-        usernameTextEdit.text.isEmpty && passwordTextEdit.text.isEmpty;
+    rxUserNameValidate(
+        usernameTextEdit.text.isEmpty ? "Vui lòng nhập tài khoản" : "");
+    rxPasswordValidate(
+        passwordTextEdit.text.isEmpty ? "Vui lòng nhập mật khẩu" : "");
 
-    rxErrUserNamePassword(isCheckUserPassword == true
-        ? "Vui lòng nhập tài khoản, mật khẩu đăng nhập"
-        : "");
-    if (isCheckUserPassword == false) {
-      bool isCheckUser = usernameTextEdit.text.isEmpty;
-      rxErrUserNamePassword(
-          isCheckUser == true ? "Vui lòng nhập tài khoản" : "");
+    if (usernameTextEdit.text.isEmpty || passwordTextEdit.text.isEmpty) {
+      rxErrMessage("");
+      return;
+    }
 
-      bool isCheckPassword = passwordTextEdit.text.isEmpty;
-      rxErrUserNamePassword(
-          isCheckPassword == true ? "Vui lòng nhập mật khẩu" : "");
-      final userType = tabIndex() == 0 ? Constant.student : Constant.teacher;
-      if (rxErrUserNamePassword().isEmpty) {
-        showLoadingGlobal();
-        final result = await Appclient.shared.loginUser(
+    final userType = tabIndex() == 0 ? Constant.student : Constant.teacher;
+    showLoadingGlobal();
+    final result = await Appclient.shared
+        .loginUser(
             username: usernameTextEdit.text,
             password: passwordTextEdit.text,
-            type: userType);
-        if (result != null) {
-          2.delay(() {
-            hideLoadingGlobal();
-          });
-          print(result.accessToken);
-          Storage.setAccessToken(result.accessToken);
-          Storage.setUserType(userType);
-          rxErrUserNamePassword("");
-          pushReplaceAllTo(Routes.INDEX);
-        } else {
-          rxErrUserNamePassword("Tài khoản/ mật khẩu không đúng");
-        }
-      }
+            type: userType)
+        .whenComplete(() {
+      hideLoadingGlobal();
+    });
+    if (result != null) {
+      print(result.accessToken);
+      Storage.setAccessToken(result.accessToken);
+      Storage.setUserType(userType);
+      rxErrMessage("");
+      pushReplaceAllTo(Routes.INDEX);
+    } else {
+      rxErrMessage("Tài khoản/ mật khẩu không đúng");
     }
   }
 }
