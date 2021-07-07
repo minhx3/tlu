@@ -13,6 +13,12 @@ abstract class ForgotStatus {
   static const createNewPassword = 2;
 }
 
+class UserCredential {
+  static const requestOTP = 0;
+  static const verifyOTP = 1;
+  static const createNewPassword = 2;
+}
+
 class AuthController extends AppController {
   final rxForgotPassword = false.obs;
   final tabIndex = 0.obs;

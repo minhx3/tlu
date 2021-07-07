@@ -229,7 +229,7 @@ class EducationView extends GetView<EducationController> {
                                 AppColor.whiteColor.withOpacity(0.15),
                             valueColor:
                                 AlwaysStoppedAnimation<Color>(AppColor.cfc2626),
-                            value: value,
+                            value: (value.isNaN) ? 0 : value,
                           ),
                         )),
                   )

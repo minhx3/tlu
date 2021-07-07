@@ -13,4 +13,6 @@ class TabImages {
   static const String tabHomeS = 'assets/images/tabs/tabHomeS.png';
   static const String tabSchedule = 'assets/images/tabs/tabSchedule.png';
   static const String tabScheduleS = 'assets/images/tabs/tabScheduleS.png';
+  static const String tabProfile = 'assets/images/tabs/tabProfile.png';
+  static const String tabProfileS = 'assets/images/tabs/tabProfileS.png';
 }
