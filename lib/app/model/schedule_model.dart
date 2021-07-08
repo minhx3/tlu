@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 List<ScheduleModel> scheduleModelFromJson(String str) =>
     List<ScheduleModel>.from(
         json.decode(str).map((x) => ScheduleModel.fromJson(x)));
@@ -147,6 +149,23 @@ class ScheduleModel {
     List<String> ids =
         this.listSession.map((e) => e.id.replaceAll('ses', '')).toList();
     return '(Ca ${ids.join('-')})';
+  }
+
+  String get getTime {
+    DateTime startDate =
+        DateTime.fromMicrosecondsSinceEpoch(this.startTime).toLocal();
+    DateTime endDate =
+        DateTime.fromMicrosecondsSinceEpoch(this.endTime).toLocal();
+
+    String startTime = DateFormat('hh#mm').format(startDate);
+    String endTime = DateFormat('hh#mm').format(endDate);
+    // 10h00 - 10h50 - 16/04/2021
+    String time = '$startTime - $endTime';
+    return time.replaceAll('#', 'h');
+  }
+
+  String get getTimeWithDate{
+    return '${this.getTime}, ${this.day}';
   }
 }
 

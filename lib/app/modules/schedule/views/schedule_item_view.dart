@@ -18,7 +18,7 @@ class ScheduleItemView extends GetView {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        pushTo(Routes.TASK);
+        pushTo(Routes.TASK, arguments: item);
       },
       child: Column(
         children: [
@@ -71,13 +71,15 @@ class ScheduleItemView extends GetView {
                       Expanded(
                         child: SizedBox(),
                       ),
-                      GestureDetector(
-                          child: Image.asset(
-                            Images.iconStar,
-                            width: 18,
-                            color: item.favourite ? Colors.amber : null,
-                          ),
-                          onTap: () {})
+                      item.favourite
+                          ? GestureDetector(
+                              child: Image.asset(
+                                Images.iconStar,
+                                width: 18,
+                                color: Colors.amber,
+                              ),
+                              onTap: () {})
+                          : SizedBox.shrink()
                     ],
                   ),
                 ),
