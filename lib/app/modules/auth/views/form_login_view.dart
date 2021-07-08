@@ -32,7 +32,6 @@ class FormLoginView extends GetView<AuthController> {
                     ? LocaleKeys.auth_student_label.tr
                     : LocaleKeys.auth_teacher_label.tr,
                 controller: controller.usernameTextEdit,
-                keyboardType: TextInputType.phone,
                 hintText: controller.tabIndex() == 0
                     ? LocaleKeys.auth_student_hint.tr
                     : LocaleKeys.auth_teacher_hint.tr,

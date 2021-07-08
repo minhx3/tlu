@@ -7,11 +7,13 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/schedule_model.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
+import 'package:thanglong_university/app/configuration/extension/string.dart';
 
 class ScheduleItemView extends GetView {
   final ScheduleModel item;
 
   ScheduleItemView(this.item);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -32,7 +34,7 @@ class ScheduleItemView extends GetView {
                   padding: EdgeInsets.all(8),
                 ),
                 Text(
-                  "${item.startTime.hours}:${item.startTime.minutes} - ${item.endTime.hours}:${item.endTime.minutes}",
+                  "${item.getTime} ${item.getSession}",
                   style: fontInter(14,
                       color: Colors.red, fontWeight: FontWeight.w600),
                 )
@@ -60,7 +62,7 @@ class ScheduleItemView extends GetView {
                     children: [
                       blockView(
                         "Mã lớp:",
-                        "TMQUOCTE1.1",
+                        item.subjectClassId ?? '',
                       ),
                       SizedBox(
                         width: 20,
@@ -73,6 +75,7 @@ class ScheduleItemView extends GetView {
                           child: Image.asset(
                             Images.iconStar,
                             width: 18,
+                            color: item.favourite ? Colors.amber : null,
                           ),
                           onTap: () {})
                     ],
@@ -112,7 +115,7 @@ class ScheduleItemView extends GetView {
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                 alignment: Alignment.center,
                 child: Text(
-                  "${item?.subjectClassId ?? ""}",
+                  "${item?.subjectId ?? ""}",
                   style: fontInter(10,
                       fontWeight: FontWeight.w600, color: AppColor.whiteColor),
                   maxLines: 2,
