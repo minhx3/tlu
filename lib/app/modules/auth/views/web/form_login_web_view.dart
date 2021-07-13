@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../../generated/locales.g.dart';
-import '../../../configuration/constant/color.dart';
-import '../../../configuration/constant/font_style.dart';
-import '../../../configuration/constant/global.dart';
-import '../../../routes/app_pages.dart';
-import '../../../views/views/button_view.dart';
-import '../../../views/views/link_view.dart';
-import '../../../views/views/textfield_view.dart';
-import '../controllers/auth_controller.dart';
+import 'package:thanglong_university/app/configuration/constant/color.dart';
+import 'package:thanglong_university/app/configuration/constant/font_style.dart';
+import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/modules/auth/controllers/auth_controller.dart';
+import 'package:thanglong_university/app/modules/auth/views/mobile/form_login_mobile_view.dart';
+import 'package:thanglong_university/app/routes/app_pages.dart';
+import 'package:thanglong_university/app/views/views/button_view.dart';
+import 'package:thanglong_university/app/views/views/link_view.dart';
+import 'package:thanglong_university/app/views/views/textfield_view.dart';
+import 'package:thanglong_university/generated/locales.g.dart';
 
 class FormLoginWebView extends GetView<AuthController> {
   @override
@@ -32,9 +32,7 @@ class FormLoginWebView extends GetView<AuthController> {
             height: 96,
             alignment: Alignment.centerLeft,
             child: Text(
-              controller.rxForgotPassword() == true
-                  ? LocaleKeys.auth_forgot_button.tr
-                  : LocaleKeys.auth_login_title.tr,
+              LocaleKeys.auth_login_title.tr,
               style: fontInter(30,
                   fontWeight: FontWeight.w600, color: AppColor.c000333),
             ),
@@ -42,40 +40,18 @@ class FormLoginWebView extends GetView<AuthController> {
                 border: Border(
                     bottom: BorderSide(width: 0.5, color: AppColor.c8c8c8c))),
           ),
-          TextFieldView(
-            label: controller.tabIndex() == 0
-                ? LocaleKeys.auth_student_label.tr
-                : LocaleKeys.auth_teacher_label.tr,
-            hintText: controller.tabIndex() == 0
-                ? LocaleKeys.auth_student_hint.tr
-                : LocaleKeys.auth_teacher_hint.tr,
-            verticalSpacing: 20,
-          ),
-          TextFieldView(
-            label: LocaleKeys.auth_password_label.tr,
-            hintText: LocaleKeys.auth_password_hint.tr,
-            obscureText: true,
-            verticalSpacing: 20,
-          ),
-          ButtonView(
-            verticalSpacing: 30,
-            title: LocaleKeys.auth_login_button.tr,
-            onTap: () {
-              pushReplaceAllTo(Routes.INDEX);
-            },
-          ),
+          SizedBox(height: 20),
+          FormLoginMobileView(),
           Expanded(child: SizedBox()),
           SizedBox(
             height: 50,
             child: Row(
               children: [
                 LinkView(
-                  controller.rxForgotPassword() == true
-                      ? LocaleKeys.auth_login_button.tr
-                      : LocaleKeys.auth_forgot_button.tr,
+                  LocaleKeys.auth_forgot_button.tr,
                   textColor: AppColor.cb3b3b3,
                   onTap: () {
-                    controller.rxForgotPassword(!controller.rxForgotPassword());
+                    pushTo(Routes.AUTH_FORGOT);
                   },
                 ),
                 Expanded(

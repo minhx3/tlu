@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:thanglong_university/app/modules/auth/bindings/auth_binding.dart';
 import 'package:thanglong_university/app/modules/auth/views/auth_view.dart';
+import 'package:thanglong_university/app/modules/auth/views/web/forgot_web_page.dart';
 import 'package:thanglong_university/app/modules/chat_detail/bindings/chat_detail_binding.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/chat_detail_view.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/bindings/chat_group_info_binding.dart';
@@ -53,6 +54,11 @@ class AppPages {
     GetPage(
       name: _Paths.AUTH,
       page: () => AuthView(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTH_FORGOT,
+      page: () => ForgotWebPage(),
       binding: AuthBinding(),
     ),
     GetPage(

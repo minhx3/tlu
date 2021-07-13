@@ -20,7 +20,7 @@ class BaseModel {
     if (code == 200) {
       data = json;
     } else {
-      errorCode = int.parse(json['errorCode']);
+      errorCode = json['errors'][0]['errorCode'];
       errorSource = json['errors'][0]['errorSource'];
       errorReason = json['errors'][0]['errorReason'];
       error = json['error'];

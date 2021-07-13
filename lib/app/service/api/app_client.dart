@@ -102,9 +102,9 @@ class Appclient {
   }
 
   Future<List<RegisterSubjectEntity>> getSubjectsRegisterById(String id) async {
-    final result =
-        await SubjectRouter(SubjectEndpoint.getSubjectsRegisterById, joinPath: id)
-            .call;
+    final result = await SubjectRouter(SubjectEndpoint.getSubjectsRegisterById,
+            joinPath: id)
+        .call;
 
     if (result?.data is List) {
       return (result.data as List)

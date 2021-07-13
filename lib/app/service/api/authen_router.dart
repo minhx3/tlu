@@ -30,19 +30,15 @@ class AuthenRouter extends BaseRouter {
     Future<Response<dynamic>> response;
     switch (this.endPoint) {
       case AuthenEndpoint.register:
-        // TODO: Handle this case.
         break;
       case AuthenEndpoint.login:
-        // TODO: Handle this case.
         response = client(headers: headerParams).post(path, data: data);
         break;
       case AuthenEndpoint.refreshToken:
-        // TODO: Handle this case.
         response = client().get(path, queryParameters: data);
 
         break;
       case AuthenEndpoint.forgoPassword:
-        // TODO: Handle this case.
         response = client().post(path, data: data);
 
         break;
@@ -51,15 +47,12 @@ class AuthenRouter extends BaseRouter {
 
         break;
       case AuthenEndpoint.updateStudent:
-        // TODO: Handle this case.
         break;
       case AuthenEndpoint.getTeacher:
-        // TODO: Handle this case.
         response = client(headers: headerParams).get(path);
 
         break;
       case AuthenEndpoint.updateTeacher:
-        // TODO: Handle this case.
         break;
     }
 

@@ -12,89 +12,87 @@ import 'package:thanglong_university/generated/locales.g.dart';
 class FormForgotView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
-    return SlideInLeft(
-      child: Obx(() => IndexedStack(
-            index: controller.forgotStatus(),
+    return Obx(
+      () => IndexedStack(
+        index: controller.forgotStatus(),
+        children: [
+          Column(
             children: [
-              Column(
-                children: [
-                  TextFieldView(
-                    label: controller.tabIndex() == 0
-                        ? LocaleKeys.auth_student_label.tr
-                        : LocaleKeys.auth_teacher_label.tr,
-                    hintText: controller.tabIndex() == 0
-                        ? LocaleKeys.auth_student_hint.tr
-                        : LocaleKeys.auth_teacher_hint.tr,
-                    verticalSpacing: 12,
-                  ),
-                  ButtonView(
-                    verticalSpacing: 12,
-                    title: LocaleKeys.auth_send_code_button.tr,
-                    onTap: () {
-                      controller.setForgotStatus(ForgotStatus.verifyOTP);
-                    },
-                  ),
-                ],
+              TextFieldView(
+                label: controller.tabIndex() == 0
+                    ? LocaleKeys.auth_student_label.tr
+                    : LocaleKeys.auth_teacher_label.tr,
+                hintText: controller.tabIndex() == 0
+                    ? LocaleKeys.auth_student_hint.tr
+                    : LocaleKeys.auth_teacher_hint.tr,
+                verticalSpacing: 12,
               ),
-              Column(
-                children: [
-                  TextFieldView(
-                    label: LocaleKeys.auth_otp_label.tr,
-                    hintText: LocaleKeys.auth_otp_label.tr,
-                    verticalSpacing: 12,
-                  ),
-                  ButtonView(
-                    verticalSpacing: 12,
-                    title: LocaleKeys.auth_send_code_button.tr,
-                    onTap: () {
-                      controller
-                          .setForgotStatus(ForgotStatus.createNewPassword);
-                    },
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: 50,
-                    child: LinkView(
-                      LocaleKeys.auth_resend_otp.tr,
-                      textColor: AppColor.c808080,
-                      onTap: () {},
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  TextFieldView(
-                    label: LocaleKeys.auth_new_password_label.tr,
-                    hintText: LocaleKeys.auth_new_password_hint.tr,
-                    verticalSpacing: 12,
-                  ),
-                  TextFieldView(
-                    label: LocaleKeys.auth_re_new_password_label.tr,
-                    hintText: LocaleKeys.auth_re_new_password_hint.tr,
-                    verticalSpacing: 12,
-                  ),
-                  ButtonView(
-                    verticalSpacing: 12,
-                    title: LocaleKeys.auth_change_password_button.tr,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: 50,
-                    child: LinkView(
-                      LocaleKeys.auth_cancel_forgot.tr,
-                      textColor: AppColor.c808080,
-                      onTap: () {
-                        controller
-                            .rxForgotPassword(!controller.rxForgotPassword());
-                        controller.setForgotStatus(ForgotStatus.requestOTP);
-                      },
-                    ),
-                  ),
-                ],
+              ButtonView(
+                verticalSpacing: 12,
+                title: LocaleKeys.auth_send_code_button.tr,
+                onTap: () {
+                  controller.setForgotStatus(ForgotStatus.verifyOTP);
+                },
               ),
             ],
-          )),
+          ),
+          Column(
+            children: [
+              TextFieldView(
+                label: LocaleKeys.auth_otp_label.tr,
+                hintText: LocaleKeys.auth_otp_label.tr,
+                verticalSpacing: 12,
+              ),
+              ButtonView(
+                verticalSpacing: 12,
+                title: LocaleKeys.auth_send_code_button.tr,
+                onTap: () {
+                  controller.setForgotStatus(ForgotStatus.createNewPassword);
+                },
+              ),
+              Container(
+                alignment: Alignment.center,
+                height: 50,
+                child: LinkView(
+                  LocaleKeys.auth_resend_otp.tr,
+                  textColor: AppColor.c808080,
+                  onTap: () {},
+                ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              TextFieldView(
+                label: LocaleKeys.auth_new_password_label.tr,
+                hintText: LocaleKeys.auth_new_password_hint.tr,
+                verticalSpacing: 12,
+              ),
+              TextFieldView(
+                label: LocaleKeys.auth_re_new_password_label.tr,
+                hintText: LocaleKeys.auth_re_new_password_hint.tr,
+                verticalSpacing: 12,
+              ),
+              ButtonView(
+                verticalSpacing: 12,
+                title: LocaleKeys.auth_change_password_button.tr,
+              ),
+              Container(
+                alignment: Alignment.center,
+                height: 50,
+                child: LinkView(
+                  LocaleKeys.auth_cancel_forgot.tr,
+                  textColor: AppColor.c808080,
+                  onTap: () {
+                    controller.rxForgotPassword(!controller.rxForgotPassword());
+                    controller.setForgotStatus(ForgotStatus.requestOTP);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
