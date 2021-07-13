@@ -6,7 +6,9 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/modules/subject_list_term/views/subject_filter_view.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/views/subject_item_view.dart';
+import 'package:thanglong_university/app/modules/transcript/views/transcript_filter_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
@@ -23,10 +25,13 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
           body: Column(
             children: [
               AppBarView(
-                title: "Danh sách Học kì I - Nhóm 1",
+                title: controller.semester?.semsterInfo?.name ?? '',
                 type: AppBarType.white,
                 iconLeading: Images.iconFilter,
                 iconTintColor: AppColor.c808080,
+                onAction: () {
+                  pushTo(Routes.TRANSCRIPT);
+                },
               ),
               Container(
                 height: 40,
@@ -65,13 +70,15 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                       style: fontInter(14,
                           color: AppColor.cbfbfbf, fontWeight: FontWeight.w600),
                     ),
-                    ListView(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.only(top: 10),
-                      physics: NeverScrollableScrollPhysics(),
-                      children:
-                          List.generate(10, (e) => SubjectItemView()).toList(),
-                    )
+                    Obx(() => ListView(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.only(top: 10),
+                        physics: NeverScrollableScrollPhysics(),
+                        children: controller.registerSubjects
+                            .map((element) => SubjectItemView(
+                                  subject: element,
+                                ))
+                            .toList()))
                   ],
                 ),
               ),

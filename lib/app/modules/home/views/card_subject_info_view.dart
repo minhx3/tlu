@@ -16,6 +16,7 @@ class CardSubjectInfoView extends GetView<HomeController> {
   final CardSubjectType cardSubjectType;
 
   CardSubjectInfoView({this.cardSubjectType = CardSubjectType.pending});
+
   @override
   Widget build(BuildContext context) {
     return cardContentView();
@@ -102,7 +103,7 @@ class CardSubjectInfoView extends GetView<HomeController> {
                                   width: 5,
                                 ),
                                 Text(
-                                  "${controller.rxAlert()?.startTime?.getDay()}",
+                                  "${controller.rxAlert()?.getTime} \n${controller.rxAlert()?.getDay}",
                                   style: fontInter(
                                     12,
                                     fontWeight: FontWeight.w600,
@@ -238,7 +239,7 @@ class CardSubjectInfoView extends GetView<HomeController> {
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            "từ ${controller.rxAlert()?.startTime?.getDay()?.replaceAll("\n", " - ")}\nđến ${controller.rxAlert()?.endTime?.getDay()?.replaceAll("\n", " - ")}",
+                            "từ ${controller.rxAlert()?.getDay?.replaceAll("\n", " - ")}\nđến ${controller.rxAlert()?.getDay?.replaceAll("\n", " - ")}",
                             textAlign: TextAlign.center,
                             style: fontInter(12,
                                 fontWeight: FontWeight.w500,

@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 List<ScheduleModel> scheduleModelFromJson(String str) =>
     List<ScheduleModel>.from(
         json.decode(str).map((x) => ScheduleModel.fromJson(x)));
@@ -11,164 +13,244 @@ List<ScheduleModel> scheduleModelFromJson(String str) =>
 String scheduleModelToJson(List<ScheduleModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
+List<String> sessionName = ['ses1', 'ses2', 'ses3', 'ses4'];
+
 class ScheduleModel {
   ScheduleModel({
-    this.startTime,
-    this.endTime,
-    this.recurrent,
     this.address,
     this.content,
+    this.startTime,
+    this.endTime,
     this.day,
-    this.isFavourite,
-    this.isReminder,
-    this.title,
-    this.id,
     this.customerId,
-    this.taskId,
+    this.subjectName,
+    this.favourite,
+    this.isReminder,
     this.note,
     this.subjectClassId,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
+    this.title,
+    this.subjectId,
+    this.taskId,
+    this.listSession,
+    this.recurrent,
     this.teacher,
-    this.startTimeString,
-    this.endTimeString,
-    this.scheduleModelId,
   });
 
-  Time startTime;
-  Time endTime;
-  Recurrent recurrent;
   String address;
   String content;
+  int startTime;
+  int endTime;
   String day;
-  bool isFavourite;
-  bool isReminder;
-  String title;
-  String id;
   String customerId;
-  String taskId;
+  String subjectName;
+  bool favourite;
+  bool isReminder;
   String note;
   String subjectClassId;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int v;
+  String title;
+  String subjectId;
+  String taskId;
+  List<ListSession> listSession;
+  List<Recurrent> recurrent;
   Teacher teacher;
-  DateTime startTimeString;
-  DateTime endTimeString;
-  String scheduleModelId;
+
+  ScheduleModel copyWith({
+    String address,
+    String content,
+    int startTime,
+    int endTime,
+    String day,
+    String customerId,
+    String subjectName,
+    bool favourite,
+    bool isReminder,
+    String note,
+    String subjectClassId,
+    String title,
+    String subjectId,
+    String taskId,
+    List<ListSession> listSession,
+    List<Recurrent> recurrent,
+    Teacher teacher,
+  }) =>
+      ScheduleModel(
+        address: address ?? this.address,
+        content: content ?? this.content,
+        startTime: startTime ?? this.startTime,
+        endTime: endTime ?? this.endTime,
+        day: day ?? this.day,
+        customerId: customerId ?? this.customerId,
+        subjectName: subjectName ?? this.subjectName,
+        favourite: favourite ?? this.favourite,
+        isReminder: isReminder ?? this.isReminder,
+        note: note ?? this.note,
+        subjectClassId: subjectClassId ?? this.subjectClassId,
+        title: title ?? this.title,
+        subjectId: subjectId ?? this.subjectId,
+        taskId: taskId ?? this.taskId,
+        listSession: listSession ?? this.listSession,
+        recurrent: recurrent ?? this.recurrent,
+        teacher: teacher ?? this.teacher,
+      );
 
   factory ScheduleModel.fromJson(Map<String, dynamic> json) => ScheduleModel(
+        address: json["address"] == null ? null : json["address"],
+        content: json["content"] == null ? null : json["content"],
+        startTime: json["startTime"] == null ? null : json["startTime"],
+        endTime: json["endTime"] == null ? null : json["endTime"],
+        day: json["day"] == null ? null : json["day"],
+        customerId: json["customerId"] == null ? null : json["customerId"],
+        subjectName: json["subjectName"] == null ? null : json["subjectName"],
+        favourite: json["favourite"] == null ? null : json["favourite"],
+        isReminder: json["isReminder"] == null ? null : json["isReminder"],
+        note: json["note"] == null ? null : json["note"],
+        subjectClassId:
+            json["subjectClassId"] == null ? null : json["subjectClassId"],
+        title: json["title"] == null ? null : json["title"],
+        subjectId: json["subjectId"] == null ? null : json["subjectId"],
+        taskId: json["taskId"] == null ? null : json["taskId"],
+        listSession: json["listSession"] == null
+            ? null
+            : List<ListSession>.from(
+                json["listSession"].map((x) => ListSession.fromJson(x))),
+        recurrent: json["recurrent"] == null
+            ? null
+            : List<Recurrent>.from(
+                json["recurrent"].map((x) => Recurrent.fromJson(x))),
+        teacher:
+            json["teacher"] == null ? null : Teacher.fromJson(json["teacher"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "address": address == null ? null : address,
+        "content": content == null ? null : content,
+        "startTime": startTime == null ? null : startTime,
+        "endTime": endTime == null ? null : endTime,
+        "day": day == null ? null : day,
+        "customerId": customerId == null ? null : customerId,
+        "subjectName": subjectName == null ? null : subjectName,
+        "favourite": favourite == null ? null : favourite,
+        "isReminder": isReminder == null ? null : isReminder,
+        "note": note == null ? null : note,
+        "subjectClassId": subjectClassId == null ? null : subjectClassId,
+        "title": title == null ? null : title,
+        "subjectId": subjectId == null ? null : subjectId,
+        "taskId": taskId == null ? null : taskId,
+        "listSession": listSession == null
+            ? null
+            : List<dynamic>.from(listSession.map((x) => x.toJson())),
+        "recurrent": recurrent == null
+            ? null
+            : List<dynamic>.from(recurrent.map((x) => x.toJson())),
+        "teacher": teacher == null ? null : teacher.toJson(),
+      };
+
+  String get getSession {
+    List<String> ids =
+        this.listSession.map((e) => e.id.replaceAll('ses', '')).toList();
+    return '(Ca ${ids.join('-')})';
+  }
+
+  String get getTime {
+    DateTime startDate =
+        DateTime.fromMicrosecondsSinceEpoch(this.startTime).toLocal();
+    DateTime endDate =
+        DateTime.fromMicrosecondsSinceEpoch(this.endTime).toLocal();
+
+    String startTime = DateFormat('hh#mm').format(startDate);
+    String endTime = DateFormat('hh#mm').format(endDate);
+    // 10h00 - 10h50 - 16/04/2021
+    String time = '$startTime - $endTime';
+    return time.replaceAll('#', 'h');
+  }
+
+  String get getTimeWithDate{
+    return '${this.getTime}, ${this.day}';
+  }
+}
+
+class ListSession {
+  ListSession({
+    this.id,
+    this.name,
+    this.startTime,
+    this.endTime,
+    this.durationMinus,
+  });
+
+  String id;
+  String name;
+  Time startTime;
+  Time endTime;
+  int durationMinus;
+
+  ListSession copyWith({
+    String id,
+    String name,
+    Time startTime,
+    Time endTime,
+    int durationMinus,
+  }) =>
+      ListSession(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        startTime: startTime ?? this.startTime,
+        endTime: endTime ?? this.endTime,
+        durationMinus: durationMinus ?? this.durationMinus,
+      );
+
+  factory ListSession.fromJson(Map<String, dynamic> json) => ListSession(
+        id: json["id"] == null ? null : json["id"],
+        name: json["name"] == null ? null : json["name"],
         startTime:
             json["startTime"] == null ? null : Time.fromJson(json["startTime"]),
         endTime:
             json["endTime"] == null ? null : Time.fromJson(json["endTime"]),
-        recurrent: json["recurrent"] == null
-            ? null
-            : Recurrent.fromJson(json["recurrent"]),
-        address: json["address"] == null ? null : json["address"],
-        content: json["content"] == null ? null : json["content"],
-        day: json["day"] == null ? null : json["day"],
-        isFavourite: json["isFavourite"] == null ? null : json["isFavourite"],
-        isReminder: json["isReminder"] == null ? null : json["isReminder"],
-        title: json["title"] == null ? null : json["title"],
-        id: json["_id"] == null ? null : json["_id"],
-        customerId: json["customerId"] == null ? null : json["customerId"],
-        taskId: json["taskId"] == null ? null : json["taskId"],
-        note: json["note"] == null ? null : json["note"],
-        subjectClassId:
-            json["subjectClassId"] == null ? null : json["subjectClassId"],
-        createdAt: json["createdAt"] == null
-            ? null
-            : DateTime.parse(json["createdAt"]),
-        updatedAt: json["updatedAt"] == null
-            ? null
-            : DateTime.parse(json["updatedAt"]),
-        v: json["__v"] == null ? null : json["__v"],
-        teacher:
-            json["teacher"] == null ? null : Teacher.fromJson(json["teacher"]),
-        startTimeString: json["startTimeString"] == null
-            ? null
-            : DateTime.parse(json["startTimeString"]),
-        endTimeString: json["endTimeString"] == null
-            ? null
-            : DateTime.parse(json["endTimeString"]),
-        scheduleModelId: json["id"] == null ? null : json["id"],
+        durationMinus:
+            json["durationMinus"] == null ? null : json["durationMinus"],
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
+        "name": name == null ? null : name,
         "startTime": startTime == null ? null : startTime.toJson(),
         "endTime": endTime == null ? null : endTime.toJson(),
-        "recurrent": recurrent == null ? null : recurrent.toJson(),
-        "address": address == null ? null : address,
-        "content": content == null ? null : content,
-        "day": day == null ? null : day,
-        "isFavourite": isFavourite == null ? null : isFavourite,
-        "isReminder": isReminder == null ? null : isReminder,
-        "title": title == null ? null : title,
-        "_id": id == null ? null : id,
-        "customerId": customerId == null ? null : customerId,
-        "taskId": taskId == null ? null : taskId,
-        "note": note == null ? null : note,
-        "subjectClassId": subjectClassId == null ? null : subjectClassId,
-        "createdAt": createdAt == null ? null : createdAt.toIso8601String(),
-        "updatedAt": updatedAt == null ? null : updatedAt.toIso8601String(),
-        "__v": v == null ? null : v,
-        "teacher": teacher == null ? null : teacher.toJson(),
-        "startTimeString":
-            startTimeString == null ? null : startTimeString.toIso8601String(),
-        "endTimeString":
-            endTimeString == null ? null : endTimeString.toIso8601String(),
-        "id": scheduleModelId == null ? null : scheduleModelId,
+        "durationMinus": durationMinus == null ? null : durationMinus,
       };
 }
 
 class Time {
   Time({
-    this.date,
-    this.day,
     this.hours,
     this.minutes,
-    this.month,
     this.seconds,
-    this.time,
-    this.timezoneOffset,
-    this.year,
   });
 
-  int date;
-  int day;
   int hours;
   int minutes;
-  int month;
   int seconds;
-  int time;
-  int timezoneOffset;
-  int year;
+
+  Time copyWith({
+    int hours,
+    int minutes,
+    int seconds,
+  }) =>
+      Time(
+        hours: hours ?? this.hours,
+        minutes: minutes ?? this.minutes,
+        seconds: seconds ?? this.seconds,
+      );
 
   factory Time.fromJson(Map<String, dynamic> json) => Time(
-        date: json["date"] == null ? null : json["date"],
-        day: json["day"] == null ? null : json["day"],
         hours: json["hours"] == null ? null : json["hours"],
         minutes: json["minutes"] == null ? null : json["minutes"],
-        month: json["month"] == null ? null : json["month"],
         seconds: json["seconds"] == null ? null : json["seconds"],
-        time: json["time"] == null ? null : json["time"],
-        timezoneOffset:
-            json["timezoneOffset"] == null ? null : json["timezoneOffset"],
-        year: json["year"] == null ? null : json["year"],
       );
 
   Map<String, dynamic> toJson() => {
-        "date": date == null ? null : date,
-        "day": day == null ? null : day,
         "hours": hours == null ? null : hours,
         "minutes": minutes == null ? null : minutes,
-        "month": month == null ? null : month,
         "seconds": seconds == null ? null : seconds,
-        "time": time == null ? null : time,
-        "timezoneOffset": timezoneOffset == null ? null : timezoneOffset,
-        "year": year == null ? null : year,
       };
 }
 
@@ -182,6 +264,17 @@ class Recurrent {
   int execuday;
   String recurEveryNumber;
   String requenceType;
+
+  Recurrent copyWith({
+    int execuday,
+    String recurEveryNumber,
+    String requenceType,
+  }) =>
+      Recurrent(
+        execuday: execuday ?? this.execuday,
+        recurEveryNumber: recurEveryNumber ?? this.recurEveryNumber,
+        requenceType: requenceType ?? this.requenceType,
+      );
 
   factory Recurrent.fromJson(Map<String, dynamic> json) => Recurrent(
         execuday: json["execuday"] == null ? null : json["execuday"],
@@ -200,95 +293,73 @@ class Recurrent {
 
 class Teacher {
   Teacher({
-    this.userFullName,
     this.avatar,
+    this.degree,
     this.dob,
     this.email,
-    this.mobile,
-    this.degree,
-    this.teachingList,
-    this.id,
-    this.identityId,
-    this.teacherId,
-    this.sex,
-    this.facultyId,
-    this.universityInfo,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
     this.fullName,
+    this.id,
+    this.mobile,
+    this.teachingList,
   });
 
-  UserFullName userFullName;
   String avatar;
-  String dob;
-  String email;
-  String mobile;
   String degree;
-  List<TeachingList> teachingList;
-  String id;
-  int identityId;
-  String teacherId;
-  String sex;
-  String facultyId;
-  UniversityInfo universityInfo;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int v;
+  DateTime dob;
+  String email;
   String fullName;
+  String id;
+  String mobile;
+  List<TeachingList> teachingList;
+
+  Teacher copyWith({
+    String avatar,
+    String degree,
+    DateTime dob,
+    String email,
+    String fullName,
+    String id,
+    String mobile,
+    List<TeachingList> teachingList,
+  }) =>
+      Teacher(
+        avatar: avatar ?? this.avatar,
+        degree: degree ?? this.degree,
+        dob: dob ?? this.dob,
+        email: email ?? this.email,
+        fullName: fullName ?? this.fullName,
+        id: id ?? this.id,
+        mobile: mobile ?? this.mobile,
+        teachingList: teachingList ?? this.teachingList,
+      );
 
   factory Teacher.fromJson(Map<String, dynamic> json) => Teacher(
-        userFullName: json["userFullName"] == null
-            ? null
-            : UserFullName.fromJson(json["userFullName"]),
         avatar: json["avatar"] == null ? null : json["avatar"],
-        dob: json["dob"] == null ? null : json["dob"],
-        email: json["email"] == null ? null : json["email"],
-        mobile: json["mobile"] == null ? null : json["mobile"],
         degree: json["degree"] == null ? null : json["degree"],
+        dob: json["dob"] == null ? null : DateTime.parse(json["dob"]),
+        email: json["email"] == null ? null : json["email"],
+        fullName: json["fullName"] == null ? null : json["fullName"],
+        id: json["id"] == null ? null : json["id"],
+        mobile: json["mobile"] == null ? null : json["mobile"],
         teachingList: json["teachingList"] == null
             ? null
             : List<TeachingList>.from(
                 json["teachingList"].map((x) => TeachingList.fromJson(x))),
-        id: json["_id"] == null ? null : json["_id"],
-        identityId: json["identityId"] == null ? null : json["identityId"],
-        teacherId: json["id"] == null ? null : json["id"],
-        sex: json["sex"] == null ? null : json["sex"],
-        facultyId: json["facultyId"] == null ? null : json["facultyId"],
-        universityInfo: json["universityInfo"] == null
-            ? null
-            : UniversityInfo.fromJson(json["universityInfo"]),
-        createdAt: json["createdAt"] == null
-            ? null
-            : DateTime.parse(json["createdAt"]),
-        updatedAt: json["updatedAt"] == null
-            ? null
-            : DateTime.parse(json["updatedAt"]),
-        v: json["__v"] == null ? null : json["__v"],
-        fullName: json["fullName"] == null ? null : json["fullName"],
       );
 
   Map<String, dynamic> toJson() => {
-        "userFullName": userFullName == null ? null : userFullName.toJson(),
         "avatar": avatar == null ? null : avatar,
-        "dob": dob == null ? null : dob,
-        "email": email == null ? null : email,
-        "mobile": mobile == null ? null : mobile,
         "degree": degree == null ? null : degree,
+        "dob": dob == null
+            ? null
+            : "${dob.year.toString().padLeft(4, '0')}-${dob.month.toString().padLeft(2, '0')}-${dob.day.toString().padLeft(2, '0')}",
+        "email": email == null ? null : email,
+        "fullName": fullName == null ? null : fullName,
+        "id": id == null ? null : id,
+        "mobile": mobile == null ? null : mobile,
         "teachingList": teachingList == null
             ? null
             : List<dynamic>.from(teachingList.map((x) => x.toJson())),
-        "_id": id == null ? null : id,
-        "identityId": identityId == null ? null : identityId,
-        "id": teacherId == null ? null : teacherId,
-        "sex": sex == null ? null : sex,
-        "facultyId": facultyId == null ? null : facultyId,
-        "universityInfo":
-            universityInfo == null ? null : universityInfo.toJson(),
-        "createdAt": createdAt == null ? null : createdAt.toIso8601String(),
-        "updatedAt": updatedAt == null ? null : updatedAt.toIso8601String(),
-        "__v": v == null ? null : v,
-        "fullName": fullName == null ? null : fullName,
       };
 }
 
@@ -296,133 +367,57 @@ class TeachingList {
   TeachingList({
     this.credits,
     this.description,
-    this.name,
-    this.porpose,
     this.factor,
     this.id,
-    this.teachingListId,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
+    this.name,
+    this.porpose,
     this.type,
   });
 
   int credits;
   String description;
+  double factor;
+  String id;
   String name;
   String porpose;
-  int factor;
-  String id;
-  String teachingListId;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int v;
   String type;
+
+  TeachingList copyWith({
+    int credits,
+    String description,
+    double factor,
+    String id,
+    String name,
+    String porpose,
+    String type,
+  }) =>
+      TeachingList(
+        credits: credits ?? this.credits,
+        description: description ?? this.description,
+        factor: factor ?? this.factor,
+        id: id ?? this.id,
+        name: name ?? this.name,
+        porpose: porpose ?? this.porpose,
+        type: type ?? this.type,
+      );
 
   factory TeachingList.fromJson(Map<String, dynamic> json) => TeachingList(
         credits: json["credits"] == null ? null : json["credits"],
         description: json["description"] == null ? null : json["description"],
+        factor: json["factor"] == null ? null : json["factor"].toDouble(),
+        id: json["id"] == null ? null : json["id"],
         name: json["name"] == null ? null : json["name"],
         porpose: json["porpose"] == null ? null : json["porpose"],
-        factor: json["factor"] == null ? null : json["factor"],
-        id: json["_id"] == null ? null : json["_id"],
-        teachingListId: json["id"] == null ? null : json["id"],
-        createdAt: json["createdAt"] == null
-            ? null
-            : DateTime.parse(json["createdAt"]),
-        updatedAt: json["updatedAt"] == null
-            ? null
-            : DateTime.parse(json["updatedAt"]),
-        v: json["__v"] == null ? null : json["__v"],
         type: json["type"] == null ? null : json["type"],
       );
 
   Map<String, dynamic> toJson() => {
         "credits": credits == null ? null : credits,
         "description": description == null ? null : description,
+        "factor": factor == null ? null : factor,
+        "id": id == null ? null : id,
         "name": name == null ? null : name,
         "porpose": porpose == null ? null : porpose,
-        "factor": factor == null ? null : factor,
-        "_id": id == null ? null : id,
-        "id": teachingListId == null ? null : teachingListId,
-        "createdAt": createdAt == null ? null : createdAt.toIso8601String(),
-        "updatedAt": updatedAt == null ? null : updatedAt.toIso8601String(),
-        "__v": v == null ? null : v,
         "type": type == null ? null : type,
-      };
-}
-
-class UniversityInfo {
-  UniversityInfo({
-    this.address,
-    this.code,
-    this.dateOfEstablishment,
-    this.fullName,
-    this.id,
-    this.universityInfoId,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
-  });
-
-  String address;
-  String code;
-  String dateOfEstablishment;
-  String fullName;
-  String id;
-  String universityInfoId;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int v;
-
-  factory UniversityInfo.fromJson(Map<String, dynamic> json) => UniversityInfo(
-        address: json["address"] == null ? null : json["address"],
-        code: json["code"] == null ? null : json["code"],
-        dateOfEstablishment: json["dateOfEstablishment"] == null
-            ? null
-            : json["dateOfEstablishment"],
-        fullName: json["fullName"] == null ? null : json["fullName"],
-        id: json["_id"] == null ? null : json["_id"],
-        universityInfoId: json["id"] == null ? null : json["id"],
-        createdAt: json["createdAt"] == null
-            ? null
-            : DateTime.parse(json["createdAt"]),
-        updatedAt: json["updatedAt"] == null
-            ? null
-            : DateTime.parse(json["updatedAt"]),
-        v: json["__v"] == null ? null : json["__v"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "address": address == null ? null : address,
-        "code": code == null ? null : code,
-        "dateOfEstablishment":
-            dateOfEstablishment == null ? null : dateOfEstablishment,
-        "fullName": fullName == null ? null : fullName,
-        "_id": id == null ? null : id,
-        "id": universityInfoId == null ? null : universityInfoId,
-        "createdAt": createdAt == null ? null : createdAt.toIso8601String(),
-        "updatedAt": updatedAt == null ? null : updatedAt.toIso8601String(),
-        "__v": v == null ? null : v,
-      };
-}
-
-class UserFullName {
-  UserFullName({
-    this.firstName,
-    this.lastName,
-  });
-
-  String firstName;
-  String lastName;
-
-  factory UserFullName.fromJson(Map<String, dynamic> json) => UserFullName(
-        firstName: json["firstName"] == null ? null : json["firstName"],
-        lastName: json["lastName"] == null ? null : json["lastName"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "firstName": firstName == null ? null : firstName,
-        "lastName": lastName == null ? null : lastName,
       };
 }

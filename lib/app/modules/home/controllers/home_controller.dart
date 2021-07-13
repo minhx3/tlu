@@ -1,15 +1,13 @@
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/base/app_controller.dart';
-import 'package:thanglong_university/app/configuration/constant/global.dart';
-import 'package:thanglong_university/app/model/alert_model.dart';
-import 'package:thanglong_university/app/model/calendar_model.dart';
 import 'package:thanglong_university/app/model/news_model.dart';
-import 'package:thanglong_university/app/model/subject_model.dart';
+import 'package:thanglong_university/app/model/register_entity.dart';
+import 'package:thanglong_university/app/model/schedule_model.dart';
 import 'package:thanglong_university/app/modules/home/model/menu_item.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
-import 'package:thanglong_university/app/utils/otp_countdown.dart';
 
 class HomeController extends AppController {
   //TODO: Implement HomeController
@@ -18,9 +16,9 @@ class HomeController extends AppController {
   final rxCardIndex = 0.obs;
   SwiperController swiperController = SwiperController();
   final rxMenuList = RxList<MenuHomeItem>();
-  final rxCalendarList = RxList<CalendarModel>();
+  final rxCalendarList = RxList<ScheduleModel>();
   final rxNewsList = RxList<NewsModel>();
-  final rxAlert = Rx<AlertModel>();
+  final rxAlert = Rx<RegisterEntity>();
 
   @override
   void onInit() {
@@ -38,9 +36,28 @@ class HomeController extends AppController {
   }
 
   getCalendarList() async {
-    final result = await Appclient.shared.getCalendarList();
+    DateTime currentDate = DateTime.now();
+
+    final dateFormat = DateFormat("dd/MM/yyyy");
+    
+    String fromDate = dateFormat.format(currentDate);
+    String toDate = dateFormat.format(currentDate.add(const Duration(days: 7)));
+
+    final result = await Appclient.shared
+        .getScheduleList(fromDate: fromDate, toDate: toDate);
+    
     rxCalendarList(result ?? []);
   }
+
+  DateTime getFirstDateOfTheWeek(DateTime dateTime) {
+    return dateTime.subtract(Duration(days: dateTime.weekday - 1));
+  }
+
+  DateTime getLastDateOfTheWeek(DateTime dateTime) {
+    return dateTime
+        .add(Duration(days: DateTime.daysPerWeek - dateTime.weekday));
+  }
+
 
   getNewsList() async {
     final result = await Appclient.shared.getNews();
