@@ -8,7 +8,9 @@ enum SubjectEndpoint {
   getSubjectsList,
   getSubjectsRegister,
   registerSubjects,
-  getAlertRegister
+  getAlertRegister,
+  getGroupRegister,
+  getSubjectsRegisterById,
 }
 
 class SubjectRouter extends BaseRouter {
@@ -39,6 +41,11 @@ class SubjectRouter extends BaseRouter {
 
         break;
       case SubjectEndpoint.getAlertRegister:
+      case SubjectEndpoint.getGroupRegister:
+        response = client(headers: headerParams).get(path);
+
+        break;
+      case SubjectEndpoint.getSubjectsRegisterById:
         response = client(headers: headerParams).get(path);
 
         break;
@@ -80,6 +87,14 @@ class SubjectRouter extends BaseRouter {
         break;
       case SubjectEndpoint.getAlertRegister:
         path = "alert-register"; // TODO: Handle this case.
+        break;
+
+      case SubjectEndpoint.getGroupRegister:
+        path = "group-register"; // TODO: Handle this case.
+        break;
+
+      case SubjectEndpoint.getSubjectsRegisterById:
+        path = "register-subject-class/$joinPath"; // TODO: Handle this case.
         break;
     }
     return path;

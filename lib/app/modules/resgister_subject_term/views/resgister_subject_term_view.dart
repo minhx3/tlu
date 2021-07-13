@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/register_entity.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
@@ -32,12 +33,15 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
                       style: fontInter(14,
                           color: AppColor.cbfbfbf, fontWeight: FontWeight.w600),
                     ),
-                    ListView(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      physics: NeverScrollableScrollPhysics(),
-                      children: [viewItem(), viewItem(), viewItem()],
-                    )
+                    Obx(() => ListView(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: controller
+                              .subjects()
+                              .map((element) => viewItem(element))
+                              .toList(),
+                        ))
                   ],
                 ),
               )
@@ -46,10 +50,10 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
     );
   }
 
-  Widget viewItem() {
+  Widget viewItem(RegisterEntity item) {
     return InkWell(
       onTap: () {
-        pushTo(Routes.SUBJECT_LIST_TERM);
+        pushTo(Routes.SUBJECT_LIST_TERM, arguments: item);
       },
       child: Container(
         decoration: boxShadow.copyWith(borderRadius: BorderRadius.circular(3)),
@@ -63,7 +67,7 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
               height: 44,
               margin: EdgeInsets.only(bottom: 10),
               child: Text(
-                "Học kì 1 - Nhóm I ",
+                item?.semsterInfo?.name ?? '',
                 style: fontInter(16,
                     color: AppColor.c000333.withOpacity(0.5),
                     fontWeight: FontWeight.w600),
@@ -82,7 +86,7 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  "08:00 15/07/2021 - 09:00 17/07/2021",
+                  item.getRegisterTime,
                   style: fontInter(14,
                       color: AppColor.c4d4d4d.withOpacity(0.5),
                       fontWeight: FontWeight.w600),

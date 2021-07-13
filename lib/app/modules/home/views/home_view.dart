@@ -35,9 +35,7 @@ class HomeView extends GetView<HomeController> {
                         CardSubjectInfoView(
                           cardSubjectType: controller
                                       .rxAlert()
-                                      ?.startTime
-                                      ?.getIsOpenReigsterTime() ==
-                                  true
+                                      ?.getIsOpenReigsterTime() == true
                               ? CardSubjectType.inprogress
                               : CardSubjectType.pending,
                         ),

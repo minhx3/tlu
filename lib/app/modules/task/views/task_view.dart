@@ -36,12 +36,12 @@ class TaskView extends GetView<TaskController> {
                   TeacherItemView(),
                   documentWidget(),
                   noteWidget(),
-                  ButtonView(
-                    title: "Chi tiết lớp học",
-                    verticalSpacing: 20,
-                    type: ButtonType.outline,
-                    onTap: () {},
-                  )
+                  // ButtonView(
+                  //   title: "Chi tiết lớp học",
+                  //   verticalSpacing: 20,
+                  //   type: ButtonType.outline,
+                  //   onTap: () {},
+                  // )
                 ],
               ),
             )

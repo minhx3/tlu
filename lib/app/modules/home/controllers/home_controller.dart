@@ -1,17 +1,13 @@
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/base/app_controller.dart';
-import 'package:thanglong_university/app/configuration/constant/global.dart';
-import 'package:thanglong_university/app/model/alert_model.dart';
-import 'package:thanglong_university/app/model/calendar_model.dart';
 import 'package:thanglong_university/app/model/news_model.dart';
+import 'package:thanglong_university/app/model/register_entity.dart';
 import 'package:thanglong_university/app/model/schedule_model.dart';
-import 'package:thanglong_university/app/model/subject_model.dart';
 import 'package:thanglong_university/app/modules/home/model/menu_item.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
-import 'package:thanglong_university/app/utils/otp_countdown.dart';
-import 'package:intl/intl.dart';
 
 class HomeController extends AppController {
   //TODO: Implement HomeController
@@ -22,7 +18,7 @@ class HomeController extends AppController {
   final rxMenuList = RxList<MenuHomeItem>();
   final rxCalendarList = RxList<ScheduleModel>();
   final rxNewsList = RxList<NewsModel>();
-  final rxAlert = Rx<AlertModel>();
+  final rxAlert = Rx<RegisterEntity>();
 
   @override
   void onInit() {

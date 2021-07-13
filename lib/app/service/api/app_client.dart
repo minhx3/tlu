@@ -1,20 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:thanglong_university/app/model/access_token_model.dart';
-import 'package:thanglong_university/app/model/alert_model.dart';
-import 'package:thanglong_university/app/model/calendar_model.dart';
 import 'package:thanglong_university/app/model/news_model.dart';
 import 'package:thanglong_university/app/model/process_model.dart';
+import 'package:thanglong_university/app/model/register_entity.dart';
+import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/model/schedule_model.dart';
 import 'package:thanglong_university/app/model/subject_model.dart';
 import 'package:thanglong_university/app/model/test_schedule_model.dart';
 import 'package:thanglong_university/app/model/transcript_model.dart';
 import 'package:thanglong_university/app/model/user_model.dart';
 import 'package:thanglong_university/app/service/api/api_client.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:thanglong_university/app/service/api/authen_router.dart';
-import 'package:thanglong_university/app/service/api/event_router.dart';
 import 'package:thanglong_university/app/service/api/news_router.dart';
 import 'package:thanglong_university/app/service/api/schedule_router.dart';
 import 'package:thanglong_university/app/service/api/subject_router.dart';
@@ -82,11 +79,37 @@ class Appclient {
   //   }
   // }
 
-  Future<AlertModel> getAlertRegister() async {
+  Future<RegisterEntity> getAlertRegister() async {
     final result = await SubjectRouter(SubjectEndpoint.getAlertRegister).call;
 
     if (result?.statusCode == 200) {
-      return AlertModel.fromJson(result.data);
+      return RegisterEntity().fromJson(result.data);
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<RegisterEntity>> getGroupRegister() async {
+    final result = await SubjectRouter(SubjectEndpoint.getGroupRegister).call;
+
+    if (result?.data is List) {
+      return (result.data as List)
+          .map((e) => RegisterEntity().fromJson(e))
+          .toList();
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<RegisterSubjectEntity>> getSubjectsRegisterById(String id) async {
+    final result =
+        await SubjectRouter(SubjectEndpoint.getSubjectsRegisterById, joinPath: id)
+            .call;
+
+    if (result?.data is List) {
+      return (result.data as List)
+          .map((e) => RegisterSubjectEntity().fromJson(e))
+          .toList();
     } else {
       return null;
     }
