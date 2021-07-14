@@ -102,9 +102,9 @@ class Appclient {
   }
 
   Future<List<RegisterSubjectEntity>> getSubjectsRegisterById(String id) async {
-    final result =
-        await SubjectRouter(SubjectEndpoint.getSubjectsRegisterById, joinPath: id)
-            .call;
+    final result = await SubjectRouter(SubjectEndpoint.getSubjectsRegisterById,
+            joinPath: id)
+        .call;
 
     if (result?.data is List) {
       return (result.data as List)
@@ -139,6 +139,17 @@ class Appclient {
         list.add(SubjectModel.fromJson(e));
       });
       return list;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<RegisterSubjectEntity>> getSemesterList() async {
+    final result = await SubjectRouter(SubjectEndpoint.getSemesterList).call;
+
+    if (result?.data is List) {
+      return (result?.data as List)
+          .map((e) => RegisterSubjectEntity().fromJson(e));
     } else {
       return null;
     }

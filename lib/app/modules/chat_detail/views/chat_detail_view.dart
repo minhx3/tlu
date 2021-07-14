@@ -12,7 +12,6 @@ import 'package:thanglong_university/app/modules/chat_detail/views/messages/item
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_raw_message_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_reply_message_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
-import 'package:thanglong_university/app/utils/screen/screen.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
 
@@ -25,7 +24,7 @@ class ChatDetailView extends GetView<ChatDetailController> {
       },
       child: Scaffold(
         appBar: _AppBarView(
-          title: 'Thương mại quốc tế',
+          title: 'TT',
         ),
         backgroundColor: AppColor.chatBackground,
         body: SafeArea(
@@ -101,7 +100,7 @@ class _BottomChatView extends GetView<ChatDetailController> {
               children: [
                 Expanded(
                     child: _InputChatView(
-                  controller: controller.inputChatController,
+                  controller: controller.tec,
                 )),
                 IconButton(
                   icon: Image.asset(
@@ -109,7 +108,9 @@ class _BottomChatView extends GetView<ChatDetailController> {
                     width: 20,
                     height: 20,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.sendMessege(context);
+                  },
                 ),
               ],
             ),
@@ -147,10 +148,6 @@ class _CommonAttachmentView extends StatelessWidget {
           ),
           _IconAttachmentView(
             imageAsset: Images.icGallary,
-            onPressed: () {},
-          ),
-          _IconAttachmentView(
-            imageAsset: Images.icVoice,
             onPressed: () {},
           ),
         ],

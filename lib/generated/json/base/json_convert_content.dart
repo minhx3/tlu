@@ -7,6 +7,8 @@ import 'package:thanglong_university/app/model/register_entity.dart';
 import 'package:thanglong_university/generated/json/register_entity_helper.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/generated/json/register_subject_entity_helper.dart';
+import 'package:thanglong_university/app/model/chat_group_entity.dart';
+import 'package:thanglong_university/generated/json/chat_group_entity_helper.dart';
 
 class JsonConvert<T> {
 	T fromJson(Map<String, dynamic> json) {
@@ -56,7 +58,9 @@ class JsonConvert<T> {
 			case RegisterSubjectSemester:
 				return registerSubjectSemesterFromJson(data as RegisterSubjectSemester, json) as T;
 			case RegisterSubjectSubjectId:
-				return registerSubjectSubjectIdFromJson(data as RegisterSubjectSubjectId, json) as T;    }
+				return registerSubjectSubjectIdFromJson(data as RegisterSubjectSubjectId, json) as T;
+			case ChatGroupEntity:
+				return chatGroupEntityFromJson(data as ChatGroupEntity, json) as T;    }
 		return data as T;
 	}
 
@@ -100,6 +104,8 @@ class JsonConvert<T> {
 				return registerSubjectSemesterToJson(data as RegisterSubjectSemester);
 			case RegisterSubjectSubjectId:
 				return registerSubjectSubjectIdToJson(data as RegisterSubjectSubjectId);
+			case ChatGroupEntity:
+				return chatGroupEntityToJson(data as ChatGroupEntity);
 			}
 			return data as T;
 		}
@@ -163,6 +169,9 @@ class JsonConvert<T> {
 		if(type == (RegisterSubjectSubjectId).toString()){
 			return RegisterSubjectSubjectId().fromJson(json);
 		}
+		if(type == (ChatGroupEntity).toString()){
+			return ChatGroupEntity().fromJson(json);
+		}
 
 		return null;
 	}
@@ -225,6 +234,9 @@ class JsonConvert<T> {
 		}
 		if(<RegisterSubjectSubjectId>[] is M){
 			return data.map<RegisterSubjectSubjectId>((e) => RegisterSubjectSubjectId().fromJson(e)).toList() as M;
+		}
+		if(<ChatGroupEntity>[] is M){
+			return data.map<ChatGroupEntity>((e) => ChatGroupEntity().fromJson(e)).toList() as M;
 		}
 
 		throw Exception("not found");

@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import 'package:thanglong_university/app/modules/auth/bindings/auth_binding.dart';
 import 'package:thanglong_university/app/modules/auth/views/auth_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/bindings/chat_detail_binding.dart';
