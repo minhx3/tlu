@@ -8,7 +8,6 @@ import 'package:thanglong_university/app/modules/profile/views/partial/settings_
 import 'package:thanglong_university/app/modules/user_info/views/partial/header_info_student_view.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/header_info_teacher_view.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
-import 'package:thanglong_university/app/utils/screen/screen.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {

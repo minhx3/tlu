@@ -23,7 +23,7 @@ void main()async {
           getPages: AppPages.routes,
           initialBinding: AppBinding(),
           locale: Locale(Constant.defautLocale),
-          defaultTransition: Transition.cupertino,
+          defaultTransition: Transition.native,
           translationsKeys: AppTranslation.translations,
         ))
       : runAutoSizeApp(

@@ -42,7 +42,9 @@ class Appclient {
     data["username"] = username;
     data["password"] = password;
     data["customerType"] = type;
-    final result = await AuthenRouter(AuthenEndpoint.login, data: data).call;
+    final result =
+        await AuthenRouter(AuthenEndpoint.login, data: data, handleError: true)
+            .call;
 
     if (result?.statusCode == 200) {
       return AccessTokenModel.fromJson(result.data);

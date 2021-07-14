@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
+import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/settings/item_setting_base_view.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/settings/item_setting_checkbox_view.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/settings/item_setting_expandable_view.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/settings/item_setting_navigate_view.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/settings/item_setting_switch_view.dart';
+import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/expandable_section_view.dart';
 
 class SettingsStudentSectionView extends StatelessWidget {
@@ -137,7 +139,9 @@ class _ItemLogoutSettingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ItemSettingBaseView(
-      onPressed: () {},
+      onPressed: () {
+        pushReplaceAllTo(Routes.AUTH);
+      },
       title: 'Đăng xuất',
       trailingChild: Image.asset(
         Images.icLogout,

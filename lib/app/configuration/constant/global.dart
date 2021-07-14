@@ -59,16 +59,17 @@ centerloading({double size = 35, Color backgroundColor, Color activeColor}) =>
       ),
     ));
 
-showErrorMessage({String title, String message}) => Get.snackbar(
-      title ?? null,
-      message ?? "",
-      isDismissible: true,
-      overlayColor: Colors.white,
-      borderRadius: 10,
-      colorText: Colors.white,
-      animationDuration: Duration(milliseconds: 300),
-      backgroundColor: AppColor.errorColor,
-    );
+showErrorMessage({String title, String message, int duration = 3}) =>
+    Get.snackbar(title ?? null, message ?? "",
+        isDismissible: true,
+        overlayColor: Colors.white,
+        borderRadius: 8,
+        colorText: Colors.white,
+        animationDuration: Duration(milliseconds: 300),
+        duration: Duration(seconds: duration),
+        backgroundColor: AppColor.errorColor,
+        snackPosition: SnackPosition.BOTTOM,
+        margin: EdgeInsets.all(10));
 
 showMessage({String title, String message, Duration duration}) => Get.snackbar(
       title ?? null,

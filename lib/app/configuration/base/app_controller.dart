@@ -4,7 +4,6 @@ import 'package:thanglong_university/app/configuration/constant/view_state.dart'
 import 'package:thanglong_university/app/service/storage/storage.dart';
 
 class AppController extends GetxController {
-  //TODO: Implement LoginController
   final rxViewState = ViewState.idle.obs;
   viewWith(ViewState viewState) => rxViewState(viewState);
 

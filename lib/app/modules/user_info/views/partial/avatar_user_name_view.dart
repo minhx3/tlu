@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
+import 'package:thanglong_university/app/model/user_model.dart';
 import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/views/views/value_box_view.dart';
 
@@ -14,13 +15,12 @@ class AvatarUserNameView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Row(
+    return Obx(
+      () {
+        UserModel _profile = ProfileController.to.rxUserInfo();
+        return Row(
           children: [
-            CircleAvatar(
-              radius: 35,
-              backgroundColor: AppColor.primaryColor,
-              child: Text('AVT'),
-            ),
+            renderAvatar(_profile),
             SizedBox(
               width: 20,
             ),
@@ -31,14 +31,13 @@ class AvatarUserNameView extends StatelessWidget {
                   Row(
                     children: [
                       ValueBoxView(
-                        text:
-                            "${ProfileController.to.rxUserInfo()?.username ?? ""}",
+                        text: "${_profile?.userModelId ?? ""}",
                       ),
                       Spacer(),
                       Visibility(
                         visible: isAllowEdit == true,
                         child: Image.asset(
-                          Images.icGreySquareEdit,
+                          Images.icEdit,
                           width: 23,
                           height: 23,
                         ),
@@ -46,13 +45,43 @@ class AvatarUserNameView extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "${ProfileController.to.rxUserInfo()?.fullName ?? ""}",
+                    "${_profile?.fullName ?? ""}",
                     style: fontInter(18, fontWeight: FontWeight.w600),
                   )
                 ],
               ),
             ),
           ],
-        ));
+        );
+      },
+    );
+  }
+
+  CircleAvatar renderAvatar([UserModel _profile]) {
+    NetworkImage _backgroundImage;
+    Widget _child = SizedBox();
+
+    if (_profile?.avatar != null && _profile.avatar.isNotEmpty) {
+      _backgroundImage = NetworkImage(_profile.avatar);
+    } else {
+      _child = Text(
+        _profile?.fullName != null
+            ? RegExp(r'\b(\w)')
+                .stringMatch(_profile?.fullName.toString())
+                .toUpperCase()
+            : "",
+        style: TextStyle(
+            color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+      );
+    }
+
+    return CircleAvatar(
+      radius: 35,
+      backgroundColor: AppColor.primaryColor,
+      backgroundImage: _backgroundImage,
+      foregroundImage:
+          _backgroundImage == null ? AssetImage(TabImages.tabProfile) : null,
+      child: _child,
+    );
   }
 }
