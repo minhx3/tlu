@@ -4,11 +4,9 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/modules/auth/controllers/auth_controller.dart';
-import 'package:thanglong_university/app/modules/auth/views/mobile/form_login_mobile_view.dart';
+import 'package:thanglong_university/app/modules/auth/views/form_login_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
-import 'package:thanglong_university/app/views/views/button_view.dart';
 import 'package:thanglong_university/app/views/views/link_view.dart';
-import 'package:thanglong_university/app/views/views/textfield_view.dart';
 import 'package:thanglong_university/generated/locales.g.dart';
 
 class FormLoginWebView extends GetView<AuthController> {
@@ -23,7 +21,7 @@ class FormLoginWebView extends GetView<AuthController> {
         color: AppColor.whiteColor,
       ),
       width: (Get.width - Get.width * 0.65) * 0.7,
-      height: Get.height * 570 / 1080,
+      height: 450,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +39,7 @@ class FormLoginWebView extends GetView<AuthController> {
                     bottom: BorderSide(width: 0.5, color: AppColor.c8c8c8c))),
           ),
           SizedBox(height: 20),
-          FormLoginMobileView(),
+          FormLoginView(),
           Expanded(child: SizedBox()),
           SizedBox(
             height: 50,

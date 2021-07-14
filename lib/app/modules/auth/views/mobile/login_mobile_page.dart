@@ -8,7 +8,7 @@ import 'package:thanglong_university/app/configuration/constant/constant.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/modules/auth/controllers/auth_controller.dart';
 import 'package:thanglong_university/app/modules/auth/views/form_forgot_view.dart';
-import 'package:thanglong_university/app/modules/auth/views/mobile/form_login_mobile_view.dart';
+import 'package:thanglong_university/app/modules/auth/views/form_login_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/link_view.dart';
 import 'package:thanglong_university/generated/locales.g.dart';
@@ -86,7 +86,7 @@ class LoginMobilePage extends GetView<AuthController> {
                                         controller.rxForgotPassword() == true
                                             ? SlideInLeft(
                                                 child: FormForgotView())
-                                            : FormLoginMobileView()
+                                            : FormLoginView()
                                       ],
                                     ),
                                   ),

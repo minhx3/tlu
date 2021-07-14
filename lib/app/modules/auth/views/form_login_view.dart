@@ -10,7 +10,7 @@ import 'package:thanglong_university/app/views/views/textfield_view.dart';
 import 'package:thanglong_university/generated/locales.g.dart';
 import 'package:get/get.dart' as prefix;
 
-class FormLoginMobileView extends GetView<AuthController> {
+class FormLoginView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return SlideInLeft(

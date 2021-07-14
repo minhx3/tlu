@@ -65,8 +65,13 @@ class BaseModel {
       model = BaseModel.fromJson(err.response.data, err.response.statusCode);
       return model;
     }
+    if (err.response?.statusCode == null) {
+      showErrorMessage(message: "Lỗi kết nối.");
+      return null;
+    }
     if (err?.response?.data == null || !(err?.response?.data is Map)) {
       showErrorMessage(message: "Có lỗi xảy ra vui lòng thử lại.");
+      return null;
     }
 
     model = BaseModel.fromJson(err.response.data, err.response.statusCode);

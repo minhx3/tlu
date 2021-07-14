@@ -51,7 +51,10 @@ class LoginWebPageView extends StatelessWidget {
                       width: double.infinity,
                       height: double.infinity,
                     ),
-                    Center(child: FormLoginWebView())
+                    Center(
+                            child: SingleChildScrollView(
+                                child: FormLoginWebView()))
+                        .marginAll(15)
                   ],
                 ),
               )

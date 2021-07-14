@@ -78,7 +78,6 @@ class AuthController extends AppController {
       hideLoadingGlobal();
     });
     if (result != null) {
-      print(result.accessToken);
       Storage.setAccessToken(result.accessToken);
       Storage.setUserType(userType);
       rxErrMessage("");
