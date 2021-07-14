@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/utils/screen/screen.dart';
 
 class MessageContentView extends StatelessWidget {
@@ -17,19 +16,13 @@ class MessageContentView extends StatelessWidget {
     this.isQuoteMessage = false,
   }) : super(key: key);
 
-  bool _isMyMessage() {
-    return isMyMessage == true && isQuoteMessage == false;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(maxWidth: Screen.width * 0.6),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3),
-          color: _isMyMessage() == true
-              ? AppColor.primaryColor
-              : Colors.white.withOpacity(isReply == true ? 0.7 : 1),
+          color: Colors.white.withOpacity(isReply == true ? 0.7 : 1),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withAlpha(5),

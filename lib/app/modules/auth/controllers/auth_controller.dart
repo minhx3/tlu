@@ -37,6 +37,7 @@ class AuthController extends AppController {
 
   @override
   void onClose() {}
+
   void setTab(int index) {
     // usernameTextEdit?.clear();
     // passwordTextEdit?.clear();
@@ -74,6 +75,7 @@ class AuthController extends AppController {
           });
           print(result.accessToken);
           Storage.setAccessToken(result.accessToken);
+          Storage.setUserId(usernameTextEdit.text);
           Storage.setUserType(userType);
           rxErrUserNamePassword("");
           pushReplaceAllTo(Routes.INDEX);

@@ -15,6 +15,7 @@ import 'package:thanglong_university/app/modules/chat_detail/views/messages/item
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_reply_message_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/tile.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
+import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
 
@@ -104,6 +105,7 @@ class BottomChatView extends GetView<ChatDetailController> {
                 Expanded(
                     child: _InputChatView(
                   controller: controller.tec,
+                  focusNode: controller.focusNode,
                 )),
                 IconButton(
                   icon: Image.asset(
@@ -112,7 +114,7 @@ class BottomChatView extends GetView<ChatDetailController> {
                     height: 20,
                   ),
                   onPressed: () {
-                    controller.sendMessege(context);
+                    controller.sendMessage(context);
                   },
                 ),
               ],
@@ -154,10 +156,12 @@ class _CommonAttachmentView extends StatelessWidget {
 
 class _InputChatView extends StatelessWidget {
   final TextEditingController controller;
+  final FocusNode focusNode;
 
   const _InputChatView({
     Key key,
     @required this.controller,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -174,6 +178,7 @@ class _InputChatView extends StatelessWidget {
             child: KeyboardVisibilityBuilder(
               builder: (context, isKeyboardVisible) {
                 return TextField(
+                  focusNode: focusNode,
                   controller: controller,
                   decoration: InputDecoration(
                     fillColor: Colors.transparent,
@@ -213,6 +218,7 @@ class _ContentChatListView extends GetView<ChatDetailController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Container(
+          padding: EdgeInsets.symmetric(horizontal: 12),
           color: AppColor.blockEducationBackground,
           child: ListView.builder(
             controller: controller.scrollController,
@@ -223,7 +229,7 @@ class _ContentChatListView extends GetView<ChatDetailController> {
               final UserModel _user = null;
               String _photoUrl = _user?.photoURL;
               String _userName = _user?.displayName;
-              bool _isMe = data.uidFrom == 'AuthService.to.currentUser.uid';
+              bool _isMe = data.uidFrom == Storage.getUserId();
               return ChatTile(
                 isMe: _isMe,
                 id: data.id,
