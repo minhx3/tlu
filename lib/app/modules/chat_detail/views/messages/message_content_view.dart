@@ -8,6 +8,7 @@ class MessageContentView extends StatelessWidget {
   final bool isMyMessage;
 
   final bool isQuoteMessage;
+
   const MessageContentView({
     Key key,
     @required this.child,

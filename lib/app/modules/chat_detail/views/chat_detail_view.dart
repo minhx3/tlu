@@ -7,10 +7,13 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/chat/chat.dart';
+import 'package:thanglong_university/app/model/chat/user.dart';
 import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_attachment_message_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_raw_message_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_reply_message_view.dart';
+import 'package:thanglong_university/app/modules/chat_detail/views/tile.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
@@ -31,7 +34,7 @@ class ChatDetailView extends GetView<ChatDetailController> {
           child: Column(
             children: [
               Expanded(child: _ContentChatListView()),
-              _BottomChatView()
+              BottomChatView()
             ],
           ),
         ),
@@ -73,7 +76,7 @@ class _AppBarView extends StatelessWidget with PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(60.0);
 }
 
-class _BottomChatView extends GetView<ChatDetailController> {
+class BottomChatView extends GetView<ChatDetailController> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -134,14 +137,7 @@ class _CommonAttachmentView extends StatelessWidget {
         alignment: WrapAlignment.center,
         runAlignment: WrapAlignment.center,
         spacing: 8,
-        //mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //crossAxisAlignment: CrossAxisAlignment.center,
-        //mainAxisSize: MainAxisSize.min,
         children: [
-          _IconAttachmentView(
-            imageAsset: Images.icOtherComponent,
-            onPressed: () {},
-          ),
           _IconAttachmentView(
             imageAsset: Images.icCapture,
             onPressed: () {},
@@ -213,92 +209,33 @@ class _InputChatView extends StatelessWidget {
   }
 }
 
-class _ContentChatListView extends StatelessWidget {
+class _ContentChatListView extends GetView<ChatDetailController> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColor.blockEducationBackground,
-      child: ListView(
-        padding: const EdgeInsets.all(12),
-        children: [
-          ItemRawMessageView(
-            senderName: 'TS. Đàm Thị Phương Thảo',
-            text:
-                '''Chào cả lớp, để phục vụ việc cho điểm thuyết trình, đề nghị tất cả các nhóm gửi bản đánh giá mức độ hoàn thành công việc của thành viên (0-100%) cho cô nhé. Cảm ơn các em!
-Cô Thảo''',
+    return Obx(() => Container(
+          color: AppColor.blockEducationBackground,
+          child: ListView.builder(
+            controller: controller.scrollController,
+            itemCount: controller.list.length,
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int index) {
+              final Chat data = controller.list[index];
+              final UserModel _user = null;
+              String _photoUrl = _user?.photoURL;
+              String _userName = _user?.displayName;
+              bool _isMe = data.uidFrom == 'AuthService.to.currentUser.uid';
+              return ChatTile(
+                isMe: _isMe,
+                id: data.id,
+                imageURL: _photoUrl,
+                message: data.message ?? '',
+                name: _userName ?? '',
+                sent: 'data.dateCreated.convertToString()',
+                type: ChatType.raw,
+              );
+            },
           ),
-          ItemRawMessageView(
-            isMyMessage: true,
-            senderName: '',
-            text: "Vâng ạ.",
-          ),
-          ItemAttachmentMessageView(
-            isMyMessage: false,
-            senderName: 'TS. Đàm Thị Phương Thảo',
-            fileName: 'diem_thuyet_trinh.docx',
-            senderAvatarUrl: null,
-          ),
-          ItemReplyMessageView(
-            isMyMessage: false,
-            originalMessage:
-                '''Chào cả lớp, để phục vụ việc cho điểm thuyết trình, đề nghị tất cả các nhóm gửi bản đánh giá mức độ hoàn thành công việc của thành viên (0-100%) cho cô nhé. Cảm ơn các em!
-Cô Thảo''',
-            senderAvatarUrl: null,
-            text: 'Hả :(',
-            userReply: '18050324 - Trần Huỳnh Đức đã trả lời tin nhắn...',
-          ),
-          ItemReplyMessageView(
-            isMyMessage: true,
-            originalMessage: '''Tệp đính kèm''',
-            senderAvatarUrl: null,
-            text: 'Không tải được a e à :(',
-            userReply: 'Bạn đã trả lời tin nhắn của TS. Đàm Thị Phươnng Thảo',
-          ),
-          ItemRawMessageView(
-            senderName: 'Nguyễn Tiến Lùi',
-            text: "Có ai tải được file không?",
-          ),
-          ItemRawMessageView(
-            senderName: 'Nguyễn Tiến Lùi',
-            text: "App lỗi, không tải được. Vote 1*",
-          ),
-          ItemReplyMessageView(
-            isMyMessage: true,
-            originalMessage: '''App lỗi, không tải được. Vote 1*''',
-            senderAvatarUrl: null,
-            text: 'Không xài thì xoá app đi.',
-            userReply: 'Bạn đã trả lời tin nhắn của Nguyễn Tiến Lùi',
-          ),
-          ItemRawMessageView(
-            senderName: 'Nguyễn Tiến Lùi',
-            text: "Ok bạn ơi",
-          ),
-          ItemRawMessageView(
-            senderName: 'TS. Đàm Thị Phương Thảo',
-            text: "Các em tải lại file nhé.",
-          ),
-          ItemAttachmentMessageView(
-            isMyMessage: false,
-            senderName: 'TS. Đàm Thị Phương Thảo',
-            fileName: 'diem_thuyet_trinh_v2.docx',
-            senderAvatarUrl: null,
-          ),
-          ItemReplyMessageView(
-            originalMessage: '''Các em tải lại file nhé.''',
-            senderAvatarUrl: null,
-            text: 'Vâng ạ :((((',
-            userReply:
-                'Nguyễn Tiến Lùi đã trả lời tin nhắn của TS. Đàm Thị Phương Thảo',
-          ),
-          ItemRawMessageView(
-            isMyMessage: true,
-            senderName: '',
-            text: "Tải được rồi đó a e.",
-          ),
-        ],
-        //itemCount: 20,
-      ),
-    );
+        ));
   }
 }
 
@@ -308,6 +245,7 @@ class _IconAttachmentView extends StatelessWidget {
 
   const _IconAttachmentView({Key key, this.onPressed, this.imageAsset})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return PressableView(

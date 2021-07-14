@@ -9,14 +9,14 @@ class Chat extends BaseModel {
   Timestamp dateCreated;
   String uidFrom;
   String uidTo;
-  String messege;
+  String message;
 
   Chat({
     this.id,
     this.dateCreated,
     this.uidFrom,
     this.uidTo,
-    this.messege,
+    this.message,
   });
 
 //fromDocumentSnapshot
@@ -25,13 +25,13 @@ class Chat extends BaseModel {
     dateCreated = documentSnapshot.data()["dateCreated"];
     uidFrom = documentSnapshot.data()["uidFrom"];
     uidTo = documentSnapshot.data()["uidTo"];
-    messege = documentSnapshot.data()["messege"];
+    message = documentSnapshot.data()["message"];
   }
 
 //toString
   @override
   String toString() {
-    return '''Chat: {dateCreated = ${this.dateCreated},uidFrom = ${this.uidFrom},uidTo = ${this.uidTo},messege = ${this.messege}}''';
+    return '''Chat: {dateCreated = ${this.dateCreated},uidFrom = ${this.uidFrom},uidTo = ${this.uidTo},message = ${this.message}}''';
   }
 
 //fromJson
@@ -39,7 +39,7 @@ class Chat extends BaseModel {
     dateCreated = json['dateCreated'];
     uidFrom = json['uidFrom'];
     uidTo = json['uidTo'];
-    messege = json['messege'];
+    message = json['message'];
   }
 
 //toJson
@@ -48,7 +48,7 @@ class Chat extends BaseModel {
     data['dateCreated'] = this.dateCreated;
     data['uidFrom'] = this.uidFrom;
     data['uidTo'] = this.uidTo;
-    data['messege'] = this.messege;
+    data['message'] = this.message;
     return data;
   }
 }
@@ -81,7 +81,7 @@ class ChatCrud {
       "dateCreated": Timestamp.now(),
       "uidFrom": chat.uidFrom,
       "uidTo": chat.uidTo,
-      "messege": chat.messege,
+      "message": chat.message,
     };
     return _firebase.crud(
       CrudState.add,
@@ -99,7 +99,7 @@ class ChatCrud {
         .update({
           "uidFrom": chat.uidFrom,
           "uidTo": chat.uidTo,
-          "messege": chat.messege,
+          "message": chat.message,
         })
         .then((value) => print('success'))
         .catchError((err) {

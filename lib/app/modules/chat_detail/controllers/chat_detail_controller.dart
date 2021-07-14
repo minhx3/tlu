@@ -47,11 +47,11 @@ class ChatDetailController extends GetxController {
 
   Future<void> sendMessege(BuildContext context) async {
     try {
-      FocusScope.of(context).unfocus();
+      // FocusScope.of(context).unfocus();
       await crud.addchat(
         chat: Chat(
           uidFrom: '_authController.currentUser.uid',
-          messege: tec.text,
+          message: tec.text,
         ),
       );
       tec.clear();
@@ -66,7 +66,7 @@ class ChatDetailController extends GetxController {
           id: 'ERRORID',
           dateCreated: Timestamp.now(),
           uidFrom: '_authController.currentUser.uid',
-          messege: e.toString(),
+          message: e.toString(),
         ),
       );
       _loading(false);
