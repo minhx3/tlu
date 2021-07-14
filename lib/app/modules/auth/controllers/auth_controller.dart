@@ -78,7 +78,9 @@ class AuthController extends AppController {
       hideLoadingGlobal();
     });
     if (result != null) {
+      print(result.accessToken);
       Storage.setAccessToken(result.accessToken);
+      Storage.setUserId(usernameTextEdit.text);
       Storage.setUserType(userType);
       rxErrMessage("");
       pushReplaceAllTo(Routes.INDEX);

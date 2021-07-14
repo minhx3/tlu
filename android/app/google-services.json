@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "395458855277",
+    "project_id": "tlu-dev",
+    "storage_bucket": "tlu-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395458855277:android:6c688359c177a845795a64",
+        "android_client_info": {
+          "package_name": "com.thanglong.university"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395458855277-au1jqbosu6ut903rs28ua7m2hiiiuh70.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoIgT7LCtu__wMEDVizgFWwSDBdYhzWm8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395458855277-au1jqbosu6ut903rs28ua7m2hiiiuh70.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -146,6 +146,17 @@ class Appclient {
     }
   }
 
+  Future<List<RegisterSubjectEntity>> getSemesterList() async {
+    final result = await SubjectRouter(SubjectEndpoint.getSemesterList).call;
+
+    if (result?.data is List) {
+      return (result?.data as List)
+          .map((e) => RegisterSubjectEntity().fromJson(e));
+    } else {
+      return null;
+    }
+  }
+
   Future<List<SubjectModel>> getSubjectList() async {
     final result = await SubjectRouter(SubjectEndpoint.getSubjectsList).call;
 

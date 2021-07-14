@@ -15,9 +15,9 @@ class Storage {
   static String getPrivateKey() => get(Keys.privateKey);
   static String getRefreshToken() => get(Keys.refreshToken);
 
-  static setPhoneNumber(String value) => set(Keys.phoneNumber, value);
-  static getPhoneNumber() => get(Keys.phoneNumber);
-  static setPassword(String value) => set(Keys.password, value);
+  static setPhoneNumber(String value) => set(Keys.userId, value);
+  static String getUserId() => get(Keys.userId);
+  static setUserId(String value) => set(Keys.password, value);
   static getPassword() => get(Keys.password);
 
   static setLanguage(String value) => set(Keys.locale, value);

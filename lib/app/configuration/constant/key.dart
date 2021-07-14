@@ -6,7 +6,7 @@ abstract class Keys {
   static const String refreshToken = "refreshToken";
   static const String faceGesture = "faceGesture";
   static const String privateKey = "privateKey";
-  static const String phoneNumber = "phoneNumber";
+  static const String userId = "userId";
   static const String shopStatus = "shopStatus";
   static const String password = "password";
   static const String startEKYC = "START_EKYC";

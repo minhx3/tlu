@@ -5,6 +5,7 @@ import 'api_client.dart';
 import 'base_model.dart';
 
 enum SubjectEndpoint {
+  getSemesterList,
   getSubjectsList,
   getSubjectsRegister,
   registerSubjects,
@@ -36,6 +37,7 @@ class SubjectRouter extends BaseRouter {
       case SubjectEndpoint.registerSubjects:
         response = client(headers: headerParams).post(path, data: data);
         break;
+      case SubjectEndpoint.getSemesterList:
       case SubjectEndpoint.getSubjectsList:
         response = client(headers: headerParams).get(path);
 
@@ -81,9 +83,11 @@ class SubjectRouter extends BaseRouter {
       case SubjectEndpoint.registerSubjects:
         path = "register-subject-class";
         break;
+      case SubjectEndpoint.getSemesterList:
+        path = "semester";
+        break;
       case SubjectEndpoint.getSubjectsList:
         path = "subject-class";
-
         break;
       case SubjectEndpoint.getAlertRegister:
         path = "alert-register"; // TODO: Handle this case.
