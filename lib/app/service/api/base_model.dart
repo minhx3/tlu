@@ -90,8 +90,8 @@ class BaseModel {
         err.response.statusCode == 502) {
       showErrorMessage(message: model?.errorReason ?? "");
     } else {
-      var data = err.response.data as Map<String, dynamic>;
-      showErrorMessage(message: data["message"]);
+      showErrorMessage(
+          message: model?.errorReason ?? "Có lỗi xảy ra vui lòng thử lại.");
     }
   }
 }
