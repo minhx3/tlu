@@ -6,8 +6,8 @@ import 'package:thanglong_university/app/modules/chat_detail/bindings/chat_detai
 import 'package:thanglong_university/app/modules/chat_detail/views/chat_detail_view.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/bindings/chat_group_info_binding.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/views/chat_group_info_view.dart';
-import 'package:thanglong_university/app/modules/detai_class/bindings/detai_class_binding.dart';
-import 'package:thanglong_university/app/modules/detai_class/views/detai_class_view.dart';
+import 'package:thanglong_university/app/modules/detail_class/bindings/detai_class_binding.dart';
+import 'package:thanglong_university/app/modules/detail_class/views/detai_class_view.dart';
 import 'package:thanglong_university/app/modules/detail_new/bindings/detail_new_binding.dart';
 import 'package:thanglong_university/app/modules/detail_new/views/detail_new_view.dart';
 import 'package:thanglong_university/app/modules/education/bindings/education_binding.dart';
@@ -104,11 +104,10 @@ class AppPages {
       binding: ScheduleBinding(),
     ),
     GetPage(
-      name: _Paths.CHAT_DETAIL,
-      page: () => ChatDetailView(),
-      binding: ChatDetailBinding(),
-      maintainState: true
-    ),
+        name: _Paths.CHAT_DETAIL,
+        page: () => ChatDetailView(),
+        binding: ChatDetailBinding(),
+        maintainState: true),
     GetPage(
       name: _Paths.CHAT_GROUP_INFO,
       page: () => ChatGroupInfoView(),

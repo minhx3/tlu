@@ -35,7 +35,7 @@ abstract class _Paths {
   static const EDUCATION = '/education';
   static const TRANSCRIPT = '/transcript';
   static const TEST_SCHEDULE = '/test-schedule';
-  static const DETAI_CLASS = '/detai-class';
+  static const DETAI_CLASS = '/detail-class';
   static const SCHEDULE = '/schedule';
   static const CHAT = '/chat';
   static const CHAT_DETAIL = '/chat-detail';

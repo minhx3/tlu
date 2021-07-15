@@ -31,7 +31,6 @@ class SubjectRouter extends BaseRouter {
     Future<Response<dynamic>> response;
     switch (this.endPoint) {
       case SubjectEndpoint.getSubjectsRegister:
-        // TODO: Handle this case.
         response = client(headers: headerParams).get(path);
         break;
       case SubjectEndpoint.registerSubjects:
