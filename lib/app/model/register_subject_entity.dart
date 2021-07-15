@@ -24,11 +24,11 @@ class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
   RegisterSubjectSemester semester;
   RegisterSubjectSubjectId subjectId;
 
-  List get getListSubject {
+  List<ChatGroupEntity> get getListSubject {
     return listTeacher
         .map((e) => e.teachingList.map((e1) {
               return ChatGroupEntity(
-                  id: '${id}_${e.id}_${e1.id}', name: e1.name);
+                  id: '${id}_${e.id}_${e1.id}', name: e1.name, sbId: e.id);
             }))
         .expand((e2) => e2)
         .toList();

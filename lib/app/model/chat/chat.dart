@@ -59,8 +59,9 @@ class ChatCrud {
 
   static const Collection = FirebaseCollections.CHAT;
 
-  Stream<List<Chat>> chatStream() {
+  Stream<List<Chat>> chatStream(groupId) {
     return _firebase.getListStream(
+      groupId: groupId,
       collection: Collection,
       returnVal: (query) {
         List<Chat> retVal = [];
@@ -76,7 +77,7 @@ class ChatCrud {
     );
   }
 
-  Future<String> addchat({Chat chat}) {
+  Future<String> addchat({Chat chat, groupId}) {
     final _data = {
       "dateCreated": Timestamp.now(),
       "uidFrom": chat.uidFrom,
@@ -86,6 +87,7 @@ class ChatCrud {
     return _firebase.crud(
       CrudState.add,
       collection: Collection,
+      id: groupId,
       model: chat,
       wantLoading: false,
       data: _data,

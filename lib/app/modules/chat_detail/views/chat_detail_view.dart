@@ -9,6 +9,7 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/user.dart';
+import 'package:thanglong_university/app/modules/chat/controllers/chat_cotroller.dart';
 import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_attachment_message_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_raw_message_view.dart';
@@ -28,7 +29,7 @@ class ChatDetailView extends GetView<ChatDetailController> {
       },
       child: Scaffold(
         appBar: _AppBarView(
-          title: 'TT',
+          title: controller.cg.name,
         ),
         backgroundColor: AppColor.chatBackground,
         body: SafeArea(
@@ -91,7 +92,7 @@ class BottomChatView extends GetView<ChatDetailController> {
           KeyboardVisibilityBuilder(
             builder: (c, isVisible) {
               return AnimatedContainer(
-                width: isVisible ? 0 : Get.width * 0.5,
+                width: isVisible ? 0 : Get.width * 0.3,
                 duration: Duration(milliseconds: 200),
                 child: _CommonAttachmentView(),
               );
@@ -141,7 +142,7 @@ class _CommonAttachmentView extends StatelessWidget {
         spacing: 8,
         children: [
           _IconAttachmentView(
-            imageAsset: Images.icCapture,
+            imageAsset: Images.icUpload,
             onPressed: () {},
           ),
           _IconAttachmentView(
@@ -221,6 +222,7 @@ class _ContentChatListView extends GetView<ChatDetailController> {
           padding: EdgeInsets.symmetric(horizontal: 12),
           color: AppColor.blockEducationBackground,
           child: ListView.builder(
+            reverse: true,
             controller: controller.scrollController,
             itemCount: controller.list.length,
             shrinkWrap: true,
