@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_base_message_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/message_content_view.dart';
@@ -34,21 +33,9 @@ class ItemRawMessageView extends StatelessWidget {
         isReply: isReply,
         child: Text(
           text,
-          style: fontInter(14, color: _getTextColor()),
+          style: fontInter(14),
         ),
       ),
     );
-  }
-
-  Color _getTextColor() {
-    if (isReply == true) {
-      return AppColor.labelMessageTextColor;
-    } else {
-      if (isMyMessage == true) {
-        return AppColor.whiteColor;
-      } else {
-        return AppColor.textColor;
-      }
-    }
   }
 }

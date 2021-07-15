@@ -23,6 +23,9 @@ environment:
 dependencies:
   get: 3.26.0
   get_storage: any
+  firebase_core: "^0.7.0"
+  cloud_firestore: "^0.16.0+1"
+  firebase_storage: ^7.0.0
   flutter_animator: ^2.1.0
   cached_network_image: ^2.5.1
   flutter_swiper: ^1.1.6
@@ -38,6 +41,8 @@ dependencies:
   flutter_countdown_timer: ^3.0.1
   tuple: ^1.0.1
   date_utils: ^0.1.0
+  graphx: 0.9.6+2
+
 
 
   

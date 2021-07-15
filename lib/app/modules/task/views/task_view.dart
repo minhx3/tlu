@@ -15,6 +15,8 @@ import '../controllers/task_controller.dart';
 class TaskView extends GetView<TaskController> {
   @override
   Widget build(BuildContext context) {
+    controller.subjectItem = Get.arguments;
+
     return AppContainer(
       systemUiOverlayStyle: SystemUiOverlayStyle.light,
       child: Scaffold(
@@ -23,7 +25,7 @@ class TaskView extends GetView<TaskController> {
           children: [
             AppBarView(
               type: AppBarType.button,
-              title: "Chi tiết task",
+              title: "Chi tiết lớp học",
               iconLeading: Images.addNoteIcon,
             ),
             Expanded(
@@ -34,12 +36,12 @@ class TaskView extends GetView<TaskController> {
                   TeacherItemView(),
                   documentWidget(),
                   noteWidget(),
-                  ButtonView(
-                    title: "Chi tiết lớp học",
-                    verticalSpacing: 20,
-                    type: ButtonType.outline,
-                    onTap: () {},
-                  )
+                  // ButtonView(
+                  //   title: "Chi tiết lớp học",
+                  //   verticalSpacing: 20,
+                  //   type: ButtonType.outline,
+                  //   onTap: () {},
+                  // )
                 ],
               ),
             )
@@ -63,7 +65,7 @@ class TaskView extends GetView<TaskController> {
               padding: EdgeInsets.symmetric(horizontal: 4),
               alignment: Alignment.center,
               child: Text(
-                "${controller.subjectItem?.subjectId?.prerequisiteSubjectId ?? ""}",
+                "${controller.subjectItem?.subjectId ?? ''}",
                 style: fontInter(10,
                     fontWeight: FontWeight.w600, color: AppColor.whiteColor),
                 maxLines: 2,
@@ -76,7 +78,7 @@ class TaskView extends GetView<TaskController> {
           ],
         ),
         Text(
-          "${controller.subjectItem?.subjectId?.name ?? ""}",
+          "${controller.subjectItem?.subjectName ?? ""}",
           textAlign: TextAlign.left,
           style: fontInter(24,
               fontWeight: FontWeight.w700, color: AppColor.c000333),
@@ -106,7 +108,7 @@ class TaskView extends GetView<TaskController> {
                     width: 7,
                   ),
                   Text(
-                    "${controller.subjectItem?.subjectId?.prerequisiteSubjectId ?? ""}",
+                    "${controller.subjectItem?.subjectClassId ?? ""}",
                     style: fontInter(12,
                         fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
                     maxLines: 2,
@@ -129,7 +131,7 @@ class TaskView extends GetView<TaskController> {
                     width: 7,
                   ),
                   Text(
-                    "10h00 - 16/01/2021",
+                    controller.subjectItem.getTimeWithDate,
                     style: fontInter(12,
                         fontWeight: FontWeight.w600, color: AppColor.cfc7171),
                     maxLines: 2,
@@ -150,7 +152,7 @@ class TaskView extends GetView<TaskController> {
                     width: 7,
                   ),
                   Text(
-                    "Phòng 605",
+                    "Phòng ${controller.subjectItem.address}",
                     style: fontInter(12,
                         fontWeight: FontWeight.w600, color: AppColor.c000333),
                     maxLines: 2,
@@ -187,7 +189,7 @@ class TaskView extends GetView<TaskController> {
           decoration: BoxDecoration(
               color: AppColor.cfafafa, borderRadius: BorderRadius.circular(3)),
           child: Text(
-            "Bài tập trắc nghiệm lấy điểm chuyên cần.\nThời gian thực hiện: 8 phút\nCả lớp đọc qua tài liều để chuẩn bị kĩ hơn.",
+            controller.subjectItem.content ?? '',
             overflow: TextOverflow.ellipsis,
             style: fontInter(12,
                 fontWeight: FontWeight.w500, color: AppColor.c808080),

@@ -1,64 +1,114 @@
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 
-class SubjectItemView extends GetView {
+class SubjectItemView extends StatefulWidget {
   final double space;
+  final RegisterSubjectEntity subject;
 
-  SubjectItemView({this.space = 5});
+  SubjectItemView({this.space = 5, this.subject});
+
+  @override
+  _SubjectItemViewState createState() => _SubjectItemViewState();
+}
+
+class _SubjectItemViewState extends State<SubjectItemView> {
+  bool visible = false;
+
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        pushTo(Routes.DETAI_CLASS);
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-        margin: EdgeInsets.only(top: 5),
-        decoration: boxShadow
-            .copyWith(borderRadius: BorderRadius.circular(5), boxShadow: []),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+    return Container(
+      decoration: BoxDecoration(
+          border:
+              Border(bottom: BorderSide(width: 1, color: AppColor.ce6e6e6))),
+      child: Theme(
+        data: ThemeData().copyWith(
+            dividerColor: Colors.transparent,
+            iconTheme: IconThemeData(size: 30, color: Colors.blue)),
+        child: ListTileTheme(
+          horizontalTitleGap: 0,
+          child: ExpansionTile(
+            tilePadding: EdgeInsets.symmetric(horizontal: 5),
+            title: Row(
               children: [
-                Expanded(
-                  child: Text(
-                    "Thương mại quốc tế",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: fontInter(16,
-                        fontWeight: FontWeight.w600, color: AppColor.c000333),
-                  ),
-                ),
                 Container(
+                  margin: EdgeInsets.only(right: 8),
                   decoration: BoxDecoration(
                       color: AppColor.cfc7171,
                       borderRadius: BorderRadius.circular(5)),
                   padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                   alignment: Alignment.center,
                   child: Text(
-                    "TMQUOCTE1.1",
+                    widget.subject?.subjectId?.id ?? '',
                     style: fontInter(10,
                         fontWeight: FontWeight.w600,
                         color: AppColor.whiteColor),
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    widget.subject?.subjectId?.name ?? '',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: fontInter(14,
+                        fontWeight: FontWeight.w600, color: AppColor.c000333),
                   ),
                 ),
               ],
             ),
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                decoration: boxShadow.copyWith(
+                    borderRadius: BorderRadius.circular(3),
+                    color: Colors.white),
+                child: Column(children: [...itemTimeLine()]),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  List<Widget> itemTimeLine() {
+    return (widget.subject?.listTimelineClass ?? []).map((timeLineClass) {
+      return InkWell(
+        onTap: () {
+          pushTo(Routes.DETAI_CLASS);
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.subject?.name ?? "",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: fontInter(16,
+                  fontWeight: FontWeight.w600, color: AppColor.c33355a),
+            ),
             Row(
               children: [
-                item("Số lượng", "10/40"),
-                item("Thời gian:", "T2, 1-3,"),
-                item("Địa điểm:", "B301"),
-                item("Mã lớp:", "4R301\n5M709", isLast: true),
+                itemColTimeLine("Lớp:", widget.subject.id),
+                itemColTimeLine("Số lượng",
+                    "${widget.subject?.haveRegistered}/${widget.subject?.population}"),
+                itemColTimeLine("Thời gian:", timeLineClass.getAllTime,
+                    toolTip: timeLineClass.getAllTimeToolTip),
+                itemColTimeLine(
+                    "Địa điểm:",
+                    timeLineClass.listSchedule
+                            .map((e) => e.address ?? "")
+                            .join('\n') ??
+                        '',
+                    isLast: true),
               ],
             ),
             Container(
@@ -77,17 +127,20 @@ class SubjectItemView extends GetView {
                         "Giáo viên:",
                         style: fontInter(11,
                             fontWeight: FontWeight.w500,
-                            color: AppColor.c808080),
+                            color: AppColor.c84869C),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
+                      SizedBox(height: 2),
                       Text(
-                        "PGS. TS. Nguyễn An Thịnh, ThS. Trương Thị Thủy",
+                        widget.subject.listTeacher
+                            .map((e) => '${e.degree} ${e.fullName}')
+                            .join('\n'),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: fontInter(12,
                             fontWeight: FontWeight.w600,
-                            color: AppColor.c000333),
+                            color: AppColor.c595C82),
                       ),
                     ],
                   ),
@@ -104,11 +157,12 @@ class SubjectItemView extends GetView {
             )
           ],
         ),
-      ),
-    );
+      );
+    }).toList();
   }
 
-  Widget item(String title, String subTitle, {bool isLast = false}) {
+  Widget itemColTimeLine(String title, String subTitle,
+      {String toolTip, bool isLast = false}) {
     return Container(
       padding: EdgeInsets.only(top: 10),
       child: Row(
@@ -120,18 +174,32 @@ class SubjectItemView extends GetView {
             children: [
               Text(
                 title,
+                softWrap: true,
                 style: fontInter(11,
-                    fontWeight: FontWeight.w500, color: AppColor.c808080),
+                    fontWeight: FontWeight.w500, color: AppColor.c84869C),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              Text(
-                subTitle,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: fontInter(12,
-                    fontWeight: FontWeight.w600, color: AppColor.c000333),
-              ),
+              SizedBox(height: 2),
+              toolTip == null
+                  ? Text(
+                      subTitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: fontInter(12,
+                          fontWeight: FontWeight.w600, color: AppColor.c000333),
+                    )
+                  : Tooltip(
+                      message: toolTip,
+                      child: Text(
+                        subTitle,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: fontInter(12,
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.c000333),
+                      ),
+                    ),
             ],
           ),
           isLast == true

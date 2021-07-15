@@ -30,19 +30,15 @@ class AuthenRouter extends BaseRouter {
     Future<Response<dynamic>> response;
     switch (this.endPoint) {
       case AuthenEndpoint.register:
-        // TODO: Handle this case.
         break;
       case AuthenEndpoint.login:
-        // TODO: Handle this case.
         response = client(headers: headerParams).post(path, data: data);
         break;
       case AuthenEndpoint.refreshToken:
-        // TODO: Handle this case.
         response = client().get(path, queryParameters: data);
 
         break;
       case AuthenEndpoint.forgoPassword:
-        // TODO: Handle this case.
         response = client().post(path, data: data);
 
         break;
@@ -51,15 +47,12 @@ class AuthenRouter extends BaseRouter {
 
         break;
       case AuthenEndpoint.updateStudent:
-        // TODO: Handle this case.
         break;
       case AuthenEndpoint.getTeacher:
-        // TODO: Handle this case.
         response = client(headers: headerParams).get(path);
 
         break;
       case AuthenEndpoint.updateTeacher:
-        // TODO: Handle this case.
         break;
     }
 
@@ -71,6 +64,10 @@ class AuthenRouter extends BaseRouter {
     Map<String, dynamic> headers =
         this.headers == null ? Map<String, dynamic>() : this.headers;
     headers["universityCode"] = Constant.universityCode;
+    headers["Access-Control-Allow-Headers"] = "*";
+    headers["Access-Control-Allow-Methods"] =
+        "POST, GET, OPTIONS, PUT, DELETE, HEAD";
+    headers["Access-Control-Allow-Origin"] = "*";
     switch (this.endPoint) {
       case AuthenEndpoint.login:
         break;

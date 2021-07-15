@@ -20,9 +20,10 @@ class BaseModel {
     if (code == 200) {
       data = json;
     } else {
-      errorCode = json['errorCode'];
-      errorSource = json['errorSource'];
-      errorReason = json['errorReason'];
+      errorCode = json['errors'][0]['errorCode'];
+      errorSource = json['errors'][0]['errorSource'];
+      errorReason = json['errors'][0]['errorReason'];
+      error = json['error'];
     }
   }
 
@@ -57,42 +58,40 @@ class BaseModel {
         result?.statusCode == 200 ||
         result?.statusCode == 204) {
       model = BaseModel.fromJson(result.data, result.statusCode);
-
       return model;
+    }
+
+    if (err.response?.statusCode == 307) {
+      model = BaseModel.fromJson(err.response.data, err.response.statusCode);
+      return model;
+    }
+    if (err.response?.statusCode == null) {
+      showErrorMessage(message: "Lỗi kết nối.");
+      return null;
+    }
+    if (err?.response?.data == null || !(err?.response?.data is Map)) {
+      showErrorMessage(message: "Có lỗi xảy ra vui lòng thử lại.");
+      return null;
+    }
+
+    model = BaseModel.fromJson(err.response.data, err.response.statusCode);
+    model.error = err;
+    if (handleError == true && handleError != null) {
+      return model;
+    }
+    model?.message != null
+        ? showErrorMessage(message: model?.message ?? "", duration: 5)
+        : showErrorMessage(message: model?.errorReason ?? "", duration: 5);
+
+    if (err.response.statusCode == 401 &&
+        prefix.Get.currentRoute != Routes.AUTH) {
+      pushReplaceAllTo(Routes.AUTH);
+    } else if (err.response.statusCode == 500 ||
+        err.response.statusCode == 502) {
+      showErrorMessage(message: model?.errorReason ?? "");
     } else {
-      if (err.response?.statusCode == 307) {
-        model = BaseModel.fromJson(err.response.data, err.response.statusCode);
-        return model;
-      } else {
-        if (err?.response?.data != null && (err?.response?.data is Map)) {
-          model =
-              BaseModel.fromJson(err.response.data, err.response.statusCode);
-          model.error = err;
-          if (handleError == false || handleError == null) {
-            model?.message != null
-                ? showErrorMessage(message: model?.message ?? "")
-                : showErrorMessage(message: model?.errorReason ?? "");
-
-            // showTnexSnackBar(model?.errors?.first?.errorReason ??
-            //     "Có lỗi xả ra vui lòng thử lại");
-            if (err.response.statusCode == 401) {
-              pushReplaceAllTo(Routes.AUTH);
-            } else if (err.response.statusCode == 500 ||
-                err.response.statusCode == 502) {
-              showErrorMessage(message: model?.errorReason ?? "");
-            } else {
-              var data = err.response.data as Map<String, dynamic>;
-              //    showMessage(context, data["message"]);
-            }
-          } else {
-            return model;
-          }
-        } else {
-          showErrorMessage(message: "Có lỗi xảy ra vui lòng thử lại.");
-          // showTnexSnackBar(err?.response?.data ?? "");
-
-        }
-      }
+      var data = err.response.data as Map<String, dynamic>;
+      showErrorMessage(message: data["message"]);
     }
   }
 }

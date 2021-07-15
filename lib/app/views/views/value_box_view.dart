@@ -5,7 +5,8 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 class ValueBoxView extends StatelessWidget {
   final String text;
   final Color colors;
-  const ValueBoxView({Key key, @required this.text, this.colors})
+  final double fontSize;
+  const ValueBoxView({Key key, @required this.text, this.colors, this.fontSize})
       : super(key: key);
 
   @override
@@ -18,7 +19,7 @@ class ValueBoxView extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         text,
-        style: fontInter(10,
+        style: fontInter(fontSize ?? 11,
             fontWeight: FontWeight.w600, color: AppColor.whiteColor),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,

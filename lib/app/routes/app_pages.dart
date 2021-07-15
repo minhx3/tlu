@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import 'package:thanglong_university/app/modules/auth/bindings/auth_binding.dart';
 import 'package:thanglong_university/app/modules/auth/views/auth_view.dart';
+import 'package:thanglong_university/app/modules/auth/views/web/forgot_web_page.dart';
 import 'package:thanglong_university/app/modules/chat_detail/bindings/chat_detail_binding.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/chat_detail_view.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/bindings/chat_group_info_binding.dart';
@@ -56,6 +54,11 @@ class AppPages {
       binding: AuthBinding(),
     ),
     GetPage(
+      name: _Paths.AUTH_FORGOT,
+      page: () => ForgotWebPage(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
         name: _Paths.INDEX,
         page: () => IndexView(),
         binding: IndexBinding(),
@@ -104,6 +107,7 @@ class AppPages {
       name: _Paths.CHAT_DETAIL,
       page: () => ChatDetailView(),
       binding: ChatDetailBinding(),
+      maintainState: true
     ),
     GetPage(
       name: _Paths.CHAT_GROUP_INFO,

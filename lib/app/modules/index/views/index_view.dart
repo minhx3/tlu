@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
+import 'package:thanglong_university/app/model/user_model.dart';
 import 'package:thanglong_university/app/modules/chat/views/chat_view.dart';
 import 'package:thanglong_university/app/modules/education/views/education_view.dart';
 import 'package:thanglong_university/app/modules/home/views/home_view.dart';
 import 'package:thanglong_university/app/modules/index/views/index_content_web_view.dart';
 import 'package:thanglong_university/app/modules/index/views/side_bar_web_view.dart';
+import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/modules/schedule/views/schedule_view.dart';
 import 'package:thanglong_university/app/modules/profile/views/profile_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
@@ -27,7 +29,10 @@ class IndexView extends GetView<IndexController> {
           ),
         );
       } else {
-        return Obx(() => AppContainer(
+        return Obx(
+          () {
+            UserModel _profile = ProfileController.to.rxUserInfo();
+            return AppContainer(
               viewState: controller.rxViewState(),
               child: Scaffold(
                   body: IndexedStack(
@@ -46,22 +51,41 @@ class IndexView extends GetView<IndexController> {
                     items: controller.tabsList.map((e) {
                       final index = controller.tabsList.indexOf(e);
 
+                      // replace profile tab by avatar image
+                      if (index == 4 && _profile?.avatar != null) {
+                        return BottomNavigationBarItem(
+                            icon: CircleAvatar(
+                              radius: 15,
+                              backgroundColor: AppColor.iconTabSelected,
+                              child: CircleAvatar(
+                                radius: index == controller.rxTabIndex()
+                                    ? 13.5
+                                    : 15,
+                                backgroundColor: Colors.white,
+                                backgroundImage: NetworkImage(_profile.avatar),
+                              ),
+                            ),
+                            label: "");
+                      }
+
                       return BottomNavigationBarItem(
                           icon: ImageView(
                             index == controller.rxTabIndex()
                                 ? e.iconSelected
                                 : e.icon,
-                            type: index == 4 ? Type.assets : Type.assets,
+                            type: e.type ?? Type.assets,
                             width: 24,
                             height: 24,
                             color: index == controller.rxTabIndex()
                                 ? AppColor.iconTabSelected
                                 : AppColor.iconTabUnSelected,
                           ),
-                          title: SizedBox());
+                          label: "");
                     }).toList(),
                   )),
-            ));
+            );
+          },
+        );
       }
     });
   }

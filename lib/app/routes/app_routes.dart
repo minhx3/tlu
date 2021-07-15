@@ -4,6 +4,7 @@ part of 'app_pages.dart';
 abstract class Routes {
   static const HOME = _Paths.HOME;
   static const AUTH = _Paths.AUTH;
+  static const AUTH_FORGOT = _Paths.AUTH_FORGOT;
   static const INDEX = _Paths.INDEX;
   static const DETAIL_NEW = _Paths.DETAIL_NEW;
   static const NOTIFICATION = _Paths.NOTIFICATION;
@@ -13,6 +14,7 @@ abstract class Routes {
   static const TEST_SCHEDULE = _Paths.TEST_SCHEDULE;
   static const DETAI_CLASS = _Paths.DETAI_CLASS;
   static const SCHEDULE = _Paths.SCHEDULE;
+  static const CHAT = _Paths.CHAT;
   static const CHAT_DETAIL = _Paths.CHAT_DETAIL;
   static const CHAT_GROUP_INFO = _Paths.CHAT_GROUP_INFO;
   static const USER_INFO = _Paths.USER_INFO;
@@ -25,6 +27,7 @@ abstract class Routes {
 abstract class _Paths {
   static const HOME = '/home';
   static const AUTH = '/auth';
+  static const AUTH_FORGOT = '/forgot-password';
   static const INDEX = '/index';
   static const DETAIL_NEW = '/detail-new';
   static const NOTIFICATION = '/notification';
@@ -34,6 +37,7 @@ abstract class _Paths {
   static const TEST_SCHEDULE = '/test-schedule';
   static const DETAI_CLASS = '/detai-class';
   static const SCHEDULE = '/schedule';
+  static const CHAT = '/chat';
   static const CHAT_DETAIL = '/chat-detail';
   static const CHAT_GROUP_INFO = '/chat-group-info';
   static const USER_INFO = '/user-info';

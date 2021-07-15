@@ -260,7 +260,7 @@ class AppBarView extends StatelessWidget {
                               color: iconTintColor,
                             ),
                             onPressed: () {
-                              pushTo(Routes.NOTIFICATION);
+                              onAction();
                             },
                           )
                         : SizedBox(),

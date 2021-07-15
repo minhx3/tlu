@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
@@ -23,10 +21,13 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
           body: Column(
             children: [
               AppBarView(
-                title: "Danh sách Học kì I - Nhóm 1",
+                title: controller.semester?.semsterInfo?.name ?? '',
                 type: AppBarType.white,
                 iconLeading: Images.iconFilter,
                 iconTintColor: AppColor.c808080,
+                onAction: () {
+                  pushTo(Routes.TRANSCRIPT);
+                },
               ),
               Container(
                 height: 40,
@@ -65,13 +66,15 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                       style: fontInter(14,
                           color: AppColor.cbfbfbf, fontWeight: FontWeight.w600),
                     ),
-                    ListView(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.only(top: 10),
-                      physics: NeverScrollableScrollPhysics(),
-                      children:
-                          List.generate(10, (e) => SubjectItemView()).toList(),
-                    )
+                    Obx(() => ListView(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.only(top: 10),
+                        physics: NeverScrollableScrollPhysics(),
+                        children: (controller.registerSubjects ?? [])
+                            .map((element) => SubjectItemView(
+                                  subject: element,
+                                ))
+                            .toList()))
                   ],
                 ),
               ),
@@ -109,8 +112,8 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                 decoration: BoxDecoration(
                     color: AppColor.c000333,
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10))),
+                        topLeft: Radius.circular(3),
+                        topRight: Radius.circular(3))),
               )
             ],
           )),
