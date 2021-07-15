@@ -9,7 +9,6 @@ import 'package:path/path.dart' as p;
 import 'package:thanglong_university/app/model/chat/base_model.dart';
 import 'package:thanglong_university/app/views/views/loader.dart';
 
-
 enum CrudState { add, update, delete }
 
 typedef List<T> ListQuery<T extends BaseModel>(QuerySnapshot query);
@@ -155,7 +154,11 @@ class FirebaseService<T extends BaseModel> extends GetxService {
       switch (crudState) {
         case CrudState.add:
           _crudMessege = 'Added';
-          await _firestore.collection(collection).add(data);
+          await _firestore
+              .collection(collection)
+              .doc(id)
+              .collection(id)
+              .add(data);
           break;
         case CrudState.update:
           _crudMessege = 'Updated';
@@ -173,9 +176,12 @@ class FirebaseService<T extends BaseModel> extends GetxService {
     }
   }
 
-  Stream<List<T>> getListStream({ListQuery<T> returnVal, String collection}) =>
+  Stream<List<T>> getListStream(
+          {ListQuery<T> returnVal, String collection, String groupId}) =>
       _firestore
           .collection(collection)
+          .doc(groupId)
+          .collection(groupId)
           .orderBy('dateCreated')
           .snapshots()
           .map((QuerySnapshot query) => returnVal(query));
@@ -231,6 +237,5 @@ class FirebaseService<T extends BaseModel> extends GetxService {
 
 abstract class FirebaseCollections {
   static const USER = 'users';
-
   static const CHAT = 'chats';
 }

@@ -17,6 +17,11 @@ class ChatController extends GetxController {
   void onReady() {
     // TODO: implement onReady
     super.onReady();
+    List<ChatGroupEntity> fake = [
+      ChatGroupEntity(id: 'group2', name: 'Messi Leo'),
+      ChatGroupEntity(id: 'group3', name: 'Chuột Barca'),
+    ];
+    group(fake);
     getGroup();
   }
 
@@ -26,7 +31,6 @@ class ChatController extends GetxController {
           await Appclient.shared.getSemesterList();
       List<ChatGroupEntity> chat =
           res.map((e) => e.getListSubject).expand((e1) => e1);
-      group(chat);
     } on Exception catch (e) {} finally {}
   }
 }

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
+import 'package:thanglong_university/app/model/chat/chat.dart';
+import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
 import 'package:thanglong_university/app/views/views/value_box_view.dart';
 
 class ItemGroupChatBySubjectView extends StatelessWidget {
   final VoidCallback onPressed;
+  final ChatGroupEntity item;
 
-  const ItemGroupChatBySubjectView({Key key, this.onPressed}) : super(key: key);
+  const ItemGroupChatBySubjectView({Key key, this.onPressed, this.item})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +40,15 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _RowTop(),
+                  _RowTop(
+                    title: item?.name ?? '',
+                  ),
                   SizedBox(
                     height: 4,
                   ),
-                  _RowBottom(),
+                  _RowBottom(
+                    lastMessage: item?.name ?? '',
+                  ),
                 ],
               ),
             ),
@@ -52,8 +60,11 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
 }
 
 class _RowBottom extends StatelessWidget {
+  final String lastMessage;
+
   const _RowBottom({
     Key key,
+    this.lastMessage,
   }) : super(key: key);
 
   @override
@@ -61,7 +72,7 @@ class _RowBottom extends StatelessWidget {
     return Row(
       children: [
         Text(
-          'Bạn: Các em check slide trước khi đến...',
+          lastMessage,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: fontInter(12,
@@ -78,8 +89,11 @@ class _RowBottom extends StatelessWidget {
 }
 
 class _RowTop extends StatelessWidget {
+  final String title;
+
   const _RowTop({
     Key key,
+    this.title,
   }) : super(key: key);
 
   @override
@@ -94,7 +108,7 @@ class _RowTop extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            'Thương mại quốc tế',
+            title,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: fontInter(14, fontWeight: FontWeight.w600),

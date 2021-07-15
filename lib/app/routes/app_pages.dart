@@ -101,6 +101,7 @@ class AppPages {
       name: _Paths.CHAT_DETAIL,
       page: () => ChatDetailView(),
       binding: ChatDetailBinding(),
+      maintainState: true
     ),
     GetPage(
       name: _Paths.CHAT_GROUP_INFO,
