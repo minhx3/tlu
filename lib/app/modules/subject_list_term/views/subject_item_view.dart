@@ -22,20 +22,18 @@ class _SubjectItemViewState extends State<SubjectItemView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-      margin: EdgeInsets.only(top: 5),
-      decoration: boxShadow
-          .copyWith(borderRadius: BorderRadius.circular(5), boxShadow: []),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          InkWell(
-            onTap: () {
-              setState(() {
-                visible = !visible;
-              });
-            },
-            child: Row(
+      decoration: BoxDecoration(
+          border:
+              Border(bottom: BorderSide(width: 1, color: AppColor.ce6e6e6))),
+      child: Theme(
+        data: ThemeData().copyWith(
+            dividerColor: Colors.transparent,
+            iconTheme: IconThemeData(size: 30, color: Colors.blue)),
+        child: ListTileTheme(
+          horizontalTitleGap: 0,
+          child: ExpansionTile(
+            tilePadding: EdgeInsets.symmetric(horizontal: 5),
+            title: Row(
               children: [
                 Container(
                   margin: EdgeInsets.only(right: 8),
@@ -58,89 +56,113 @@ class _SubjectItemViewState extends State<SubjectItemView> {
                     widget.subject?.subjectId?.name ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: fontInter(16,
+                    style: fontInter(14,
                         fontWeight: FontWeight.w600, color: AppColor.c000333),
                   ),
                 ),
               ],
             ),
-          ),
-          Visibility(
-            visible: visible,
-            child: InkWell(
-              onTap: () {
-                pushTo(Routes.DETAI_CLASS);
-              },
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      item("Mã lớp:", widget.subject.id),
-                      item("Số lượng",
-                          "${widget.subject?.haveRegistered}/${widget.subject?.population}"),
-                      item("Thời gian:", 'widget.subject?.'),
-                      item(
-                          "Địa điểm:",
-                          widget.subject.listTimelineClass
-                                  .map((e) => e.code)
-                                  .join('\n') ??
-                              '',
-                          isLast: true),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    height: 1,
-                    color: AppColor.cbfbfbf,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Giáo viên:",
-                              style: fontInter(11,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColor.c808080),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              widget.subject.listTeacher
-                                  .map((e) => '${e.degree} ${e.fullName}')
-                                  .join('\n'),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: fontInter(12,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColor.c000333),
-                            ),
-                          ],
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        child: Image.asset(
-                          Images.addButtonIcon,
-                          height: 36,
-                          width: 36,
-                        ),
-                      )
-                    ],
-                  )
-                ],
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                decoration: boxShadow.copyWith(
+                    borderRadius: BorderRadius.circular(3),
+                    color: Colors.white),
+                child: Column(children: [...itemTimeLine()]),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget item(String title, String subTitle, {bool isLast = false}) {
+  List<Widget> itemTimeLine() {
+    return (widget.subject?.listTimelineClass ?? []).map((timeLineClass) {
+      return InkWell(
+        onTap: () {
+          pushTo(Routes.DETAI_CLASS);
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.subject?.name ?? "",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: fontInter(16,
+                  fontWeight: FontWeight.w600, color: AppColor.c33355a),
+            ),
+            Row(
+              children: [
+                itemColTimeLine("Lớp:", widget.subject.id),
+                itemColTimeLine("Số lượng",
+                    "${widget.subject?.haveRegistered}/${widget.subject?.population}"),
+                itemColTimeLine("Thời gian:", timeLineClass.getAllTime,
+                    toolTip: timeLineClass.getAllTimeToolTip),
+                itemColTimeLine(
+                    "Địa điểm:",
+                    timeLineClass.listSchedule
+                            .map((e) => e.address ?? "")
+                            .join('\n') ??
+                        '',
+                    isLast: true),
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              height: 1,
+              color: AppColor.cbfbfbf,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Giáo viên:",
+                        style: fontInter(11,
+                            fontWeight: FontWeight.w500,
+                            color: AppColor.c84869C),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        widget.subject.listTeacher
+                            .map((e) => '${e.degree} ${e.fullName}')
+                            .join('\n'),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: fontInter(12,
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.c595C82),
+                      ),
+                    ],
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Image.asset(
+                    Images.addButtonIcon,
+                    height: 36,
+                    width: 36,
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      );
+    }).toList();
+  }
+
+  Widget itemColTimeLine(String title, String subTitle,
+      {String toolTip, bool isLast = false}) {
     return Container(
       padding: EdgeInsets.only(top: 10),
       child: Row(
@@ -152,18 +174,32 @@ class _SubjectItemViewState extends State<SubjectItemView> {
             children: [
               Text(
                 title,
+                softWrap: true,
                 style: fontInter(11,
-                    fontWeight: FontWeight.w500, color: AppColor.c808080),
+                    fontWeight: FontWeight.w500, color: AppColor.c84869C),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              Text(
-                subTitle,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: fontInter(12,
-                    fontWeight: FontWeight.w600, color: AppColor.c000333),
-              ),
+              SizedBox(height: 2),
+              toolTip == null
+                  ? Text(
+                      subTitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: fontInter(12,
+                          fontWeight: FontWeight.w600, color: AppColor.c000333),
+                    )
+                  : Tooltip(
+                      message: toolTip,
+                      child: Text(
+                        subTitle,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: fontInter(12,
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.c000333),
+                      ),
+                    ),
             ],
           ),
           isLast == true

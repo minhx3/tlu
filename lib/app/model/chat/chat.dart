@@ -64,7 +64,7 @@ class ChatCrud {
       groupId: groupId,
       collection: Collection,
       returnVal: (query) {
-        List<Chat> retVal = List();
+        List<Chat> retVal = [];
         query.docs.forEach((element) async {
           retVal.add(
             Chat.fromDocumentSnapshot(

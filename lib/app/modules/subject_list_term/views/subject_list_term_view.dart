@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
-import 'package:thanglong_university/app/modules/subject_list_term/views/subject_filter_view.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/views/subject_item_view.dart';
-import 'package:thanglong_university/app/modules/transcript/views/transcript_filter_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
@@ -74,7 +70,7 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                         shrinkWrap: true,
                         padding: EdgeInsets.only(top: 10),
                         physics: NeverScrollableScrollPhysics(),
-                        children: controller.registerSubjects
+                        children: (controller.registerSubjects ?? [])
                             .map((element) => SubjectItemView(
                                   subject: element,
                                 ))
@@ -116,8 +112,8 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                 decoration: BoxDecoration(
                     color: AppColor.c000333,
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10))),
+                        topLeft: Radius.circular(3),
+                        topRight: Radius.circular(3))),
               )
             ],
           )),

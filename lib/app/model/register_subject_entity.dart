@@ -8,11 +8,12 @@ class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
   String examCnditions;
   int haveRegistered;
   String id;
+  String name;
   bool isHasGreatExercise;
   bool isOnline;
   String group;
   List<RegisterSubjectListTeacher> listTeacher;
-  List<RegisterSubjectListTimelineClass> listTimelineClass;
+  List<RegisterSubjectListTimelineClassTimeLines> listTimelineClass;
   String note;
   List<RegisterSubjectNumberOfLessons> numberOfLessons;
   List<RegisterSubjectOptionListBook> optionListBook;
@@ -64,7 +65,7 @@ class RegisterSubjectListTimelineClass
   List<RegisterSubjectListTimelineClassTimeLines> timeLines;
 
   String get getAllTime {
-    // return timeLines.map((e) => e.listSchedule.getTime)
+    return timeLines.map((e) => e.listSchedule.map((e) => e.getTime)).join(',');
   }
 }
 
@@ -97,6 +98,15 @@ class RegisterSubjectListTimelineClassTimeLines
   String id;
   List<RegisterSubjectListTimelineClassTimeLinesListSchedule> listSchedule;
   String toDate;
+  RegisterSubjectListTimelineClassTeacher teacher;
+
+  String get getAllTime {
+    return listSchedule.map((e) => e.getTime).join(',');
+  }
+
+  String get getAllTimeToolTip {
+    return listSchedule.map((e) => e.getTimeName).join(',');
+  }
 }
 
 List dayOfWeekToName = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
@@ -111,6 +121,11 @@ class RegisterSubjectListTimelineClassTimeLinesListSchedule
 
   String get getTime {
     String ses = listSession.map((e) => e.id.replaceAll('ses', '')).join('-');
+    return '${dayOfWeekToName[dayOfWeek]}, $ses';
+  }
+
+  String get getTimeName {
+    String ses = listSession.map((e) => e.name).join('-');
     return '${dayOfWeekToName[dayOfWeek]}, $ses';
   }
 }
