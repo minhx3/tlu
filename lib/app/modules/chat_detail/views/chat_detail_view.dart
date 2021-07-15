@@ -9,6 +9,7 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/user.dart';
+import 'package:thanglong_university/app/modules/chat/controllers/chat_cotroller.dart';
 import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_attachment_message_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_raw_message_view.dart';

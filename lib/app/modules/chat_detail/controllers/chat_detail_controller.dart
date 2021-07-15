@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
+import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 
 class ChatDetailController extends GetxController {
@@ -14,6 +15,8 @@ class ChatDetailController extends GetxController {
   final list = <Chat>[].obs;
 
   final ScrollController scrollController = ScrollController();
+
+  ChatGroupEntity cg = Get.arguments;
 
   @override
   void onClose() {
@@ -33,7 +36,7 @@ class ChatDetailController extends GetxController {
 
   @override
   void onInit() {
-    list.bindStream(crud.chatStream());
+    list.bindStream(crud.chatStream(cg.id));
     _listWorker = ever(list, listOnChange);
     focusNode = FocusNode()
       ..addListener(() {
@@ -60,11 +63,11 @@ class ChatDetailController extends GetxController {
     try {
       // FocusScope.of(context).unfocus();
       await crud.addchat(
-        chat: Chat(
-          uidFrom: Storage.getUserId(),
-          message: tec.text,
-        ),
-      );
+          chat: Chat(
+            uidFrom: Storage.getUserId(),
+            message: tec.text,
+          ),
+          groupId: cg.id);
       tec.clear();
       scrollController.animateTo(
         scrollController.position.maxScrollExtent,

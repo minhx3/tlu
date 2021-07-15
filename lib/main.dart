@@ -30,7 +30,7 @@ void main()async {
           GetMaterialApp(
             title: "Application",
             // initialRoute: AppPages.INITIAL,
-            initialRoute: Routes.CHAT_DETAIL,
+            initialRoute: Routes.INDEX,
             getPages: AppPages.routes,
             initialBinding: AppBinding(),
             locale: Locale(Constant.defautLocale),
