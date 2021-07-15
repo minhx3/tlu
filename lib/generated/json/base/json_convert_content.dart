@@ -9,6 +9,8 @@ import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/generated/json/register_subject_entity_helper.dart';
 import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/generated/json/chat_group_entity_helper.dart';
+import 'package:thanglong_university/app/model/chat/user_entity.dart';
+import 'package:thanglong_university/generated/json/user_entity_helper.dart';
 
 class JsonConvert<T> {
 	T fromJson(Map<String, dynamic> json) {
@@ -60,7 +62,9 @@ class JsonConvert<T> {
 			case RegisterSubjectSubjectId:
 				return registerSubjectSubjectIdFromJson(data as RegisterSubjectSubjectId, json) as T;
 			case ChatGroupEntity:
-				return chatGroupEntityFromJson(data as ChatGroupEntity, json) as T;    }
+				return chatGroupEntityFromJson(data as ChatGroupEntity, json) as T;
+			case UserEntity:
+				return userEntityFromJson(data as UserEntity, json) as T;    }
 		return data as T;
 	}
 
@@ -106,6 +110,8 @@ class JsonConvert<T> {
 				return registerSubjectSubjectIdToJson(data as RegisterSubjectSubjectId);
 			case ChatGroupEntity:
 				return chatGroupEntityToJson(data as ChatGroupEntity);
+			case UserEntity:
+				return userEntityToJson(data as UserEntity);
 			}
 			return data as T;
 		}
@@ -172,6 +178,9 @@ class JsonConvert<T> {
 		if(type == (ChatGroupEntity).toString()){
 			return ChatGroupEntity().fromJson(json);
 		}
+		if(type == (UserEntity).toString()){
+			return UserEntity().fromJson(json);
+		}
 
 		return null;
 	}
@@ -237,6 +246,9 @@ class JsonConvert<T> {
 		}
 		if(<ChatGroupEntity>[] is M){
 			return data.map<ChatGroupEntity>((e) => ChatGroupEntity().fromJson(e)).toList() as M;
+		}
+		if(<UserEntity>[] is M){
+			return data.map<UserEntity>((e) => UserEntity().fromJson(e)).toList() as M;
 		}
 
 		throw Exception("not found");

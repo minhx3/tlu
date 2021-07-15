@@ -9,7 +9,7 @@ import 'app/routes/app_pages.dart';
 import 'app/utils/auto_size/src/auto_size.dart';
 import 'generated/locales.g.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await GetStorage.init();

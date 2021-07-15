@@ -5,7 +5,8 @@ import 'api_client.dart';
 import 'base_model.dart';
 
 enum SubjectEndpoint {
-  getSemesterList,
+  getSubjectClassList,
+  getUserList,
   getSubjectsList,
   getSubjectsRegister,
   registerSubjects,
@@ -21,6 +22,7 @@ class SubjectRouter extends BaseRouter {
   bool isLoading = false;
   bool handleError;
   Map<String, dynamic> headers;
+
   SubjectRouter(this.endPoint,
       {this.data, this.joinPath, this.handleError, this.headers});
 
@@ -32,27 +34,27 @@ class SubjectRouter extends BaseRouter {
         // TODO: Handle this case.
         response = client(headers: headerParams).get(path);
         break;
-
-        break;
       case SubjectEndpoint.registerSubjects:
         response = client(headers: headerParams).post(path, data: data);
         break;
-      case SubjectEndpoint.getSemesterList:
+      case SubjectEndpoint.getSubjectClassList:
+        response =
+            client(headers: headerParams).get(path, queryParameters: data);
+        break;
+      case SubjectEndpoint.getUserList:
+        response = client(headers: headerParams).post(path, data: data);
+        break;
       case SubjectEndpoint.getSubjectsList:
         response = client(headers: headerParams).get(path);
-
         break;
       case SubjectEndpoint.getAlertRegister:
       case SubjectEndpoint.getGroupRegister:
         response = client(headers: headerParams).get(path);
-
         break;
       case SubjectEndpoint.getSubjectsRegisterById:
         response = client(headers: headerParams).get(path);
-
         break;
     }
-
     return await BaseModel.onBaseModel(response, handleError: handleError);
   }
 
@@ -83,8 +85,11 @@ class SubjectRouter extends BaseRouter {
       case SubjectEndpoint.registerSubjects:
         path = "register-subject-class";
         break;
-      case SubjectEndpoint.getSemesterList:
-        path = "semester";
+      case SubjectEndpoint.getUserList:
+        path = "students/subject-class/chat";
+        break;
+      case SubjectEndpoint.getSubjectClassList:
+        path = "subject-class/$joinPath/students";
         break;
       case SubjectEndpoint.getSubjectsList:
         path = "subject-class";
@@ -96,7 +101,6 @@ class SubjectRouter extends BaseRouter {
       case SubjectEndpoint.getGroupRegister:
         path = "group-register"; // TODO: Handle this case.
         break;
-
       case SubjectEndpoint.getSubjectsRegisterById:
         path = "register-subject-class/$joinPath"; // TODO: Handle this case.
         break;

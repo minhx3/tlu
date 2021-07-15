@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/chat/user_entity.dart';
+import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
 import 'package:thanglong_university/app/views/views/value_box_view.dart';
@@ -9,7 +12,7 @@ import 'package:thanglong_university/app/views/views/value_box_view.dart';
 ///
 /// Nhóm sinh viên: role chung
 ///
-class StudentGroupView extends StatelessWidget {
+class StudentGroupView extends GetView<ChatDetailController> {
   final String groupName;
 
   const StudentGroupView({Key key, @required this.groupName}) : super(key: key);
@@ -46,9 +49,11 @@ class StudentGroupView extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (c, index) {
+            UserEntity u = controller.u()[index];
             return _ItemStudentView(
+              user: u,
               onPressed: () {
-                pushTo(Routes.USER_INFO);
+                pushTo(Routes.USER_INFO, arguments: u);
               },
             );
           },
@@ -73,8 +78,13 @@ class StudentGroupView extends StatelessWidget {
 class _ItemStudentView extends StatelessWidget {
   final VoidCallback onPressed;
   final bool isClassPresident;
+  final UserEntity user;
+
   const _ItemStudentView(
-      {Key key, @required this.onPressed, this.isClassPresident = false})
+      {Key key,
+      @required this.onPressed,
+      this.isClassPresident = false,
+      this.user})
       : super(key: key);
 
   @override

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
+import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/views/partial/info_student_group.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/views/partial/item_chat_group_view.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/views/partial/item_info_admin_view.dart';
@@ -11,7 +12,7 @@ import 'package:thanglong_university/app/views/views/image_view.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
 import '../controllers/chat_group_info_controller.dart';
 
-class ChatGroupInfoView extends GetView<ChatGroupInfoController> {
+class ChatGroupInfoView extends GetView<ChatDetailController> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -33,7 +34,7 @@ class _AppBarView extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBarView(
       type: AppBarType.detail,
-      title: 'Thương mại quốc tế',
+      title: 'Danh sách lớp',
     );
   }
 
@@ -47,11 +48,13 @@ class _ListContentView extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.zero,
       children: [
-        _EnterChatView(),
+        // _EnterChatView(),
         _SearchBoxView(),
-        _ChatGroupView(),
-        _AdminListView(),
-        _StudentListView()
+        // _ChatGroupView(),
+        // _AdminListView(),
+        StudentGroupView(
+          groupName: 'Danh sách lớp',
+        )
       ],
     );
   }

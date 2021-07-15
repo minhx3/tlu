@@ -38,6 +38,7 @@ class Images {
   static const String logo = 'assets/images/logo.png';
   static const String icOtherComponent = 'assets/images/ic_other_component.png';
   static const String icSearch = 'assets/images/ic_search.png';
+  static const String icUpload = 'assets/images/icUpload.png';
   static const String logoWeb = 'assets/images/logoWeb.png';
   static const String dotOutline = 'assets/images/dotOutline.png';
   static const String dropdown = 'assets/images/dropdown.png';

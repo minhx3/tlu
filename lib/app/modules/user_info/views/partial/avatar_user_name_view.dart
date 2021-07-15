@@ -79,8 +79,6 @@ class AvatarUserNameView extends StatelessWidget {
       radius: 35,
       backgroundColor: AppColor.primaryColor,
       backgroundImage: _backgroundImage,
-      foregroundImage:
-          _backgroundImage == null ? AssetImage(TabImages.tabProfile) : null,
       child: _child,
     );
   }

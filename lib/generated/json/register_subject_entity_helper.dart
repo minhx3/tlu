@@ -1,4 +1,5 @@
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
+import 'package:thanglong_university/app/model/chat_group_entity.dart';
 
 registerSubjectEntityFromJson(RegisterSubjectEntity data, Map<String, dynamic> json) {
 	if (json['closeRgister'] != null) {
