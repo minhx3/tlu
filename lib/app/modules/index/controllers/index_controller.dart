@@ -6,7 +6,7 @@ import 'package:thanglong_university/app/modules/index/model/tab_item.dart';
 class IndexController extends AppController {
   //TODO: Implement IndexController
 
-  final rxTabIndex = 0.obs;
+  final rxTabIndex = 3.obs;
   List<TabItem> tabsList;
   List<String> sideMenuList = [];
   final rxSideBarIndex = 0.obs;

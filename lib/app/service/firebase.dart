@@ -182,7 +182,7 @@ class FirebaseService<T extends BaseModel> extends GetxService {
           .collection(collection)
           .doc(groupId)
           .collection(groupId)
-          .orderBy('dateCreated')
+          .orderBy('dateCreated', descending: true)
           .snapshots()
           .map((QuerySnapshot query) => returnVal(query));
 

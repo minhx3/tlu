@@ -21,16 +21,18 @@ class ChatController extends GetxController {
       ChatGroupEntity(id: 'group2', name: 'Messi Leo'),
       ChatGroupEntity(id: 'group3', name: 'Chuột Barca'),
     ];
-    group(fake);
+    // group(fake);
     getGroup();
   }
 
   getGroup() async {
     try {
       List<RegisterSubjectEntity> res =
-          await Appclient.shared.getSemesterList();
-      List<ChatGroupEntity> chat =
-          res.map((e) => e.getListSubject).expand((e1) => e1);
+          await Appclient.shared.getSubjectClassList(true);
+      List<ChatGroupEntity> gr =
+          res.map((e) => e.getListSubject).expand((e1) => e1).toList();
+
+      group(gr);
     } on Exception catch (e) {} finally {}
   }
 }
