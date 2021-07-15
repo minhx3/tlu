@@ -55,11 +55,14 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
       onTap: () {
         pushTo(Routes.SUBJECT_LIST_TERM, arguments: item);
       },
+      splashFactory: InkRipple.splashFactory,
+      splashColor: AppColor.cfc2626,
       child: Container(
-        decoration: boxShadow.copyWith(borderRadius: BorderRadius.circular(3)),
+        // foregroundDecoration: BoxDecoration(col),
+        decoration: boxShadow.copyWith(
+            borderRadius: BorderRadius.circular(3), color: Colors.white),
         padding: EdgeInsets.symmetric(horizontal: 16),
-        margin: EdgeInsets.only(top: 10),
-        height: 108,
+        // height: 108,
         child: Column(
           children: [
             Container(
@@ -69,8 +72,7 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
               child: Text(
                 item?.semsterInfo?.name ?? '',
                 style: fontInter(16,
-                    color: AppColor.c000333.withOpacity(0.5),
-                    fontWeight: FontWeight.w600),
+                    color: AppColor.c000333, fontWeight: FontWeight.w600),
               ),
               decoration: BoxDecoration(
                   border: Border(
@@ -82,20 +84,18 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
                 Text(
                   "Thời gian đăng kí:",
                   style: fontInter(11,
-                      color: AppColor.c808080.withOpacity(0.5),
-                      fontWeight: FontWeight.w500),
-                ),
+                      color: AppColor.c808080, fontWeight: FontWeight.w500),
+                ).marginOnly(bottom: 2),
                 Text(
                   item.getRegisterTime,
                   style: fontInter(14,
-                      color: AppColor.c4d4d4d.withOpacity(0.5),
-                      fontWeight: FontWeight.w600),
-                ),
+                      color: AppColor.c4d4d4d, fontWeight: FontWeight.w600),
+                ).marginOnly(bottom: 22),
               ],
             ),
           ],
         ),
       ),
-    );
+    ).marginOnly(top: 10);
   }
 }

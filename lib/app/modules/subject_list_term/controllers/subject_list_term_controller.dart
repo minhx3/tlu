@@ -4,7 +4,6 @@ import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 
 class SubjectListTermController extends GetxController {
-  //TODO: Implement SubjectListTermController
   RxList<RegisterSubjectEntity> registerSubjects = RxList();
   final count = 0.obs;
   RegisterEntity semester = Get.arguments;
