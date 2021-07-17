@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:thanglong_university/app/model/access_token_model.dart';
+import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/app/model/news_model.dart';
 import 'package:thanglong_university/app/model/process_model.dart';
@@ -147,13 +148,13 @@ class Appclient {
     }
   }
 
-  Future<List<RegisterSubjectEntity>> getSubjectClassList(isCurrent) async {
+  Future<List<SubjectClassEntity>> getSubjectClassList(isCurrent) async {
     final result = await SubjectRouter(SubjectEndpoint.getSubjectClassList,
         data: {"isCurrent": isCurrent}).call;
 
     if (result?.data is List) {
       return (result?.data as List)
-          .map((e) => RegisterSubjectEntity().fromJson(e))
+          .map((e) => SubjectClassEntity().fromJson(e))
           .toList();
     } else {
       return null;

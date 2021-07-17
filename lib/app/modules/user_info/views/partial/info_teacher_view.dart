@@ -15,7 +15,7 @@ class InfoTeacherView extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          _ConnectTeacherView()
+          // _ConnectTeacherView()
         ],
       ),
     );

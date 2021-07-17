@@ -117,6 +117,7 @@ class AppPages {
       name: _Paths.USER_INFO,
       page: () => UserInfoView(),
       binding: UserInfoBinding(),
+      maintainState: true
     ),
     GetPage(
       name: _Paths.PROFILE,

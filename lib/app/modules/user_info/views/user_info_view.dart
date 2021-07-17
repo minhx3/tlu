@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
-import 'package:thanglong_university/app/modules/user_info/views/partial/info_student_view.dart';
-import 'package:thanglong_university/app/modules/user_info/views/partial/info_teacher_view.dart';
-import 'package:thanglong_university/app/modules/user_info/views/partial/time_table_user_view.dart';
+import 'package:thanglong_university/app/model/chat/user_entity.dart';
+import 'package:thanglong_university/app/modules/user_info/views/partial/header_info_student_view.dart';
+import 'package:thanglong_university/app/modules/user_info/views/partial/header_info_teacher_view.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 
 import '../controllers/user_info_controller.dart';
@@ -23,8 +22,9 @@ class UserInfoView extends GetView<UserInfoController> {
 class _AppBarView extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
+    UserEntity u = Get.arguments;
     return AppBarView(
-      title: 'Thông tin sinh viên',
+      title: u.isTeacher ? 'Thông tin giảng viên' : 'Thông tin sinh viên',
       buttonTitle: 'Chat',
       backgroundColor: Colors.white,
       iconTintColor: AppColor.textColor,
@@ -40,6 +40,13 @@ class _AppBarView extends StatelessWidget with PreferredSizeWidget {
 class _ListContentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return InfoTeacherView();
+    UserEntity u = Get.arguments;
+    return u.isTeacher
+        ? HeaderInfoTeacherView(
+            user: u,
+          )
+        : HeaderInfoStudentView(
+            user: u,
+          );
   }
 }

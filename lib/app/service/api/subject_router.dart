@@ -41,7 +41,7 @@ class SubjectRouter extends BaseRouter {
             client(headers: headerParams).get(path, queryParameters: data);
         break;
       case SubjectEndpoint.getUserList:
-        response = client(headers: headerParams).post(path, data: data);
+        response = client(headers: headerParams).get(path);
         break;
       case SubjectEndpoint.getSubjectsList:
         response = client(headers: headerParams).get(path);
@@ -85,10 +85,10 @@ class SubjectRouter extends BaseRouter {
         path = "register-subject-class";
         break;
       case SubjectEndpoint.getUserList:
-        path = "students/subject-class/chat";
+        path = "subject-class/$joinPath/students";
         break;
       case SubjectEndpoint.getSubjectClassList:
-        path = "subject-class/$joinPath/students";
+        path = "students/subject-class/chat";
         break;
       case SubjectEndpoint.getSubjectsList:
         path = "subject-class";

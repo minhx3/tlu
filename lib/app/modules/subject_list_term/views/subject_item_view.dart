@@ -30,7 +30,6 @@ class _SubjectItemViewState extends State<SubjectItemView> {
             dividerColor: Colors.transparent,
             iconTheme: IconThemeData(size: 30, color: Colors.blue)),
         child: ListTileTheme(
-          horizontalTitleGap: 0,
           child: ExpansionTile(
             tilePadding: EdgeInsets.symmetric(horizontal: 5),
             title: Row(

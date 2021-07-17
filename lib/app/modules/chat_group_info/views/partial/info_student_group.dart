@@ -44,29 +44,29 @@ class StudentGroupView extends GetView<ChatDetailController> {
         SizedBox(
           height: 8,
         ),
-        ListView.separated(
-          padding: EdgeInsets.zero,
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (c, index) {
-            UserEntity u = controller.u()[index];
-            return _ItemStudentView(
-              user: u,
-              onPressed: () {
-                pushTo(Routes.USER_INFO, arguments: u);
+        Obx(() => ListView.separated(
+              padding: EdgeInsets.zero,
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (c, index) {
+                UserEntity user = controller.u()[index];
+                return _ItemStudentView(
+                  user: user,
+                  onPressed: () {
+                    pushTo(Routes.USER_INFO, arguments: user);
+                  },
+                );
               },
-            );
-          },
-          itemCount: 5,
-          separatorBuilder: (BuildContext context, int index) {
-            return Divider(
-              thickness: 1,
-              indent: 12,
-              endIndent: 12,
-              color: AppColor.lineColor,
-            );
-          },
-        )
+              itemCount: controller.u().length,
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider(
+                  thickness: 1,
+                  indent: 12,
+                  endIndent: 12,
+                  color: AppColor.lineColor,
+                );
+              },
+            ))
       ],
     );
   }
@@ -117,7 +117,7 @@ class _ItemStudentView extends StatelessWidget {
                   Row(
                     children: [
                       ValueBoxView(
-                        text: '18050342',
+                        text: user.id,
                       ),
                       SizedBox(
                         width: 6,
@@ -135,7 +135,7 @@ class _ItemStudentView extends StatelessWidget {
                     height: 4,
                   ),
                   Text(
-                    'Ngô Tiên Tiến',
+                    user.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: fontInter(14,

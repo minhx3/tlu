@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
+import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/avatar_user_name_view.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/item_info_view.dart';
@@ -8,9 +9,11 @@ import 'package:thanglong_university/app/modules/user_info/views/partial/label_v
 
 class HeaderInfoStudentView extends StatelessWidget {
   final bool isAllowEdit;
+  final UserEntity user;
 
-  const HeaderInfoStudentView({Key key, this.isAllowEdit = false})
+  const HeaderInfoStudentView({Key key, this.isAllowEdit = false, this.user})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,10 +22,14 @@ class HeaderInfoStudentView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AvatarUserNameView(isAllowEdit: isAllowEdit),
-          _CommonInfoView(),
-          _EmailInfoView(),
-          _BranchView()
+          AvatarUserNameView(isAllowEdit: isAllowEdit, user: user),
+          _CommonInfoView(
+            user: user,
+          ),
+          _EmailInfoView(
+            email: user?.email,
+          ),
+          _BranchView(user: user)
         ],
       ),
     );
@@ -30,6 +37,10 @@ class HeaderInfoStudentView extends StatelessWidget {
 }
 
 class _CommonInfoView extends StatelessWidget {
+  final UserEntity user;
+
+  const _CommonInfoView({Key key, this.user}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => Column(
@@ -43,18 +54,17 @@ class _CommonInfoView extends StatelessWidget {
               children: [
                 LabelValueInfoView(
                   label: 'Khoá:',
-                  value:
-                      "${ProfileController.to.rxUserInfo()?.classInfo?.classInfoId ?? ""}",
+                  value: "${user?.className ?? ""}",
                   isHozSeparated: true,
                 ),
                 LabelValueInfoView(
                   label: 'Số điện thoại:',
-                  value: "${ProfileController.to.rxUserInfo()?.mobile ?? ""}",
+                  value: "${user?.mobile ?? ""}",
                   isHozSeparated: true,
                 ),
                 LabelValueInfoView(
                   label: 'Ngày sinh',
-                  value: "${ProfileController.to.rxUserInfo()?.dob ?? ""}",
+                  value: "${user?.dob ?? ""}",
                 ),
               ],
             ),
@@ -71,16 +81,24 @@ class _CommonInfoView extends StatelessWidget {
 }
 
 class _EmailInfoView extends StatelessWidget {
+  final String email;
+
+  const _EmailInfoView({Key key, this.email}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ItemInfoView(
       label: 'Email:',
-      value: "${ProfileController.to.rxUserInfo()?.email ?? ""}",
+      value: email ?? '',
     );
   }
 }
 
 class _BranchView extends StatelessWidget {
+  final UserEntity user;
+
+  const _BranchView({Key key, this.user}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -93,7 +111,7 @@ class _BranchView extends StatelessWidget {
           children: [
             LabelValueInfoView(
               label: 'Khoa ngành:',
-              value: 'Quản trị dịch vụ Du lịch - Lữ Hành',
+              value: user?.majors ?? '',
               isHozSeparated: true,
             ),
             SizedBox(
@@ -101,8 +119,7 @@ class _BranchView extends StatelessWidget {
             ),
             LabelValueInfoView(
               label: 'Lớp:',
-              value:
-                  "${ProfileController.to.rxUserInfo()?.classInfo?.classInfoId ?? ""}",
+              value: user?.className ?? '',
             ),
           ],
         ),
