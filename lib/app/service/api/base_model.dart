@@ -19,6 +19,7 @@ class BaseModel {
 
     if (code == 200) {
       data = json;
+      message = (json is Map) ? json["messageSucess"] ?? "" : null;
     } else {
       errorCode = json['errors'][0]['errorCode'];
       errorSource = json['errors'][0]['errorSource'];

@@ -74,7 +74,7 @@ showErrorMessage(
         pageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> animationSecond) {
           Future.delayed(Duration(seconds: duration), () {
-            Navigator.of(context).pop(true);
+            if (Get.isDialogOpen) Navigator.of(Get.context).pop();
           });
 
           return CustomAlertDialog(
@@ -160,16 +160,77 @@ showErrorMessage(
 //     snackPosition: SnackPosition.TOP,
 //     margin: EdgeInsets.symmetric(vertical: 85, horizontal: 15));
 
-showMessage({String title, String message, Duration duration}) => Get.snackbar(
-      title ?? null,
-      message ?? "",
-      isDismissible: true,
-      overlayColor: Colors.white,
-      borderRadius: 10,
-      colorText: Colors.white,
-      duration: duration ?? Duration(milliseconds: 300),
-      backgroundColor: Colors.black,
-    );
+showMessage(
+        {String title,
+        String message,
+        Duration duration,
+        Widget titleWidget,
+        Widget messageWidget}) =>
+    Get.generalDialog(
+        transitionDuration: Duration(milliseconds: 300),
+        barrierLabel: "",
+        barrierDismissible: true,
+        pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> animationSecond) {
+          Future.delayed(duration, () {
+            if (Get.isDialogOpen) Navigator.of(Get.context).pop();
+          });
+
+          return CustomAlertDialog(
+            elevation: 6,
+            title: Container(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8)),
+                        color: AppColor.c31B27C),
+                    height: 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: title != null
+                        ? Text("$title",
+                            style: TextStyle(
+                                color: AppColor.c000333,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600))
+                        : (titleWidget ?? SizedBox()),
+                  )
+                ])),
+            alignMent: Alignment.topCenter,
+            insetPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 85),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20),
+            titlePadding: EdgeInsets.zero,
+            content: (message != null
+                    ? Text("$message",
+                        style: TextStyle(
+                            color: AppColor.c4d4d4d,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500))
+                    : messageWidget)
+                .marginOnly(bottom: 20, top: 4),
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(10))),
+          );
+        },
+        useRootNavigator: false,
+        barrierColor: Colors.black.withOpacity(0.3));
+// Get.snackbar(
+//       title ?? null,
+//       message ?? "",
+//       isDismissible: true,
+//       overlayColor: Colors.white,
+//       borderRadius: 10,
+//       colorText: Colors.white,
+//       duration: duration ?? Duration(milliseconds: 300),
+//       backgroundColor: Colors.black,
+//     );
 
 delay(Function onCompleted, {int time = 2}) {
   Future.delayed(Duration(seconds: time)).whenComplete(onCompleted);

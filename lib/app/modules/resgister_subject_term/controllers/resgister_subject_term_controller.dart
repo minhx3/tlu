@@ -3,8 +3,6 @@ import 'package:thanglong_university/app/model/register_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 
 class ResgisterSubjectTermController extends GetxController {
-  //TODO: Implement ResgisterSubjectTermController
-
   final count = 0.obs;
   RxList<RegisterEntity> subjects = RxList();
 

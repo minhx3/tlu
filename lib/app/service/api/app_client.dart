@@ -19,6 +19,8 @@ import 'package:thanglong_university/app/service/api/subject_router.dart';
 import 'package:thanglong_university/app/service/api/trainning_router.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 
+import 'base_model.dart';
+
 class Appclient {
   static Appclient shared = Appclient();
   static String generateToken;
@@ -116,6 +118,12 @@ class Appclient {
     } else {
       return null;
     }
+  }
+
+  Future<BaseModel> postRegisterSubjectClass(String subjectClassId) async {
+    return await SubjectRouter(SubjectEndpoint.registerSubjectClass,
+            data: {"subjectClassId": subjectClassId}, handleError: true)
+        .call;
   }
 
   Future<List<NewsModel>> getNews() async {
