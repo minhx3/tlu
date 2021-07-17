@@ -19,6 +19,7 @@ class BaseModel {
 
     if (code == 200) {
       data = json;
+      message = (json is Map) ? json["messageSucess"] ?? "" : null;
     } else {
       errorCode = json['errors'][0]['errorCode'];
       errorSource = json['errors'][0]['errorSource'];
@@ -86,12 +87,6 @@ class BaseModel {
     if (err.response.statusCode == 401 &&
         prefix.Get.currentRoute != Routes.AUTH) {
       pushReplaceAllTo(Routes.AUTH);
-    } else if (err.response.statusCode == 500 ||
-        err.response.statusCode == 502) {
-      showErrorMessage(message: model?.errorReason ?? "");
-    } else {
-      showErrorMessage(
-          message: model?.errorReason ?? "Có lỗi xảy ra vui lòng thử lại.");
     }
   }
 }

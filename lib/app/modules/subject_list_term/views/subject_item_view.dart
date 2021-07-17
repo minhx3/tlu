@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
+import 'package:thanglong_university/app/modules/subject_list_term/controllers/subject_list_term_controller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 
-class SubjectItemView extends StatefulWidget {
-  final double space;
+class SubjectItemView extends StatelessWidget {
   final RegisterSubjectEntity subject;
 
-  SubjectItemView({this.space = 5, this.subject});
-
-  @override
-  _SubjectItemViewState createState() => _SubjectItemViewState();
-}
-
-class _SubjectItemViewState extends State<SubjectItemView> {
-  bool visible = false;
-
+  SubjectItemView({this.subject});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,7 +35,7 @@ class _SubjectItemViewState extends State<SubjectItemView> {
                   padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                   alignment: Alignment.center,
                   child: Text(
-                    widget.subject?.subjectId?.id ?? '',
+                    subject?.subjectId?.id ?? '',
                     style: fontInter(10,
                         fontWeight: FontWeight.w600,
                         color: AppColor.whiteColor),
@@ -52,7 +45,7 @@ class _SubjectItemViewState extends State<SubjectItemView> {
                 ),
                 Expanded(
                   child: Text(
-                    widget.subject?.subjectId?.name ?? '',
+                    subject?.subjectId?.name ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: fontInter(14,
@@ -63,12 +56,6 @@ class _SubjectItemViewState extends State<SubjectItemView> {
             ),
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: 10),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                decoration: boxShadow.copyWith(
-                    borderRadius: BorderRadius.circular(3),
-                    color: Colors.white),
                 child: Column(children: [...itemTimeLine()]),
               ),
             ],
@@ -79,82 +66,91 @@ class _SubjectItemViewState extends State<SubjectItemView> {
   }
 
   List<Widget> itemTimeLine() {
-    return (widget.subject?.listTimelineClass ?? []).map((timeLineClass) {
+    return (subject?.listTimelineClass ?? []).map((timeLineClass) {
       return InkWell(
         onTap: () {
           pushTo(Routes.DETAI_CLASS);
         },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.subject?.name ?? "",
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: fontInter(16,
-                  fontWeight: FontWeight.w600, color: AppColor.c33355a),
-            ),
-            Row(
-              children: [
-                itemColTimeLine("Lớp:", widget.subject.id),
-                itemColTimeLine("Số lượng",
-                    "${widget.subject?.haveRegistered}/${widget.subject?.population}"),
-                itemColTimeLine("Thời gian:", timeLineClass.getAllTime,
-                    toolTip: timeLineClass.getAllTimeToolTip),
-                itemColTimeLine(
-                    "Địa điểm:",
-                    timeLineClass.listSchedule
-                            .map((e) => e.address ?? "")
-                            .join('\n') ??
-                        '',
-                    isLast: true),
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              height: 1,
-              color: AppColor.cbfbfbf,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Giáo viên:",
-                        style: fontInter(11,
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.c84869C),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 2),
-                      Text(
-                        widget.subject.listTeacher
-                            .map((e) => '${e.degree} ${e.fullName}')
-                            .join('\n'),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: fontInter(12,
-                            fontWeight: FontWeight.w600,
-                            color: AppColor.c595C82),
-                      ),
-                    ],
+        child: Container(
+          margin: EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          decoration: boxShadow.copyWith(
+              borderRadius: BorderRadius.circular(3), color: Colors.white),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                subject?.name ?? "",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: fontInter(16,
+                    fontWeight: FontWeight.w600, color: AppColor.c33355a),
+              ),
+              Row(
+                children: [
+                  itemColTimeLine("Lớp:", subject.id),
+                  itemColTimeLine("Số lượng",
+                      "${subject?.haveRegistered}/${subject?.population}"),
+                  itemColTimeLine("Thời gian:", timeLineClass.getAllTime,
+                      toolTip: timeLineClass.getAllTimeToolTip),
+                  itemColTimeLine(
+                      "Địa điểm:",
+                      timeLineClass.listSchedule
+                              .map((e) => e.address ?? "")
+                              .join('\n') ??
+                          '',
+                      isLast: true),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                height: 1,
+                color: AppColor.cbfbfbf,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Giáo viên:",
+                          style: fontInter(11,
+                              fontWeight: FontWeight.w500,
+                              color: AppColor.c84869C),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 2),
+                        Text(
+                          subject.listTeacher
+                              .map((e) => '${e.degree} ${e.fullName}')
+                              .join('\n'),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: fontInter(12,
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.c595C82),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: Image.asset(
-                    Images.addButtonIcon,
-                    height: 36,
-                    width: 36,
-                  ),
-                )
-              ],
-            )
-          ],
+                  InkWell(
+                    onTap: () {
+                      SubjectListTermController controller = Get.find();
+                      controller.postRegisterSubject(subject.id);
+                    },
+                    child: Image.asset(
+                      Images.addButtonIcon,
+                      height: 36,
+                      width: 36,
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       );
     }).toList();
