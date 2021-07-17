@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
-
+import 'package:thanglong_university/app/views/views/custom_dialog.dart';
 import 'color.dart';
 
 pushTo(String routeName, {Object arguments}) async {
@@ -59,17 +61,104 @@ centerloading({double size = 35, Color backgroundColor, Color activeColor}) =>
       ),
     ));
 
-showErrorMessage({String title, String message, int duration = 3}) =>
-    Get.snackbar(title ?? null, message ?? "",
-        isDismissible: true,
-        overlayColor: Colors.white,
-        borderRadius: 8,
-        colorText: Colors.white,
-        animationDuration: Duration(milliseconds: 300),
-        duration: Duration(seconds: duration),
-        backgroundColor: AppColor.errorColor,
-        snackPosition: SnackPosition.BOTTOM,
-        margin: EdgeInsets.all(10));
+showErrorMessage(
+        {String title,
+        String message,
+        int duration = 3,
+        Widget titleWidget,
+        Widget messageWidget}) =>
+    Get.generalDialog(
+        transitionDuration: Duration(milliseconds: 300),
+        barrierLabel: "",
+        barrierDismissible: true,
+        pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> animationSecond) {
+          Future.delayed(Duration(seconds: duration), () {
+            Navigator.of(context).pop(true);
+          });
+
+          return CustomAlertDialog(
+            elevation: 6,
+            title: Container(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8)),
+                        color: AppColor.cfc7171),
+                    height: 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: title != null
+                        ? Text("$title",
+                            style: TextStyle(
+                                color: AppColor.c000333,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600))
+                        : (titleWidget ?? SizedBox()),
+                  )
+                ])),
+            alignMent: Alignment.topCenter,
+            insetPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 85),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20),
+            titlePadding: EdgeInsets.zero,
+            content: (message != null
+                    ? Text("$message",
+                        style: TextStyle(
+                            color: AppColor.c4d4d4d,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500))
+                    : messageWidget)
+                .marginOnly(bottom: 20, top: 4),
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(10))),
+          );
+        },
+        useRootNavigator: false,
+        barrierColor: Colors.black.withOpacity(0.3));
+// Get.rawSnackbar(
+//     titleText: Container(
+//         child: Column(children: [
+//       Container(
+//         margin: EdgeInsets.only(bottom: 15),
+//         decoration: BoxDecoration(
+//             borderRadius: BorderRadius.only(
+//                 topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+//             color: AppColor.cfc7171),
+//         height: 8,
+//       ),
+//       Padding(
+//         padding: const EdgeInsets.symmetric(horizontal: 20),
+//         child: title != null
+//             ? Text("$title",
+//                 style: TextStyle(
+//                     color: AppColor.cfc7171,
+//                     fontSize: 16,
+//                     fontWeight: FontWeight.w600))
+//             : (titleText ?? SizedBox()),
+//       )
+//     ])),
+//     messageText: Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 20),
+//       child: message != null ? Text("$message") : messageText,
+//     ).marginOnly(top: 4),
+//     isDismissible: true,
+//     overlayColor: Colors.white,
+//     borderRadius: 8,
+//     padding: EdgeInsets.only(bottom: 20),
+//     boxShadows: boxShadow.boxShadow,
+//     animationDuration: Duration(milliseconds: 300),
+//     duration: Duration(seconds: duration),
+//     backgroundColor: Colors.white,
+//     snackStyle: SnackStyle.GROUNDED,
+//     snackPosition: SnackPosition.TOP,
+//     margin: EdgeInsets.symmetric(vertical: 85, horizontal: 15));
 
 showMessage({String title, String message, Duration duration}) => Get.snackbar(
       title ?? null,

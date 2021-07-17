@@ -19,10 +19,11 @@ class SubjectListTermController extends GetxController {
     getRegisterSubjectList();
   }
 
-  getRegisterSubjectList()async{
+  getRegisterSubjectList() async {
     var res = await Appclient.shared.getSubjectsRegisterById(semester.groupId);
     registerSubjects(res);
   }
+
   @override
   void onClose() {}
   void increment() => count.value++;
