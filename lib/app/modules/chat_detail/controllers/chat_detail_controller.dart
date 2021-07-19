@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
+import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
@@ -20,7 +21,7 @@ class ChatDetailController extends GetxController {
 
   final ScrollController scrollController = ScrollController();
 
-  ChatGroupEntity cg = Get.arguments;
+  SubjectClassEntity cg = Get.arguments;
 
   @override
   void onClose() {
@@ -40,7 +41,7 @@ class ChatDetailController extends GetxController {
 
   @override
   void onInit() {
-    list.bindStream(crud.chatStream(cg.id));
+    list.bindStream(crud.chatStream(cg.groupId));
     _listWorker = ever(list, listOnChange);
     focusNode = FocusNode()
       ..addListener(() {
@@ -65,8 +66,17 @@ class ChatDetailController extends GetxController {
   String get error => _error.value;
 
   void getListUser() async {
-    List<UserEntity> res = await Appclient.shared.getUserList(cg.sbId);
-    u(res);
+    List<UserEntity> res = await Appclient.shared.getUserList(cg.groupId);
+    UserEntity tec = UserEntity(
+        id: cg.teacher.id,
+        isTeacher: true,
+        name: cg.teacher.fullName,
+        mobile: cg.teacher.mobile,
+        email: cg.teacher.email,
+        avatar: cg.teacher.avatar,
+        faculty: cg.teacher.faculty,
+        teachingList: cg.teacher.teachingList);
+    u([tec, ...res]);
   }
 
   Future<void> sendMessage(BuildContext context) async {
@@ -77,7 +87,7 @@ class ChatDetailController extends GetxController {
             uidFrom: Storage.getUserId(),
             message: tec.text,
           ),
-          groupId: cg.id);
+          groupId: cg.groupId);
       tec.clear();
       scrollController.animateTo(
         scrollController.position.minScrollExtent,

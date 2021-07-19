@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:thanglong_university/app/model/chat_group_entity.dart';
-import 'package:thanglong_university/app/model/register_subject_entity.dart';
+import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 
 class ChatController extends GetxController {
-  RxList<ChatGroupEntity> group = RxList();
+  RxList<SubjectClassEntity> group = RxList();
 
   @override
   void onInit() {
@@ -17,22 +16,15 @@ class ChatController extends GetxController {
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    List<ChatGroupEntity> fake = [
-      ChatGroupEntity(id: 'group2', name: 'Messi Leo'),
-      ChatGroupEntity(id: 'group3', name: 'Chuột Barca'),
-    ];
     // group(fake);
     getGroup();
   }
 
   getGroup() async {
     try {
-      List<RegisterSubjectEntity> res =
+      List<SubjectClassEntity> res =
           await Appclient.shared.getSubjectClassList(true);
-      List<ChatGroupEntity> gr =
-          res.map((e) => e.getListSubject).expand((e1) => e1).toList();
-
-      group(gr);
+      group(res);
     } on Exception catch (e) {} finally {}
   }
 }

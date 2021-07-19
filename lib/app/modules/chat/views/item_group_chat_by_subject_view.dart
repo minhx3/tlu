@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
+import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
 import 'package:thanglong_university/app/views/views/value_box_view.dart';
 
 class ItemGroupChatBySubjectView extends StatelessWidget {
   final VoidCallback onPressed;
-  final ChatGroupEntity item;
+  final SubjectClassEntity item;
 
   const ItemGroupChatBySubjectView({Key key, this.onPressed, this.item})
       : super(key: key);
