@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:thanglong_university/app/model/chat/chat.dart';
+import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_attachment_message_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_raw_message_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_reply_message_view.dart';
 
 enum ChatType { raw, attachment, reply }
 
-class ChatTile extends StatelessWidget {
+class ChatTile extends GetView<ChatDetailController> {
   const ChatTile({
     Key key,
     @required this.type,
@@ -14,29 +17,28 @@ class ChatTile extends StatelessWidget {
     @required this.sent,
     @required this.imageURL,
     @required this.message,
-    @required this.id,
   }) : super(key: key);
+  final Chat message;
   final ChatType type;
   final String name;
   final String sent;
   final String imageURL;
-  final String message;
-  final String id;
   final bool isMe;
 
   @override
   Widget build(BuildContext context) {
-    Widget title = ItemRawMessageView(text: 'null', senderName: null);
+    Widget tile = ItemRawMessageView(text: 'null', senderName: null);
     switch (type) {
       case ChatType.raw:
-        title = ItemRawMessageView(
+        tile = ItemRawMessageView(
+          onTap: () => controller.selectMessage(message),
           isMyMessage: isMe,
-          text: message,
+          text: message.text,
           senderName: null,
         );
         break;
       case ChatType.attachment:
-        title = ItemAttachmentMessageView(
+        tile = ItemAttachmentMessageView(
           isMyMessage: isMe,
           senderName: null,
           senderAvatarUrl: null,
@@ -44,17 +46,17 @@ class ChatTile extends StatelessWidget {
         );
         break;
       case ChatType.reply:
-        title = ItemReplyMessageView(
+        tile = ItemReplyMessageView(
           isMyMessage: isMe,
-          text: message,
+          text: 'message',
           senderAvatarUrl: null,
-          originalMessage: null,
-          userReply: null,
+          originalMessage: 'originalMessage',
+          userReply: 'Tao đã trả lời',
         );
         break;
       default:
     }
 
-    return title;
+    return tile;
   }
 }

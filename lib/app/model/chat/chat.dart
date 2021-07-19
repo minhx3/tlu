@@ -6,17 +6,22 @@ import 'base_model.dart';
 
 class Chat extends BaseModel {
   String id;
+  String type;
+  String file;
+  String img;
+  String replyId;
+  String replyText;
   Timestamp dateCreated;
   String uidFrom;
   String uidTo;
-  String message;
+  String text;
 
   Chat({
     this.id,
     this.dateCreated,
     this.uidFrom,
     this.uidTo,
-    this.message,
+    this.text,
   });
 
 //fromDocumentSnapshot
@@ -25,13 +30,13 @@ class Chat extends BaseModel {
     dateCreated = documentSnapshot.data()["dateCreated"];
     uidFrom = documentSnapshot.data()["uidFrom"];
     uidTo = documentSnapshot.data()["uidTo"];
-    message = documentSnapshot.data()["message"];
+    text = documentSnapshot.data()["message"];
   }
 
 //toString
   @override
   String toString() {
-    return '''Chat: {dateCreated = ${this.dateCreated},uidFrom = ${this.uidFrom},uidTo = ${this.uidTo},message = ${this.message}}''';
+    return '''Chat: {dateCreated = ${this.dateCreated},uidFrom = ${this.uidFrom},uidTo = ${this.uidTo},message = ${this.text}}''';
   }
 
 //fromJson
@@ -39,7 +44,7 @@ class Chat extends BaseModel {
     dateCreated = json['dateCreated'];
     uidFrom = json['uidFrom'];
     uidTo = json['uidTo'];
-    message = json['message'];
+    text = json['message'];
   }
 
 //toJson
@@ -48,7 +53,7 @@ class Chat extends BaseModel {
     data['dateCreated'] = this.dateCreated;
     data['uidFrom'] = this.uidFrom;
     data['uidTo'] = this.uidTo;
-    data['message'] = this.message;
+    data['message'] = this.text;
     return data;
   }
 }
@@ -82,7 +87,7 @@ class ChatCrud {
       "dateCreated": Timestamp.now(),
       "uidFrom": chat.uidFrom,
       "uidTo": chat.uidTo,
-      "message": chat.message,
+      "message": chat.text,
     };
     return _firebase.crud(
       CrudState.add,
@@ -101,11 +106,11 @@ class ChatCrud {
         .update({
           "uidFrom": chat.uidFrom,
           "uidTo": chat.uidTo,
-          "message": chat.message,
+          "message": chat.text,
         })
         .then((value) => print('success'))
         .catchError((err) {
-          print(err.message);
+          print(err.text);
           print(err.code);
         });
   }
@@ -117,7 +122,7 @@ class ChatCrud {
         .delete()
         .then((value) => print('success'))
         .catchError((err) {
-      print(err.message);
+      print(err.text);
       print(err.code);
     });
   }

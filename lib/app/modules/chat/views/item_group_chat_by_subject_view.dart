@@ -29,7 +29,7 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
               radius: 25,
               backgroundColor: AppColor.subjectBackgroundColor,
               child: Text(
-                'TM',
+                item.name[0].toUpperCase(),
                 style: fontInter(14, color: AppColor.whiteColor),
               ),
             ),

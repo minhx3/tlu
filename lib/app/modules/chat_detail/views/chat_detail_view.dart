@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
@@ -87,40 +88,56 @@ class BottomChatView extends GetView<ChatDetailController> {
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
       decoration: BoxDecoration(
           border: Border(top: BorderSide(color: AppColor.lineColor))),
-      child: Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          KeyboardVisibilityBuilder(
-            builder: (c, isVisible) {
-              return AnimatedContainer(
-                width: isVisible ? 0 : Get.width * 0.3,
-                duration: Duration(milliseconds: 200),
-                child: _CommonAttachmentView(),
-              );
-            },
-          ),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                    child: _InputChatView(
-                  controller: controller.tec,
-                  focusNode: controller.focusNode,
-                )),
-                IconButton(
-                  icon: Image.asset(
-                    Images.icSendMessage,
-                    width: 20,
-                    height: 20,
-                  ),
-                  onPressed: () {
-                    controller.sendMessage(context);
-                  },
+          Obx(() => controller.messageReply()?.text != null
+              ? Row(
+                  children: [
+                    Text(controller.messageReply().text),
+                    IconButton(
+                      onPressed:()=> controller.cleanMessage(),
+                      icon: Icon(Icons.close),
+                    )
+                  ],
+                )
+              : SizedBox.shrink()),
+          Row(
+            children: [
+              KeyboardVisibilityBuilder(
+                builder: (c, isVisible) {
+                  return AnimatedContainer(
+                    width: isVisible ? 0 : Get.width * 0.3,
+                    duration: Duration(milliseconds: 200),
+                    child: _CommonAttachmentView(),
+                  );
+                },
+              ),
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                        child: _InputChatView(
+                      controller: controller.tec,
+                      focusNode: controller.focusNode,
+                    )),
+                    IconButton(
+                      icon: Image.asset(
+                        Images.icSendMessage,
+                        width: 20,
+                        height: 20,
+                      ),
+                      onPressed: () {
+                        controller.sendMessage(context);
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          )
+              )
+            ],
+          ),
         ],
       ),
     );
@@ -233,10 +250,9 @@ class _ContentChatListView extends GetView<ChatDetailController> {
               String _userName = _user?.displayName;
               bool _isMe = data.uidFrom == Storage.getUserId();
               return ChatTile(
+                message: data,
                 isMe: _isMe,
-                id: data.id,
                 imageURL: _photoUrl,
-                message: data.message ?? '',
                 name: _userName ?? '',
                 sent: 'data.dateCreated.convertToString()',
                 type: ChatType.raw,

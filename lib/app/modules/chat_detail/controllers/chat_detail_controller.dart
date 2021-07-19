@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
@@ -22,6 +23,8 @@ class ChatDetailController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
   SubjectClassEntity cg = Get.arguments;
+
+  Rx<Chat> messageReply = Rx();
 
   @override
   void onClose() {
@@ -81,11 +84,10 @@ class ChatDetailController extends GetxController {
 
   Future<void> sendMessage(BuildContext context) async {
     try {
-      // FocusScope.of(context).unfocus();
       await crud.addchat(
           chat: Chat(
             uidFrom: Storage.getUserId(),
-            message: tec.text,
+            text: tec.text,
           ),
           groupId: cg.groupId);
       tec.clear();
@@ -100,10 +102,18 @@ class ChatDetailController extends GetxController {
           id: 'ERRORID',
           dateCreated: Timestamp.now(),
           uidFrom: '_authController.currentUser.uid',
-          message: e.toString(),
+          text: e.toString(),
         ),
       );
       _loading(false);
     }
+  }
+
+  void selectMessage(Chat message){
+    messageReply(message);
+    focusNode.requestFocus();
+  }
+  void cleanMessage(){
+    messageReply.value=null;
   }
 }
