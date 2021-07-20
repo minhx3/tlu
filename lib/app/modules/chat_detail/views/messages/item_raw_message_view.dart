@@ -20,8 +20,7 @@ class ItemRawMessageView extends StatelessWidget {
       this.senderAvatarUrl,
       this.isQuoteMessage = false,
       this.isMyMessage = false,
-      this.onTap
-      })
+      this.onTap})
       : super(key: key);
 
   @override
@@ -36,8 +35,9 @@ class ItemRawMessageView extends StatelessWidget {
         isQuoteMessage: isQuoteMessage,
         isReply: isReply,
         child: Text(
-          text??'',
-          style: fontInter(14),
+          text ?? '',
+          style: fontInter(14,
+              color: isReply ? Color(0xff4D4D4D).withAlpha(70) : null),
         ),
       ),
     );

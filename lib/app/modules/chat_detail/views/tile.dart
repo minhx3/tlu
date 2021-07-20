@@ -11,33 +11,21 @@ enum ChatType { raw, attachment, reply }
 class ChatTile extends GetView<ChatDetailController> {
   const ChatTile({
     Key key,
-    @required this.type,
     @required this.name,
     @required this.isMe,
-    @required this.sent,
     @required this.imageURL,
     @required this.message,
   }) : super(key: key);
   final Chat message;
-  final ChatType type;
   final String name;
-  final String sent;
   final String imageURL;
   final bool isMe;
 
   @override
   Widget build(BuildContext context) {
     Widget tile = ItemRawMessageView(text: 'null', senderName: null);
-    switch (type) {
-      case ChatType.raw:
-        tile = ItemRawMessageView(
-          onTap: () => controller.selectMessage(message),
-          isMyMessage: isMe,
-          text: message.text,
-          senderName: null,
-        );
-        break;
-      case ChatType.attachment:
+    switch (message.type) {
+      case 'attachment':
         tile = ItemAttachmentMessageView(
           isMyMessage: isMe,
           senderName: null,
@@ -45,16 +33,22 @@ class ChatTile extends GetView<ChatDetailController> {
           fileName: null,
         );
         break;
-      case ChatType.reply:
+      case 'reply':
         tile = ItemReplyMessageView(
           isMyMessage: isMe,
-          text: 'message',
+          text: message.text,
           senderAvatarUrl: null,
-          originalMessage: 'originalMessage',
+          originalMessage: message.replyText,
           userReply: 'Tao đã trả lời',
         );
         break;
       default:
+        tile = ItemRawMessageView(
+          onTap: () => controller.selectMessage(message),
+          isMyMessage: isMe,
+          text: message.text,
+          senderName: null,
+        );
     }
 
     return tile;

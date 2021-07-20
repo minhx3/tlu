@@ -16,27 +16,31 @@ class Chat extends BaseModel {
   String uidTo;
   String text;
 
-  Chat({
-    this.id,
-    this.dateCreated,
-    this.uidFrom,
-    this.uidTo,
-    this.text,
-  });
+  Chat(
+      {this.id,
+      this.type,
+      this.file,
+      this.img,
+      this.replyId,
+      this.replyText,
+      this.dateCreated,
+      this.uidFrom,
+      this.uidTo,
+      this.text});
 
-//fromDocumentSnapshot
+  //fromDocumentSnapshot
   Chat.fromDocumentSnapshot({DocumentSnapshot documentSnapshot}) {
     id = documentSnapshot.id;
     dateCreated = documentSnapshot.data()["dateCreated"];
     uidFrom = documentSnapshot.data()["uidFrom"];
     uidTo = documentSnapshot.data()["uidTo"];
-    text = documentSnapshot.data()["message"];
-  }
-
-//toString
-  @override
-  String toString() {
-    return '''Chat: {dateCreated = ${this.dateCreated},uidFrom = ${this.uidFrom},uidTo = ${this.uidTo},message = ${this.text}}''';
+    type = documentSnapshot.data()["type"];
+    file = documentSnapshot.data()["file"];
+    img = documentSnapshot.data()["img"];
+    replyId = documentSnapshot.data()["replyId"];
+    replyId = documentSnapshot.data()["replyId"];
+    replyText = documentSnapshot.data()["replyText"];
+    text = documentSnapshot.data()["text"];
   }
 
 //fromJson
@@ -44,7 +48,7 @@ class Chat extends BaseModel {
     dateCreated = json['dateCreated'];
     uidFrom = json['uidFrom'];
     uidTo = json['uidTo'];
-    text = json['message'];
+    text = json['text'];
   }
 
 //toJson
@@ -53,7 +57,7 @@ class Chat extends BaseModel {
     data['dateCreated'] = this.dateCreated;
     data['uidFrom'] = this.uidFrom;
     data['uidTo'] = this.uidTo;
-    data['message'] = this.text;
+    data['text'] = this.text;
     return data;
   }
 }
@@ -82,12 +86,28 @@ class ChatCrud {
     );
   }
 
+  // this.id,
+  // this.type,
+  // this.file,
+  // this.img,
+  // this.replyId,
+  // this.replyText,
+  // this.dateCreated,
+  // this.uidFrom,
+  // this.uidTo,
+  // this.text
+
   Future<String> addchat({Chat chat, groupId}) {
     final _data = {
       "dateCreated": Timestamp.now(),
       "uidFrom": chat.uidFrom,
       "uidTo": chat.uidTo,
-      "message": chat.text,
+      "text": chat.text,
+      "type": chat.type,
+      "file": chat.file,
+      "img": chat.img,
+      "replyId": chat.replyId,
+      "replyText": chat.replyText,
     };
     return _firebase.crud(
       CrudState.add,
@@ -97,33 +117,5 @@ class ChatCrud {
       wantLoading: false,
       data: _data,
     );
-  }
-
-  void updatechat({Chat chat}) {
-    _firestore
-        .collection("chat")
-        .doc(chat.id)
-        .update({
-          "uidFrom": chat.uidFrom,
-          "uidTo": chat.uidTo,
-          "message": chat.text,
-        })
-        .then((value) => print('success'))
-        .catchError((err) {
-          print(err.text);
-          print(err.code);
-        });
-  }
-
-  void deleteChat({String id}) {
-    _firestore
-        .collection("chat")
-        .doc(id)
-        .delete()
-        .then((value) => print('success'))
-        .catchError((err) {
-      print(err.text);
-      print(err.code);
-    });
   }
 }

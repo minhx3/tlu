@@ -254,8 +254,6 @@ class _ContentChatListView extends GetView<ChatDetailController> {
                 isMe: _isMe,
                 imageURL: _photoUrl,
                 name: _userName ?? '',
-                sent: 'data.dateCreated.convertToString()',
-                type: ChatType.raw,
               );
             },
           ),

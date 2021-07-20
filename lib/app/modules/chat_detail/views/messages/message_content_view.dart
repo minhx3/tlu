@@ -10,7 +10,7 @@ class MessageContentView extends GetView<ChatDetailController> {
   final Function onTap;
   final bool isQuoteMessage;
 
-  const MessageContentView( {
+  const MessageContentView({
     Key key,
     @required this.child,
     this.onTap,
@@ -27,7 +27,7 @@ class MessageContentView extends GetView<ChatDetailController> {
         constraints: BoxConstraints(maxWidth: Screen.width * 0.7),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),
-            color: Colors.red.withOpacity(isReply == true ? 0.7 : 1),
+            color: Colors.white70.withOpacity(isReply == true ? 0.7 : 1),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withAlpha(5),

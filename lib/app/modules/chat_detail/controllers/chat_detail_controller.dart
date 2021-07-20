@@ -86,10 +86,14 @@ class ChatDetailController extends GetxController {
     try {
       await crud.addchat(
           chat: Chat(
+            type: getType(),
+            replyId: messageReply()?.id,
+            replyText: messageReply()?.text,
             uidFrom: Storage.getUserId(),
             text: tec.text,
           ),
           groupId: cg.groupId);
+      cleanMessage();
       tec.clear();
       scrollController.animateTo(
         scrollController.position.minScrollExtent,
@@ -109,11 +113,22 @@ class ChatDetailController extends GetxController {
     }
   }
 
-  void selectMessage(Chat message){
+  void selectMessage(Chat message) {
     messageReply(message);
     focusNode.requestFocus();
   }
-  void cleanMessage(){
-    messageReply.value=null;
+
+  String getType() {
+    String type = 'raw';
+    if (messageReply() != null) {
+      type = 'reply';
+    }
+    return type;
+  }
+
+  void cleanMessage() {
+    if (messageReply() != null) {
+      messageReply.value = null;
+    }
   }
 }
