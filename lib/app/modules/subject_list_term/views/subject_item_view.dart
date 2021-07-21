@@ -69,7 +69,8 @@ class SubjectItemView extends StatelessWidget {
     return (subject?.listTimelineClass ?? []).map((timeLineClass) {
       return InkWell(
         onTap: () {
-          pushTo(Routes.DETAI_CLASS);
+          pushTo(Routes.DETAI_CLASS,
+              arguments: {"id": subject.id, "data": subject});
         },
         child: Container(
           margin: EdgeInsets.only(bottom: 10),
