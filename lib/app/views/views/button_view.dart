@@ -14,6 +14,8 @@ class ButtonView extends StatelessWidget {
   final double horizontalSpacing;
   final ViewState viewState;
   final ButtonType type;
+  final Color backgroundColor;
+  final Color splashColor;
 
   const ButtonView(
       {Key key,
@@ -22,7 +24,9 @@ class ButtonView extends StatelessWidget {
       this.verticalSpacing = 0,
       this.horizontalSpacing = 0,
       this.type = ButtonType.system,
-      this.viewState = ViewState.idle})
+      this.viewState = ViewState.idle,
+      this.backgroundColor,
+      this.splashColor})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -32,13 +36,14 @@ class ButtonView extends StatelessWidget {
           top: verticalSpacing,
           right: horizontalSpacing),
       child: Material(
-        color:
-            type == ButtonType.system ? AppColor.cfc2626 : Colors.transparent,
+        color: (backgroundColor != null ? backgroundColor : null) ??
+            (type == ButtonType.system ? AppColor.cfc2626 : Colors.transparent),
         borderRadius: BorderRadius.circular(3),
         child: InkWell(
-          splashColor: type == ButtonType.system
-              ? AppColor.primaryColor.withOpacity(0.5)
-              : Colors.transparent,
+          splashColor: (splashColor != null ? splashColor : null) ??
+              (type == ButtonType.system
+                  ? AppColor.primaryColor.withOpacity(0.5)
+                  : Colors.transparent),
           onTap: () {
             onTap();
           },

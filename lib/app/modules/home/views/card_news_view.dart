@@ -1,18 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/news_model.dart';
 import 'package:thanglong_university/app/modules/home/controllers/home_controller.dart';
-import 'package:thanglong_university/app/routes/app_pages.dart';
-import 'package:thanglong_university/app/views/views/image_view.dart';
 
 class CardNewsView extends GetView<HomeController> {
   @override

@@ -78,6 +78,7 @@ showErrorMessage(
           });
 
           return CustomAlertDialog(
+            scrollable: true,
             elevation: 6,
             title: Container(
                 child: Column(
@@ -163,7 +164,7 @@ showErrorMessage(
 showMessage(
         {String title,
         String message,
-        Duration duration,
+        int duration = 3,
         Widget titleWidget,
         Widget messageWidget}) =>
     Get.generalDialog(
@@ -172,11 +173,12 @@ showMessage(
         barrierDismissible: true,
         pageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> animationSecond) {
-          Future.delayed(duration, () {
+          Future.delayed(Duration(seconds: duration), () {
             if (Get.isDialogOpen) Navigator.of(Get.context).pop();
           });
 
           return CustomAlertDialog(
+            scrollable: true,
             elevation: 6,
             title: Container(
                 child: Column(
@@ -204,7 +206,7 @@ showMessage(
                 ])),
             alignMent: Alignment.topCenter,
             insetPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 85),
-            contentPadding: EdgeInsets.symmetric(horizontal: 20),
+            contentPadding: EdgeInsets.only(top: 20, left: 20, bottom: 20),
             titlePadding: EdgeInsets.zero,
             content: (message != null
                     ? Text("$message",
@@ -231,6 +233,77 @@ showMessage(
 //       duration: duration ?? Duration(milliseconds: 300),
 //       backgroundColor: Colors.black,
 //     );
+
+showConfirmDialog(
+        {String title,
+        String message,
+        Widget titleWidget,
+        Widget messageWidget,
+        Widget actions}) =>
+    Get.generalDialog(
+        transitionDuration: Duration(milliseconds: 300),
+        barrierLabel: "",
+        barrierDismissible: true,
+        pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> animationSecond) {
+          return CustomAlertDialog(
+            scrollable: true,
+            elevation: 6,
+            title: Container(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8)),
+                        color: AppColor.c000333),
+                    height: 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: title != null
+                        ? Text("$title",
+                            style: TextStyle(
+                                color: AppColor.c000333,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600))
+                        : (titleWidget ?? SizedBox()),
+                  )
+                ])),
+            alignMent: Alignment.topCenter,
+            insetPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 85),
+            contentPadding: EdgeInsets.symmetric(horizontal: 20),
+            titlePadding: EdgeInsets.zero,
+            content: Column(
+              children: [
+                (message != null
+                        ? Text("$message",
+                            style: TextStyle(
+                                color: AppColor.c4d4d4d,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500))
+                        : messageWidget)
+                    .marginOnly(top: 4),
+                actions != null
+                    ? Container(
+                        margin: EdgeInsets.symmetric(vertical: 15),
+                        height: 1,
+                        color: AppColor.cd9d9d9,
+                      )
+                    : SizedBox(),
+                actions != null ? actions.marginOnly(bottom: 15) : SizedBox()
+              ],
+            ),
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(10))),
+          );
+        },
+        useRootNavigator: false,
+        barrierColor: Colors.black.withOpacity(0.3));
 
 delay(Function onCompleted, {int time = 2}) {
   Future.delayed(Duration(seconds: time)).whenComplete(onCompleted);
