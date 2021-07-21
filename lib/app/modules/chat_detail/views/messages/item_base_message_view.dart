@@ -8,6 +8,7 @@ class ItemBaseMessageView extends StatelessWidget {
   final Widget child;
 
   final bool isMyMessage;
+
   const ItemBaseMessageView({
     Key key,
     @required this.senderName,

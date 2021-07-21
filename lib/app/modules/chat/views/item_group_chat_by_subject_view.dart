@@ -29,7 +29,7 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
               radius: 25,
               backgroundColor: AppColor.subjectBackgroundColor,
               child: Text(
-                'TM',
+                item?.id?.toUpperCase() ?? '',
                 style: fontInter(14, color: AppColor.whiteColor),
               ),
             ),
@@ -42,13 +42,13 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _RowTop(
-                    title: item?.name ?? '',
+                    title: item?.id ?? '',
                   ),
                   SizedBox(
                     height: 4,
                   ),
                   _RowBottom(
-                    lastMessage: item?.name ?? '',
+                    lastMessage: item?.id ?? '',
                   ),
                 ],
               ),

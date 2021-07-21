@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
@@ -9,11 +10,7 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/user.dart';
-import 'package:thanglong_university/app/modules/chat/controllers/chat_cotroller.dart';
 import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
-import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_attachment_message_view.dart';
-import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_raw_message_view.dart';
-import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_reply_message_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/tile.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
@@ -87,40 +84,56 @@ class BottomChatView extends GetView<ChatDetailController> {
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
       decoration: BoxDecoration(
           border: Border(top: BorderSide(color: AppColor.lineColor))),
-      child: Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          KeyboardVisibilityBuilder(
-            builder: (c, isVisible) {
-              return AnimatedContainer(
-                width: isVisible ? 0 : Get.width * 0.3,
-                duration: Duration(milliseconds: 200),
-                child: _CommonAttachmentView(),
-              );
-            },
-          ),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                    child: _InputChatView(
-                  controller: controller.tec,
-                  focusNode: controller.focusNode,
-                )),
-                IconButton(
-                  icon: Image.asset(
-                    Images.icSendMessage,
-                    width: 20,
-                    height: 20,
-                  ),
-                  onPressed: () {
-                    controller.sendMessage(context);
-                  },
+          Obx(() => controller.messageReply()?.text != null
+              ? Row(
+                  children: [
+                    Text(controller.messageReply().text),
+                    IconButton(
+                      onPressed: () => controller.cleanMessage(),
+                      icon: Icon(Icons.close),
+                    )
+                  ],
+                )
+              : SizedBox.shrink()),
+          Row(
+            children: [
+              KeyboardVisibilityBuilder(
+                builder: (c, isVisible) {
+                  return AnimatedContainer(
+                    width: isVisible ? 0 : Get.width * 0.3,
+                    duration: Duration(milliseconds: 200),
+                    child: _CommonAttachmentView(),
+                  );
+                },
+              ),
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                        child: _InputChatView(
+                      controller: controller.tec,
+                      focusNode: controller.focusNode,
+                    )),
+                    IconButton(
+                      icon: Image.asset(
+                        Images.icSendMessage,
+                        width: 20,
+                        height: 20,
+                      ),
+                      onPressed: () {
+                        controller.sendMessage(context);
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          )
+              )
+            ],
+          ),
         ],
       ),
     );
@@ -233,13 +246,10 @@ class _ContentChatListView extends GetView<ChatDetailController> {
               String _userName = _user?.displayName;
               bool _isMe = data.uidFrom == Storage.getUserId();
               return ChatTile(
+                message: data,
                 isMe: _isMe,
-                id: data.id,
                 imageURL: _photoUrl,
-                message: data.message ?? '',
                 name: _userName ?? '',
-                sent: 'data.dateCreated.convertToString()',
-                type: ChatType.raw,
               );
             },
           ),

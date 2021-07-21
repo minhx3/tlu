@@ -45,7 +45,7 @@ class ItemReplyMessageView extends StatelessWidget {
                 isMyMessage: isMyMessage,
                 child: Text(
                   text,
-                  style: fontInter(14, color: _getTextColor()),
+                  style: fontInter(14),
                 ),
               ),
             )
@@ -58,11 +58,4 @@ class ItemReplyMessageView extends StatelessWidget {
     );
   }
 
-  Color _getTextColor() {
-    if (isMyMessage == true) {
-      return AppColor.whiteColor;
-    } else {
-      return AppColor.textColor;
-    }
-  }
 }

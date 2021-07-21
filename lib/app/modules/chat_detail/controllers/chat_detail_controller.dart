@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
-import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 
@@ -22,6 +22,8 @@ class ChatDetailController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
   SubjectClassEntity cg = Get.arguments;
+
+  Rx<Chat> messageReply = Rx();
 
   @override
   void onClose() {
@@ -81,13 +83,17 @@ class ChatDetailController extends GetxController {
 
   Future<void> sendMessage(BuildContext context) async {
     try {
-      // FocusScope.of(context).unfocus();
       await crud.addchat(
           chat: Chat(
+            type: getType(),
+            replyId: messageReply()?.id,
+            replyText: messageReply()?.text,
+            replyUserId: messageReply()?.uidFrom,
             uidFrom: Storage.getUserId(),
-            message: tec.text,
+            text: tec.text,
           ),
           groupId: cg.groupId);
+      cleanMessage();
       tec.clear();
       scrollController.animateTo(
         scrollController.position.minScrollExtent,
@@ -99,11 +105,34 @@ class ChatDetailController extends GetxController {
         Chat(
           id: 'ERRORID',
           dateCreated: Timestamp.now(),
-          uidFrom: '_authController.currentUser.uid',
-          message: e.toString(),
+          uidFrom: Storage.getUserId(),
+          text: e.toString(),
         ),
       );
       _loading(false);
     }
+  }
+
+  void selectMessage(Chat message) {
+    messageReply(message);
+    focusNode.requestFocus();
+  }
+
+  String getType() {
+    String type = 'raw';
+    if (messageReply() != null) {
+      type = 'reply';
+    }
+    return type;
+  }
+
+  void cleanMessage() {
+    if (messageReply() != null) {
+      messageReply.value = null;
+    }
+  }
+
+  UserEntity getUserById(id) {
+    return u().firstWhere((element) => element.id == id, orElse: null);
   }
 }
