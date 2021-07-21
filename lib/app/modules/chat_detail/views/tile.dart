@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
+import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_attachment_message_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_raw_message_view.dart';
@@ -34,6 +35,7 @@ class ChatTile extends GetView<ChatDetailController> {
         );
         break;
       case 'reply':
+        UserEntity u = controller.getUserById(message.id);
         tile = ItemReplyMessageView(
           isMyMessage: isMe,
           text: message.text,

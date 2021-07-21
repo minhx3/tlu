@@ -33,4 +33,5 @@ class UserEntity extends UserModel with JsonConvert<UserEntity> {
   String get getTeaching {
     return teachingList.map((e) => e.name).join(', ');
   }
+
 }

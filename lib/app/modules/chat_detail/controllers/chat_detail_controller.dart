@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
-import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 
@@ -89,6 +88,7 @@ class ChatDetailController extends GetxController {
             type: getType(),
             replyId: messageReply()?.id,
             replyText: messageReply()?.text,
+            replyUserId: messageReply()?.uidFrom,
             uidFrom: Storage.getUserId(),
             text: tec.text,
           ),
@@ -105,7 +105,7 @@ class ChatDetailController extends GetxController {
         Chat(
           id: 'ERRORID',
           dateCreated: Timestamp.now(),
-          uidFrom: '_authController.currentUser.uid',
+          uidFrom: Storage.getUserId(),
           text: e.toString(),
         ),
       );
@@ -130,5 +130,9 @@ class ChatDetailController extends GetxController {
     if (messageReply() != null) {
       messageReply.value = null;
     }
+  }
+
+  UserEntity getUserById(id) {
+    return u().firstWhere((element) => element.id == id, orElse: null);
   }
 }

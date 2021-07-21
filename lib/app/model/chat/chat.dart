@@ -11,6 +11,7 @@ class Chat extends BaseModel {
   String img;
   String replyId;
   String replyText;
+  String replyUserId;
   Timestamp dateCreated;
   String uidFrom;
   String uidTo;
@@ -23,6 +24,7 @@ class Chat extends BaseModel {
       this.img,
       this.replyId,
       this.replyText,
+      this.replyUserId,
       this.dateCreated,
       this.uidFrom,
       this.uidTo,
@@ -40,25 +42,8 @@ class Chat extends BaseModel {
     replyId = documentSnapshot.data()["replyId"];
     replyId = documentSnapshot.data()["replyId"];
     replyText = documentSnapshot.data()["replyText"];
+    replyUserId = documentSnapshot.data()["replyUserId"];
     text = documentSnapshot.data()["text"];
-  }
-
-//fromJson
-  Chat.fromJson(Map<String, dynamic> json) {
-    dateCreated = json['dateCreated'];
-    uidFrom = json['uidFrom'];
-    uidTo = json['uidTo'];
-    text = json['text'];
-  }
-
-//toJson
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['dateCreated'] = this.dateCreated;
-    data['uidFrom'] = this.uidFrom;
-    data['uidTo'] = this.uidTo;
-    data['text'] = this.text;
-    return data;
   }
 }
 
