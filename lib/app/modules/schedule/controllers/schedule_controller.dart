@@ -11,7 +11,6 @@ import 'package:thanglong_university/app/views/views/calendar/flutter_calendar.d
 import 'package:intl/date_symbol_data_local.dart'; //for date locale
 
 class ScheduleController extends AppController {
-  //TODO: Implement ScheduleController
   CalendarController calendarController = CalendarController();
 
   final tagIndex = 0.obs;

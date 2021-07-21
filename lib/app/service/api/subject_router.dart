@@ -8,6 +8,7 @@ enum SubjectEndpoint {
   getSubjectClassList,
   getUserList,
   getSubjectsList,
+  getSubjectsClassDetail,
   getSubjectsRegister,
   registerSubjects,
   getAlertRegister,
@@ -56,6 +57,9 @@ class SubjectRouter extends BaseRouter {
         break;
       case SubjectEndpoint.registerSubjectClass:
         response = client(headers: headerParams).post(path, data: data);
+        break;
+      case SubjectEndpoint.getSubjectsClassDetail:
+        response = client(headers: headerParams).get(path);
         break;
     }
     return await BaseModel.onBaseModel(response, handleError: handleError);
@@ -109,6 +113,9 @@ class SubjectRouter extends BaseRouter {
         break;
       case SubjectEndpoint.registerSubjectClass:
         path = "register-subject-class:register";
+        break;
+      case SubjectEndpoint.getSubjectsClassDetail:
+        path = "subject-class/$joinPath";
         break;
     }
     return path;

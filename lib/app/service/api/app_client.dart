@@ -121,6 +121,18 @@ class Appclient {
     }
   }
 
+  Future<RegisterSubjectEntity> getSubjectsClassById(String id) async {
+    final result = await SubjectRouter(SubjectEndpoint.getSubjectsClassDetail,
+            joinPath: id, handleError: true)
+        .call;
+
+    if (result.statusCode != 200) {
+      return null;
+    }
+
+    return RegisterSubjectEntity().fromJson(result.data);
+  }
+
   Future<BaseModel> postRegisterSubjectClass(String subjectClassId) async {
     return await SubjectRouter(SubjectEndpoint.registerSubjectClass,
             data: {"subjectClassId": subjectClassId}, handleError: true)
