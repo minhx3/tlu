@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animator/flutter_animator.dart';
 
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';

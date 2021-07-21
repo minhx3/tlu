@@ -1,18 +1,19 @@
 import 'package:thanglong_university/app/model/chat_group_entity.dart';
+import 'package:thanglong_university/app/model/teacher_model.dart';
 import 'package:thanglong_university/generated/json/base/json_convert_content.dart';
 
 class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
   String closeRgister;
   String openRegister;
   String status;
-  String examCnditions;
+  String examConditions;
   int haveRegistered;
   String id;
   String name;
   bool isHasGreatExercise;
   bool isOnline;
   String group;
-  List<RegisterSubjectListTeacher> listTeacher;
+  List<Teacher> listTeacher;
   List<RegisterSubjectListTimelineClassTimeLines> listTimelineClass;
   String note;
   List<RegisterSubjectNumberOfLessons> numberOfLessons;
@@ -23,7 +24,7 @@ class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
   int schoolFee;
   String scoringMethod;
   RegisterSubjectSemester semester;
-  RegisterSubjectSubjectId subjectId;
+  RegisterSubjectSubject subject;
 
   List<ChatGroupEntity> get getListSubject {
     return listTeacher
@@ -36,6 +37,7 @@ class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
   }
 }
 
+@deprecated
 class RegisterSubjectListTeacher with JsonConvert<RegisterSubjectListTeacher> {
   String avatar;
   String degree;
@@ -47,6 +49,7 @@ class RegisterSubjectListTeacher with JsonConvert<RegisterSubjectListTeacher> {
   List<RegisterSubjectListTeacherTeachingList> teachingList;
 }
 
+@deprecated
 class RegisterSubjectListTeacherTeachingList
     with JsonConvert<RegisterSubjectListTeacherTeachingList> {
   int credits;
@@ -61,7 +64,7 @@ class RegisterSubjectListTeacherTeachingList
 class RegisterSubjectListTimelineClass
     with JsonConvert<RegisterSubjectListTimelineClass> {
   String code;
-  RegisterSubjectListTimelineClassTeacher teacher;
+  Teacher teacher;
   List<RegisterSubjectListTimelineClassTimeLines> timeLines;
 
   String get getAllTime {
@@ -69,6 +72,7 @@ class RegisterSubjectListTimelineClass
   }
 }
 
+@deprecated
 class RegisterSubjectListTimelineClassTeacher
     with JsonConvert<RegisterSubjectListTimelineClassTeacher> {
   String avatar;
@@ -78,9 +82,10 @@ class RegisterSubjectListTimelineClassTeacher
   String fullName;
   String id;
   String mobile;
-  List<RegisterSubjectListTimelineClassTeacherTeachingList> teachingList;
+  List<TeachingList> teachingList;
 }
 
+@deprecated
 class RegisterSubjectListTimelineClassTeacherTeachingList
     with JsonConvert<RegisterSubjectListTimelineClassTeacherTeachingList> {
   int credits;
@@ -98,7 +103,7 @@ class RegisterSubjectListTimelineClassTimeLines
   String id;
   List<RegisterSubjectListTimelineClassTimeLinesListSchedule> listSchedule;
   String toDate;
-  RegisterSubjectListTimelineClassTeacher teacher;
+  Teacher teacher;
 
   String get getAllTime {
     return listSchedule.map((e) => e.getTime).join(',');
@@ -120,7 +125,9 @@ class RegisterSubjectListTimelineClassTimeLinesListSchedule
   String note;
 
   String get getTime {
-    String ses = listSession.map((e) => e.id.replaceAll('ses', '')).join('-');
+    String ses = listSession
+        .map((e) => e.name.toLowerCase().replaceAll('tiết ', ''))
+        .join('-');
     return '${dayOfWeekToName[dayOfWeek]}, $ses';
   }
 
@@ -203,7 +210,7 @@ class RegisterSubjectSemester with JsonConvert<RegisterSubjectSemester> {
   String startTime;
 }
 
-class RegisterSubjectSubjectId with JsonConvert<RegisterSubjectSubjectId> {
+class RegisterSubjectSubject with JsonConvert<RegisterSubjectSubject> {
   int credits;
   String description;
   double factor;

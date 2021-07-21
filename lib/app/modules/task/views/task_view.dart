@@ -8,8 +8,6 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/modules/task/views/teacher_item_view.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
-import 'package:thanglong_university/app/views/views/button_view.dart';
-
 import '../controllers/task_controller.dart';
 
 class TaskView extends GetView<TaskController> {
@@ -33,7 +31,7 @@ class TaskView extends GetView<TaskController> {
                 padding: EdgeInsets.all(16),
                 children: [
                   headerView(),
-                  TeacherItemView(),
+                  TeacherItemView(controller.subjectItem.teacher),
                   documentWidget(),
                   noteWidget(),
                   // ButtonView(

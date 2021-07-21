@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
+import 'package:thanglong_university/app/configuration/base/app_controller.dart';
+import 'package:thanglong_university/app/views/views/loader.dart';
 
-class DetaiClassController extends GetxController
+class DetaiClassController extends AppController
     with SingleGetTickerProviderMixin {
   final collapsed = false.obs;
   AnimationController collapseAnimationController = AnimationController(
@@ -28,8 +31,10 @@ class DetaiClassController extends GetxController
     if (Get.arguments["data"] != null) {
       subjectClassData = Get.arguments["data"] as RegisterSubjectEntity;
     } else if (subjectClassId != null) {
-      subjectClassData =
-          await Appclient.shared.getSubjectsClassById(subjectClassId);
+      showLoading();
+      subjectClassData = await Appclient.shared
+          .getSubjectsClassById(subjectClassId)
+          .whenComplete(() => hideLoading());
     }
 
     if (subjectClassData != null) {
@@ -37,7 +42,8 @@ class DetaiClassController extends GetxController
           .asMap()
           .forEach((index, element) {
         (columnList[0]['data'] as List).add(element.id ?? "");
-        (columnList[1]['data'] as List).add(element.teacher?.id ?? "");
+        (columnList[1]['data'] as List)
+            .add((element.teacher?.id ?? "").toUpperCase());
         (columnList[2]['data'] as List)
             .add((element.listSchedule ?? []).map((e) => e.getTime).join("\n"));
         (columnList[3]['data'] as List)

@@ -35,7 +35,7 @@ class SubjectItemView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                   alignment: Alignment.center,
                   child: Text(
-                    subject?.subjectId?.id ?? '',
+                    subject?.subject?.id ?? '',
                     style: fontInter(10,
                         fontWeight: FontWeight.w600,
                         color: AppColor.whiteColor),
@@ -45,7 +45,7 @@ class SubjectItemView extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    subject?.subjectId?.name ?? '',
+                    subject?.subject?.name ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: fontInter(14,
@@ -81,7 +81,7 @@ class SubjectItemView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                subject?.name ?? "",
+                subject?.id ?? "",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: fontInter(16,
@@ -125,8 +125,9 @@ class SubjectItemView extends StatelessWidget {
                         ),
                         SizedBox(height: 2),
                         Text(
-                          subject.listTeacher
-                              .map((e) => '${e.degree} ${e.fullName}')
+                          subject.listTimelineClass
+                              .map((e) =>
+                                  '${e.teacher?.degree} ${e.teacher?.fullName}')
                               .join('\n'),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,

@@ -1,10 +1,7 @@
-// To parse this JSON data, do
-//
-//     final scheduleModel = scheduleModelFromJson(jsonString);
-
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
+import 'package:thanglong_university/app/model/teacher_model.dart';
 
 List<ScheduleModel> scheduleModelFromJson(String str) =>
     List<ScheduleModel>.from(
@@ -164,7 +161,7 @@ class ScheduleModel {
     return time.replaceAll('#', 'h');
   }
 
-  String get getTimeWithDate{
+  String get getTimeWithDate {
     return '${this.getTime}, ${this.day}';
   }
 }
@@ -288,136 +285,5 @@ class Recurrent {
         "execuday": execuday == null ? null : execuday,
         "recurEveryNumber": recurEveryNumber == null ? null : recurEveryNumber,
         "requenceType": requenceType == null ? null : requenceType,
-      };
-}
-
-class Teacher {
-  Teacher({
-    this.avatar,
-    this.degree,
-    this.dob,
-    this.email,
-    this.fullName,
-    this.id,
-    this.mobile,
-    this.teachingList,
-  });
-
-  String avatar;
-  String degree;
-  DateTime dob;
-  String email;
-  String fullName;
-  String id;
-  String mobile;
-  List<TeachingList> teachingList;
-
-  Teacher copyWith({
-    String avatar,
-    String degree,
-    DateTime dob,
-    String email,
-    String fullName,
-    String id,
-    String mobile,
-    List<TeachingList> teachingList,
-  }) =>
-      Teacher(
-        avatar: avatar ?? this.avatar,
-        degree: degree ?? this.degree,
-        dob: dob ?? this.dob,
-        email: email ?? this.email,
-        fullName: fullName ?? this.fullName,
-        id: id ?? this.id,
-        mobile: mobile ?? this.mobile,
-        teachingList: teachingList ?? this.teachingList,
-      );
-
-  factory Teacher.fromJson(Map<String, dynamic> json) => Teacher(
-        avatar: json["avatar"] == null ? null : json["avatar"],
-        degree: json["degree"] == null ? null : json["degree"],
-        dob: json["dob"] == null ? null : DateTime.parse(json["dob"]),
-        email: json["email"] == null ? null : json["email"],
-        fullName: json["fullName"] == null ? null : json["fullName"],
-        id: json["id"] == null ? null : json["id"],
-        mobile: json["mobile"] == null ? null : json["mobile"],
-        teachingList: json["teachingList"] == null
-            ? null
-            : List<TeachingList>.from(
-                json["teachingList"].map((x) => TeachingList.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "avatar": avatar == null ? null : avatar,
-        "degree": degree == null ? null : degree,
-        "dob": dob == null
-            ? null
-            : "${dob.year.toString().padLeft(4, '0')}-${dob.month.toString().padLeft(2, '0')}-${dob.day.toString().padLeft(2, '0')}",
-        "email": email == null ? null : email,
-        "fullName": fullName == null ? null : fullName,
-        "id": id == null ? null : id,
-        "mobile": mobile == null ? null : mobile,
-        "teachingList": teachingList == null
-            ? null
-            : List<dynamic>.from(teachingList.map((x) => x.toJson())),
-      };
-}
-
-class TeachingList {
-  TeachingList({
-    this.credits,
-    this.description,
-    this.factor,
-    this.id,
-    this.name,
-    this.porpose,
-    this.type,
-  });
-
-  int credits;
-  String description;
-  double factor;
-  String id;
-  String name;
-  String porpose;
-  String type;
-
-  TeachingList copyWith({
-    int credits,
-    String description,
-    double factor,
-    String id,
-    String name,
-    String porpose,
-    String type,
-  }) =>
-      TeachingList(
-        credits: credits ?? this.credits,
-        description: description ?? this.description,
-        factor: factor ?? this.factor,
-        id: id ?? this.id,
-        name: name ?? this.name,
-        porpose: porpose ?? this.porpose,
-        type: type ?? this.type,
-      );
-
-  factory TeachingList.fromJson(Map<String, dynamic> json) => TeachingList(
-        credits: json["credits"] == null ? null : json["credits"],
-        description: json["description"] == null ? null : json["description"],
-        factor: json["factor"] == null ? null : json["factor"].toDouble(),
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-        porpose: json["porpose"] == null ? null : json["porpose"],
-        type: json["type"] == null ? null : json["type"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "credits": credits == null ? null : credits,
-        "description": description == null ? null : description,
-        "factor": factor == null ? null : factor,
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "porpose": porpose == null ? null : porpose,
-        "type": type == null ? null : type,
       };
 }
