@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
+import 'package:thanglong_university/app/service/notification.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 
 class ChatDetailController extends GetxController {
@@ -42,7 +44,9 @@ class ChatDetailController extends GetxController {
   Worker _listWorker;
 
   @override
-  void onInit() {
+  void onInit() async {
+    await FirebaseMessaging.instance.subscribeToTopic(cg.groupId);
+
     list.bindStream(crud.chatStream(cg.groupId));
     _listWorker = ever(list, listOnChange);
     focusNode = FocusNode()
@@ -83,16 +87,28 @@ class ChatDetailController extends GetxController {
 
   Future<void> sendMessage(BuildContext context) async {
     try {
-      await crud.addchat(
+      String uidFrom = Storage.getUserId();
+      await crud.sendNewChat(
           chat: Chat(
             type: getType(),
             replyId: messageReply()?.id,
             replyText: messageReply()?.text,
             replyUserId: messageReply()?.uidFrom,
-            uidFrom: Storage.getUserId(),
+            uidFrom: uidFrom,
             text: tec.text,
+            badge: 0
           ),
-          groupId: cg.groupId);
+          groupId: cg.groupId,
+          listUser: u()
+      );
+      await NotificationFCB.instance.sendNotificationMessageToPeerUser(
+          unReadMSGCount: 0,
+          messageType: getType(),
+          textFromTextField: tec.text,
+          myName: 'Leo Messi',
+          chatroomId: cg.groupId,
+          myImageUrl: '');
+
       cleanMessage();
       tec.clear();
       scrollController.animateTo(
@@ -133,6 +149,6 @@ class ChatDetailController extends GetxController {
   }
 
   UserEntity getUserById(id) {
-    return u().firstWhere((element) => element.id == id, orElse: null);
+    return u().firstWhere((element) => element.id == id, orElse: () => null);
   }
 }

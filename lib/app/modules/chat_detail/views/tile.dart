@@ -25,23 +25,25 @@ class ChatTile extends GetView<ChatDetailController> {
   @override
   Widget build(BuildContext context) {
     Widget tile = ItemRawMessageView(text: 'null', senderName: null);
+    UserEntity u = controller.getUserById(message.uidFrom);
+
     switch (message.type) {
       case 'attachment':
         tile = ItemAttachmentMessageView(
           isMyMessage: isMe,
-          senderName: null,
-          senderAvatarUrl: null,
+          senderName: u?.name,
+          senderAvatarUrl: u?.avatar,
           fileName: null,
         );
         break;
       case 'reply':
-        UserEntity u = controller.getUserById(message.id);
         tile = ItemReplyMessageView(
           isMyMessage: isMe,
           text: message.text,
-          senderAvatarUrl: null,
+          senderAvatarUrl: u?.avatar,
+          senderName: u?.name,
           originalMessage: message.replyText,
-          userReply: 'Tao đã trả lời',
+          userReply: '${isMe ? 'Bạn' : (u?.name ?? '')} đã trả lời tin nhắn',
         );
         break;
       default:
@@ -49,7 +51,8 @@ class ChatTile extends GetView<ChatDetailController> {
           onTap: () => controller.selectMessage(message),
           isMyMessage: isMe,
           text: message.text,
-          senderName: null,
+          senderAvatarUrl: u?.avatar,
+          senderName: u?.name,
         );
     }
 

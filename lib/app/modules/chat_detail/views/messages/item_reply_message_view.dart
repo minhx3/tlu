@@ -7,6 +7,7 @@ import 'package:thanglong_university/app/modules/chat_detail/views/messages/mess
 class ItemReplyMessageView extends StatelessWidget {
   final String senderAvatarUrl;
   final String userReply;
+  final String senderName;
   final String originalMessage;
   final String text;
   final bool isMyMessage;
@@ -17,7 +18,7 @@ class ItemReplyMessageView extends StatelessWidget {
       @required this.senderAvatarUrl,
       @required this.userReply,
       @required this.originalMessage,
-      @required this.text})
+      @required this.text, this.senderName})
       : super(key: key);
 
   @override

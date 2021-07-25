@@ -58,7 +58,10 @@ class ItemBaseMessageView extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [_renderAvatar(), child],
+          children: [
+            _renderAvatar(isMyMessage, senderAvatarUrl, senderName),
+            child
+          ],
         ),
         SizedBox(
           height: 12,
@@ -67,27 +70,53 @@ class ItemBaseMessageView extends StatelessWidget {
     );
   }
 
-  Widget _renderAvatar() {
-    return Builder(
-      builder: (c) {
-        if (isMyMessage == true) {
-          return SizedBox.shrink();
-        }
+  // Widget _renderAvatar() {
+  //   return Builder(
+  //     builder: (c) {
+  //       if (isMyMessage == true) {
+  //         return SizedBox.shrink();
+  //       }
+  //
+  //       return Row(
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: [
+  //           CircleAvatar(
+  //             radius: 20,
+  //             backgroundColor: Colors.blue,
+  //             child: Text('PT'),
+  //           ),
+  //           SizedBox(
+  //             width: 10,
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircleAvatar(
-              radius: 20,
-              backgroundColor: Colors.blue,
-              child: Text('PT'),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-          ],
-        );
-      },
+  _renderAvatar(bool isMyMessage, String avatar, String name) {
+    NetworkImage _backgroundImage;
+    Widget _child = SizedBox();
+
+    if (isMyMessage) {
+      return SizedBox.shrink();
+    }
+
+    if (avatar != null && avatar.isNotEmpty) {
+      _backgroundImage = NetworkImage(avatar);
+    } else {
+      _child = Text(
+        name != null ? name[0].toUpperCase() : "",
+        style: TextStyle(
+            color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+      );
+    }
+
+    return CircleAvatar(
+      radius: 20,
+      backgroundColor: AppColor.primaryColor,
+      backgroundImage: _backgroundImage,
+      child: _child,
     );
   }
 }

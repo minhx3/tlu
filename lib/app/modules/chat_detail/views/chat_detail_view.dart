@@ -20,13 +20,15 @@ import 'package:thanglong_university/app/views/views/pressable_view.dart';
 class ChatDetailView extends GetView<ChatDetailController> {
   @override
   Widget build(BuildContext context) {
+    controller.cg = Get.arguments;
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
         appBar: _AppBarView(
-          title: controller.cg.name,
+          title: controller.cg.id,
         ),
         backgroundColor: AppColor.chatBackground,
         body: SafeArea(
