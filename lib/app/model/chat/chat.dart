@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/app/service/firebase.dart';
 
@@ -49,6 +50,20 @@ class Chat extends BaseModel {
     text = documentSnapshot.data()["text"];
     badge = documentSnapshot.data()["badge"];
   }
+
+  bool isToday(DateTime date) {
+    final now = DateTime.now();
+    final diff = now.difference(date).inDays;
+    return diff == 0 && now.day == date.day;
+  }
+
+  String get getTime {
+    DateTime cDate = dateCreated?.toDate();
+    if (dateCreated == null || cDate == null || !isToday(cDate)) {
+      return '';
+    }
+    return DateFormat('HH:mm').format(cDate);
+  }
 }
 
 class ChatCrud {
@@ -60,7 +75,7 @@ class ChatCrud {
   Stream<List<Chat>> chatStream(groupId) {
     return _firebase.getListStream(
       id: groupId,
-      collection: Collection,
+      collection: FirebaseCollections.CHAT,
       returnVal: (query) {
         List<Chat> retVal = [];
         query.docs.forEach((element) async {
@@ -75,10 +90,10 @@ class ChatCrud {
     );
   }
 
-  Stream<List<Chat>> chatUserStream(groupId) {
+  Stream<List<Chat>> chatUserStream(userId) {
     return _firebase.getListStream(
-      id: groupId,
-      collection: Collection,
+      id: userId,
+      collection: FirebaseCollections.USER,
       returnVal: (query) {
         List<Chat> retVal = [];
         query.docs.forEach((element) async {
@@ -115,12 +130,14 @@ class ChatCrud {
           .add(_data);
 
       listUser.forEach((element) {
+        bool isMe = element.id == chat.uidFrom;
+
         _firestore
             .collection(FirebaseCollections.USER)
             .doc(element.id)
             .collection(element.id)
             .doc(groupId)
-            .set({..._data, 'badge': FieldValue.increment(1)},
+            .set({..._data, 'badge': isMe ? 0 : FieldValue.increment(1)},
                 SetOptions(merge: true));
       });
     } on Exception catch (e) {

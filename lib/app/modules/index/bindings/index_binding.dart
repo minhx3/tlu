@@ -13,17 +13,16 @@ class IndexBinding extends Bindings {
     Get.lazyPut<ScheduleController>(
       () => ScheduleController(),
     );
+    Get.put<ProfileController>(
+      ProfileController(),
+    );
     Get.lazyPut<HomeController>(
       () => HomeController(),
     );
     Get.put<EducationController>(
       EducationController(),
     );
-    Get.put<ProfileController>(
-      ProfileController(),
-    );
-    Get.lazyPut(() => ChatController()
-    );
+    Get.lazyPut(() => ChatController());
     Get.lazyPut<IndexController>(
       () => IndexController(),
     );

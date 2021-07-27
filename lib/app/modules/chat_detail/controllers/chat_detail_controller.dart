@@ -6,13 +6,13 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
+import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/service/notification.dart';
-import 'package:thanglong_university/app/service/storage/storage.dart';
 
 class ChatDetailController extends GetxController {
   FocusNode focusNode;
-  final crud = Get.put(ChatCrud());
+  final crud = Get.find<ChatCrud>();
   final _hasFocus = false.obs;
 
   RxList<UserEntity> u = RxList();
@@ -30,25 +30,13 @@ class ChatDetailController extends GetxController {
   @override
   void onClose() {
     scrollController?.dispose();
-    _listWorker?.dispose();
     super.onClose();
   }
-
-  listOnChange(List<Chat> val) {
-    list.stream.handleError((onError) {});
-    if (val.isEmpty) {
-    } else if (list.stream == null) {
-    } else {}
-  }
-
-  Worker _listWorker;
 
   @override
   void onInit() async {
     await FirebaseMessaging.instance.subscribeToTopic(cg.groupId);
-
     list.bindStream(crud.chatStream(cg.groupId));
-    _listWorker = ever(list, listOnChange);
     focusNode = FocusNode()
       ..addListener(() {
         _hasFocus(focusNode.hasFocus);
@@ -87,20 +75,18 @@ class ChatDetailController extends GetxController {
 
   Future<void> sendMessage(BuildContext context) async {
     try {
-      String uidFrom = Storage.getUserId();
+      String uidFrom = ProfileController.to.myUserId;
       await crud.sendNewChat(
           chat: Chat(
-            type: getType(),
-            replyId: messageReply()?.id,
-            replyText: messageReply()?.text,
-            replyUserId: messageReply()?.uidFrom,
-            uidFrom: uidFrom,
-            text: tec.text,
-            badge: 0
-          ),
+              type: getType(),
+              replyId: messageReply()?.id,
+              replyText: messageReply()?.text,
+              replyUserId: messageReply()?.uidFrom,
+              uidFrom: uidFrom,
+              text: tec.text,
+              badge: 0),
           groupId: cg.groupId,
-          listUser: u()
-      );
+          listUser: u());
       await NotificationFCB.instance.sendNotificationMessageToPeerUser(
           unReadMSGCount: 0,
           messageType: getType(),
@@ -121,7 +107,7 @@ class ChatDetailController extends GetxController {
         Chat(
           id: 'ERRORID',
           dateCreated: Timestamp.now(),
-          uidFrom: Storage.getUserId(),
+          uidFrom: ProfileController.to.myUserId,
           text: e.toString(),
         ),
       );
