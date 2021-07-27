@@ -6,13 +6,12 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
-import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/service/notification.dart';
+import 'package:thanglong_university/app/service/storage/storage.dart';
 
 class ChatDetailController extends GetxController {
   FocusNode focusNode;
-  final crud = Get.find<ChatCrud>();
   final _hasFocus = false.obs;
 
   RxList<UserEntity> u = RxList();
@@ -36,7 +35,7 @@ class ChatDetailController extends GetxController {
   @override
   void onInit() async {
     await FirebaseMessaging.instance.subscribeToTopic(cg.groupId);
-    list.bindStream(crud.chatStream(cg.groupId));
+    list.bindStream(ChatCrud.instance.chatStream(cg.groupId));
     focusNode = FocusNode()
       ..addListener(() {
         _hasFocus(focusNode.hasFocus);
@@ -75,8 +74,8 @@ class ChatDetailController extends GetxController {
 
   Future<void> sendMessage(BuildContext context) async {
     try {
-      String uidFrom = ProfileController.to.myUserId;
-      await crud.sendNewChat(
+      String uidFrom = getUserId;
+      await ChatCrud.instance.sendNewChat(
           chat: Chat(
               type: getType(),
               replyId: messageReply()?.id,
@@ -107,7 +106,7 @@ class ChatDetailController extends GetxController {
         Chat(
           id: 'ERRORID',
           dateCreated: Timestamp.now(),
-          uidFrom: ProfileController.to.myUserId,
+          uidFrom: getUserId,
           text: e.toString(),
         ),
       );

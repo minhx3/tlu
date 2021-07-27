@@ -24,6 +24,7 @@ dependencies:
   get: 3.26.0
   get_storage: any
   firebase_core: ^0.5.1
+  jwt_decode: 0.2.0
   cloud_firestore: 0.14.4
   firebase_messaging: ^8.0.0-dev.9
   firebase_storage: 5.0.0

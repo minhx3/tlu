@@ -247,7 +247,7 @@ class _ContentChatListView extends GetView<ChatDetailController> {
               final UserModel _user = null;
               String _photoUrl = _user?.photoURL;
               String _userName = _user?.displayName;
-              bool _isMe = data.uidFrom == ProfileController.to.myUserId;
+              bool _isMe = data.uidFrom == getUserId;
               return ChatTile(
                 message: data,
                 isMe: _isMe,

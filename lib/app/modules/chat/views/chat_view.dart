@@ -29,6 +29,7 @@ class ChatView extends GetView<ChatController> {
                       return ItemGroupChatBySubjectView(
                         item: g,
                         onPressed: () {
+
                           pushTo(Routes.CHAT_DETAIL, arguments: g);
                         },
                       );

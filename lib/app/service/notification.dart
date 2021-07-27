@@ -6,7 +6,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 import 'package:thanglong_university/app/configuration/constant/constant.dart';
-import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 
 class NotificationFCB {
@@ -61,7 +60,7 @@ class NotificationFCB {
         .then((val) async {
       print('Token: ' + val);
       Storage.setUserToken(val);
-      String userID = ProfileController.to.myUserId;
+      String userID = getUserId;
     });
   }
 

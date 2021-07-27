@@ -1,4 +1,5 @@
 import 'package:get_storage/get_storage.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:thanglong_university/app/configuration/constant/constant.dart';
 import 'package:thanglong_university/app/configuration/constant/key.dart';
 
@@ -26,8 +27,8 @@ class Storage {
   static setPhoneNumber(String value) => set(Keys.userId, value);
 
   static setUserId(String value) => set(Keys.userId, value);
-  static String getUserId() => get(Keys.userId);
 
+  static String getUserId() => get(Keys.userId);
 
   static getPassword() => get(Keys.password);
 
@@ -40,10 +41,24 @@ class Storage {
   static getUserType() => get(Keys.userType);
 
   static setName(String value) => set(Keys.userToken, value);
+
   static String getName() => get(Keys.userToken);
 
   static setUserToken(String value) => set(Keys.userToken, value);
+
   static String getUserToken() => get(Keys.userToken);
 }
 
 bool isTeacher = Storage.getUserType() == Constant.teacher ? true : false;
+
+String userId;
+
+String get getUserId {
+  if (userId != null) {
+    return userId;
+  }
+  String token = Storage.getAccessToken();
+  Map<String, dynamic> payload = Jwt.parseJwt(token);
+  userId = payload['data']['userId'];
+  return userId;
+}

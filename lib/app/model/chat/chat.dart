@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
+import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/service/firebase.dart';
+import 'package:thanglong_university/app/service/storage/storage.dart';
 
 import 'base_model.dart';
 
@@ -67,6 +69,8 @@ class Chat extends BaseModel {
 }
 
 class ChatCrud {
+  static ChatCrud get instance => ChatCrud();
+
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final _firebase = Get.put(FirebaseService<Chat>());
 
@@ -145,24 +149,12 @@ class ChatCrud {
     } finally {}
   }
 
-  Future changeUserStatus({Chat chat, groupId}) {
-    final _data = {
-      "dateCreated": Timestamp.now(),
-      "uidFrom": chat.uidFrom,
-      "uidTo": chat.uidTo,
-      "text": chat.text,
-      "type": chat.type,
-      "file": chat.file,
-      "img": chat.img,
-      "replyId": chat.replyId,
-      "replyUserId": chat.replyUserId,
-      "replyText": chat.replyText,
-    };
-
-    return _firestore
-        .collection(FirebaseCollections.CHAT)
+  userViewMessage(String groupId) {
+    _firestore
+        .collection(FirebaseCollections.USER)
+        .doc(getUserId)
+        .collection(getUserId)
         .doc(groupId)
-        .collection('use_status')
-        .add(_data);
+        .set({'badge': 0}, SetOptions(merge: true));
   }
 }

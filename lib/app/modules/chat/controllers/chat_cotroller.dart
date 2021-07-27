@@ -1,23 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
-import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
+import 'package:thanglong_university/app/service/storage/storage.dart';
 
 class ChatController extends GetxController {
-  final crud = Get.put(ChatCrud());
-
   RxList<SubjectClassEntity> group = RxList();
-  final list = <Chat>[].obs;
+  final listLastMessage = <Chat>[].obs;
 
   List<SubjectClassEntity> get getGroupWithBadge {
-    List<Chat> latestChat = ProfileController.to.listUserChat;
-
     return group().map((e) {
-      Chat c = latestChat.firstWhere((element) => element.id == e.groupId,
+      Chat c = listLastMessage.firstWhere((element) => element.id == e.groupId,
           orElse: () => null);
       if (c != null) {
         e.latestMessage = c;
@@ -46,9 +41,7 @@ class ChatController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    // String myUserId = ProfileController.to.myUserId;
-    // print(myUserId);
-    // list.bindStream(crud.chatUserStream(myUserId));
+    listLastMessage.bindStream(ChatCrud.instance.chatUserStream(getUserId));
   }
 
   getGroup() async {
