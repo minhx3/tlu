@@ -4,81 +4,85 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/modules/subject_list_cart/controllers/subject_list_cart_controller.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/views/subject_item_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
-
+import 'package:thanglong_university/app/configuration/extension/int.dart';
 import '../controllers/subject_list_term_controller.dart';
 
+// ignore: must_be_immutable
 class SubjectListTermView extends GetView<SubjectListTermController> {
   @override
   Widget build(BuildContext context) {
     return AppContainer(
       child: Scaffold(
-          backgroundColor: AppColor.cf2f2f2,
-          body: Column(
-            children: [
-              AppBarView(
-                title: controller.semester?.semsterInfo?.name ?? '',
-                type: AppBarType.white,
-                iconLeading: Images.iconFilter,
-                iconTintColor: AppColor.c808080,
-                onAction: () {
-                  pushTo(Routes.TRANSCRIPT);
-                },
+        backgroundColor: AppColor.cf2f2f2,
+        body: Column(
+          children: [
+            AppBarView(
+              title: controller.semester?.semsterInfo?.name ?? '',
+              type: AppBarType.white,
+              iconLeading: Images.iconFilter,
+              iconTintColor: AppColor.c808080,
+              onAction: () {
+                pushTo(Routes.TRANSCRIPT);
+              },
+            ),
+            Container(
+              height: 40,
+              margin: EdgeInsets.all(16),
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  Image.asset(
+                    Images.icSearch,
+                    height: 16,
+                    width: 16,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                      child: TextField(
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Tìm kiếm",
+                        isDense: true,
+                        hintStyle: fontInter(12, color: AppColor.cb3b3b3)),
+                  ))
+                ],
               ),
-              Container(
-                height: 40,
-                margin: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: AppColor.cd9d9d9)),
+            ),
+            Expanded(
+              child: ListView(
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      Images.icSearch,
-                      height: 16,
-                      width: 16,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                        child: TextField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Tìm kiếm",
-                          isDense: true,
-                          hintStyle: fontInter(12, color: AppColor.cb3b3b3)),
-                    ))
-                  ],
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: AppColor.cd9d9d9)),
+                children: [
+                  Text(
+                    "Danh sách lớp học",
+                    style: fontInter(14,
+                        color: AppColor.cbfbfbf, fontWeight: FontWeight.w600),
+                  ),
+                  Obx(() => ListView(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.only(top: 10),
+                      physics: NeverScrollableScrollPhysics(),
+                      children: (controller.registerSubjects ?? [])
+                          .map((element) => SubjectItemView(
+                                subject: element,
+                              ))
+                          .toList()))
+                ],
               ),
-              Expanded(
-                child: ListView(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  children: [
-                    Text(
-                      "Danh sách lớp học",
-                      style: fontInter(14,
-                          color: AppColor.cbfbfbf, fontWeight: FontWeight.w600),
-                    ),
-                    Obx(() => ListView(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.only(top: 10),
-                        physics: NeverScrollableScrollPhysics(),
-                        children: (controller.registerSubjects ?? [])
-                            .map((element) => SubjectItemView(
-                                  subject: element,
-                                ))
-                            .toList()))
-                  ],
-                ),
-              ),
-              Container(
+            ),
+            GetBuilder<SubjectListCartController>(
+              init: SubjectListCartController(),
+              builder: (subjectCartcontroller) => Container(
                 height: 70 + context.mediaQueryPadding.bottom,
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(
@@ -88,11 +92,13 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    blockItem("Số tín chỉ:", "9 tín"),
+                    blockItem("Số tín chỉ:",
+                        "${subjectCartcontroller.rxSubjectCart()?.sumCredits ?? 0} tín"),
                     SizedBox(
                       width: 25,
                     ),
-                    blockItem("Học phí dự tính:", "3,000,000 VNĐ"),
+                    blockItem("Học phí dự tính:",
+                        "${(subjectCartcontroller.rxSubjectCart()?.sumSchoolFee ?? 0).currency('VNĐ')}"),
                     Expanded(
                       child: SizedBox(),
                     ),
@@ -114,9 +120,11 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(3),
                         topRight: Radius.circular(3))),
-              )
-            ],
-          )),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

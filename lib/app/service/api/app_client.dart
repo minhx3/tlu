@@ -139,6 +139,26 @@ class Appclient {
         .call;
   }
 
+  getSubjectsCart() async {
+    final subjectCart =
+        await SubjectRouter(SubjectEndpoint.getSubjectsCart, handleError: true)
+            .call;
+    return subjectCart;
+  }
+
+  addSubjectToCart(String subjectClassId) async {
+    final subjectCart = await SubjectRouter(SubjectEndpoint.addSubjectToCart,
+            joinPath: subjectClassId, handleError: true)
+        .call;
+    return subjectCart;
+  }
+
+  deleteSubjectFromCart(String subjectClassId) async {
+    return await SubjectRouter(SubjectEndpoint.deleteSubjectFromCart,
+            joinPath: subjectClassId, handleError: true)
+        .call;
+  }
+
   Future<List<NewsModel>> getNews() async {
     final result = await NewsRouter(NewsEndpoint.getNews).call;
 
