@@ -5,6 +5,7 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
+import 'package:thanglong_university/app/modules/subject_list_cart/controllers/subject_list_cart_controller.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/controllers/subject_list_term_controller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 
@@ -140,8 +141,13 @@ class SubjectItemView extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      SubjectListTermController controller = Get.find();
-                      controller.postRegisterSubject(subject.id);
+                      if (subject.isOnline) {
+                        SubjectListTermController controller = Get.find();
+                        controller.postRegisterSubject(subject.id);
+                      } else {
+                        SubjectListCartController controller = Get.find();
+                        controller.addSubjectToCart(subject.id);
+                      }
                     },
                     child: Image.asset(
                       Images.addButtonIcon,
