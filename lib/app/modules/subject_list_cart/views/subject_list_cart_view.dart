@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/model/subject_cart.model.dart';
@@ -208,28 +207,32 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
       height: 70,
       alignment: Alignment.centerLeft,
       padding: EdgeInsets.only(left: 16, right: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          blockItem("Số tín chỉ:",
-              "${controller.rxSubjectCart()?.sumCredits ?? 0} tín"),
-          SizedBox(
-            width: 25,
-          ),
-          blockItem("Học phí dự tính:",
-              (controller.rxSubjectCart()?.sumSchoolFee ?? 0).currency("VNĐ")),
-          Expanded(
-            child: SizedBox(),
-          ),
-          SizedBox(
-            width: 108,
-            child: ButtonView(
-              verticalSpacing: 0,
-              title: "List môn",
-              horizontalSpacing: 10,
+      child: Obx(
+        () => Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            blockItem("Số tín chỉ:",
+                "${controller.rxSubjectCart()?.sumCredits ?? 0} tín"),
+            SizedBox(
+              width: 25,
             ),
-          )
-        ],
+            blockItem(
+                "Học phí dự tính:",
+                (controller.rxSubjectCart()?.sumSchoolFee ?? 0)
+                    .currency("VNĐ")),
+            Expanded(
+              child: SizedBox(),
+            ),
+            SizedBox(
+              width: 108,
+              child: ButtonView(
+                verticalSpacing: 0,
+                title: "List môn",
+                horizontalSpacing: 10,
+              ),
+            )
+          ],
+        ),
       ),
       color: AppColor.c000333,
     );
