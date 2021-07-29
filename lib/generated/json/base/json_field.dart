@@ -13,6 +13,7 @@ class JSONField {
   
   //Whether to participate in fromMap
   final bool deserialize;
+  final bool myModel;
 
-  const JSONField({this.name, this.serialize, this.deserialize});
+  const JSONField({this.name, this.serialize, this.deserialize, this.myModel});
 }

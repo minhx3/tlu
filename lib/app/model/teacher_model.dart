@@ -1,5 +1,6 @@
 import 'package:thanglong_university/app/model/subject_model.dart';
 import 'package:thanglong_university/app/model/university_model.dart';
+import 'package:thanglong_university/generated/json/base/json_field.dart';
 
 class Teacher {
   Teacher({

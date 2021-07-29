@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
-import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
-import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
 import 'package:thanglong_university/app/views/views/value_box_view.dart';
 
@@ -29,7 +27,7 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
               radius: 25,
               backgroundColor: AppColor.subjectBackgroundColor,
               child: Text(
-                'TM',
+                item?.id?.toUpperCase() ?? '',
                 style: fontInter(14, color: AppColor.whiteColor),
               ),
             ),
@@ -42,13 +40,15 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _RowTop(
-                    title: item?.name ?? '',
+                    title: item?.id ?? '',
+                    time: item?.latestMessage?.getTime ?? '',
                   ),
                   SizedBox(
                     height: 4,
                   ),
                   _RowBottom(
-                    lastMessage: item?.name ?? '',
+                    lastMessage: item?.latestMessage?.text ?? '',
+                    badge: item?.latestMessage?.badge ?? 0,
                   ),
                 ],
               ),
@@ -62,10 +62,12 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
 
 class _RowBottom extends StatelessWidget {
   final String lastMessage;
+  final int badge;
 
   const _RowBottom({
     Key key,
     this.lastMessage,
+    this.badge = 0,
   }) : super(key: key);
 
   @override
@@ -81,9 +83,11 @@ class _RowBottom extends StatelessWidget {
               fontWeight: FontWeight.w600),
         ),
         Spacer(),
-        ValueBoxView(
-          text: '99+',
-        ),
+        badge > 0
+            ? ValueBoxView(
+                text: badge < 100 ? badge.toString() : '99+',
+              )
+            : SizedBox.shrink(),
       ],
     );
   }
@@ -91,10 +95,12 @@ class _RowBottom extends StatelessWidget {
 
 class _RowTop extends StatelessWidget {
   final String title;
+  final String time;
 
   const _RowTop({
     Key key,
     this.title,
+    this.time,
   }) : super(key: key);
 
   @override
@@ -102,7 +108,7 @@ class _RowTop extends StatelessWidget {
     return Row(
       children: [
         ValueBoxView(
-          text: 'T2, 1-3',
+          text: 'T2, 1-2-3-4-5-6-7',
         ),
         SizedBox(
           width: 6,
@@ -116,7 +122,7 @@ class _RowTop extends StatelessWidget {
           ),
         ),
         Text(
-          "11:20",
+          time ?? '',
           style: fontInter(10,
               fontWeight: FontWeight.w600,
               color: AppColor.descriptionTextColor),

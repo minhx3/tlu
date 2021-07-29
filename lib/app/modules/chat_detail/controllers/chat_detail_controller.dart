@@ -1,16 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
-import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
+import 'package:thanglong_university/app/service/notification.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 
 class ChatDetailController extends GetxController {
   FocusNode focusNode;
-  final crud = Get.put(ChatCrud());
   final _hasFocus = false.obs;
 
   RxList<UserEntity> u = RxList();
@@ -23,26 +24,18 @@ class ChatDetailController extends GetxController {
 
   SubjectClassEntity cg = Get.arguments;
 
+  Rx<Chat> messageReply = Rx();
+
   @override
   void onClose() {
     scrollController?.dispose();
-    _listWorker?.dispose();
     super.onClose();
   }
 
-  listOnChange(List<Chat> val) {
-    list.stream.handleError((onError) {});
-    if (val.isEmpty) {
-    } else if (list.stream == null) {
-    } else {}
-  }
-
-  Worker _listWorker;
-
   @override
-  void onInit() {
-    list.bindStream(crud.chatStream(cg.groupId));
-    _listWorker = ever(list, listOnChange);
+  void onInit() async {
+    await FirebaseMessaging.instance.subscribeToTopic(cg.groupId);
+    list.bindStream(ChatCrud.instance.chatStream(cg.groupId));
     focusNode = FocusNode()
       ..addListener(() {
         _hasFocus(focusNode.hasFocus);
@@ -81,13 +74,27 @@ class ChatDetailController extends GetxController {
 
   Future<void> sendMessage(BuildContext context) async {
     try {
-      // FocusScope.of(context).unfocus();
-      await crud.addchat(
+      String uidFrom = getUserId;
+      await ChatCrud.instance.sendNewChat(
           chat: Chat(
-            uidFrom: Storage.getUserId(),
-            message: tec.text,
-          ),
-          groupId: cg.groupId);
+              type: getType(),
+              replyId: messageReply()?.id,
+              replyText: messageReply()?.text,
+              replyUserId: messageReply()?.uidFrom,
+              uidFrom: uidFrom,
+              text: tec.text,
+              badge: 0),
+          groupId: cg.groupId,
+          listUser: u());
+      await NotificationFCB.instance.sendNotificationMessageToPeerUser(
+          unReadMSGCount: 0,
+          messageType: getType(),
+          textFromTextField: tec.text,
+          myName: 'Leo Messi',
+          chatroomId: cg.groupId,
+          myImageUrl: '');
+
+      cleanMessage();
       tec.clear();
       scrollController.animateTo(
         scrollController.position.minScrollExtent,
@@ -99,11 +106,34 @@ class ChatDetailController extends GetxController {
         Chat(
           id: 'ERRORID',
           dateCreated: Timestamp.now(),
-          uidFrom: '_authController.currentUser.uid',
-          message: e.toString(),
+          uidFrom: getUserId,
+          text: e.toString(),
         ),
       );
       _loading(false);
     }
+  }
+
+  void selectMessage(Chat message) {
+    messageReply(message);
+    focusNode.requestFocus();
+  }
+
+  String getType() {
+    String type = 'raw';
+    if (messageReply() != null) {
+      type = 'reply';
+    }
+    return type;
+  }
+
+  void cleanMessage() {
+    if (messageReply() != null) {
+      messageReply.value = null;
+    }
+  }
+
+  UserEntity getUserById(id) {
+    return u().firstWhere((element) => element.id == id, orElse: () => null);
   }
 }

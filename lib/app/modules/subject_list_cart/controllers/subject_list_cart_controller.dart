@@ -33,7 +33,6 @@ class SubjectListCartController extends AppController {
   Future<int> addSubjectToCart(String subjectClassId) async {
     final result = await Appclient.shared.addSubjectToCart(subjectClassId);
     if (result?.statusCode == 200) {
-      showMessage(title: "Thêm danh sách thành công", message: result?.message);
       getSubjectCart();
     } else {
       showErrorMessage(
@@ -45,10 +44,6 @@ class SubjectListCartController extends AppController {
   Future<int> deleteSubjectFromCart(String subjectClassId) async {
     final result = await Appclient.shared.deleteSubjectFromCart(subjectClassId);
     if (result?.statusCode == 200) {
-      showMessage(
-          title: "Xóa khỏi danh sách thành công",
-          message: result?.message,
-          duration: 3);
       getSubjectCart();
     } else {
       showErrorMessage(title: "Xóa thất bại", message: result?.errorReason);

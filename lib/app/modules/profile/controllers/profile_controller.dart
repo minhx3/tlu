@@ -6,7 +6,11 @@ import 'package:thanglong_university/app/service/api/app_client.dart';
 class ProfileController extends AppController {
   final count = 0.obs;
   final rxUserInfo = Rx<UserModel>();
+
   static ProfileController get to => Get.find();
+
+  String get myUserId => rxUserInfo().userModelId;
+
   @override
   void onInit() {
     super.onInit();
@@ -20,6 +24,7 @@ class ProfileController extends AppController {
 
   @override
   void onClose() {}
+
   void increment() => count.value++;
 
   getUserInfo() async {

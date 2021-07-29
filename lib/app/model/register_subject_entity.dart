@@ -1,6 +1,7 @@
 import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/app/model/teacher_model.dart';
 import 'package:thanglong_university/generated/json/base/json_convert_content.dart';
+import 'package:thanglong_university/generated/json/base/json_field.dart';
 
 class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
   String closeRgister;
@@ -13,6 +14,7 @@ class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
   bool isHasGreatExercise;
   bool isOnline;
   String group;
+  @JSONField(myModel: true)
   List<Teacher> listTeacher;
   List<RegisterSubjectListTimelineClassTimeLines> listTimelineClass;
   String note;
@@ -64,6 +66,7 @@ class RegisterSubjectListTeacherTeachingList
 class RegisterSubjectListTimelineClass
     with JsonConvert<RegisterSubjectListTimelineClass> {
   String code;
+  @JSONField(myModel: true)
   Teacher teacher;
   List<RegisterSubjectListTimelineClassTimeLines> timeLines;
 
@@ -82,6 +85,7 @@ class RegisterSubjectListTimelineClassTeacher
   String fullName;
   String id;
   String mobile;
+  @JSONField(myModel: true)
   List<TeachingList> teachingList;
 }
 
@@ -103,6 +107,7 @@ class RegisterSubjectListTimelineClassTimeLines
   String id;
   List<RegisterSubjectListTimelineClassTimeLinesListSchedule> listSchedule;
   String toDate;
+  @JSONField(myModel: true)
   Teacher teacher;
 
   String get getAllTime {

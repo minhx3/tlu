@@ -1,4 +1,6 @@
+import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/generated/json/base/json_convert_content.dart';
+import 'package:thanglong_university/generated/json/base/json_field.dart';
 
 class SubjectClassEntity with JsonConvert<SubjectClassEntity> {
   String id;
@@ -6,6 +8,9 @@ class SubjectClassEntity with JsonConvert<SubjectClassEntity> {
   SubjectClassSemester semester;
   String timelineId;
   String name;
+
+  @JSONField(deserialize: false, serialize: false)
+  Chat latestMessage;
 
   String get groupId {
     return '${id}_${teacher?.teachingList[0]?.id ?? ''}';

@@ -3,10 +3,9 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
-import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/app/modules/chat/controllers/chat_cotroller.dart';
-import 'package:thanglong_university/app/modules/chat/views/chat_list_student.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 
@@ -27,15 +26,16 @@ class ChatView extends GetView<ChatController> {
               child: Obx(() => ListView.separated(
                     padding: EdgeInsets.zero,
                     itemBuilder: (c, index) {
-                      SubjectClassEntity g = controller.group()[index];
+                      SubjectClassEntity g = controller.getGroupWithBadge[index];
                       return ItemGroupChatBySubjectView(
                         item: g,
                         onPressed: () {
+                          ChatCrud.instance.userViewMessage(g.groupId);
                           pushTo(Routes.CHAT_DETAIL, arguments: g);
                         },
                       );
                     },
-                    itemCount: controller.group.length,
+                    itemCount: controller.getGroupWithBadge.length,
                     separatorBuilder: (BuildContext context, int index) {
                       return Divider(
                         thickness: 1,
