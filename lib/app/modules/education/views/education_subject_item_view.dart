@@ -12,11 +12,12 @@ class EducationSubjectItemView extends GetView {
   final double space;
 
   EducationSubjectItemView({this.item, this.space = 5});
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        pushTo(Routes.DETAI_CLASS);
+        pushTo(Routes.DETAI_CLASS, arguments: {"id": item.id, "data": item});
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -30,7 +31,7 @@ class EducationSubjectItemView extends GetView {
               children: [
                 Expanded(
                   child: Text(
-                    "${item.subjectId?.name ?? ""}",
+                    "${item?.subject?.name ?? ""}",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: fontInter(16,
@@ -44,7 +45,7 @@ class EducationSubjectItemView extends GetView {
                   padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                   alignment: Alignment.center,
                   child: Text(
-                    "${item.subjectId?.prerequisiteSubjectId ?? ""}",
+                    "${item.subject?.id ?? ""}",
                     style: fontInter(10,
                         fontWeight: FontWeight.w600,
                         color: AppColor.whiteColor),

@@ -97,6 +97,7 @@ class AppPages {
       name: _Paths.DETAI_CLASS,
       page: () => DetaiClassView(),
       binding: DetaiClassBinding(),
+      maintainState: true
     ),
     GetPage(
       name: _Paths.SCHEDULE,

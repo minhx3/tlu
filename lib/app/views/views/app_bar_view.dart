@@ -141,37 +141,37 @@ class AppBarView extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                               color: AppColor.textColor)),
                     ),
-                    SizedBox(
-                      height: 35,
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 33,
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            decoration: BoxDecoration(
-                                color: AppColor.tabUnSelectedColor,
-                                borderRadius: BorderRadius.circular(3)),
-                            alignment: Alignment.center,
-                            child: Text("Ngành 1",
-                                style: fontInter(12,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColor.subTextColor)),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: AppColor.errorColor,
-                                borderRadius: BorderRadius.circular(3)),
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            height: 35,
-                            child: Text("Ngành 2",
-                                style: fontInter(12,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColor.whiteColor)),
-                          )
-                        ],
-                      ),
-                    )
+                    // SizedBox(
+                    //   height: 35,
+                    //   child: Row(
+                    //     children: [
+                    //       Container(
+                    //         height: 33,
+                    //         padding: EdgeInsets.symmetric(horizontal: 8),
+                    //         decoration: BoxDecoration(
+                    //             color: AppColor.tabUnSelectedColor,
+                    //             borderRadius: BorderRadius.circular(3)),
+                    //         alignment: Alignment.center,
+                    //         child: Text("Ngành 1",
+                    //             style: fontInter(12,
+                    //                 fontWeight: FontWeight.w600,
+                    //                 color: AppColor.subTextColor)),
+                    //       ),
+                    //       Container(
+                    //         alignment: Alignment.center,
+                    //         decoration: BoxDecoration(
+                    //             color: AppColor.errorColor,
+                    //             borderRadius: BorderRadius.circular(3)),
+                    //         padding: EdgeInsets.symmetric(horizontal: 8),
+                    //         height: 35,
+                    //         child: Text("Ngành 2",
+                    //             style: fontInter(12,
+                    //                 fontWeight: FontWeight.w600,
+                    //                 color: AppColor.whiteColor)),
+                    //       )
+                    //     ],
+                    //   ),
+                    // )
                   ],
                 ));
             break;

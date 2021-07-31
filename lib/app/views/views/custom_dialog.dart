@@ -475,7 +475,7 @@ class CustomAlertDialog extends StatelessWidget {
     // children.
     final double paddingScaleFactor =
         _paddingScaleFactor(MediaQuery.of(context).textScaleFactor);
-    final TextDirection textDirection = Directionality.maybeOf(context);
+    final TextDirection textDirection = TextDirection.ltr;
 
     Widget titleWidget;
     Widget contentWidget;

@@ -18,9 +18,9 @@ class EducationController extends GetxController {
   void onInit() {
     super.onInit();
 
-    // getTestSchedule();
-    // getLearningComeout();
-    // getSubjectList();
+    getTestSchedule();
+    getLearningComeout();
+    getSubjectList();
   }
 
   @override

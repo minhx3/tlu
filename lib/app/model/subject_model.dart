@@ -31,12 +31,15 @@ class SubjectModel {
     this.listTeacher,
     this.subjectModelId,
     this.semester,
-    this.subjectId,
+    this.subject,
     this.createdAt,
     this.updatedAt,
     this.v,
     this.haveRegistered,
     this.times,
+    // this.examConditions,
+    // this.scoringMethod,
+    // this.subject,
   });
 
   String id;
@@ -56,7 +59,7 @@ class SubjectModel {
   List<Teacher> listTeacher;
   String subjectModelId;
   Semester semester;
-  PrerequisiteSubject subjectId;
+  PrerequisiteSubject subject;
   DateTime createdAt;
   DateTime updatedAt;
   int v;
@@ -104,9 +107,9 @@ class SubjectModel {
         semester: json["semester"] == null
             ? null
             : Semester.fromJson(json["semester"]),
-        subjectId: json["subjectId"] == null
+        subject: json["subject"] == null
             ? null
-            : PrerequisiteSubject.fromJson(json["subjectId"]),
+            : PrerequisiteSubject.fromJson(json["subject"]),
         createdAt: json["createdAt"] == null
             ? null
             : DateTime.parse(json["createdAt"]),
@@ -151,7 +154,7 @@ class SubjectModel {
             : List<dynamic>.from(listTeacher.map((x) => x.toJson())),
         "id": subjectModelId == null ? null : subjectModelId,
         "semester": semester == null ? null : semester.toJson(),
-        "subjectId": subjectId == null ? null : subjectId.toJson(),
+        "subject": subject == null ? null : subject.toJson(),
         "createdAt": createdAt == null ? null : createdAt.toIso8601String(),
         "updatedAt": updatedAt == null ? null : updatedAt.toIso8601String(),
         "__v": v == null ? null : v,
@@ -174,7 +177,7 @@ class PrerequisiteSubject {
     this.type,
   });
 
-  Id id;
+  String id;
   int credits;
   String description;
   String name;
@@ -187,7 +190,7 @@ class PrerequisiteSubject {
 
   factory PrerequisiteSubject.fromJson(Map<String, dynamic> json) =>
       PrerequisiteSubject(
-        id: json["_id"] == null ? null : idValues.map[json["_id"]],
+        id: json["id"] == null ? null : json["id"],
         credits: json["credits"] == null ? null : json["credits"],
         description: json["description"] == null ? null : json["description"],
         name: json["name"] == null ? null : json["name"],
