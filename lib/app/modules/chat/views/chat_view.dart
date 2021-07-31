@@ -26,7 +26,8 @@ class ChatView extends GetView<ChatController> {
               child: Obx(() => ListView.separated(
                     padding: EdgeInsets.zero,
                     itemBuilder: (c, index) {
-                      SubjectClassEntity g = controller.getGroupWithBadge[index];
+                      SubjectClassEntity g =
+                          controller.getGroupWithBadge[index];
                       return ItemGroupChatBySubjectView(
                         item: g,
                         onPressed: () {
