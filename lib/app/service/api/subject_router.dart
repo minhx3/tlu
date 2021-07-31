@@ -10,6 +10,9 @@ enum SubjectEndpoint {
   getSubjectsList,
   getSubjectsClassDetail,
   getSubjectsRegister,
+  getSubjectsCart,
+  addSubjectToCart,
+  deleteSubjectFromCart,
   registerSubjects,
   getAlertRegister,
   getGroupRegister,
@@ -60,6 +63,15 @@ class SubjectRouter extends BaseRouter {
         break;
       case SubjectEndpoint.getSubjectsClassDetail:
         response = client(headers: headerParams).get(path);
+        break;
+      case SubjectEndpoint.getSubjectsCart:
+        response = client(headers: headerParams).get(path);
+        break;
+      case SubjectEndpoint.addSubjectToCart:
+        response = client(headers: headerParams).put(path);
+        break;
+      case SubjectEndpoint.deleteSubjectFromCart:
+        response = client(headers: headerParams).delete(path);
         break;
     }
     return await BaseModel.onBaseModel(response, handleError: handleError);
@@ -116,6 +128,15 @@ class SubjectRouter extends BaseRouter {
         break;
       case SubjectEndpoint.getSubjectsClassDetail:
         path = "subject-class/$joinPath";
+        break;
+      case SubjectEndpoint.getSubjectsCart:
+        path = "trial-schedule";
+        break;
+      case SubjectEndpoint.addSubjectToCart:
+        path = "trial-schedule/$joinPath";
+        break;
+      case SubjectEndpoint.deleteSubjectFromCart:
+        path = "trial-schedule/$joinPath";
         break;
     }
     return path;
