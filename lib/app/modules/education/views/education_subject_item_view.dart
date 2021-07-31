@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/model/subject_model.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 
 class EducationSubjectItemView extends GetView {
-  final SubjectModel item;
+  final RegisterSubjectEntity item;
   final double space;
 
   EducationSubjectItemView({this.item, this.space = 5});

@@ -173,14 +173,14 @@ class Appclient {
     }
   }
 
-  Future<List<SubjectModel>> getSubjectListPreRegister() async {
+  Future<List<RegisterSubjectEntity>> getSubjectListPreRegister() async {
     final result =
         await SubjectRouter(SubjectEndpoint.getSubjectsRegister).call;
 
     if (result?.statusCode == 200) {
-      List<SubjectModel> list = [];
+      List<RegisterSubjectEntity> list = [];
       result.data.forEach((e) {
-        list.add(SubjectModel.fromJson(e));
+        list.add(RegisterSubjectEntity().fromJson(e));
       });
       return list;
     } else {
@@ -214,13 +214,13 @@ class Appclient {
     }
   }
 
-  Future<List<SubjectModel>> getSubjectList() async {
+  Future<List<RegisterSubjectEntity>> getSubjectList() async {
     final result = await SubjectRouter(SubjectEndpoint.getSubjectsList).call;
 
     if (result?.statusCode == 200) {
-      List<SubjectModel> list = [];
+      List<RegisterSubjectEntity> list = [];
       result.data.forEach((e) {
-        list.add(SubjectModel.fromJson(e));
+        list.add(RegisterSubjectEntity().fromJson(e));
       });
       return list;
     } else {
