@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/configuration/base/app_controller.dart';
-import 'package:thanglong_university/app/views/views/loader.dart';
 
 class DetaiClassController extends AppController
     with SingleGetTickerProviderMixin {

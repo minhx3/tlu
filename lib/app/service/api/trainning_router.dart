@@ -27,7 +27,6 @@ class TranningRouter extends BaseRouter {
     Future<Response<dynamic>> response;
     switch (this.endPoint) {
       case TranningEndpoint.getSubjectById:
-        // TODO: Handle this case.
         response = client(headers: headerParams).get(path);
         break;
 

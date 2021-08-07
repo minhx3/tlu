@@ -88,36 +88,28 @@ class AuthenRouter extends BaseRouter {
     var path = "";
     switch (this.endPoint) {
       case AuthenEndpoint.register:
-        // TODO: Handle this case.
         break;
       case AuthenEndpoint.login:
-        // TODO: Handle this case.
         path = "/token";
         break;
       case AuthenEndpoint.refreshToken:
-        // TODO: Handle this case.
         path = "/token";
         break;
       case AuthenEndpoint.forgoPassword:
-        // TODO: Handle this case.
         path = "/passwords";
         break;
       case AuthenEndpoint.getStudent:
         path = "/student";
-        // TODO: Handle this case.
         break;
       case AuthenEndpoint.updateStudent:
-        // TODO: Handle this case.
         path = "/student";
 
         break;
       case AuthenEndpoint.getTeacher:
-        // TODO: Handle this case.
         path = "/teacher";
 
         break;
       case AuthenEndpoint.updateTeacher:
-        // TODO: Handle this case.
         path = "/teacher";
 
         break;
