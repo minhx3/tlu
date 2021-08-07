@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
-import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/service/firebase.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 

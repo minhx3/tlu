@@ -6,7 +6,6 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/constant.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/controllers/subject_list_term_controller.dart';
-import 'package:thanglong_university/app/modules/transcript/controllers/transcript_controller.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 import 'package:thanglong_university/app/views/views/link_view.dart';
 
@@ -39,9 +38,7 @@ class SubjectFilterView extends GetView<SubjectListTermController> {
         style: TextStyle(
             color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
       ),
-      onChanged: (String value) {
-
-      },
+      onChanged: (String value) {},
     );
   }
 

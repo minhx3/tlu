@@ -21,7 +21,6 @@ class NewsRouter extends BaseRouter {
     Future<Response<dynamic>> response;
     switch (this.endPoint) {
       case NewsEndpoint.getNews:
-        // TODO: Handle this case.
         response = client(headers: headerParams).get(path);
         break;
 

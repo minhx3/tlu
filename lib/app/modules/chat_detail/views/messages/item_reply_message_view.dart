@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/item_raw_message_view.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/messages/message_content_view.dart';
@@ -18,7 +17,8 @@ class ItemReplyMessageView extends StatelessWidget {
       @required this.senderAvatarUrl,
       @required this.userReply,
       @required this.originalMessage,
-      @required this.text, this.senderName})
+      @required this.text,
+      this.senderName})
       : super(key: key);
 
   @override
@@ -58,5 +58,4 @@ class ItemReplyMessageView extends StatelessWidget {
       ],
     );
   }
-
 }

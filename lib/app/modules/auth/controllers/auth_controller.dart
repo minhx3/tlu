@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/base/app_controller.dart';
 import 'package:thanglong_university/app/configuration/constant/constant.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
-import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
@@ -85,7 +84,6 @@ class AuthController extends AppController {
       Storage.setUserType(userType);
       rxErrMessage("");
       pushReplaceAllTo(Routes.INDEX);
-
     } else {
       rxErrMessage("Tài khoản/ mật khẩu không đúng");
     }

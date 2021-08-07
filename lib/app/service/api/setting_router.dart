@@ -21,7 +21,6 @@ class SettingRouter extends BaseRouter {
     Future<Response<dynamic>> response;
     switch (this.endPoint) {
       case SettingEndpoint.getSettings:
-        // TODO: Handle this case.
         response = client(headers: headerParams).get(path);
         break;
     }

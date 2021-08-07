@@ -10,7 +10,6 @@ import 'package:thanglong_university/app/modules/chat_group_info/views/partial/i
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/image_view.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
-import '../controllers/chat_group_info_controller.dart';
 
 class ChatGroupInfoView extends GetView<ChatDetailController> {
   @override

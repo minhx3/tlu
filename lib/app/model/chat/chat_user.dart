@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
-import 'package:thanglong_university/app/service/firebase.dart';
 
-import 'base_model.dart';
-
-class ChatUser  {
+class ChatUser {
   String id;
   String type;
   String file;
@@ -19,16 +15,16 @@ class ChatUser  {
 
   ChatUser(
       {this.id,
-        this.type,
-        this.file,
-        this.img,
-        this.replyId,
-        this.replyText,
-        this.replyUserId,
-        this.dateCreated,
-        this.uidFrom,
-        this.uidTo,
-        this.text});
+      this.type,
+      this.file,
+      this.img,
+      this.replyId,
+      this.replyText,
+      this.replyUserId,
+      this.dateCreated,
+      this.uidFrom,
+      this.uidTo,
+      this.text});
 
   //fromDocumentSnapshot
   ChatUser.fromDocumentSnapshot({DocumentSnapshot documentSnapshot}) {

@@ -21,7 +21,6 @@ class EventRouter extends BaseRouter {
     Future<Response<dynamic>> response;
     switch (this.endPoint) {
       case EventEndpoint.getEvents:
-        // TODO: Handle this case.
         response =
             client(headers: headerParams).get(path, queryParameters: data);
         break;

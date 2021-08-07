@@ -5,8 +5,6 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/modules/schedule/controllers/schedule_controller.dart';
 import 'package:thanglong_university/app/views/views/calendar/flutter_calendar.dart';
 
-import '../../../configuration/constant/global.dart';
-
 class MonthView extends GetView<ScheduleController> {
   final double height;
   final Color backgroundColor;

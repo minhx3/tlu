@@ -5,7 +5,6 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
-import 'package:thanglong_university/app/routes/app_pages.dart';
 
 import '../../../configuration/constant/color.dart';
 import '../../../configuration/constant/global.dart';
