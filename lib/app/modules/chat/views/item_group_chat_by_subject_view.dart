@@ -27,7 +27,7 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
               radius: 25,
               backgroundColor: AppColor.subjectBackgroundColor,
               child: Text(
-                item?.id?.toUpperCase() ?? '',
+                item?.id?.substring(0, 2)?.toUpperCase() ?? '',
                 style: fontInter(14, color: AppColor.whiteColor),
               ),
             ),

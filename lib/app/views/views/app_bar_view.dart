@@ -471,19 +471,19 @@ class _ChatAppBar extends StatelessWidget {
                 style: fontInter(16,
                     fontWeight: FontWeight.w600, color: AppColor.textColor)),
           ),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              IconButton(
-                icon: Image.asset(
-                  Images.icEdit,
-                  width: 20,
-                  height: 20,
-                ),
-                onPressed: () {},
-              ),
-            ],
-          )
+          // Stack(
+          //   alignment: Alignment.center,
+          //   children: [
+          //     IconButton(
+          //       icon: Image.asset(
+          //         Images.icEdit,
+          //         width: 20,
+          //         height: 20,
+          //       ),
+          //       onPressed: () {},
+          //     ),
+          //   ],
+          // )
         ],
       ),
     );
