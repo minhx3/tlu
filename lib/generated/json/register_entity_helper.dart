@@ -21,7 +21,7 @@ registerEntityFromJson(RegisterEntity data, Map<String, dynamic> json) {
     data.semsterInfo = RegisterSemsterInfo().fromJson(json['semsterInfo']);
   }
   if (json['status'] != null) {
-    data.status = json['status'].toString();
+    data.status = registerStatus.map[json['status']];
   }
   if (json['title'] != null) {
     data.title = json['title'].toString();

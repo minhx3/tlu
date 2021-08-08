@@ -27,7 +27,7 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
                   padding: EdgeInsets.all(16),
                   children: [
                     Text(
-                      "Danh sách lớp học",
+                      "Danh sách đăng kí",
                       style: fontInter(14,
                           color: AppColor.cbfbfbf, fontWeight: FontWeight.w600),
                     ),
@@ -49,6 +49,14 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
   }
 
   Widget viewItem(RegisterEntity item) {
+    Color textColor1 = AppColor.c4d4d4d;
+    Color textColor2 = AppColor.c808080;
+    Color backgroundColor = Colors.white;
+    if (item.status == RegisterStatusEnum.OPEN ||
+        item.status == RegisterStatusEnum.RE_OPEN) {
+      textColor1 = textColor2 = Colors.white;
+      backgroundColor = AppColor.cfc2626;
+    }
     return InkWell(
       onTap: () {
         pushTo(Routes.SUBJECT_LIST_TERM, arguments: item);
@@ -56,25 +64,33 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
       splashFactory: InkRipple.splashFactory,
       splashColor: AppColor.cfc2626,
       child: Container(
-        // foregroundDecoration: BoxDecoration(col),
         decoration: boxShadow.copyWith(
-            borderRadius: BorderRadius.circular(3), color: Colors.white),
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        // height: 108,
+            borderRadius: BorderRadius.circular(3), color: backgroundColor),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
           children: [
             Container(
               alignment: Alignment.centerLeft,
               height: 44,
               margin: EdgeInsets.only(bottom: 10),
-              child: Text(
-                item?.semsterInfo?.name ?? '',
-                style: fontInter(16,
-                    color: AppColor.c000333, fontWeight: FontWeight.w600),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      item?.semsterInfo?.name ?? '',
+                      style: fontInter(16,
+                          color: textColor1, fontWeight: FontWeight.w600),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  SizedBox(child: statusWidget(item.status))
+                      .paddingOnly(left: 8),
+                ],
               ),
               decoration: BoxDecoration(
                   border: Border(
-                      bottom: BorderSide(width: 0.5, color: AppColor.cd9d9d9))),
+                      bottom: BorderSide(width: 1, color: AppColor.cd9d9d9))),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -82,18 +98,43 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
                 Text(
                   "Thời gian đăng kí:",
                   style: fontInter(11,
-                      color: AppColor.c808080, fontWeight: FontWeight.w500),
+                      color: textColor2, fontWeight: FontWeight.w500),
                 ).marginOnly(bottom: 2),
                 Text(
                   item.getRegisterTime,
                   style: fontInter(14,
-                      color: AppColor.c4d4d4d, fontWeight: FontWeight.w600),
-                ).marginOnly(bottom: 22),
+                      color: textColor1, fontWeight: FontWeight.w600),
+                ),
               ],
-            ),
+            ).marginOnly(bottom: 10),
           ],
         ),
       ),
     ).marginOnly(top: 10);
+  }
+
+  Widget statusWidget(RegisterStatusEnum status) {
+    Color color;
+    switch (status) {
+      case RegisterStatusEnum.CLOSE:
+        color = AppColor.cb3b4c2;
+        break;
+      case RegisterStatusEnum.PENDING:
+        color = AppColor.c000333;
+        break;
+      default:
+        color = AppColor.cfc7171;
+        break;
+    }
+    return Container(
+        height: 26,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+        child: Text(registerStatusSwitch.reverse[status],
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w600)),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(3), color: color));
   }
 }

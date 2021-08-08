@@ -241,8 +241,9 @@ class AppBarView extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_back_ios,
                         color: AppColor.textColor,
+                        size: 18,
                       ),
-                    ),
+                    ).marginOnly(right: 15),
                     Expanded(
                       child: Text(title,
                           style: fontInter(16,

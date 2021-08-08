@@ -16,6 +16,11 @@ class ButtonView extends StatelessWidget {
   final ButtonType type;
   final Color backgroundColor;
   final Color splashColor;
+  final Color textColor;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final EdgeInsets buttonPadding;
+  final double height;
 
   const ButtonView(
       {Key key,
@@ -26,7 +31,12 @@ class ButtonView extends StatelessWidget {
       this.type = ButtonType.system,
       this.viewState = ViewState.idle,
       this.backgroundColor,
-      this.splashColor})
+      this.splashColor,
+      this.textColor,
+      this.fontSize,
+      this.fontWeight,
+      this.buttonPadding,
+      this.height})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -48,8 +58,9 @@ class ButtonView extends StatelessWidget {
             onTap();
           },
           child: Container(
+            padding: buttonPadding,
             alignment: Alignment.center,
-            height: 40,
+            height: height ?? 40,
             decoration: BoxDecoration(
                 border: type == ButtonType.system
                     ? null
@@ -59,11 +70,11 @@ class ButtonView extends StatelessWidget {
                 : Text(
                     title.tr,
                     textAlign: TextAlign.center,
-                    style: fontInter(14,
-                        fontWeight: type == ButtonType.system
+                    style: fontInter(fontSize ?? 14,
+                        fontWeight: fontWeight ?? type == ButtonType.system
                             ? FontWeight.bold
                             : FontWeight.w600,
-                        color: type == ButtonType.system
+                        color: textColor ?? type == ButtonType.system
                             ? Colors.white
                             : AppColor.c000333),
                   ),
