@@ -63,8 +63,6 @@ class SubjectListTermController extends GetxController
                       .length >
                   0)
           .toList();
-    } else {
-      subjectFiltered = subjectFiltered;
     }
     if (filter.day.length > 0) {
       subjectFiltered = subjectFiltered
@@ -75,8 +73,6 @@ class SubjectListTermController extends GetxController
                   0) >=
               0)
           .toList();
-    } else {
-      subjectFiltered = subjectFiltered;
     }
     if (filter.time.length > 0) {
       subjectFiltered = subjectFiltered
@@ -96,8 +92,6 @@ class SubjectListTermController extends GetxController
                   0) >=
               0)
           .toList();
-    } else {
-      subjectFiltered = subjectFiltered;
     }
     registerSubjects(subjectFiltered);
   }
