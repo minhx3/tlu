@@ -21,7 +21,6 @@ class ScheduleRouter extends BaseRouter {
     Future<Response<dynamic>> response;
     switch (this.endPoint) {
       case ScheduleEndpoint.getSchedules:
-        // TODO: Handle this case.
         response =
             client(headers: headerParams).get(path, queryParameters: data);
         break;

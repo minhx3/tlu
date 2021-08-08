@@ -18,7 +18,6 @@ import '../controllers/detai_class_controller.dart';
 
 // ignore: must_be_immutable
 class DetaiClassView extends GetView<DetaiClassController> {
-  Animation<double> _animation;
   @override
   Widget build(BuildContext context) {
     return AppContainer(
@@ -85,15 +84,8 @@ class DetaiClassView extends GetView<DetaiClassController> {
                             return TeacherItemView(e.teacher);
                           }).toList(),
                           Obx(() {
-                            _animation = Tween<double>(
-                                    begin: !controller.collapsed() ? 0 : 0.5,
-                                    end: !controller.collapsed() ? 0.5 : 0)
-                                .animate(
-                                    controller.collapseIconAnimationController);
                             return Column(children: [
                               AnimatedSize(
-                                // height:
-                                //     !controller.collapsed() ? 0 : double.infinity,
                                 duration: const Duration(milliseconds: 400),
                                 curve: Curves.fastOutSlowIn,
                                 vsync: controller,
@@ -136,17 +128,23 @@ class DetaiClassView extends GetView<DetaiClassController> {
                                       ]),
                               ),
                               RotationTransition(
-                                turns: _animation,
+                                turns: Tween<double>(begin: 0, end: 0.5)
+                                    .animate(controller
+                                        .collapseIconAnimationController),
                                 child: IconButton(
                                     icon: Icon(Icons.keyboard_arrow_down,
                                         size: 30),
                                     onPressed: () {
                                       controller.collapseAnimate();
-                                      controller.collapseAnimationController
-                                          .forward(
-                                              from: controller.collapsed()
-                                                  ? 0.5
-                                                  : 0);
+                                      if (controller.collapsed()) {
+                                        controller
+                                            .collapseIconAnimationController
+                                            .forward();
+                                      } else {
+                                        controller
+                                            .collapseIconAnimationController
+                                            .reverse();
+                                      }
                                     }),
                               )
                             ]);

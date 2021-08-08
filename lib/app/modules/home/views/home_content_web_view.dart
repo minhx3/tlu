@@ -6,8 +6,6 @@ import '../../../configuration/constant/color.dart';
 import '../../../configuration/constant/font_style.dart';
 import '../../../configuration/constant/global.dart';
 import '../../schedule/views/month_view.dart';
-import '../../schedule/views/schedule_item_view.dart';
-import '../../schedule/views/schedule_item_view.dart';
 import '../../schedule/views/week_time_view.dart';
 
 class HomeContentWebView extends GetView {

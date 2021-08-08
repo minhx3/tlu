@@ -60,7 +60,6 @@ class AppBarView extends StatelessWidget {
       child: Builder(builder: (context) {
         switch (type) {
           case AppBarType.info:
-            // TODO: Handle this case.
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 15),
               height: 60,
@@ -117,7 +116,6 @@ class AppBarView extends StatelessWidget {
             break;
 
           case AppBarType.tab:
-            // TODO: Handle this case.
             return Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 height: 60,
@@ -243,8 +241,9 @@ class AppBarView extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_back_ios,
                         color: AppColor.textColor,
+                        size: 18,
                       ),
-                    ),
+                    ).marginOnly(right: 15),
                     Expanded(
                       child: Text(title,
                           style: fontInter(16,
@@ -431,10 +430,8 @@ class AppBarView extends StatelessWidget {
   Color getColor() {
     switch (type) {
       case AppBarType.info:
-        // TODO: Handle this case.
         return AppColor.appBarWhiteBackground;
       case AppBarType.navigator:
-        // TODO: Handle this case.
         return AppColor.appBarDarkBackground;
       case AppBarType.tab:
         return AppColor.appBarWhiteBackground;

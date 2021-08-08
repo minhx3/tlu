@@ -50,6 +50,7 @@ class ChatController extends GetxController {
       List<SubjectClassEntity> res =
           await Appclient.shared.getSubjectClassList(true);
       group(res);
+      // ignore: unused_catch_clause
     } on Exception catch (e) {} finally {}
   }
 
