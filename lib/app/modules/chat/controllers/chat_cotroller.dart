@@ -8,6 +8,7 @@ import 'package:thanglong_university/app/service/storage/storage.dart';
 
 class ChatController extends GetxController {
   RxList<SubjectClassEntity> group = RxList();
+  RxList<SubjectClassEntity> groupArchive = RxList();
   final listLastMessage = <Chat>[].obs;
 
   List<SubjectClassEntity> get getGroupWithBadge {
@@ -49,6 +50,14 @@ class ChatController extends GetxController {
       List<SubjectClassEntity> res =
           await Appclient.shared.getSubjectClassList(true);
       group(res);
+    } on Exception catch (e) {} finally {}
+  }
+
+  getGroupArchive() async {
+    try {
+      List<SubjectClassEntity> res =
+          await Appclient.shared.getSubjectClassList(false);
+      groupArchive(res);
     } on Exception catch (e) {} finally {}
   }
 }

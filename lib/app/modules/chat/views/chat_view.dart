@@ -8,6 +8,7 @@ import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/modules/chat/controllers/chat_cotroller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
+import 'package:thanglong_university/app/views/views/button_view.dart';
 
 import 'item_group_chat_by_subject_view.dart';
 
@@ -23,29 +24,71 @@ class ChatView extends GetView<ChatController> {
             title: "Chat",
           ),
           Expanded(
-              child: Obx(() => ListView.separated(
-                    padding: EdgeInsets.zero,
-                    itemBuilder: (c, index) {
-                      SubjectClassEntity g =
-                          controller.getGroupWithBadge[index];
-                      return ItemGroupChatBySubjectView(
-                        item: g,
-                        onPressed: () {
-                          ChatCrud.instance.userViewMessage(g.groupId);
-                          pushTo(Routes.CHAT_DETAIL, arguments: g);
-                        },
-                      );
-                    },
-                    itemCount: controller.getGroupWithBadge.length,
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Divider(
-                        thickness: 1,
-                        indent: 12,
-                        endIndent: 12,
-                        color: AppColor.lineColor,
-                      );
-                    },
-                  )))
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                Obx(() => ListView.separated(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (c, index) {
+                        SubjectClassEntity g =
+                            controller.getGroupWithBadge[index];
+                        return ItemGroupChatBySubjectView(
+                          item: g,
+                          onPressed: () {
+                            ChatCrud.instance.userViewMessage(g.groupId);
+                            pushTo(Routes.CHAT_DETAIL, arguments: g);
+                          },
+                        );
+                      },
+                      itemCount: controller.getGroupWithBadge.length,
+                      separatorBuilder: (BuildContext context, int index) {
+                        return Divider(
+                          thickness: 1,
+                          indent: 12,
+                          endIndent: 12,
+                          color: AppColor.lineColor,
+                        );
+                      },
+                    )),
+                ButtonView(
+                  type: ButtonType.outline,
+                  verticalSpacing: 12,
+                  horizontalSpacing: 16,
+                  title: 'Xem lưu trữ',
+                  onTap: () {
+
+                  },
+                ),
+                Obx(() => ListView.separated(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (c, index) {
+                        SubjectClassEntity g =
+                            controller.getGroupWithBadge[index];
+                        return ItemGroupChatBySubjectView(
+                          item: g,
+                          onPressed: () {
+                            ChatCrud.instance.userViewMessage(g.groupId);
+                            pushTo(Routes.CHAT_DETAIL, arguments: g);
+                          },
+                        );
+                      },
+                      itemCount: controller.getGroupWithBadge.length,
+                      separatorBuilder: (BuildContext context, int index) {
+                        return Divider(
+                          thickness: 1,
+                          indent: 12,
+                          endIndent: 12,
+                          color: AppColor.lineColor,
+                        );
+                      },
+                    )),
+              ],
+            ),
+          )
         ]));
   }
 }
