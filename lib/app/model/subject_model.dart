@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:thanglong_university/app/configuration/base/enum-values.dart';
 import 'package:thanglong_university/app/model/teacher_model.dart';
 
 List<SubjectModel> subjectModelFromJson(String str) => List<SubjectModel>.from(
@@ -596,18 +597,4 @@ class Times {
         "practices": practices == null ? null : practices,
         "total": total == null ? null : total,
       };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap;
-  }
 }

@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:thanglong_university/generated/json/base/json_convert_content.dart';
+import 'package:thanglong_university/app/configuration/base/enum-values.dart';
 
 class RegisterEntity with JsonConvert<RegisterEntity> {
   int endTime;
@@ -7,7 +8,7 @@ class RegisterEntity with JsonConvert<RegisterEntity> {
   String groupId;
   String groupName;
   RegisterSemsterInfo semsterInfo;
-  String status;
+  RegisterStatusEnum status;
   String title;
 
   String get getTime {
@@ -59,3 +60,19 @@ class RegisterSemsterInfo with JsonConvert<RegisterSemsterInfo> {
   String name;
   String startTime;
 }
+
+enum RegisterStatusEnum { OPEN, RE_OPEN, PENDING, CLOSE }
+
+final registerStatus = EnumValues({
+  "OPEN": RegisterStatusEnum.OPEN,
+  "RE_OPEN": RegisterStatusEnum.RE_OPEN,
+  "PENDING": RegisterStatusEnum.PENDING,
+  "CLOSE": RegisterStatusEnum.CLOSE,
+});
+
+final registerStatusSwitch = EnumValues({
+  "Đang mở": RegisterStatusEnum.OPEN,
+  "Mở lại": RegisterStatusEnum.RE_OPEN,
+  "Sắp mở": RegisterStatusEnum.PENDING,
+  "Đã khóa": RegisterStatusEnum.CLOSE,
+});
