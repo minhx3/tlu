@@ -83,7 +83,7 @@ class BottomChatView extends GetView<ChatDetailController> {
     return Container(
       constraints: BoxConstraints(minHeight: 60, maxHeight: 120),
       margin: EdgeInsets.zero,
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 6),
       decoration: BoxDecoration(
           border: Border(top: BorderSide(color: AppColor.lineColor))),
       child: Column(
@@ -184,9 +184,10 @@ class _InputChatView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 12),
+      height: 44,
       decoration: BoxDecoration(
           color: AppColor.inputChatBackground,
-          borderRadius: BorderRadius.circular(3)),
+          borderRadius: BorderRadius.circular(22)),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

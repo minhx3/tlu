@@ -10,6 +10,7 @@ class ChatController extends GetxController {
   RxList<SubjectClassEntity> group = RxList();
   RxList<SubjectClassEntity> groupArchive = RxList();
   final listLastMessage = <Chat>[].obs;
+  RxBool showArchive = RxBool(false);
 
   List<SubjectClassEntity> get getGroupWithBadge {
     return group().map((e) {
@@ -55,6 +56,10 @@ class ChatController extends GetxController {
   }
 
   getGroupArchive() async {
+    showArchive.toggle();
+    if (showArchive.isTrue) {
+      return;
+    }
     try {
       List<SubjectClassEntity> res =
           await Appclient.shared.getSubjectClassList(false);

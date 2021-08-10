@@ -52,40 +52,43 @@ class ChatView extends GetView<ChatController> {
                         );
                       },
                     )),
-                ButtonView(
-                  type: ButtonType.outline,
-                  verticalSpacing: 12,
-                  horizontalSpacing: 16,
-                  title: 'Xem lưu trữ',
-                  onTap: () {
-
-                  },
-                ),
-                Obx(() => ListView.separated(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (c, index) {
-                        SubjectClassEntity g =
-                            controller.getGroupWithBadge[index];
-                        return ItemGroupChatBySubjectView(
-                          item: g,
-                          onPressed: () {
-                            ChatCrud.instance.userViewMessage(g.groupId);
-                            pushTo(Routes.CHAT_DETAIL, arguments: g);
-                          },
-                        );
-                      },
-                      itemCount: controller.getGroupWithBadge.length,
-                      separatorBuilder: (BuildContext context, int index) {
-                        return Divider(
-                          thickness: 1,
-                          indent: 12,
-                          endIndent: 12,
-                          color: AppColor.lineColor,
-                        );
+                Obx(() => ButtonView(
+                      type: ButtonType.outline,
+                      verticalSpacing: 12,
+                      horizontalSpacing: 16,
+                      title: controller.showArchive.isTrue
+                          ? 'Ẩn lưu trữ'
+                          : 'Xem lưu trữ',
+                      onTap: () {
+                        controller.getGroupArchive();
                       },
                     )),
+                Obx(() => controller.showArchive.isTrue
+                    ? ListView.separated(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (c, index) {
+                          SubjectClassEntity g = controller.groupArchive[index];
+                          return ItemGroupChatBySubjectView(
+                            item: g,
+                            onPressed: () {
+                              ChatCrud.instance.userViewMessage(g.groupId);
+                              pushTo(Routes.CHAT_DETAIL, arguments: g);
+                            },
+                          );
+                        },
+                        itemCount: controller.groupArchive.length,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return Divider(
+                            thickness: 1,
+                            indent: 12,
+                            endIndent: 12,
+                            color: AppColor.lineColor,
+                          );
+                        },
+                      )
+                    : SizedBox.shrink()),
               ],
             ),
           )
