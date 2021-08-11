@@ -19,7 +19,7 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
       onPressed: onPressed,
       child: Container(
         height: 68,
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

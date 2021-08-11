@@ -42,40 +42,40 @@ class _CommonInfoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Column(
-          mainAxisSize: MainAxisSize.min,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          height: 26,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-              height: 26,
+            LabelValueInfoView(
+              label: 'Khoá:',
+              value: "${user?.className ?? ""}",
+              isHozSeparated: true,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                LabelValueInfoView(
-                  label: 'Khoá:',
-                  value: "${user?.className ?? ""}",
-                  isHozSeparated: true,
-                ),
-                LabelValueInfoView(
-                  label: 'Số điện thoại:',
-                  value: "${user?.mobile ?? ""}",
-                  isHozSeparated: true,
-                ),
-                LabelValueInfoView(
-                  label: 'Ngày sinh',
-                  value: "${user?.dob ?? ""}",
-                ),
-              ],
+            LabelValueInfoView(
+              label: 'Số điện thoại:',
+              value: "${user?.mobile ?? ""}",
+              isHozSeparated: true,
             ),
-            SizedBox(
-              height: 12,
-            ),
-            Divider(
-              height: 1,
-              color: AppColor.lineSectionColor,
+            LabelValueInfoView(
+              label: 'Ngày sinh',
+              value: "${user?.dob ?? ""}",
             ),
           ],
-        ));
+        ),
+        SizedBox(
+          height: 12,
+        ),
+        Divider(
+          height: 1,
+          color: AppColor.lineSectionColor,
+        ),
+      ],
+    );
   }
 }
 

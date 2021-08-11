@@ -116,6 +116,7 @@ class _SearchBoxView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
           color: AppColor.searchInputBackground,
+          borderRadius: BorderRadius.circular(20),
           border: Border.all(color: AppColor.lineColor)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -139,7 +140,7 @@ class _SearchBoxView extends StatelessWidget {
                 contentPadding: EdgeInsets.zero,
                 isDense: true,
                 hintText: 'Tìm kiếm',
-                hintStyle: fontInter(12, fontWeight: FontWeight.w500)),
+                hintStyle: fontInter(12, fontWeight: FontWeight.w500, color: AppColor.subTextColor)),
           )),
         ],
       ),

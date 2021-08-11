@@ -46,8 +46,8 @@ class ChatView extends GetView<ChatController> {
                       separatorBuilder: (BuildContext context, int index) {
                         return Divider(
                           thickness: 1,
-                          indent: 12,
-                          endIndent: 12,
+                          indent: 20,
+                          endIndent: 20,
                           color: AppColor.lineColor,
                         );
                       },
@@ -55,7 +55,7 @@ class ChatView extends GetView<ChatController> {
                 Obx(() => ButtonView(
                       type: ButtonType.outline,
                       verticalSpacing: 12,
-                      horizontalSpacing: 16,
+                      horizontalSpacing: 20,
                       title: controller.showArchive.isTrue
                           ? 'Ẩn lưu trữ'
                           : 'Xem lưu trữ',
@@ -82,8 +82,8 @@ class ChatView extends GetView<ChatController> {
                         separatorBuilder: (BuildContext context, int index) {
                           return Divider(
                             thickness: 1,
-                            indent: 12,
-                            endIndent: 12,
+                            indent: 20,
+                            endIndent: 20,
                             color: AppColor.lineColor,
                           );
                         },
