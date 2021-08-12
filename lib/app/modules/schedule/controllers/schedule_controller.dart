@@ -13,12 +13,17 @@ class ScheduleController extends AppController {
   final tagIndex = 0.obs;
   final isFilter = false.obs;
   final currentDay = DateTime.now().day.obs;
+
   final rxWeekDay = "".obs;
   String fromDate = "";
   String toDate = "";
   var currentDate = DateTime.now();
+
   final rxScheduleList = RxList<ScheduleModel>();
   StreamSubscription streamSubscription;
+
+  List<String> get listDateIsEvent => rxScheduleList().map((e) => e.day.split('-').first).toList();
+  List<ScheduleModel> get listScheduleByMonth => rxScheduleList.where((e) => e.day.split('-').first == (currentDay-1).toString()).toList();
   @override
   void onInit() {
     super.onInit();

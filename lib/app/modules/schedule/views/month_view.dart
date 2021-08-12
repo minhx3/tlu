@@ -9,53 +9,59 @@ class MonthView extends GetView<ScheduleController> {
   final double height;
   final Color backgroundColor;
   final bool showLine;
+
   MonthView(
       {this.height = 331,
       this.backgroundColor = AppColor.cf2f2f2,
       this.showLine = true});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          child: Calendar(
-            isExpandable: true,
-            showHeaderControl: false,
-            showExpandControl: false,
-            calendarController: controller.calendarController,
-            weekDays: [
-              "Th 2",
-              "Th 3",
-              "Th 4",
-              "Th 5",
-              "Th 6",
-              "Th 7",
-              "CN",
-            ],
-            dayBuilder: (c, date) {
-              int currentMonth = controller.currentDate.month;
-              int currentYear = controller.currentDate.year;
+            child: Calendar(
+          isExpandable: true,
+          showHeaderControl: false,
+          showExpandControl: false,
+          calendarController: controller.calendarController,
+          weekDays: [
+            "Th 2",
+            "Th 3",
+            "Th 4",
+            "Th 5",
+            "Th 6",
+            "Th 7",
+            "CN",
+          ],
+          dayBuilder: (c, date) {
+            int currentMonth = controller.currentDate.month;
+            int currentYear = controller.currentDate.year;
 
-              int checkMonth = date.month;
-              bool isSunday = date.weekday == 7;
+            int checkMonth = date.month;
+            bool isSunday = date.weekday == 7;
 
-              int checkYear = date.year;
-              bool isDayInMonth =
-                  (currentMonth == checkMonth && currentYear == checkYear);
+            int checkYear = date.year;
+            bool isDayInMonth =
+                (currentMonth == checkMonth && currentYear == checkYear);
 
-              bool isHasEvent = [15, 16, 17, 20, 29].contains(date.day) &&
-                  currentMonth == checkMonth;
-              bool isSelected = controller.currentDate.day == date.day &&
-                  currentMonth == checkMonth;
-              return viewItem(
-                  isSelected, date, isDayInMonth, isSunday, isHasEvent);
-            },
-            onSelectedRangeChange: (range) =>
-                print("Range is ${range.item1}, ${range.item2}"),
-            // onDateSelected: (date) => handleNewDate(date),
-          ),
-        ),
+            bool isHasEvent =
+                controller.listDateIsEvent.contains(date.day.toString()) &&
+                    currentMonth == checkMonth;
+            bool isSelected = controller.currentDay() + 1 == date.day &&
+                currentMonth == checkMonth;
+            return viewItem(controller, isSelected, date, isDayInMonth,
+                isSunday, isHasEvent);
+          },
+          onDateSelected: (date) {
+            print(date);
+            controller.setCurrentDay(date.day);
+          },
+          onSelectedRangeChange: (range) =>
+              print("Range is ${range.item1}, ${range.item2}"),
+          // onDateSelected: (date) => hxandleNewDate(date),
+        )),
         showLine == true
             ? Container(
                 height: 1,
@@ -67,8 +73,8 @@ class MonthView extends GetView<ScheduleController> {
     );
   }
 
-  Widget viewItem(bool isSelected, DateTime date, bool isDayInMonth,
-      bool isSunday, bool isHasEvent) {
+  Widget viewItem(ScheduleController controller, bool isSelected, DateTime date,
+      bool isDayInMonth, bool isSunday, bool isHasEvent) {
     return Stack(
       children: [
         Container(

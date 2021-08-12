@@ -32,6 +32,7 @@ class ScheduleView extends GetView<ScheduleController> {
                   iconLeading: Images.iconStar,
                   iconTintColor: AppColor.cffb359,
                 ),
+
                 HeaderView(),
                 Obx(() => Expanded(
                       child: Container(
@@ -55,7 +56,7 @@ class ScheduleView extends GetView<ScheduleController> {
                                     : SectionView(),
                                 Column(
                                     children: controller
-                                        .rxScheduleList()
+                                        .listScheduleByMonth
                                         .map((e) => ScheduleItemView(e))
                                         .toList()),
                               ],

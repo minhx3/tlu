@@ -144,33 +144,35 @@ class _CommonAttachmentView extends GetView<ChatDetailController> {
   Widget build(BuildContext context) {
     return Container(
       height: 40,
-      child: AnimatedSwitcher(
-        duration: 250.milliseconds,
-        child: controller.showAttachment() == false
-            ? Wrap(
-                alignment: WrapAlignment.center,
-                runAlignment: WrapAlignment.center,
-                spacing: 8,
-                children: [
-                  _IconAttachmentView(
-                    imageAsset: Images.icUpload,
+      child: Obx(() => AnimatedSwitcher(
+            duration: 250.milliseconds,
+            child: controller.showAttachment() == false
+                ? Wrap(
+                    alignment: WrapAlignment.center,
+                    runAlignment: WrapAlignment.center,
+                    spacing: 8,
+                    children: [
+                      _IconAttachmentView(
+                        imageAsset: Images.icUpload,
+                        onPressed: () {
+                          controller.sendFile();
+                        },
+                      ),
+                      _IconAttachmentView(
+                        imageAsset: Images.icGallary,
+                        onPressed: () {
+                          controller.sendImg(ImageSource.gallery);
+                        },
+                      ),
+                    ],
+                  )
+                : IconButton(
                     onPressed: () {
-                      controller.sendFile();
+                      controller.showAttachment.toggle();
                     },
+                    icon: Icon(Icons.arrow_forward_ios_outlined, color: AppColor.subTextColor,),
                   ),
-                  _IconAttachmentView(
-                    imageAsset: Images.icGallary,
-                    onPressed: () {
-                      controller.sendImg(ImageSource.gallery);
-                    },
-                  ),
-                ],
-              )
-            : IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.arrow_forward_ios),
-              ),
-      ),
+          )),
     );
   }
 }

@@ -11,56 +11,67 @@ class HeaderView extends GetView<ScheduleController> {
   Widget build(BuildContext context) {
     return Container(
       color: AppColor.appBarDarkBackground,
-      child: Container(
-        height: 63,
-        width: Constant.designWidth,
-        margin: EdgeInsets.symmetric(horizontal: 16),
-        child: Row(
-          children: [
-            Expanded(
-              child: InkWell(
-                onTap: () {
-                  controller.setTag(0);
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Ngày hôm nay",
-                      style: fontInter(12,
-                          color: AppColor.whiteColor.withOpacity(0.5),
-                          fontWeight: FontWeight.w600),
-                    ),
-                    Text(
-                      "${controller.getToday()}",
-                      style: fontInter(16,
-                          color: AppColor.cfc7171, fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ),
-              ),
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          Container(
+            child: Container(
+              height: 1,
+              width: double.infinity,
+              color: Color(0xff33355A),
             ),
-            Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(15)),
-              child: Obx(() => Row(
-                    children: [
-                      tabItem("Tuần", 1, (tag) {
-                        controller.setTag(tag);
-                      }, isSelected: controller.tagIndex() == 1),
-                      Container(
-                        width: 4,
-                        height: 20,
-                      ),
-                      tabItem("Tháng", 2, (tag) {
-                        controller.setTag(tag);
-                      }, isSelected: controller.tagIndex() == 2),
-                    ],
-                  )),
-            )
-          ],
-        ),
+          ),
+          Container(
+            height: 63,
+            width: Constant.designWidth,
+            child: Row(
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      controller.setTag(0);
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Hôm nay",
+                          style: fontInter(12,
+                              color: AppColor.whiteColor.withOpacity(0.5),
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          "${controller.getToday()}",
+                          style: fontInter(16,
+                              color: AppColor.cfc7171, fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                  child: Obx(() => Row(
+                        children: [
+                          tabItem("Tuần", 1, (tag) {
+                            controller.setTag(tag);
+                          }, isSelected: controller.tagIndex() == 1),
+                          Container(
+                            width: 4,
+                            height: 20,
+                          ),
+                          tabItem("Tháng", 2, (tag) {
+                            controller.setTag(tag);
+                          }, isSelected: controller.tagIndex() == 2),
+                        ],
+                      )),
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

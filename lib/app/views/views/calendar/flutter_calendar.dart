@@ -226,17 +226,12 @@ class _CalendarState extends State<Calendar> {
 
   Widget get calendarGridView {
     return new Container(
-      child: new GestureDetector(
-        onHorizontalDragStart: (gestureDetails) => beginSwipe(gestureDetails),
-        onHorizontalDragUpdate: (gestureDetails) =>
-            getDirection(gestureDetails),
-        onHorizontalDragEnd: (gestureDetails) => endSwipe(gestureDetails),
-        child: new GridView.count(
-          shrinkWrap: true,
-          crossAxisCount: 7,
-          padding: new EdgeInsets.only(bottom: 0.0),
-          children: calendarBuilder(),
-        ),
+      child: new GridView.count(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        crossAxisCount: 7,
+        padding: new EdgeInsets.only(bottom: 0.0),
+        children: calendarBuilder(),
       ),
     );
   }
@@ -356,6 +351,7 @@ class _CalendarState extends State<Calendar> {
         children: <Widget>[
           widget.showHeaderControl == false ? SizedBox() : nameAndIconRow,
           new ExpansionCrossFade(
+
             collapsed: calendarGridView,
             expanded: calendarGridView,
             isExpanded: isExpandable,
