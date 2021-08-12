@@ -8,6 +8,7 @@ import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/modules/education/views/education_subject_item_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
+import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 
 import '../controllers/education_controller.dart';
@@ -15,106 +16,109 @@ import '../controllers/education_controller.dart';
 class EducationView extends GetView<EducationController> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColor.cf2f2f2,
-      child: Column(
-        children: [
-          AppBarView(
-            automaticallyImplyLeading: false,
-            type: AppBarType.tab,
-            title: "Đào tạo",
-          ),
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.only(bottom: 30),
-              children: [
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      Obx(() {
-                        final data = controller.rxProcess();
-                        return counterView(
-                            title:
-                                "${data?.completeCredits ?? 0}/${data?.sumCredits ?? 0}",
-                            subTitle: "${data?.gpa ?? 0}",
-                            hasProgress: true,
-                            value: (data?.completeCredits ?? 0) /
-                                (data?.sumCredits ?? 0),
-                            onTap: () {
-                              pushTo(Routes.TRANSCRIPT);
-                            });
-                      }),
-                      Obx(() {
-                        final data = controller.rxProcess();
-                        final count = controller.rxScheduleList().length;
-                        return counterView(
-                            title: "${data?.sumCreditsInSemster ?? 0} tín chỉ",
-                            subTitle: "${count ?? 0} môn",
-                            space: 10,
-                            type: 2,
-                            value: (data?.completeCredits ?? 0) /
-                                (data?.sumCredits ?? 0),
-                            onTap: () {
-                              pushTo(Routes.TEST_SCHEDULE);
-                            });
-                      }),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 1,
-                  margin: EdgeInsets.symmetric(horizontal: 16),
-                  color: AppColor.ce6e6e6,
-                ),
-                Obx(() => Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 16),
-                          child: Text(
-                            "${controller.rxMapSubjectList()?.keys?.first ?? ""}",
-                            style: fontInter(14,
-                                fontWeight: FontWeight.w600,
-                                color: AppColor.c4d4d4d),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        ListView(
-                          shrinkWrap: true,
-                          padding: EdgeInsets.zero,
-                          physics: NeverScrollableScrollPhysics(),
-                          children:
-                              (controller.rxMapSubjectList()?.values?.first ??
-                                      [])
-                                  .map((item) => EducationSubjectItemView(
-                                      item: item,
-                                      space: (controller
-                                                          .rxMapSubjectList()
-                                                          ?.values
-                                                          ?.first ??
-                                                      [])
-                                                  .indexOf(item) ==
-                                              0
-                                          ? 0
-                                          : 5))
-                                  .toList(),
-                        ),
-                      ],
-                    )),
-                ButtonView(
-                  title: "Xem thêm các kì trước",
-                  type: ButtonType.outline,
-                  horizontalSpacing: 16,
-                  verticalSpacing: 16,
-                  onTap: () {},
-                )
-              ],
+    return AppContainer(
+      child: Scaffold(
+        backgroundColor: AppColor.cf2f2f2,
+        body: Column(
+          children: [
+            AppBarView(
+              automaticallyImplyLeading: false,
+              type: AppBarType.tab,
+              title: "Đào tạo",
             ),
-          )
-        ],
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.only(bottom: 30),
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        Obx(() {
+                          final data = controller.rxProcess();
+                          return counterView(
+                              title:
+                                  "${data?.completeCredits ?? 0}/${data?.sumCredits ?? 0}",
+                              subTitle: "${data?.gpa ?? 0}",
+                              hasProgress: true,
+                              value: (data?.completeCredits ?? 0) /
+                                  (data?.sumCredits ?? 0),
+                              onTap: () {
+                                pushTo(Routes.TRANSCRIPT);
+                              });
+                        }),
+                        Obx(() {
+                          final data = controller.rxProcess();
+                          final count = controller.rxScheduleList().length;
+                          return counterView(
+                              title:
+                                  "${data?.sumCreditsInSemster ?? 0} tín chỉ",
+                              subTitle: "${count ?? 0} môn",
+                              space: 10,
+                              type: 2,
+                              value: (data?.completeCredits ?? 0) /
+                                  (data?.sumCredits ?? 0),
+                              onTap: () {
+                                pushTo(Routes.TEST_SCHEDULE);
+                              });
+                        }),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 1,
+                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    color: AppColor.ce6e6e6,
+                  ),
+                  Obx(() => Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 16),
+                            child: Text(
+                              "${controller.rxMapSubjectList()?.keys?.first ?? ""}",
+                              style: fontInter(14,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.c4d4d4d),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          ListView(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.zero,
+                            physics: NeverScrollableScrollPhysics(),
+                            children:
+                                (controller.rxMapSubjectList()?.values?.first ??
+                                        [])
+                                    .map((item) => EducationSubjectItemView(
+                                        item: item,
+                                        space: (controller
+                                                            .rxMapSubjectList()
+                                                            ?.values
+                                                            ?.first ??
+                                                        [])
+                                                    .indexOf(item) ==
+                                                0
+                                            ? 0
+                                            : 5))
+                                    .toList(),
+                          ),
+                        ],
+                      )),
+                  ButtonView(
+                    title: "Xem thêm các kì trước",
+                    type: ButtonType.outline,
+                    horizontalSpacing: 16,
+                    verticalSpacing: 16,
+                    onTap: () {},
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

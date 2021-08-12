@@ -16,36 +16,38 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
   Widget build(BuildContext context) {
     return AppContainer(
       child: Scaffold(
-          backgroundColor: AppColor.whiteColor,
-          body: Column(
-            children: [
-              AppBarView(
-                title: "Đăng ký học",
-                type: AppBarType.white,
+        backgroundColor: AppColor.whiteColor,
+        body: Column(
+          children: [
+            AppBarView(
+              title: "Đăng ký học",
+              type: AppBarType.white,
+            ),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.all(16),
+                children: [
+                  Text(
+                    "Danh sách đăng kí",
+                    style: fontInter(14,
+                        color: AppColor.cbfbfbf, fontWeight: FontWeight.w600),
+                  ),
+                  Obx(() => ListView(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: controller
+                            .subjects()
+                            .map((element) => viewItem(element))
+                            .toList(),
+                      ))
+                ],
               ),
-              Expanded(
-                child: ListView(
-                  padding: EdgeInsets.all(16),
-                  children: [
-                    Text(
-                      "Danh sách đăng kí",
-                      style: fontInter(14,
-                          color: AppColor.cbfbfbf, fontWeight: FontWeight.w600),
-                    ),
-                    Obx(() => ListView(
-                          shrinkWrap: true,
-                          padding: EdgeInsets.zero,
-                          physics: NeverScrollableScrollPhysics(),
-                          children: controller
-                              .subjects()
-                              .map((element) => viewItem(element))
-                              .toList(),
-                        ))
-                  ],
-                ),
-              )
-            ],
-          )),
+            )
+          ],
+        ),
+        bottomNavigationBar: getBottomBar(),
+      ),
     );
   }
 

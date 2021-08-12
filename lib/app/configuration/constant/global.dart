@@ -3,8 +3,12 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:thanglong_university/app/model/user_model.dart';
+import 'package:thanglong_university/app/modules/index/controllers/index_controller.dart';
+import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'package:thanglong_university/app/views/views/custom_dialog.dart';
+import 'package:thanglong_university/app/views/views/image_view.dart';
 import 'color.dart';
 
 pushTo(String routeName, {Object arguments}) async {
@@ -264,6 +268,49 @@ showConfirmDialog(
 
 delay(Function onCompleted, {int time = 2}) {
   Future.delayed(Duration(seconds: time)).whenComplete(onCompleted);
+}
+
+getBottomBar() {
+  return GetBuilder<IndexController>(builder: (tx) {
+    UserModel _profile = ProfileController.to.rxUserInfo();
+    return BottomNavigationBar(
+      onTap: (index) {
+        tx.setTab(index);
+        Get.toNamed(tx.sideMenuRoute[index]);
+      },
+      type: BottomNavigationBarType.fixed,
+      items: tx.tabsList.map((e) {
+        final index = tx.tabsList.indexOf(e);
+
+        // replace profile tab by avatar image
+        if (index == 4 && _profile?.avatar != null) {
+          return BottomNavigationBarItem(
+              icon: CircleAvatar(
+                radius: 15,
+                backgroundColor: AppColor.iconTabSelected,
+                child: CircleAvatar(
+                  radius: index == tx.rxTabIndex() ? 13.5 : 15,
+                  backgroundColor: Colors.white,
+                  backgroundImage: NetworkImage(_profile.avatar),
+                ),
+              ),
+              label: "");
+        }
+
+        return BottomNavigationBarItem(
+            icon: ImageView(
+              index == tx.rxTabIndex() ? e.iconSelected : e.icon,
+              type: e.type ?? Type.assets,
+              width: 24,
+              height: 24,
+              color: index == tx.rxTabIndex()
+                  ? AppColor.iconTabSelected
+                  : AppColor.iconTabUnSelected,
+            ),
+            label: "");
+      }).toList(),
+    );
+  });
 }
 
 var boxShadow = BoxDecoration(boxShadow: [

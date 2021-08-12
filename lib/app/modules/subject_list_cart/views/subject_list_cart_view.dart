@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
+import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/modules/subject_list_cart/controllers/subject_list_cart_controller.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/controllers/subject_list_term_controller.dart';
@@ -15,75 +16,77 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
   Widget build(BuildContext context) {
     return AppContainer(
       child: Scaffold(
-          backgroundColor: AppColor.cf2f2f2,
-          body: Column(
-            children: [
-              AppBarView(
-                title: "Danh sách đã chọn",
-                type: AppBarType.white,
-              ),
-              blockView(context),
-              Expanded(
-                child: Obx(() {
-                  return ListView(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Danh sách môn đăng kí",
-                            style: fontInter(14,
-                                color: AppColor.cbfbfbf,
-                                fontWeight: FontWeight.w600),
+        backgroundColor: AppColor.cf2f2f2,
+        body: Column(
+          children: [
+            AppBarView(
+              title: "Danh sách đã chọn",
+              type: AppBarType.white,
+            ),
+            blockView(context),
+            Expanded(
+              child: Obx(() {
+                return ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Danh sách môn đăng kí",
+                          style: fontInter(14,
+                              color: AppColor.cbfbfbf,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        GestureDetector(
+                          onTap: () => controller.changeEditMode(),
+                          child: Row(
+                            children: [
+                              Text(
+                                  controller.rxEditMode()
+                                      ? 'Hủy chỉnh sửa '
+                                      : 'Chỉnh sửa ',
+                                  style: fontInter(11,
+                                      color: controller.rxEditMode()
+                                          ? AppColor.cfc2626
+                                          : AppColor.c000333,
+                                      fontWeight: FontWeight.w600)),
+                              Icon(Icons.edit,
+                                  size: 14,
+                                  color: controller.rxEditMode()
+                                      ? AppColor.cfc2626
+                                      : AppColor.c000333),
+                            ],
                           ),
-                          GestureDetector(
-                            onTap: () => controller.changeEditMode(),
-                            child: Row(
-                              children: [
-                                Text(
-                                    controller.rxEditMode()
-                                        ? 'Hủy chỉnh sửa '
-                                        : 'Chỉnh sửa ',
-                                    style: fontInter(11,
-                                        color: controller.rxEditMode()
-                                            ? AppColor.cfc2626
-                                            : AppColor.c000333,
-                                        fontWeight: FontWeight.w600)),
-                                Icon(Icons.edit,
-                                    size: 14,
-                                    color: controller.rxEditMode()
-                                        ? AppColor.cfc2626
-                                        : AppColor.c000333),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ).paddingOnly(top: 20, bottom: 10),
-                      ListView(
-                          shrinkWrap: true,
-                          padding: EdgeInsets.zero,
-                          physics: NeverScrollableScrollPhysics(),
-                          children: controller
-                              .rxSubjectCart()
-                              .subjectClasses
-                              .asMap()
-                              .map((index, e) {
-                                return MapEntry(
-                                    index,
-                                    subjectItem(
-                                        index + 1, e, controller.rxEditMode()));
-                              })
-                              .values
-                              .toList()
-                          // List.generate(6, (e) => subjectItem()).toList(),
-                          )
-                    ],
-                  );
-                }),
-              ),
-            ],
-          )),
+                        ),
+                      ],
+                    ).paddingOnly(top: 20, bottom: 10),
+                    ListView(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: controller
+                            .rxSubjectCart()
+                            .subjectClasses
+                            .asMap()
+                            .map((index, e) {
+                              return MapEntry(
+                                  index,
+                                  subjectItem(
+                                      index + 1, e, controller.rxEditMode()));
+                            })
+                            .values
+                            .toList()
+                        // List.generate(6, (e) => subjectItem()).toList(),
+                        )
+                  ],
+                );
+              }),
+            ),
+          ],
+        ),
+        bottomNavigationBar: getBottomBar(),
+      ),
     );
   }
 
