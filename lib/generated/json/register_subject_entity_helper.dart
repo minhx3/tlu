@@ -1,3 +1,4 @@
+import 'package:thanglong_university/app/enums/subject_class_status.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/model/teacher_model.dart';
 
@@ -10,7 +11,7 @@ registerSubjectEntityFromJson(
     data.openRegister = json['openRegister'].toString();
   }
   if (json['status'] != null) {
-    data.status = json['status'].toString();
+    data.status = subjectClassStatus.map[json['status']];
   }
   if (json['examConditions'] != null) {
     data.examConditions = json['examConditions'].toString();
@@ -25,6 +26,9 @@ registerSubjectEntityFromJson(
   }
   if (json['name'] != null) {
     data.name = json['name'].toString();
+  }
+  if (json['subjectName'] != null) {
+    data.name = json['subjectName'].toString();
   }
   if (json['isHasGreatExercise'] != null) {
     data.isHasGreatExercise = json['isHasGreatExercise'];

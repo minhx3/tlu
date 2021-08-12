@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/enums/subject_group_status_enum.dart';
 import 'package:thanglong_university/app/model/register_entity.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
@@ -52,8 +53,8 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
     Color textColor1 = AppColor.c4d4d4d;
     Color textColor2 = AppColor.c808080;
     Color backgroundColor = Colors.white;
-    if (item.status == RegisterStatusEnum.OPEN ||
-        item.status == RegisterStatusEnum.RE_OPEN) {
+    if (item.status == SujectGroupStatusEnum.OPEN ||
+        item.status == SujectGroupStatusEnum.RE_OPEN) {
       textColor1 = textColor2 = Colors.white;
       backgroundColor = AppColor.cfc2626;
     }
@@ -113,13 +114,13 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
     ).marginOnly(top: 10);
   }
 
-  Widget statusWidget(RegisterStatusEnum status) {
+  Widget statusWidget(SujectGroupStatusEnum status) {
     Color color;
     switch (status) {
-      case RegisterStatusEnum.CLOSE:
+      case SujectGroupStatusEnum.CLOSE:
         color = AppColor.cb3b4c2;
         break;
-      case RegisterStatusEnum.PENDING:
+      case SujectGroupStatusEnum.PENDING:
         color = AppColor.c000333;
         break;
       default:
@@ -129,7 +130,7 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
     return Container(
         height: 26,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-        child: Text(registerStatusSwitch.reverse[status],
+        child: Text(subjectGroupStatusSwitch.reverse[status],
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 12,

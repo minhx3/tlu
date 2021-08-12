@@ -1,3 +1,4 @@
+import 'package:thanglong_university/app/enums/subject_group_status_enum.dart';
 import 'package:thanglong_university/app/model/register_entity.dart';
 
 registerEntityFromJson(RegisterEntity data, Map<String, dynamic> json) {
@@ -21,7 +22,7 @@ registerEntityFromJson(RegisterEntity data, Map<String, dynamic> json) {
     data.semsterInfo = RegisterSemsterInfo().fromJson(json['semsterInfo']);
   }
   if (json['status'] != null) {
-    data.status = registerStatus.map[json['status']];
+    data.status = subjectGroupStatus.map[json['status']];
   }
   if (json['title'] != null) {
     data.title = json['title'].toString();

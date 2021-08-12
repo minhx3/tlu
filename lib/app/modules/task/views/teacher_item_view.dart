@@ -28,28 +28,13 @@ class TeacherItemView extends GetView {
                 borderRadius: BorderRadius.circular(20),
               ),
               Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        "Giảng viên",
-                        style: fontInter(11,
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.subTextColor),
-                      ),
-                      Text(
-                        "${teacher.degree} ${teacher.fullName}",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: fontInter(14,
-                            fontWeight: FontWeight.w600,
-                            color: AppColor.textColor),
-                      ),
-                    ],
-                  ),
-                ),
+                child: Text(
+                  "${teacher.degree}. ${teacher.fullName}",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: fontInter(14,
+                      fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
+                ).paddingSymmetric(horizontal: 16),
               ),
               Container(
                 decoration: BoxDecoration(

@@ -7,8 +7,10 @@ import 'package:thanglong_university/app/configuration/base/app_controller.dart'
 class DetaiClassController extends AppController
     with SingleGetTickerProviderMixin {
   final collapsed = false.obs;
-  AnimationController collapseIconAnimationController = AnimationController(
-      vsync: NavigatorState(), duration: Duration(milliseconds: 0));
+  AnimationController collapseController = AnimationController(
+      vsync: NavigatorState(), duration: Duration(milliseconds: 400));
+
+  Animation collapseAnimation;
 
   List<Map<String, dynamic>> columnList = [
     {"title": "Lớp", "data": []},
@@ -23,6 +25,11 @@ class DetaiClassController extends AppController
   @override
   Future<void> onInit() async {
     super.onInit();
+
+    collapseAnimation = CurvedAnimation(
+      parent: collapseController,
+      curve: Curves.fastOutSlowIn,
+    );
 
     if (Get.arguments["data"] != null) {
       subjectClassData = Get.arguments["data"] as RegisterSubjectEntity;
@@ -63,7 +70,7 @@ class DetaiClassController extends AppController
 
   @override
   void dispose() {
-    collapseIconAnimationController.dispose();
+    collapseController.dispose();
     super.dispose();
   }
 }
