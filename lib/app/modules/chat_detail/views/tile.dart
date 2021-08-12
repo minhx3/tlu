@@ -33,7 +33,7 @@ class ChatTile extends GetView<ChatDetailController> {
           isMyMessage: isMe,
           senderName: u?.name,
           senderAvatarUrl: u?.avatar,
-          fileName: null,
+          fileName: message?.text,
         );
         break;
       case 'reply':
@@ -51,6 +51,7 @@ class ChatTile extends GetView<ChatDetailController> {
           onTap: () => controller.selectMessage(message),
           isMyMessage: isMe,
           text: message.text,
+          img: message.img,
           senderAvatarUrl: u?.avatar,
           senderName: u?.name,
         );

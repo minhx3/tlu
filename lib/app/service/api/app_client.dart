@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:thanglong_university/app/model/access_token_model.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
@@ -20,6 +22,7 @@ import 'package:thanglong_university/app/service/api/trainning_router.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 
 import 'base_model.dart';
+import 'common_router.dart';
 
 class Appclient {
   static Appclient shared = Appclient();
@@ -296,6 +299,25 @@ class Appclient {
         list.add(Score.fromJson(e));
       });
       return list;
+    } else {
+      return null;
+    }
+  }
+
+  Future<dynamic> uploadFile(dataImg) async {
+    FormData formData = FormData();
+    var files = MapEntry(
+      "files",
+      MultipartFile.fromFileSync(dataImg?.path ?? '',
+          filename: dataImg.path.split("/").last ?? "tlu_file.jpg"),
+    );
+    formData.files.add(files);
+
+    final result =
+    await CommonRouter(CommonEndpoint.upload, data: formData).call;
+    if (result?.data != null) {
+      List<dynamic> resUrl = result.data;
+      return resUrl.first;
     } else {
       return null;
     }

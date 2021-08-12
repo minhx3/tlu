@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
@@ -102,15 +103,7 @@ class BottomChatView extends GetView<ChatDetailController> {
               : SizedBox.shrink()),
           Row(
             children: [
-              KeyboardVisibilityBuilder(
-                builder: (c, isVisible) {
-                  return AnimatedContainer(
-                    width: isVisible ? 0 : Get.width * 0.3,
-                    duration: Duration(milliseconds: 200),
-                    child: _CommonAttachmentView(),
-                  );
-                },
-              ),
+              _CommonAttachmentView(),
               Expanded(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -128,7 +121,7 @@ class BottomChatView extends GetView<ChatDetailController> {
                         height: 20,
                       ),
                       onPressed: () {
-                        controller.sendMessage(context);
+                        controller.sendMessage();
                       },
                     ),
                   ],
@@ -142,7 +135,7 @@ class BottomChatView extends GetView<ChatDetailController> {
   }
 }
 
-class _CommonAttachmentView extends StatelessWidget {
+class _CommonAttachmentView extends GetView<ChatDetailController> {
   const _CommonAttachmentView({
     Key key,
   }) : super(key: key);
@@ -151,20 +144,32 @@ class _CommonAttachmentView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 40,
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        runAlignment: WrapAlignment.center,
-        spacing: 8,
-        children: [
-          _IconAttachmentView(
-            imageAsset: Images.icUpload,
-            onPressed: () {},
-          ),
-          _IconAttachmentView(
-            imageAsset: Images.icGallary,
-            onPressed: () {},
-          ),
-        ],
+      child: AnimatedSwitcher(
+        duration: 250.milliseconds,
+        child: controller.showAttachment() == false
+            ? Wrap(
+                alignment: WrapAlignment.center,
+                runAlignment: WrapAlignment.center,
+                spacing: 8,
+                children: [
+                  _IconAttachmentView(
+                    imageAsset: Images.icUpload,
+                    onPressed: () {
+                      controller.sendFile();
+                    },
+                  ),
+                  _IconAttachmentView(
+                    imageAsset: Images.icGallary,
+                    onPressed: () {
+                      controller.sendImg(ImageSource.gallery);
+                    },
+                  ),
+                ],
+              )
+            : IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.arrow_forward_ios),
+              ),
       ),
     );
   }

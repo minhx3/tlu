@@ -1,8 +1,12 @@
+// @dart=2.9
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
@@ -19,6 +23,7 @@ class ChatDetailController extends GetxController {
   bool get hasFocus => _hasFocus.value;
   final TextEditingController tec = TextEditingController();
   final list = <Chat>[].obs;
+  final showAttachment = true.obs;
 
   final ScrollController scrollController = ScrollController();
 
@@ -72,17 +77,22 @@ class ChatDetailController extends GetxController {
     u([tec, ...res]);
   }
 
-  Future<void> sendMessage(BuildContext context) async {
+  Future<void> sendMessage({String img, String file, String fileName}) async {
+    if (tec.text.isEmpty && img == null && file == null) {
+      return;
+    }
     try {
       String uidFrom = getUserId;
       await ChatCrud.instance.sendNewChat(
           chat: Chat(
-              type: getType(),
+              type: file!=null? 'attachment': getType(),
               replyId: messageReply()?.id,
               replyText: messageReply()?.text,
               replyUserId: messageReply()?.uidFrom,
               uidFrom: uidFrom,
-              text: tec.text,
+              text: fileName != null ? fileName : tec.text,
+              file: file,
+              img: img,
               badge: 0),
           groupId: cg.groupId,
           listUser: u());
@@ -135,5 +145,54 @@ class ChatDetailController extends GetxController {
 
   UserEntity getUserById(id) {
     return u().firstWhere((element) => element.id == id, orElse: () => null);
+  }
+
+  Future<PickedFile> pickFile(
+      {ImageSource source = ImageSource.gallery,
+      double maxWidth = 600,
+      double maxHeight = 600,
+      int quality = 70}) async {
+    try {
+      final ImagePicker _picker = ImagePicker();
+      if (source == ImageSource.camera) {
+        return _picker.getImage(source: source);
+      } else {
+        return _picker.getImage(
+          source: source,
+          maxWidth: maxWidth,
+          maxHeight: maxHeight,
+          imageQuality: quality,
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  sendImg(source) async {
+    try {
+      PickedFile file = await pickFile(source: source);
+      var url = await Appclient.shared.uploadFile(file);
+      sendMessage(img: url);
+      return url.toString();
+    } on Exception catch (e) {
+      print(e);
+      // TODO
+    }
+  }
+
+  sendFile() async {
+    try {
+      FilePickerResult file = await FilePicker.platform.pickFiles();
+      if (file != null) {
+        var url = await Appclient.shared.uploadFile(file?.files?.first);
+        sendMessage(file: url, fileName: file?.files?.first?.name);
+      } else {
+        // User canceled the picker
+      }
+    } on Exception catch (e) {
+      print(e);
+      // TODO
+    }
   }
 }
