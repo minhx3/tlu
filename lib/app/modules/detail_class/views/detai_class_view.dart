@@ -8,6 +8,9 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/configuration/constant/view_state.dart';
+import 'package:thanglong_university/app/enums/subject_class_status.dart';
+import 'package:thanglong_university/app/modules/subject_list_cart/controllers/subject_list_cart_controller.dart';
+import 'package:thanglong_university/app/modules/subject_list_term/controllers/subject_list_term_controller.dart';
 import 'package:thanglong_university/app/modules/task/views/teacher_item_view.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
@@ -29,9 +32,12 @@ class DetaiClassView extends GetView<DetaiClassController> {
             AppBarView(
               title: "Chi tiết lớp",
               type: AppBarType.white,
+              iconSize: 50,
               iconLeading: Images.plus,
-              iconTintColor: AppColor.primaryColor,
-              onAction: () {},
+              iconTintColor: AppColor.cfc2626,
+              onAction: () {
+                registerSubjectClass();
+              },
             ),
             Obx(() {
               if (controller.rxViewState() == ViewState.loading) {
@@ -39,7 +45,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
                     child: Center(child: CircularProgressIndicator()));
               }
               return Expanded(
-                child: controller.subjectClassData == null
+                child: controller?.subjectClassData == null
                     ? Text("Lớp học không tồn tại").paddingAll(10)
                     : ListView(
                         padding: EdgeInsets.all(16),
@@ -55,26 +61,17 @@ class DetaiClassView extends GetView<DetaiClassController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               item("Mã môn:", controller.subjectClassData?.id),
-                              item(
-                                  "Số tín chỉ:",
-                                  (controller.subjectClassData?.subject
-                                                  ?.credits ??
-                                              "?")
-                                          .toString() +
-                                      " tín"),
-                              item(
-                                  "Hệ số:",
-                                  (controller.subjectClassData?.subject
-                                              ?.factor ??
-                                          "?")
-                                      .toString()),
+                              item("Số tín chỉ:",
+                                  "${(controller.subjectClassData?.subject?.credits ?? "").toString()} tín"),
+                              item("Hệ số:",
+                                  "${(controller.subjectClassData?.subject?.factor ?? "").toString()}"),
                               item(
                                   "Học phí",
                                   controller.subjectClassData?.schoolFee
                                       ?.currency(),
                                   isLast: true),
                             ],
-                          ),
+                          ).paddingSymmetric(horizontal: 5),
                           lineWidget(),
                           item("Mã lớp:", controller.subjectClassData?.id ?? "",
                               isLast: true),
@@ -83,72 +80,61 @@ class DetaiClassView extends GetView<DetaiClassController> {
                               .map((e) {
                             return TeacherItemView(e.teacher);
                           }).toList(),
-                          Obx(() {
-                            return Column(children: [
-                              AnimatedSize(
-                                duration: const Duration(milliseconds: 400),
-                                curve: Curves.fastOutSlowIn,
-                                vsync: controller,
-                                child: !controller.collapsed()
-                                    ? SizedBox()
-                                    : Column(children: [
-                                        item(
-                                            "Số tiết học:",
-                                            (controller.subjectClassData
-                                                        ?.numberOfLessons ??
-                                                    [])
-                                                .map((e) =>
-                                                    "${e.quanlity} tiết ${e.type}")
-                                                .join(" + "),
-                                            isLast: true),
-                                        lineWidget(),
-                                        item(
-                                            "Môn tiên quyết:",
-                                            controller
-                                                    .subjectClassData
-                                                    ?.prerequisiteSubject
-                                                    ?.name ??
-                                                "Không yêu cầu",
-                                            isLast: true),
-                                        lineWidget(),
-                                        item(
-                                            "Điều kiện thi:",
-                                            controller.subjectClassData
-                                                    ?.examConditions ??
-                                                "",
-                                            isLast: true),
-                                        lineWidget(),
-                                        item(
-                                            "Cách tính điểm:",
-                                            controller.subjectClassData
-                                                    ?.scoringMethod ??
-                                                "",
-                                            isLast: true),
-                                        lineWidget(),
-                                      ]),
-                              ),
-                              RotationTransition(
-                                turns: Tween<double>(begin: 0, end: 0.5)
-                                    .animate(controller
-                                        .collapseIconAnimationController),
-                                child: IconButton(
-                                    icon: Icon(Icons.keyboard_arrow_down,
-                                        size: 30),
-                                    onPressed: () {
-                                      controller.collapseAnimate();
-                                      if (controller.collapsed()) {
-                                        controller
-                                            .collapseIconAnimationController
-                                            .forward();
-                                      } else {
-                                        controller
-                                            .collapseIconAnimationController
-                                            .reverse();
-                                      }
-                                    }),
-                              )
-                            ]);
-                          }),
+                          Column(children: [
+                            SizeTransition(
+                              axis: Axis.vertical,
+                              axisAlignment: 0,
+                              sizeFactor: controller.collapseAnimation,
+                              child: Column(children: [
+                                item(
+                                    "Số tiết học:",
+                                    (controller.subjectClassData
+                                                ?.numberOfLessons ??
+                                            [])
+                                        .map((e) =>
+                                            "${e.quanlity} tiết ${e.type}")
+                                        .join(" + "),
+                                    isLast: true),
+                                lineWidget(),
+                                item(
+                                    "Môn tiên quyết:",
+                                    controller.subjectClassData
+                                            ?.prerequisiteSubject?.name ??
+                                        "Không yêu cầu",
+                                    isLast: true),
+                                lineWidget(),
+                                item(
+                                    "Điều kiện thi:",
+                                    controller
+                                            .subjectClassData?.examConditions ??
+                                        "",
+                                    isLast: true),
+                                lineWidget(),
+                                item(
+                                    "Cách tính điểm:",
+                                    controller
+                                            .subjectClassData?.scoringMethod ??
+                                        "",
+                                    isLast: true),
+                                lineWidget(),
+                              ]),
+                            ),
+                            IconButton(
+                                icon: Icon(
+                                    !controller.collapsed()
+                                        ? Icons.keyboard_arrow_down
+                                        : Icons.keyboard_arrow_up,
+                                    size: 30),
+                                onPressed: () {
+                                  controller.collapseAnimate();
+                                  if (controller.collapseController.value ==
+                                      0) {
+                                    controller.collapseController.forward();
+                                  } else {
+                                    controller.collapseController.reverse();
+                                  }
+                                })
+                          ]),
                           documentWidget(
                               "Tài liệu cần thiết",
                               controller.subjectClassData.requiredListBook
@@ -188,67 +174,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
                           ButtonView(
                             title: "Đăng ký học",
                             onTap: () {
-                              showConfirmDialog(
-                                  actions: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(
-                                        width: 150,
-                                        child: ButtonView(
-                                          backgroundColor: AppColor.c000333,
-                                          horizontalSpacing: 5,
-                                          title: "Hủy",
-                                          onTap: () {
-                                            Navigator.of(Get.context).pop();
-                                          },
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 150,
-                                        child: ButtonView(
-                                          horizontalSpacing: 5,
-                                          title: "Xác nhận",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  messageWidget: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Text(
-                                        "Bạn có chắc chắn muốn đăng kí lớp",
-                                        style: TextStyle(
-                                            color: AppColor.c4d4d4d,
-                                            fontSize: 12),
-                                      ),
-                                      Text(
-                                        "${controller.subjectClassData.subject.name} - ${controller.subjectClassData.listTimelineClass[0].getAllTime} ?",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColor.c4d4d4d,
-                                            fontSize: 12),
-                                      )
-                                    ],
-                                  ),
-                                  titleWidget: RichText(
-                                    text: TextSpan(
-                                      text: 'Xác nhận ',
-                                      style: TextStyle(
-                                          color: AppColor.c000333,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16),
-                                      children: const <TextSpan>[
-                                        TextSpan(
-                                            text: 'Đăng ký lớp',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                                color: AppColor.c31B27C)),
-                                      ],
-                                    ),
-                                  ));
+                              registerSubjectClass();
                             },
                           ).marginOnly(top: 16),
                         ],
@@ -259,6 +185,16 @@ class DetaiClassView extends GetView<DetaiClassController> {
         ),
       ),
     );
+  }
+
+  void registerSubjectClass() {
+    if (controller.subjectClassData.status == SubjectClassStatusEnum.REGI) {
+      SubjectListTermController _controller = Get.find();
+      _controller.confirmRegisterSubject(controller.subjectClassData);
+    } else {
+      SubjectListCartController _controller = Get.find();
+      _controller.confirmAddToCart(controller.subjectClassData);
+    }
   }
 
   Column documentWidget(String label, List<Map<String, String>> books) {
@@ -320,14 +256,18 @@ class DetaiClassView extends GetView<DetaiClassController> {
           alignment: Alignment.center,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: controller.columnList
-                .map(
-                  (e) => Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                .asMap()
+                .map((index, e) {
+                  Widget _content = IntrinsicWidth(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: AppColor.cf2f2f2, width: 1))),
                           alignment: Alignment.centerLeft,
                           height: 30,
                           child: Text(
@@ -335,7 +275,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
                             style: fontInter(11,
                                 color: AppColor.c808080,
                                 fontWeight: FontWeight.w500),
-                          ),
+                          ).paddingSymmetric(horizontal: 15),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -359,11 +299,17 @@ class DetaiClassView extends GetView<DetaiClassController> {
                                     )),
                               )
                               .toList(),
-                        )
+                        ).paddingSymmetric(horizontal: 15)
                       ],
                     ),
-                  ),
-                )
+                  );
+                  return MapEntry(
+                      index,
+                      index + 1 == controller.columnList.length
+                          ? Expanded(child: _content)
+                          : _content);
+                })
+                .values
                 .toList(),
           ),
         ),
@@ -400,6 +346,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
               ),
               Text(
                 subTitle,
+                softWrap: true,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: fontInter(14,
@@ -410,7 +357,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
           isLast == true
               ? SizedBox()
               : Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  margin: EdgeInsets.symmetric(horizontal: 10),
                   width: 1,
                   height: 35,
                   color: AppColor.cd9d9d9,

@@ -32,6 +32,7 @@ class AppBarView extends StatelessWidget {
   final List<Widget> actions;
   final Color titleColor;
   final Color backgroundColor;
+  final double iconSize;
 
   const AppBarView(
       {Key key,
@@ -46,7 +47,8 @@ class AppBarView extends StatelessWidget {
       this.iconLeading,
       this.actions,
       this.titleColor,
-      this.backgroundColor})
+      this.backgroundColor,
+      this.iconSize = 20})
       : super(key: key);
 
   @override
@@ -55,6 +57,13 @@ class AppBarView extends StatelessWidget {
       height: 60 + context.mediaQueryPadding.top,
       padding: EdgeInsets.only(top: context.mediaQueryPadding.top),
       decoration: boxShadow.copyWith(
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 12,
+            spreadRadius: 6,
+            color: Colors.black.withOpacity(0.1),
+          )
+        ],
         color: backgroundColor ?? getColor(),
       ),
       child: Builder(builder: (context) {
@@ -254,8 +263,8 @@ class AppBarView extends StatelessWidget {
                         ? IconButton(
                             icon: Image.asset(
                               iconLeading,
-                              width: 20,
-                              height: 20,
+                              width: iconSize,
+                              height: iconSize,
                               color: iconTintColor,
                             ),
                             onPressed: () {

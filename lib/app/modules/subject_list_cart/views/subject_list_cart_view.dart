@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
-import 'package:thanglong_university/app/model/subject_cart.model.dart';
+import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/modules/subject_list_cart/controllers/subject_list_cart_controller.dart';
+import 'package:thanglong_university/app/modules/subject_list_term/controllers/subject_list_term_controller.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
@@ -87,7 +88,7 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
   }
 
   Container subjectItem(
-      [int index = 1, SubjectClass subject, bool editMode = false]) {
+      [int index = 1, RegisterSubjectEntity subject, bool editMode = false]) {
     return Container(
       margin: EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
@@ -119,7 +120,10 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
           InkWell(
             onTap: () {
               if (editMode) {
-                controller.deleteSubjectFromCart(subject.id);
+                controller.confirmRemoveCart(subject);
+              } else {
+                SubjectListTermController _controller = Get.find();
+                _controller.confirmRegisterSubject(subject);
               }
             },
             child: Container(
@@ -200,6 +204,11 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
         ],
       ),
     );
+  }
+
+  void registerSubjectClass(RegisterSubjectEntity subject) {
+    SubjectListTermController _controller = Get.find();
+    _controller.confirmRegisterSubject(subject);
   }
 
   Container blockView(BuildContext context) {

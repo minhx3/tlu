@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/register_entity.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/models/subject_filter.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/configuration/extension/string.dart';
+import 'package:thanglong_university/app/views/views/button_view.dart';
 
 class SubjectListTermController extends GetxController
     with SingleGetTickerProviderMixin {
@@ -101,12 +103,108 @@ class SubjectListTermController extends GetxController
     subjectFilter.refresh();
   }
 
+  confirmRegisterSubject(RegisterSubjectEntity subject) {
+    showConfirmDialog(
+        actions: Row(
+          children: [
+            Expanded(
+              child: ButtonView(
+                backgroundColor: AppColor.c000333,
+                title: "Hủy",
+                onTap: () {
+                  Navigator.of(Get.context).pop();
+                },
+              ),
+            ),
+            SizedBox(width: 5),
+            Expanded(
+              child: ButtonView(
+                title: "Xác nhận",
+                onTap: () {
+                  postRegisterSubject(subject.id);
+                },
+              ),
+            ),
+          ],
+        ),
+        messageWidget: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              "Bạn có chắc chắn đăng ký lớp",
+              style: TextStyle(color: AppColor.c4d4d4d, fontSize: 12),
+            ),
+            SizedBox(height: 2),
+            Text(
+              "${subject?.name ?? subject?.subject?.name} - ${subject.getAllTime} ?",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.c4d4d4d,
+                  fontSize: 12),
+            )
+          ],
+        ),
+        titleWidget: RichText(
+          text: TextSpan(
+            text: 'Xác nhận ',
+            style: TextStyle(
+                color: AppColor.c000333,
+                fontWeight: FontWeight.w600,
+                fontSize: 16),
+            children: const <TextSpan>[
+              TextSpan(
+                  text: 'Đăng ký lớp',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: AppColor.c5ccc78)),
+            ],
+          ),
+        ));
+  }
+
   postRegisterSubject(String subjectClassId) async {
     var res = await Appclient.shared.postRegisterSubjectClass(subjectClassId);
     if (res?.statusCode == 200) {
-      showMessage(title: "Đăng ký thành công", message: res?.message);
+      showMessage(
+          titleWidget: RichText(
+            text: TextSpan(
+              text: 'Đăng ký ',
+              style: TextStyle(
+                  color: AppColor.c000333,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16),
+              children: const <TextSpan>[
+                TextSpan(
+                    text: 'Thành công',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: AppColor.c5ccc78)),
+              ],
+            ),
+          ),
+          message: res?.message);
     } else {
-      showErrorMessage(title: "Đăng ký thất bại", message: res?.errorReason);
+      showErrorMessage(
+          titleWidget: RichText(
+            text: TextSpan(
+              text: 'Đăng ký ',
+              style: TextStyle(
+                  color: AppColor.c000333,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16),
+              children: const <TextSpan>[
+                TextSpan(
+                    text: 'thất bại',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: AppColor.cfc7171)),
+              ],
+            ),
+          ),
+          message: res?.errorReason);
     }
     return res;
   }
