@@ -350,6 +350,7 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
             ),
           ],
         ),
+        bottomNavigationBar: getBottomBar(),
       ),
     );
   }

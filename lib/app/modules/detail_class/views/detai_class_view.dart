@@ -183,6 +183,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
             }),
           ],
         ),
+        bottomNavigationBar: getBottomBar(),
       ),
     );
   }
