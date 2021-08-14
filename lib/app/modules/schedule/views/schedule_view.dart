@@ -56,7 +56,7 @@ class ScheduleView extends GetView<ScheduleController> {
                                     : SectionView(),
                                 Column(
                                     children: controller
-                                        .listScheduleByMonth
+                                        .listSchedule
                                         .map((e) => ScheduleItemView(e))
                                         .toList()),
                               ],

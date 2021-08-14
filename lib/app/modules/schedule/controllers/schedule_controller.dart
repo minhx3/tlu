@@ -22,8 +22,16 @@ class ScheduleController extends AppController {
   final rxScheduleList = RxList<ScheduleModel>();
   StreamSubscription streamSubscription;
 
-  List<String> get listDateIsEvent => rxScheduleList().map((e) => e.day.split('-').first).toList();
-  List<ScheduleModel> get listScheduleByMonth => rxScheduleList.where((e) => e.day.split('-').first == (currentDay-1).toString()).toList();
+  List<String> get listDateIsEvent =>
+      rxScheduleList().map((e) => e.day.split('-').first).toList();
+
+  List<ScheduleModel> get listScheduleByMonth => rxScheduleList
+      .where((e) => e.day.split('-').first == (currentDay - 1).toString())
+      .toList();
+
+  List<ScheduleModel> get listSchedule =>
+      tagIndex() == 0 ? rxScheduleList() : listScheduleByMonth;
+
   @override
   void onInit() {
     super.onInit();
@@ -75,7 +83,9 @@ class ScheduleController extends AppController {
   }
 
   setTag(int index) => tagIndex(index);
+
   switchFilter() => isFilter(!isFilter());
+
   setCurrentDay(int value) => currentDay(value);
 
   String getToday() {
