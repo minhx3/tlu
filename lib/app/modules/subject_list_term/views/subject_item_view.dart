@@ -5,6 +5,7 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/enums/subject_class_status.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/modules/subject_list_cart/controllers/subject_list_cart_controller.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/controllers/subject_list_term_controller.dart';
@@ -186,12 +187,12 @@ class _SubjectItemViewState extends State<SubjectItemView>
                 ),
                 InkWell(
                   onTap: () {
-                    if (widget.subject.isOnline) {
+                    if (widget.subject.status == SubjectClassStatusEnum.REGI) {
                       SubjectListTermController controller = Get.find();
-                      controller.postRegisterSubject(widget.subject.id);
+                      controller.confirmRegisterSubject(widget.subject);
                     } else {
                       SubjectListCartController controller = Get.find();
-                      controller.addSubjectToCart(widget.subject.id);
+                      controller.confirmAddToCart(widget.subject);
                     }
                   },
                   child: Image.asset(

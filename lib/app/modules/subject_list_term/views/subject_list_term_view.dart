@@ -147,6 +147,7 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                                             dayIdx = 0;
                                           }
                                           controller.updateFilter(filter);
+                                          controller.filterSubject();
                                         },
                                         child: Container(
                                           height: 36,
@@ -214,6 +215,7 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                                             timeIdx = 0;
                                           }
                                           controller.updateFilter(filter);
+                                          controller.filterSubject();
                                         },
                                         child: Container(
                                           height: 36,
@@ -276,15 +278,6 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                                   fontWeight: FontWeight.w600),
                             ).paddingAll(9),
                           ).marginOnly(right: 5),
-                          ButtonView(
-                            fontSize: 11,
-                            height: 30,
-                            buttonPadding: EdgeInsets.symmetric(horizontal: 30),
-                            title: "Lọc",
-                            onTap: () {
-                              controller.filterSubject();
-                            },
-                          )
                         ],
                       ),
                     ),
@@ -357,6 +350,7 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
             ),
           ],
         ),
+        bottomNavigationBar: getBottomBar(),
       ),
     );
   }

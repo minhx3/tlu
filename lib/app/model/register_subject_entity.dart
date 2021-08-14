@@ -1,3 +1,4 @@
+import 'package:thanglong_university/app/enums/subject_class_status.dart';
 import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/app/model/teacher_model.dart';
 import 'package:thanglong_university/generated/json/base/json_convert_content.dart';
@@ -6,7 +7,7 @@ import 'package:thanglong_university/generated/json/base/json_field.dart';
 class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
   String closeRgister;
   String openRegister;
-  String status;
+  SubjectClassStatusEnum status;
   String examConditions;
   int haveRegistered;
   String id;
@@ -36,6 +37,12 @@ class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
             }))
         .expand((e2) => e2)
         .toList();
+  }
+
+  String get getAllTime {
+    return listTimelineClass
+        .map((e) => e.listSchedule.map((e) => e.getTime))
+        .join(',');
   }
 }
 
