@@ -49,13 +49,15 @@ class MonthView extends GetView<ScheduleController> {
             bool isHasEvent =
                 controller.listDateIsEvent.contains(date.day.toString()) &&
                     currentMonth == checkMonth;
-            bool isSelected = controller.currentDay() + 1 == date.day &&
+            print('currentDayX' + controller.currentDayX().toString());
+            bool isSelected = controller.currentDayX() == date.day &&
                 currentMonth == checkMonth;
             return viewItem(controller, isSelected, date, isDayInMonth,
                 isSunday, isHasEvent);
           },
           onDateSelected: (date) {
-            print(date);
+            print('date' + date.toString());
+            print('day' + date.day.toString());
             controller.setCurrentDay(date.day);
           },
           onSelectedRangeChange: (range) =>

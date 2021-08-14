@@ -282,7 +282,8 @@ class _CalendarState extends State<Calendar> {
                   day.add(Duration(
                       days: widget.firstDayOfWeek == DateTime.monday ? 1 : 0))),
               date: day,
-              onDateSelected: () => handleSelectedDateAndUserCallback(day),
+              onDateSelected: () => handleSelectedDateAndUserCallback(day.add(Duration(
+                  days: widget.firstDayOfWeek == DateTime.monday ? 1 : 0))),
             ),
           );
         } else {

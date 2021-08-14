@@ -12,7 +12,7 @@ class ScheduleController extends AppController {
 
   final tagIndex = 0.obs;
   final isFilter = false.obs;
-  final currentDay = DateTime.now().day.obs;
+  final currentDayX = DateTime.now().day.obs;
 
   final rxWeekDay = "".obs;
   String fromDate = "";
@@ -26,7 +26,7 @@ class ScheduleController extends AppController {
       rxScheduleList().map((e) => e.day.split('-').first).toList();
 
   List<ScheduleModel> get listScheduleByMonth => rxScheduleList
-      .where((e) => e.day.split('-').first == (currentDay - 1).toString())
+      .where((e) => e.day.split('-').first == currentDayX().toString())
       .toList();
 
   List<ScheduleModel> get listSchedule =>
@@ -86,7 +86,7 @@ class ScheduleController extends AppController {
 
   switchFilter() => isFilter(!isFilter());
 
-  setCurrentDay(int value) => currentDay(value);
+  setCurrentDay(int value) => currentDayX(value);
 
   String getToday() {
     final dateFormat = DateFormat("dd/MM/yyyy");
