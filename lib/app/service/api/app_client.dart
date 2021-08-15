@@ -59,6 +59,44 @@ class Appclient {
     }
   }
 
+  Future<bool> forgoPassword({@required String username}) async {
+    Map<String, dynamic> data = {'phone': username};
+    final result =
+        await AuthenRouter(AuthenEndpoint.forgoPassword, data: data).call;
+    if (result?.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> verifyOTP({@required String otp}) async {
+    Map<String, dynamic> data = {'otp': otp};
+    final result =
+        await AuthenRouter(AuthenEndpoint.verifyOTP, data: data).call;
+    if (result?.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> confirmPassword({String otp, String phone, String pass, String passConfirm}) async {
+    Map<String, dynamic> data = {
+      "otp": otp,
+      "phone": phone,
+      "password": pass,
+      "passwordConfirm": passConfirm
+    };
+    final result =
+        await AuthenRouter(AuthenEndpoint.confirmPassword, data: data).call;
+    if (result?.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<UserModel> getUserInfo() async {
     final result = await AuthenRouter(isTeacher == true
             ? AuthenEndpoint.getTeacher
@@ -314,7 +352,7 @@ class Appclient {
     formData.files.add(files);
 
     final result =
-    await CommonRouter(CommonEndpoint.upload, data: formData).call;
+        await CommonRouter(CommonEndpoint.upload, data: formData).call;
     if (result?.data != null) {
       List<dynamic> resUrl = result.data;
       return resUrl.first;

@@ -32,6 +32,12 @@ class AuthController extends AppController {
   final TextEditingController passwordTextEdit =
       TextEditingController(text: "02011900");
 
+  final TextEditingController usernameForgetCtrl = TextEditingController();
+
+  final TextEditingController otpCtrl = TextEditingController();
+  final TextEditingController newPassCtrl = TextEditingController();
+  final TextEditingController reNewPassCtrl = TextEditingController();
+
   @override
   void onInit() {
     super.onInit();
@@ -86,6 +92,44 @@ class AuthController extends AppController {
       pushReplaceAllTo(Routes.INDEX);
     } else {
       rxErrMessage("Tài khoản/ mật khẩu không đúng");
+    }
+  }
+
+  void createForgotPass() async {
+    if (usernameForgetCtrl.text.isEmpty) {
+      return;
+    }
+    bool res =
+        await Appclient.shared.forgoPassword(username: usernameForgetCtrl.text);
+    if (res) {
+      setForgotStatus(ForgotStatus.verifyOTP);
+    }
+  }
+
+  void sendVerifyOtp() async {
+    if (otpCtrl.text.isEmpty) {
+      return;
+    }
+    bool res = await Appclient.shared.verifyOTP(otp: otpCtrl.text);
+    if (res) {
+      setForgotStatus(ForgotStatus.createNewPassword);
+    }
+  }
+
+  void confirmNewPass() async {
+    if (newPassCtrl.text.isEmpty || reNewPassCtrl.text.isEmpty) {
+      return;
+    }
+    if (newPassCtrl.text != reNewPassCtrl.text) {
+      return;
+    }
+    bool res = await Appclient.shared.confirmPassword(
+        otp: otpCtrl.text,
+        pass: newPassCtrl.text,
+        passConfirm: reNewPassCtrl.text,
+        phone: usernameForgetCtrl.text);
+    if (res) {
+
     }
   }
 }

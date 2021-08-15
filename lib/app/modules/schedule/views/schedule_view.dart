@@ -28,7 +28,7 @@ class ScheduleView extends GetView<ScheduleController> {
                 AppBarView(
                   automaticallyImplyLeading: false,
                   type: AppBarType.button,
-                  title: "Lịch trình",
+                  title: "Thời khóa biểu",
                   iconLeading: Images.iconStar,
                   iconTintColor: AppColor.cffb359,
                 ),

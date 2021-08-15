@@ -25,12 +25,14 @@ class FormForgotView extends GetView<AuthController> {
                     ? LocaleKeys.auth_student_hint.tr
                     : LocaleKeys.auth_teacher_hint.tr,
                 verticalSpacing: 12,
+                controller: controller.usernameForgetCtrl,
               ),
               ButtonView(
                 verticalSpacing: 12,
                 title: LocaleKeys.auth_send_code_button.tr,
                 onTap: () {
-                  controller.setForgotStatus(ForgotStatus.verifyOTP);
+                  controller.createForgotPass();
+                  // controller.setForgotStatus(ForgotStatus.verifyOTP);
                 },
               ),
             ],
@@ -41,12 +43,14 @@ class FormForgotView extends GetView<AuthController> {
                 label: LocaleKeys.auth_otp_label.tr,
                 hintText: LocaleKeys.auth_otp_label.tr,
                 verticalSpacing: 12,
+                controller: controller.otpCtrl,
               ),
               ButtonView(
                 verticalSpacing: 12,
                 title: LocaleKeys.auth_send_code_button.tr,
                 onTap: () {
-                  controller.setForgotStatus(ForgotStatus.createNewPassword);
+                  controller.sendVerifyOtp();
+                  // controller.setForgotStatus(ForgotStatus.createNewPassword);
                 },
               ),
               Container(
@@ -66,13 +70,18 @@ class FormForgotView extends GetView<AuthController> {
                 label: LocaleKeys.auth_new_password_label.tr,
                 hintText: LocaleKeys.auth_new_password_hint.tr,
                 verticalSpacing: 12,
+                controller: controller.newPassCtrl,
               ),
               TextFieldView(
                 label: LocaleKeys.auth_re_new_password_label.tr,
                 hintText: LocaleKeys.auth_re_new_password_hint.tr,
                 verticalSpacing: 12,
+                controller: controller.reNewPassCtrl,
               ),
               ButtonView(
+                onTap: () {
+                  controller.confirmNewPass();
+                },
                 verticalSpacing: 12,
                 title: LocaleKeys.auth_change_password_button.tr,
               ),

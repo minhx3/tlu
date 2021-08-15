@@ -9,6 +9,8 @@ enum AuthenEndpoint {
   login,
   refreshToken,
   forgoPassword,
+  verifyOTP,
+  confirmPassword,
   getStudent,
   updateStudent,
   getTeacher,
@@ -39,6 +41,8 @@ class AuthenRouter extends BaseRouter {
 
         break;
       case AuthenEndpoint.forgoPassword:
+      case AuthenEndpoint.verifyOTP:
+      case AuthenEndpoint.confirmPassword:
         response = client().post(path, data: data);
 
         break;
@@ -96,7 +100,13 @@ class AuthenRouter extends BaseRouter {
         path = "/token";
         break;
       case AuthenEndpoint.forgoPassword:
-        path = "/passwords";
+        path = "/forgot";
+        break;
+      case AuthenEndpoint.verifyOTP:
+        path = "/password/otp";
+        break;
+      case AuthenEndpoint.confirmPassword:
+        path = "/password";
         break;
       case AuthenEndpoint.getStudent:
         path = "/student";
