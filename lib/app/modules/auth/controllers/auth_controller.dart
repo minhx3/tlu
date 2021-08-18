@@ -129,7 +129,7 @@ class AuthController extends AppController {
         passConfirm: reNewPassCtrl.text,
         phone: usernameForgetCtrl.text);
     if (res) {
-
+      rxForgotPassword.toggle();
     }
   }
 }

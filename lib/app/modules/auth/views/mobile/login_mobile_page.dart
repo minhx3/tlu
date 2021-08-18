@@ -52,7 +52,7 @@ class LoginMobilePage extends GetView<AuthController> {
                                           CrossAxisAlignment.stretch,
                                       children: [
                                         Container(
-                                          alignment: Alignment.center,
+                                          alignment: Alignment.centerLeft,
                                           height: 135,
                                           child: Image.asset(
                                             Images.logo,

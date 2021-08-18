@@ -74,8 +74,7 @@ class EducationView extends GetView<EducationController> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 16),
+                            padding: const EdgeInsets.fromLTRB(20, 25, 20, 10),
                             child: Text(
                               "${controller.rxMapSubjectList()?.keys?.first ?? ""}",
                               style: fontInter(14,
@@ -154,8 +153,8 @@ class EducationView extends GetView<EducationController> {
                     children: [
                       Text(
                         type == 1
-                            ? "Tính chỉ hoàn thành:"
-                            : "Tín chỉ trong học kì:",
+                            ? "Tín chỉ đã hoàn thành:"
+                            : "Tín chỉ trong học kỳ:",
                         style: fontInter(14,
                             fontWeight: FontWeight.w600,
                             color: type == 1
@@ -164,6 +163,7 @@ class EducationView extends GetView<EducationController> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
+                      SizedBox(height: 8,),
                       Text(
                         title ?? "",
                         style: fontInter(type == 1 ? 28 : 16,
@@ -198,6 +198,7 @@ class EducationView extends GetView<EducationController> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
+                      SizedBox(height: 8,),
                       Text(
                         subTitle ?? "",
                         style: fontInter(type == 1 ? 28 : 16,
@@ -212,10 +213,10 @@ class EducationView extends GetView<EducationController> {
                   ),
                 ),
                 Image.asset(Images.arrowRight,
-                    height: 14,
+                    height: 18,
                     color: type == 1
                         ? AppColor.whiteColor
-                        : AppColor.appBarDarkBackground)
+                        : Color(0xff595C82))
               ],
             ),
             hasProgress == false

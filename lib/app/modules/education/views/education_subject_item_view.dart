@@ -32,7 +32,7 @@ class EducationSubjectItemView extends GetView {
                 Expanded(
                   child: Text(
                     "${item?.subject?.name ?? ""}",
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: fontInter(16,
                         fontWeight: FontWeight.w600, color: AppColor.c000333),
@@ -56,6 +56,7 @@ class EducationSubjectItemView extends GetView {
               ],
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 itemView("Thời gian:", "T2, 1-3\nT2, 1-3"),
                 itemView("Địa điểm:", "B301"),
@@ -87,6 +88,7 @@ class EducationSubjectItemView extends GetView {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
+                SizedBox(height: 4,),
                 Text(
                   subTitle,
                   maxLines: 2,

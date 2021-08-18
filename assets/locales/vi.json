@@ -7,7 +7,7 @@
         "teacher_label": "Mã giảng viên/SĐT",
         "student_hint": "Nhập mã sinh viên/số điện thoại",
         "teacher_hint": "Nhập mã giảng viên/số điện thoại",
-        "password_hint": "Nhập mật khẩu đăng nhập",
+        "password_hint": "Nhập mật khẩu",
         "password_label": "Mật khẩu",
         "error_message": "Tài khoản/ mật khẩu không đúng",
         "phone_number": "Số điện thoại",

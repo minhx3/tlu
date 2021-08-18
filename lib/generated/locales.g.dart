@@ -47,7 +47,7 @@ class Locales {
     'auth_teacher_label': 'Mã giảng viên/SĐT',
     'auth_student_hint': 'Nhập mã sinh viên/số điện thoại',
     'auth_teacher_hint': 'Nhập mã giảng viên/số điện thoại',
-    'auth_password_hint': 'Nhập mật khẩu đăng nhập',
+    'auth_password_hint': 'Nhập mật khẩu',
     'auth_password_label': 'Mật khẩu',
     'auth_error_message': 'Tài khoản/ mật khẩu không đúng',
     'auth_phone_number': 'Số điện thoại',
