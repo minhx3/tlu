@@ -7,6 +7,7 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/enums/subject_type_enum.dart';
 import 'package:thanglong_university/app/modules/subject_list_cart/controllers/subject_list_cart_controller.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/models/subject_filter.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/views/subject_item_view.dart';
@@ -27,6 +28,8 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
       child: Scaffold(
         backgroundColor: AppColor.cf2f2f2,
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppBarView(
               title: controller.queryParams?.semsterInfo?.name ?? '',
@@ -34,6 +37,81 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
               onAction: () {
                 pushTo(Routes.TRANSCRIPT);
               },
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              padding: EdgeInsets.symmetric(horizontal: 18),
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                            width: 1,
+                            color: AppColor.ce6e6e6 ?? AppColor.c000333))),
+                child: Obx(() {
+                  SubjectFilter filter = controller.subjectFilter();
+                  return Wrap(
+                    spacing: 22,
+                    children: [
+                      InkWell(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      width: 1,
+                                      color: filter.type == ""
+                                          ? AppColor.c000333
+                                          : AppColor.ce6e6e6))),
+                          child: Text(
+                            "Tất cả",
+                            style: fontInter(12,
+                                fontWeight: FontWeight.w600,
+                                color: filter.type == ""
+                                    ? AppColor.c000333
+                                    : AppColor.c666666),
+                          ),
+                        ),
+                        onTap: () {
+                          filter.type = "";
+                          controller.updateFilter(filter);
+                          controller.filterSubject();
+                        },
+                      ),
+                      ...subjectTypesSwitch.map.entries.map((value) => InkWell(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          width: 1,
+                                          color: filter.type ==
+                                                  subjectTypeValues
+                                                      .reverse[value.value]
+                                              ? AppColor.c000333
+                                              : AppColor.ce6e6e6))),
+                              padding: EdgeInsets.symmetric(vertical: 15),
+                              child: Text(
+                                value.key,
+                                style: fontInter(12,
+                                    fontWeight: FontWeight.w600,
+                                    color: filter.type ==
+                                            subjectTypeValues
+                                                .reverse[value.value]
+                                        ? AppColor.c000333
+                                        : AppColor.c666666),
+                              ),
+                            ),
+                            onTap: () {
+                              print(subjectTypeValues.reverse);
+                              filter.type =
+                                  subjectTypeValues.reverse[value.value];
+                              controller.updateFilter(filter);
+                              controller.filterSubject();
+                            },
+                          ))
+                    ],
+                  );
+                }),
+              ),
             ),
             Row(
               children: [
@@ -132,7 +210,7 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                             ...["CN", 2, 3, 4, 5, 6, 7]
                                 .asMap()
                                 .map((index, value) {
-                                  int dayIdx = filter.day.indexWhere(
+                                  int dayIdx = (filter?.day ?? []).indexWhere(
                                       (element) => element == index);
                                   return MapEntry(
                                     index,
@@ -200,7 +278,7 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                             ...["Sáng", "Chiều", "Tối"]
                                 .asMap()
                                 .map((index, value) {
-                                  int timeIdx = filter.time.indexWhere(
+                                  int timeIdx = (filter?.time ?? []).indexWhere(
                                       (element) => element == index);
                                   return MapEntry(
                                     index,

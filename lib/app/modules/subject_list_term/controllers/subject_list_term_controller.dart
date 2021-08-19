@@ -95,6 +95,11 @@ class SubjectListTermController extends GetxController
               0)
           .toList();
     }
+    if (filter.type != "") {
+      subjectFiltered = subjectFiltered
+          .where((element) => element.subject.type == filter.type)
+          .toList();
+    }
     registerSubjects(subjectFiltered);
   }
 
