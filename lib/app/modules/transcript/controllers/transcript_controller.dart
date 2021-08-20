@@ -13,6 +13,7 @@ class TranscriptController extends GetxController {
   List<TranscriptModel> get transcriptsCN =>
       rxTranscripts.where((e) => e.subject.type == 'CN').toList();
 
+
   @override
   void onInit() {
     super.onInit();
