@@ -81,7 +81,8 @@ class Appclient {
     }
   }
 
-  Future<bool> confirmPassword({String otp, String phone, String pass, String passConfirm}) async {
+  Future<bool> confirmPassword(
+      {String otp, String phone, String pass, String passConfirm}) async {
     Map<String, dynamic> data = {
       "otp": otp,
       "phone": phone,
@@ -254,8 +255,9 @@ class Appclient {
     }
   }
 
-  Future<List<RegisterSubjectEntity>> getSubjectList() async {
-    final result = await SubjectRouter(SubjectEndpoint.getSubjectsList).call;
+  Future<List<RegisterSubjectEntity>> getSubjectList(bool isOther) async {
+    final result = await SubjectRouter(SubjectEndpoint.getSubjectsList,
+        data: {'other': isOther}).call;
 
     if (result?.statusCode == 200) {
       List<RegisterSubjectEntity> list = [];
@@ -327,20 +329,20 @@ class Appclient {
     }
   }
 
-  Future<List<Score>> getTranscriptsById(String id) async {
-    final result =
-        await TranningRouter(TranningEndpoint.getTranscriptsList, joinPath: id)
-            .call;
-    if (result?.statusCode == 200) {
-      List<Score> list = [];
-      result.data.forEach((e) {
-        list.add(Score.fromJson(e));
-      });
-      return list;
-    } else {
-      return null;
-    }
-  }
+  // Future<List<Score>> getTranscriptsById(String id) async {
+  //   final result =
+  //       await TranningRouter(TranningEndpoint.getTranscriptsList, joinPath: id)
+  //           .call;
+  //   if (result?.statusCode == 200) {
+  //     List<Score> list = [];
+  //     result.data.forEach((e) {
+  //       list.add(Score.fromJson(e));
+  //     });
+  //     return list;
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   Future<dynamic> uploadFile(dataImg) async {
     FormData formData = FormData();

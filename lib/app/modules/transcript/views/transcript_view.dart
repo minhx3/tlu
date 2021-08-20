@@ -21,15 +21,16 @@ class TranscriptView extends GetView<TranscriptController> {
                 children: [
                   AppBarView(
                     title: "Bảng điểm",
-                    type: AppBarType.icon,
-                    iconLeading: Images.iconFilter,
+                    type: AppBarType.white,
+                    iconLeading: Images.icSort,
+                    iconTintColor: Color(controller.isFilter.isTrue? 0xff000333: 0xffCACAD4),
                     onAction: () {
                       controller.setFilter(!controller.isFilter());
                     },
                   ),
-                  controller.isFilter() == true
-                      ? TranscriptFilterView()
-                      : SizedBox(),
+                  // controller.isFilter() == true
+                  //     ? TranscriptFilterView()
+                  //     : SizedBox(),
                   Expanded(
                     child: Container(
                       padding:

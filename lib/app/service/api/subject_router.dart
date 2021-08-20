@@ -49,7 +49,7 @@ class SubjectRouter extends BaseRouter {
         response = client(headers: headerParams).get(path);
         break;
       case SubjectEndpoint.getSubjectsList:
-        response = client(headers: headerParams).get(path);
+        response = client(headers: headerParams).get(path, queryParameters: data);
         break;
       case SubjectEndpoint.getAlertRegister:
       case SubjectEndpoint.getGroupRegister:

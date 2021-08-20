@@ -106,13 +106,41 @@ class EducationView extends GetView<EducationController> {
                           ),
                         ],
                       )),
-                  ButtonView(
-                    title: "Xem thêm các kì trước",
-                    type: ButtonType.outline,
-                    horizontalSpacing: 16,
-                    verticalSpacing: 16,
-                    onTap: () {},
-                  )
+                  Obx(() => ButtonView(
+                        title: controller.isShowOther.isTrue
+                            ? 'Ẩn các kỳ trước'
+                            : "Xem thêm các kì trước",
+                        type: ButtonType.outline,
+                        horizontalSpacing: 16,
+                        verticalSpacing: 16,
+                        onTap: () {
+                          controller.isShowOther.toggle();
+                        },
+                      )),
+                  Obx(() => controller.isShowOther.isTrue
+                      ? ListView(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: (controller
+                                      .rxMapOtherSubjectList()
+                                      ?.values
+                                      ?.first ??
+                                  [])
+                              .map((item) => EducationSubjectItemView(
+                                  item: item,
+                                  space: (controller
+                                                      .rxMapSubjectList()
+                                                      ?.values
+                                                      ?.first ??
+                                                  [])
+                                              .indexOf(item) ==
+                                          0
+                                      ? 0
+                                      : 5))
+                              .toList(),
+                        )
+                      : SizedBox.shrink()),
                 ],
               ),
             )
@@ -163,7 +191,9 @@ class EducationView extends GetView<EducationController> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 8,),
+                      SizedBox(
+                        height: 8,
+                      ),
                       Text(
                         title ?? "",
                         style: fontInter(type == 1 ? 28 : 16,
@@ -198,7 +228,9 @@ class EducationView extends GetView<EducationController> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 8,),
+                      SizedBox(
+                        height: 8,
+                      ),
                       Text(
                         subTitle ?? "",
                         style: fontInter(type == 1 ? 28 : 16,
@@ -214,9 +246,7 @@ class EducationView extends GetView<EducationController> {
                 ),
                 Image.asset(Images.arrowRight,
                     height: 18,
-                    color: type == 1
-                        ? AppColor.whiteColor
-                        : Color(0xff595C82))
+                    color: type == 1 ? AppColor.whiteColor : Color(0xff595C82))
               ],
             ),
             hasProgress == false

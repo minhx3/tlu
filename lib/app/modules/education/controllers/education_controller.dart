@@ -8,8 +8,11 @@ import 'package:thanglong_university/app/service/api/app_client.dart';
 class EducationController extends GetxController {
   final count = 0.obs;
   final rxMapSubjectList = Rx<Map<String, List<RegisterSubjectEntity>>>();
+  final rxMapOtherSubjectList = Rx<Map<String, List<RegisterSubjectEntity>>>();
   final rxProcess = Rx<ProcessModel>();
   final rxScheduleList = RxList<TestScheduleModel>();
+
+  final isShowOther = false.obs;
 
   @override
   void onInit() {
@@ -18,6 +21,7 @@ class EducationController extends GetxController {
     getTestSchedule();
     getLearningComeout();
     getSubjectList();
+    getOtherSubjectList();
   }
 
   @override
@@ -27,16 +31,28 @@ class EducationController extends GetxController {
 
   @override
   void onClose() {}
+
   void increment() => count.value++;
 
   getSubjectList() async {
-    final result = await Appclient.shared.getSubjectList();
+    final result = await Appclient.shared.getSubjectList(false);
 
     if (result != null) {
       final map = groupBy<RegisterSubjectEntity, String>(result, (s) {
         return s.semester.name;
       });
       rxMapSubjectList(map);
+    }
+  }
+
+  getOtherSubjectList() async {
+    final result = await Appclient.shared.getSubjectList(true);
+
+    if (result != null) {
+      final map = groupBy<RegisterSubjectEntity, String>(result, (s) {
+        return s.semester.name;
+      });
+      rxMapOtherSubjectList(map);
     }
   }
 
