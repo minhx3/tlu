@@ -11,6 +11,8 @@ import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 import 'package:thanglong_university/app/configuration/extension/int.dart';
 
+import 'calendar_plan_view.dart';
+
 class SubjectListCartView extends GetView<SubjectListCartController> {
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
             Expanded(
               child: Obx(() {
                 return ListView(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.zero,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,25 +62,40 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
                           ),
                         ),
                       ],
-                    ).paddingOnly(top: 20, bottom: 10),
-                    ListView(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        physics: NeverScrollableScrollPhysics(),
-                        children: controller
-                            .rxSubjectCart()
-                            .subjectClasses
-                            .asMap()
-                            .map((index, e) {
-                              return MapEntry(
-                                  index,
-                                  subjectItem(
-                                      index + 1, e, controller.rxEditMode()));
-                            })
-                            .values
-                            .toList()
-                        // List.generate(6, (e) => subjectItem()).toList(),
-                        )
+                    ).paddingOnly(top: 20, bottom: 10, left: 15, right: 15),
+                    Column(
+                            children: controller
+                                .rxSubjectCart()
+                                .subjectClasses
+                                .asMap()
+                                .map((index, e) {
+                                  return MapEntry(
+                                      index,
+                                      subjectItem(index + 1, e,
+                                          controller.rxEditMode()));
+                                })
+                                .values
+                                .toList())
+                        .paddingSymmetric(horizontal: 15),
+                    Container(
+                      color: Colors.white,
+                      padding: EdgeInsets.all(15),
+                      margin: EdgeInsets.symmetric(vertical: 25),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Lịch trình dự kiến",
+                            style: fontInter(14).copyWith(
+                                color: AppColor.c4d4d4d,
+                                fontWeight: FontWeight.w600),
+                          ).marginOnly(bottom: 15),
+                          CalendarPlanView(
+                              listSubjectClass:
+                                  controller.rxSubjectCart().subjectClasses)
+                        ],
+                      ),
+                    ),
                   ],
                 );
               }),
