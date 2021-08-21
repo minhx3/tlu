@@ -8,6 +8,7 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/transcript_model.dart';
 import 'package:thanglong_university/app/modules/transcript/controllers/transcript_controller.dart';
+import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 
@@ -45,7 +46,10 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
                       title: "Chi tiết môn",
                       type: ButtonType.outline,
                       horizontalSpacing: 16,
-                      onTap: () {},
+                      onTap: () {
+                        pushTo(Routes.DETAI_CLASS,
+                            arguments: {"id": item?.subject?.id});
+                      },
                     )
                   ],
                 ),
