@@ -44,7 +44,7 @@ class EducationView extends GetView<EducationController> {
                               value: (data?.completeCredits ?? 0) /
                                   (data?.sumCredits ?? 0),
                               onTap: () {
-                                pushTo(Routes.TRANSCRIPT);
+                                pushTo(Routes.TRANSCRIPT, arguments: controller.rxProcess());
                               });
                         }),
                         Obx(() {

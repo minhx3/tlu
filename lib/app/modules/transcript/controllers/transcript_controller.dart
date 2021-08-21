@@ -7,12 +7,25 @@ class TranscriptController extends GetxController {
   final isFilter = false.obs;
   final rxTranscripts = RxList<TranscriptModel>();
 
-  List<TranscriptModel> get transcriptsDC =>
-      rxTranscripts.where((e) => e.subject.type == 'DC').toList();
+  List<TranscriptModel> get transcriptsDC {
+    List<TranscriptModel> res =
+        rxTranscripts.where((e) => e.subject.type == 'DC').toList();
 
-  List<TranscriptModel> get transcriptsCN =>
-      rxTranscripts.where((e) => e.subject.type == 'CN').toList();
+    if (isFilter.isTrue) {
+      res = res..sort((a, b) => b.gpa.compareTo(a.gpa));
+    }
+    return res;
+  }
 
+  List<TranscriptModel> get transcriptsCN {
+    List<TranscriptModel> res =
+        rxTranscripts.where((e) => e.subject.type == 'CN').toList();
+
+    if (isFilter.isTrue) {
+      res = res..sort((a, b) => b.gpa.compareTo(a.gpa));
+    }
+    return res;
+  }
 
   @override
   void onInit() {

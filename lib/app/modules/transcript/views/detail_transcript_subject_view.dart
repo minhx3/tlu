@@ -6,10 +6,15 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/transcript_model.dart';
+import 'package:thanglong_university/app/modules/transcript/controllers/transcript_controller.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 
-class DetailTranscriptSubjectView extends GetView {
+class DetailTranscriptSubjectView extends GetView<TranscriptController> {
+  final TranscriptModel item;
+  DetailTranscriptSubjectView(this.item);
+
   @override
   Widget build(BuildContext context) {
     return SlideInUp(
@@ -154,7 +159,7 @@ class DetailTranscriptSubjectView extends GetView {
               children: [
                 Expanded(
                   child: Text(
-                    "Thương mại quốc tế",
+                    item?.subject?.name??'',
                     style: fontInter(16,
                         fontWeight: FontWeight.w600,
                         color: AppColor.whiteColor),
@@ -170,7 +175,7 @@ class DetailTranscriptSubjectView extends GetView {
                   padding: EdgeInsets.symmetric(horizontal: 4),
                   alignment: Alignment.center,
                   child: Text(
-                    "PG122",
+                    item?.subjectClassId??'',
                     style: fontInter(10,
                         fontWeight: FontWeight.w600,
                         color: AppColor.whiteColor),

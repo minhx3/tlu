@@ -4,6 +4,7 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/extension/iterable.dart';
+import 'package:thanglong_university/app/model/process_model.dart';
 import 'package:thanglong_university/app/model/transcript_model.dart';
 import 'package:thanglong_university/app/modules/transcript/views/detail_transcript_subject_view.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
@@ -47,7 +48,7 @@ class TranscriptView extends GetView<TranscriptController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            sectionOverview(),
+                            sectionOverview(controller.isFilter()),
                             Expanded(
                               child: ListView(
                                 padding: EdgeInsets.zero,
@@ -71,7 +72,9 @@ class TranscriptView extends GetView<TranscriptController> {
         ));
   }
 
-  Container sectionOverview() {
+  Container sectionOverview(bool isSort) {
+    ProcessModel p = Get.arguments;
+
     return Container(
         height: 50,
         decoration: BoxDecoration(
@@ -86,7 +89,7 @@ class TranscriptView extends GetView<TranscriptController> {
               child: SizedBox(),
             ),
             Text(
-              "TC: 128",
+              "TC: ${p?.sumCredits ?? ''}",
               style: fontInter(14, fontWeight: FontWeight.w600),
             ),
             Container(
@@ -96,7 +99,7 @@ class TranscriptView extends GetView<TranscriptController> {
               margin: EdgeInsets.symmetric(horizontal: 10),
             ),
             Text(
-              "GPA: 3.24",
+              isSort ? "GPA: ${p.gpa}" : 'ĐTB: ${p.gpa10}',
               style: fontInter(14, fontWeight: FontWeight.w600),
             ),
           ],
@@ -163,7 +166,7 @@ class _SectionTranscriptState extends State<SectionTranscript> {
 Widget transcripItem(TranscriptModel item, int index) {
   return InkWell(
     onTap: () {
-      Get.dialog(DetailTranscriptSubjectView());
+      Get.dialog(DetailTranscriptSubjectView(item));
     },
     child: Container(
       height: 50,

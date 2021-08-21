@@ -6,6 +6,7 @@ import 'package:thanglong_university/app/model/test_schedule_model.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 
 class EducationController extends GetxController {
+
   final count = 0.obs;
   final rxMapSubjectList = Rx<Map<String, List<RegisterSubjectEntity>>>();
   final rxMapOtherSubjectList = Rx<Map<String, List<RegisterSubjectEntity>>>();
