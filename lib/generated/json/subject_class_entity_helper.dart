@@ -1,4 +1,5 @@
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
+import 'package:thanglong_university/app/model/chat/chat.dart';
 
 subjectClassEntityFromJson(SubjectClassEntity data, Map<String, dynamic> json) {
 	if (json['id'] != null) {

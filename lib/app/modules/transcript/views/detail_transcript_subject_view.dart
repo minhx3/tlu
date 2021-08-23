@@ -6,6 +6,7 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/score_detail_entity.dart';
 import 'package:thanglong_university/app/model/transcript_model.dart';
 import 'package:thanglong_university/app/modules/transcript/controllers/transcript_controller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
@@ -14,7 +15,9 @@ import 'package:thanglong_university/app/views/views/button_view.dart';
 
 class DetailTranscriptSubjectView extends GetView<TranscriptController> {
   final TranscriptModel item;
-  DetailTranscriptSubjectView(this.item);
+  final List<ScoreDetailEntity> scores;
+
+  DetailTranscriptSubjectView(this.item, this.scores);
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +38,39 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     header(),
-                    section(),
-                    section(),
+                    section(
+                        'Điểm QT trung bình:',
+                        scores.firstWhere(
+                            (element) => element.scoreName == 'PROGRESS',
+                            orElse: () => null)),
+                    section(
+                        'Điểm thi trung bình:',
+                        scores.firstWhere(
+                            (element) => element.scoreName == 'TEST',
+                            orElse: () => null)),
+                    section(
+                        'Điểm thi chuyên cần:',
+                        scores.firstWhere(
+                            (element) => element.scoreName == 'EXTRA',
+                            orElse: () => null)),
+                    section(
+                        'Điểm kỹ năng:',
+                        scores.firstWhere(
+                            (element) => element.scoreName == 'SKILL',
+                            orElse: () => null)),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                      child: rowItem(title: "Tổng kết", value: "3"),
+                      child: rowItem(
+                          title: "Tổng kết",
+                          value: item?.gpa?.toString() ?? ''),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                      child: rowItem(
+                          title: "Số tín chỉ",
+                          value: item?.subject?.credits?.toString() ?? ''),
                     ),
                     ButtonView(
                       title: "Chi tiết môn",
@@ -74,38 +104,29 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
     );
   }
 
-  Container section() {
+  Widget section(title, ScoreDetailEntity score) {
+    if (score == null) {
+      return SizedBox.shrink();
+    }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
-          rowItem(title: "Số tín chỉ", value: "3", showLine: true),
-          rowItem(title: "Điểm QT trung bình:", value: "6.9"),
-          rowItem(
-              title: "Nghe",
-              value: "3",
-              padding: 8,
-              fontSize: 13,
-              isSubItem: true),
-          rowItem(
-              title: "Nói",
-              value: "3",
-              padding: 8,
-              fontSize: 13,
-              isSubItem: true),
-          rowItem(
-              title: "Đọc",
-              value: "3",
-              padding: 8,
-              fontSize: 13,
-              isSubItem: true),
-          rowItem(
-              title: "Viết",
-              value: "3",
-              padding: 8,
-              fontSize: 13,
-              showLine: true,
-              isSubItem: true)
+          rowItem(title: title, value: score.scoreAvg),
+          ...score.listScoreDetail.map(
+            (e) => rowItem(
+                title: e?.skill,
+                value: e?.scoreSkill.toString(),
+                padding: 8,
+                fontSize: 13,
+                isSubItem: true),
+          ),
+          Divider(
+            thickness: 1,
+            indent: 12,
+            endIndent: 12,
+            color: AppColor.lineColor,
+          )
         ],
       ),
     );
@@ -141,7 +162,7 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
               overflow: TextOverflow.ellipsis,
             )),
             Text(
-              "3",
+              value,
               style: fontInter(fontSize,
                   fontWeight: FontWeight.w500, color: AppColor.c000333),
               maxLines: 2,
@@ -163,7 +184,7 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
               children: [
                 Expanded(
                   child: Text(
-                    item?.subject?.name??'',
+                    item?.subject?.name ?? '',
                     style: fontInter(16,
                         fontWeight: FontWeight.w600,
                         color: AppColor.whiteColor),
@@ -179,7 +200,7 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
                   padding: EdgeInsets.symmetric(horizontal: 4),
                   alignment: Alignment.center,
                   child: Text(
-                    item?.subjectClassId??'',
+                    item?.subjectClassId ?? '',
                     style: fontInter(10,
                         fontWeight: FontWeight.w600,
                         color: AppColor.whiteColor),

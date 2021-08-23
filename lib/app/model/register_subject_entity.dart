@@ -7,6 +7,7 @@ import 'package:thanglong_university/generated/json/base/json_field.dart';
 class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
   String closeRgister;
   String openRegister;
+  @JSONField(serialize: false, deserialize: false)
   SubjectClassStatusEnum status;
   String examConditions;
   int haveRegistered;

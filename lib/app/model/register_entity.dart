@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:thanglong_university/app/enums/subject_group_status_enum.dart';
 import 'package:thanglong_university/generated/json/base/json_convert_content.dart';
+import 'package:thanglong_university/generated/json/base/json_field.dart';
 
 class RegisterEntity with JsonConvert<RegisterEntity> {
   int endTime;
@@ -8,6 +9,7 @@ class RegisterEntity with JsonConvert<RegisterEntity> {
   String groupId;
   String groupName;
   RegisterSemsterInfo semsterInfo;
+  @JSONField(serialize: false, deserialize: false)
   SujectGroupStatusEnum status;
   String title;
 

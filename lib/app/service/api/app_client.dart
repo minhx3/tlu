@@ -10,6 +10,7 @@ import 'package:thanglong_university/app/model/process_model.dart';
 import 'package:thanglong_university/app/model/register_entity.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/model/schedule_model.dart';
+import 'package:thanglong_university/app/model/score_detail_entity.dart';
 import 'package:thanglong_university/app/model/test_schedule_model.dart';
 import 'package:thanglong_university/app/model/transcript_model.dart';
 import 'package:thanglong_university/app/model/user_model.dart';
@@ -303,6 +304,20 @@ class Appclient {
       List<TranscriptModel> list = [];
       result.data.forEach((e) {
         list.add(TranscriptModel.fromJson(e));
+      });
+      return list;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<ScoreDetailEntity>> getTrascriptById(String id) async {
+    final result = await TranningRouter(TranningEndpoint.getTrascriptById, joinPath: id).call;
+
+    if (result?.statusCode == 200) {
+      List<ScoreDetailEntity> list = [];
+      result.data.forEach((e) {
+        list.add(ScoreDetailEntity().fromJson(e));
       });
       return list;
     } else {

@@ -5,8 +5,10 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/extension/iterable.dart';
 import 'package:thanglong_university/app/model/process_model.dart';
+import 'package:thanglong_university/app/model/score_detail_entity.dart';
 import 'package:thanglong_university/app/model/transcript_model.dart';
 import 'package:thanglong_university/app/modules/transcript/views/detail_transcript_subject_view.dart';
+import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/link_view.dart';
@@ -99,7 +101,7 @@ class TranscriptView extends GetView<TranscriptController> {
               margin: EdgeInsets.symmetric(horizontal: 10),
             ),
             Text(
-              isSort ? "GPA: ${p.gpa}" : 'ĐTB: ${p.gpa10}',
+              isSort ? "GPA: ${p?.gpa}" : 'ĐTB: ${p?.gpa10}',
               style: fontInter(14, fontWeight: FontWeight.w600),
             ),
           ],
@@ -165,8 +167,11 @@ class _SectionTranscriptState extends State<SectionTranscript> {
 
 Widget transcripItem(TranscriptModel item, int index) {
   return InkWell(
-    onTap: () {
-      Get.dialog(DetailTranscriptSubjectView(item));
+    onTap: () async {
+      List<ScoreDetailEntity> res = await Appclient.shared.getTrascriptById(item.id);
+      if (res != null) {
+        Get.dialog(DetailTranscriptSubjectView(item, res));
+      }
     },
     child: Container(
       height: 50,

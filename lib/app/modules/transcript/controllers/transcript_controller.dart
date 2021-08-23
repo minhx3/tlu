@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:thanglong_university/app/model/score_detail_entity.dart';
 import 'package:thanglong_university/app/model/transcript_model.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 
@@ -6,6 +7,7 @@ class TranscriptController extends GetxController {
   final count = 0.obs;
   final isFilter = false.obs;
   final rxTranscripts = RxList<TranscriptModel>();
+  final rxScore = RxList<ScoreDetailEntity>();
 
   List<TranscriptModel> get transcriptsDC {
     List<TranscriptModel> res =
@@ -53,4 +55,5 @@ class TranscriptController extends GetxController {
       }
     } on Exception catch (e) {} finally {}
   }
+
 }
