@@ -46,7 +46,7 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
             )
           ],
         ),
-        bottomNavigationBar: getBottomBar(),
+        // bottomNavigationBar: getBottomBar(),
       ),
     );
   }

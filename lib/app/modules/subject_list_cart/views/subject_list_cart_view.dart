@@ -104,7 +104,7 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
               ),
             ],
           ),
-          bottomNavigationBar: getBottomBar(),
+          // bottomNavigationBar: getBottomBar(),
         );
       }),
     );
