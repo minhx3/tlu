@@ -37,7 +37,7 @@ class LabelValueInfoView extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: fontInter(14,
-                    color: AppColor.textColor, fontWeight: FontWeight.w600),
+                    color: AppColor.c4d4d4d, fontWeight: FontWeight.w600),
               )
             ],
           ),

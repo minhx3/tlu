@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 extension StringFactor on String {
   String nonAccent() {
     String str = this.toLowerCase();
@@ -13,5 +15,13 @@ extension StringFactor on String {
     str =
         str.replaceAll(RegExp('/\u02C6|\u0306|\u031B/g'), ""); // Â, Ê, Ă, Ơ, Ư
     return str;
+  }
+
+  String dateFormat(
+      {String outputFormat = "dd-MM-yyyy", String inputFormat = "yyyy-MM-dd"}) {
+    if (this.isEmpty || this == null) return null;
+    DateFormat _format = DateFormat(outputFormat);
+    DateTime input = new DateFormat(inputFormat).parse(this);
+    return _format.format(input).toString();
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
-import 'package:thanglong_university/app/model/user_model.dart';
+import 'package:thanglong_university/app/model/user_info_model.dart';
 import 'package:thanglong_university/app/modules/chat/views/chat_view.dart';
 import 'package:thanglong_university/app/modules/education/views/education_view.dart';
 import 'package:thanglong_university/app/modules/home/views/home_view.dart';
@@ -31,7 +31,7 @@ class IndexView extends GetView<IndexController> {
       } else {
         return Obx(
           () {
-            UserModel _profile = ProfileController.to.rxUserInfo();
+            UserInfo _profile = ProfileController.to.rxUserInfo();
             return AppContainer(
               viewState: controller.rxViewState(),
               child: Scaffold(

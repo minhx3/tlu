@@ -35,6 +35,9 @@ userEntityFromJson(UserEntity data, Map<String, dynamic> json) {
   if (json['faculty'] != null) {
     data.faculty = json['faculty'].toString();
   }
+  if (json['schoolYear'] != null) {
+    data.schoolYear = json['schoolYear'].toString();
+  }
   if (json['teachingList'] != null) {
     data.teachingList = (json['teachingList'] as List)
         .map((v) => SubjectClassTeacherTeachingList().fromJson(v))
@@ -56,6 +59,7 @@ Map<String, dynamic> userEntityToJson(UserEntity entity) {
   data['majors'] = entity.majors;
   data['degree'] = entity.degree;
   data['faculty'] = entity.faculty;
+  data['schoolYear'] = entity.schoolYear;
   data['teachingList'] = entity.teachingList?.map((v) => v.toJson())?.toList();
   return data;
 }
