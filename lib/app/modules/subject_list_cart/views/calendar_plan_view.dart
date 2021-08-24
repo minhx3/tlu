@@ -175,25 +175,36 @@ class CalendarPlanView extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 blurRadius: 12,
-                spreadRadius: 2,
+                offset: Offset(0, 2),
                 color: Colors.black.withOpacity(0.05),
               ),
             ],
-            gradient: new LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment(0, 0),
-                stops: [0.1, 0.1],
-                colors: [AppColor.c000333, Colors.white]),
+            color: Colors.white,
             borderRadius: BorderRadius.circular(3),
           ),
           width: width - 4,
           height: timeRange * rowheight - 6,
-          child: Center(
-              child: Text(
-            title,
-            style: fontInter(14,
-                fontWeight: FontWeight.w600, color: AppColor.c000333),
-          )),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8)),
+                    color: AppColor.c000333),
+                height: 4,
+              ),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    title,
+                    style: fontInter(14,
+                        fontWeight: FontWeight.w600, color: AppColor.c000333),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
