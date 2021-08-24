@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:thanglong_university/app/model/user_model.dart';
+import 'package:thanglong_university/app/model/user_info_model.dart';
 import 'package:thanglong_university/app/modules/index/controllers/index_controller.dart';
 import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
@@ -272,7 +272,7 @@ delay(Function onCompleted, {int time = 2}) {
 
 getBottomBar() {
   return GetBuilder<IndexController>(builder: (tx) {
-    UserModel _profile = ProfileController.to.rxUserInfo();
+    UserInfo _profile = ProfileController.to.rxUserInfo();
     return BottomNavigationBar(
       onTap: (index) {
         tx.setTab(index);

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
-import 'package:thanglong_university/app/model/chat/user_entity.dart';
+import 'package:thanglong_university/app/model/chat/base_model.dart';
 import 'package:thanglong_university/app/views/views/value_box_view.dart';
 
 class AvatarUserNameView extends StatelessWidget {
   final bool isAllowEdit;
-  final UserEntity user;
+  final UserModel user;
 
   const AvatarUserNameView({Key key, this.isAllowEdit = false, this.user})
       : super(key: key);
@@ -34,15 +34,16 @@ class AvatarUserNameView extends StatelessWidget {
                     visible: isAllowEdit == true,
                     child: Image.asset(
                       Images.icEdit,
-                      width: 23,
-                      height: 23,
+                      width: 20,
+                      height: 20,
                     ),
                   )
                 ],
               ),
               Text(
-                "${user?.name ?? ""}",
-                style: fontInter(18, fontWeight: FontWeight.w600),
+                "${user?.name ?? user?.fullName ?? ""}",
+                style: fontInter(18,
+                    fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
               )
             ],
           ),
@@ -51,7 +52,7 @@ class AvatarUserNameView extends StatelessWidget {
     );
   }
 
-  CircleAvatar renderAvatar([UserEntity _profile]) {
+  CircleAvatar renderAvatar([UserModel _profile]) {
     NetworkImage _backgroundImage;
     Widget _child = SizedBox();
 

@@ -10,10 +10,11 @@ class UserEntity extends UserModel with JsonConvert<UserEntity> {
   String dob;
   String email;
   String mobile;
-  String className;
-  String majors;
+  String className; // lớp
+  String majors; // khoa
   String degree;
-  String faculty;
+  String faculty; // khoa
+  String schoolYear; // khóa học
   List<SubjectClassTeacherTeachingList> teachingList;
 
   UserEntity(
@@ -26,12 +27,12 @@ class UserEntity extends UserModel with JsonConvert<UserEntity> {
       this.mobile,
       this.className,
       this.majors,
-        this.faculty,
+      this.faculty,
+      this.schoolYear,
       this.degree,
       this.teachingList});
 
   String get getTeaching {
     return teachingList.map((e) => e.name).join(', ');
   }
-
 }

@@ -5,6 +5,7 @@ abstract class BaseModel {
 abstract class UserModel {
   String id;
   String name;
+  String fullName;
   String avatar;
   String dob;
   String email;
@@ -12,4 +13,6 @@ abstract class UserModel {
   String className;
   String majors;
   String degree;
+  String faculty; // khoa
+  String schoolYear; // khóa học
 }

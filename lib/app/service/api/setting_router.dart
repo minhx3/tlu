@@ -4,7 +4,7 @@ import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'api_client.dart';
 import 'base_model.dart';
 
-enum SettingEndpoint { getSettings }
+enum SettingEndpoint { getSettings, changeSettings }
 
 class SettingRouter extends BaseRouter {
   SettingEndpoint endPoint;
@@ -22,6 +22,9 @@ class SettingRouter extends BaseRouter {
     switch (this.endPoint) {
       case SettingEndpoint.getSettings:
         response = client(headers: headerParams).get(path);
+        break;
+      case SettingEndpoint.changeSettings:
+        response = client(headers: headerParams).put(path, data: data);
         break;
     }
 
@@ -50,6 +53,9 @@ class SettingRouter extends BaseRouter {
     var path = "";
     switch (this.endPoint) {
       case SettingEndpoint.getSettings:
+        path = "settings";
+        break;
+      case SettingEndpoint.changeSettings:
         path = "settings";
         break;
     }
