@@ -44,7 +44,8 @@ class EducationView extends GetView<EducationController> {
                               value: (data?.completeCredits ?? 0) /
                                   (data?.sumCredits ?? 0),
                               onTap: () {
-                                pushTo(Routes.TRANSCRIPT, arguments: controller.rxProcess());
+                                pushTo(Routes.TRANSCRIPT,
+                                    arguments: controller.rxProcess());
                               });
                         }),
                         Obx(() {
@@ -183,7 +184,7 @@ class EducationView extends GetView<EducationController> {
                         type == 1
                             ? "Tín chỉ đã hoàn thành:"
                             : "Tín chỉ trong học kỳ:",
-                        style: fontInter(14,
+                        style: fontInter(type == 1 ? 14 : 12,
                             fontWeight: FontWeight.w600,
                             color: type == 1
                                 ? AppColor.c9d9daa
@@ -192,7 +193,7 @@ class EducationView extends GetView<EducationController> {
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(
-                        height: 8,
+                        height: 4,
                       ),
                       Text(
                         title ?? "",
@@ -211,7 +212,7 @@ class EducationView extends GetView<EducationController> {
                   margin: EdgeInsets.symmetric(horizontal: 15),
                   width: 1,
                   height: 50,
-                  color: AppColor.whiteColor.withOpacity(0.15),
+                  color: Color(type == 1 ? 0xff33355A : 0xffE6E6E6),
                 ),
                 Expanded(
                   child: Column(
@@ -220,7 +221,7 @@ class EducationView extends GetView<EducationController> {
                     children: [
                       Text(
                         type == 1 ? "ĐTBTL" : "Lịch thi",
-                        style: fontInter(14,
+                        style: fontInter(type == 1 ? 14 : 12,
                             fontWeight: FontWeight.w600,
                             color: type == 1
                                 ? AppColor.c9d9daa
@@ -229,7 +230,7 @@ class EducationView extends GetView<EducationController> {
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(
-                        height: 8,
+                        height: 4,
                       ),
                       Text(
                         subTitle ?? "",
