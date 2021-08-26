@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:thanglong_university/app/enums/notification_type_enum.dart';
 import 'package:thanglong_university/app/model/access_token_model.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/app/model/news_model.dart';
+import 'package:thanglong_university/app/model/notification_model.dart';
 import 'package:thanglong_university/app/model/process_model.dart';
 import 'package:thanglong_university/app/model/register_entity.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
@@ -18,6 +20,7 @@ import 'package:thanglong_university/app/model/user_setting_model.dart';
 import 'package:thanglong_university/app/service/api/api_client.dart';
 import 'package:thanglong_university/app/service/api/authen_router.dart';
 import 'package:thanglong_university/app/service/api/news_router.dart';
+import 'package:thanglong_university/app/service/api/notification_router.dart';
 import 'package:thanglong_university/app/service/api/schedule_router.dart';
 import 'package:thanglong_university/app/service/api/setting_router.dart';
 import 'package:thanglong_university/app/service/api/subject_router.dart';
@@ -239,6 +242,16 @@ class Appclient {
     }
   }
 
+  Future<NewsModel> getNewDetail(String id) async {
+    final result = await NewsRouter(NewsEndpoint.newsDetail, joinPath: id).call;
+
+    if (result?.statusCode == 200) {
+      return NewsModel.fromJson(result.data);
+    } else {
+      return null;
+    }
+  }
+
   Future<List<RegisterSubjectEntity>> getSubjectListPreRegister() async {
     final result =
         await SubjectRouter(SubjectEndpoint.getSubjectsRegister).call;
@@ -336,7 +349,9 @@ class Appclient {
   }
 
   Future<List<ScoreDetailEntity>> getTrascriptById(String id) async {
-    final result = await TranningRouter(TranningEndpoint.getTrascriptById, joinPath: id).call;
+    final result =
+        await TranningRouter(TranningEndpoint.getTrascriptById, joinPath: id)
+            .call;
 
     if (result?.statusCode == 200) {
       List<ScoreDetailEntity> list = [];
@@ -400,5 +415,36 @@ class Appclient {
     } else {
       return null;
     }
+  }
+
+  Future<List<NotificationModel>> getNotificationList(
+      NotificationTypeEnum type) async {
+    final result = await NotificationRouter(
+        NotificationEndpoint.getNotification,
+        data: {type: notificationTypeValues.reverse[type]}).call;
+
+    if (result?.statusCode == 200) {
+      List<NotificationModel> list = [];
+      result.data.forEach((e) {
+        list.add(NotificationModel.fromJson(e));
+      });
+      return list;
+    } else {
+      return null;
+    }
+  }
+
+  Future<bool> readAllNotification() async {
+    final result =
+        await NotificationRouter(NotificationEndpoint.readAllNotification).call;
+    return result?.statusCode == 200;
+  }
+
+  Future<bool> readOneNotification(String id) async {
+    final result = await NotificationRouter(
+            NotificationEndpoint.readOneNotification,
+            joinPath: id)
+        .call;
+    return result?.statusCode == 200;
   }
 }

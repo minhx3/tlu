@@ -4,7 +4,7 @@ import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'api_client.dart';
 import 'base_model.dart';
 
-enum NewsEndpoint { getNews }
+enum NewsEndpoint { getNews, newsDetail }
 
 class NewsRouter extends BaseRouter {
   NewsEndpoint endPoint;
@@ -24,6 +24,9 @@ class NewsRouter extends BaseRouter {
         response = client(headers: headerParams).get(path);
         break;
 
+        break;
+      case NewsEndpoint.newsDetail:
+        response = client(headers: headerParams).get(path);
         break;
     }
 
@@ -52,6 +55,9 @@ class NewsRouter extends BaseRouter {
     switch (this.endPoint) {
       case NewsEndpoint.getNews:
         path = "school-news";
+        break;
+      case NewsEndpoint.newsDetail:
+        path = "school-news/$joinPath";
         break;
     }
     return path;

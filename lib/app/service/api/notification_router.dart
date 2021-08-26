@@ -4,7 +4,11 @@ import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'api_client.dart';
 import 'base_model.dart';
 
-enum NotificationEndpoint { getNotification }
+enum NotificationEndpoint {
+  getNotification,
+  readOneNotification,
+  readAllNotification
+}
 
 class NotificationRouter extends BaseRouter {
   NotificationEndpoint endPoint;
@@ -25,6 +29,12 @@ class NotificationRouter extends BaseRouter {
         break;
 
         break;
+      case NotificationEndpoint.readAllNotification:
+        response = client(headers: headerParams).patch(path);
+        break;
+      case NotificationEndpoint.readOneNotification:
+        response = client(headers: headerParams).patch(path);
+        break;
     }
 
     return await BaseModel.onBaseModel(response, handleError: handleError);
@@ -36,9 +46,6 @@ class NotificationRouter extends BaseRouter {
         this.headers == null ? Map<String, dynamic>() : this.headers;
     headers["universityCode"] = Constant.universityCode;
     switch (this.endPoint) {
-      case NotificationEndpoint.getNotification:
-        break;
-
       default:
         headers["Authorization"] = Storage.getAccessToken();
     }
@@ -55,7 +62,13 @@ class NotificationRouter extends BaseRouter {
     var path = "";
     switch (this.endPoint) {
       case NotificationEndpoint.getNotification:
-        path = "school-news";
+        path = "notification";
+        break;
+      case NotificationEndpoint.readAllNotification:
+        path = "notification:read-all";
+        break;
+      case NotificationEndpoint.readOneNotification:
+        path = "notification/$joinPath/read";
         break;
     }
     return path;
