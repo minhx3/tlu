@@ -13,11 +13,13 @@ import 'package:thanglong_university/app/model/schedule_model.dart';
 import 'package:thanglong_university/app/model/score_detail_entity.dart';
 import 'package:thanglong_university/app/model/test_schedule_model.dart';
 import 'package:thanglong_university/app/model/transcript_model.dart';
-import 'package:thanglong_university/app/model/user_model.dart';
+import 'package:thanglong_university/app/model/user_info_model.dart';
+import 'package:thanglong_university/app/model/user_setting_model.dart';
 import 'package:thanglong_university/app/service/api/api_client.dart';
 import 'package:thanglong_university/app/service/api/authen_router.dart';
 import 'package:thanglong_university/app/service/api/news_router.dart';
 import 'package:thanglong_university/app/service/api/schedule_router.dart';
+import 'package:thanglong_university/app/service/api/setting_router.dart';
 import 'package:thanglong_university/app/service/api/subject_router.dart';
 import 'package:thanglong_university/app/service/api/trainning_router.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
@@ -99,14 +101,36 @@ class Appclient {
     }
   }
 
-  Future<UserModel> getUserInfo() async {
+  Future<UserInfo> getUserInfo() async {
     final result = await AuthenRouter(isTeacher == true
             ? AuthenEndpoint.getTeacher
             : AuthenEndpoint.getStudent)
         .call;
 
     if (result?.statusCode == 200) {
-      return UserModel.fromJson(result.data);
+      return UserInfo.fromJson(result.data);
+    } else {
+      return null;
+    }
+  }
+
+  Future<UserSetting> getUserSettings() async {
+    final result = await SettingRouter(SettingEndpoint.getSettings).call;
+
+    if (result?.statusCode == 200) {
+      return UserSetting.fromJson(result.data);
+    } else {
+      return null;
+    }
+  }
+
+  Future<UserSetting> changeUserSettings(
+      {@required Map<String, dynamic> data}) async {
+    final result =
+        await SettingRouter(SettingEndpoint.changeSettings, data: data).call;
+
+    if (result?.statusCode == 200) {
+      return UserSetting.fromJson(result.data);
     } else {
       return null;
     }

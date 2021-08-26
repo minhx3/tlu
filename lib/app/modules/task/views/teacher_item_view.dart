@@ -12,53 +12,44 @@ class TeacherItemView extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ImageView(
-                teacher.avatar,
-                height: 40,
-                width: 40,
-                type: Type.network,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              Expanded(
-                child: Text(
-                  "${teacher.degree}. ${teacher.fullName}",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: fontInter(14,
-                      fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
-                ).paddingSymmetric(horizontal: 16),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    color: AppColor.cfc7171,
-                    borderRadius: BorderRadius.circular(5)),
-                height: 18,
-                padding: EdgeInsets.symmetric(horizontal: 4),
-                alignment: Alignment.center,
-                child: Text(
-                  (teacher.id ?? "").toUpperCase(),
-                  style: fontInter(10,
-                      fontWeight: FontWeight.w600, color: AppColor.whiteColor),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ImageView(
+            teacher.avatar,
+            height: 40,
+            width: 40,
+            type: Type.network,
+            borderRadius: BorderRadius.circular(20),
           ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: AppColor.lineColor))),
-        )
-      ],
+          Expanded(
+            child: Text(
+              "${teacher.degree}. ${teacher.fullName}",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: fontInter(14,
+                  fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
+            ).paddingSymmetric(horizontal: 16),
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: AppColor.cfc7171,
+                borderRadius: BorderRadius.circular(5)),
+            height: 18,
+            padding: EdgeInsets.symmetric(horizontal: 4),
+            alignment: Alignment.center,
+            child: Text(
+              (teacher.id ?? "").toUpperCase(),
+              style: fontInter(10,
+                  fontWeight: FontWeight.w600, color: AppColor.whiteColor),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

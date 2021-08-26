@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
-import 'package:thanglong_university/app/model/chat/user_entity.dart';
+import 'package:thanglong_university/app/model/chat/base_model.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/avatar_user_name_view.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/item_info_view.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/label_value_info_view.dart';
+import 'package:thanglong_university/app/configuration/extension/string.dart';
 
 class HeaderInfoStudentView extends StatelessWidget {
   final bool isAllowEdit;
-  final UserEntity user;
+  final UserModel user;
 
   const HeaderInfoStudentView({Key key, this.isAllowEdit = false, this.user})
       : super(key: key);
@@ -35,7 +36,7 @@ class HeaderInfoStudentView extends StatelessWidget {
 }
 
 class _CommonInfoView extends StatelessWidget {
-  final UserEntity user;
+  final UserModel user;
 
   const _CommonInfoView({Key key, this.user}) : super(key: key);
 
@@ -52,7 +53,7 @@ class _CommonInfoView extends StatelessWidget {
           children: [
             LabelValueInfoView(
               label: 'Khoá:',
-              value: "${user?.className ?? ""}",
+              value: "${user?.schoolYear ?? ""}",
               isHozSeparated: true,
             ),
             LabelValueInfoView(
@@ -62,7 +63,7 @@ class _CommonInfoView extends StatelessWidget {
             ),
             LabelValueInfoView(
               label: 'Ngày sinh',
-              value: "${user?.dob ?? ""}",
+              value: "${user?.dob?.dateFormat() ?? ""}",
             ),
           ],
         ),
@@ -93,7 +94,7 @@ class _EmailInfoView extends StatelessWidget {
 }
 
 class _BranchView extends StatelessWidget {
-  final UserEntity user;
+  final UserModel user;
 
   const _BranchView({Key key, this.user}) : super(key: key);
 
@@ -109,7 +110,7 @@ class _BranchView extends StatelessWidget {
           children: [
             LabelValueInfoView(
               label: 'Khoa ngành:',
-              value: user?.majors ?? '',
+              value: user?.faculty ?? user?.majors ?? '',
               isHozSeparated: true,
             ),
             SizedBox(

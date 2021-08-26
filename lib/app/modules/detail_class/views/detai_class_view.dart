@@ -53,101 +53,76 @@ class DetaiClassView extends GetView<DetaiClassController> {
                           Text(
                             controller.subjectClassData?.subject?.name ?? "",
                             style: fontInter(24,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.bold,
                                 color: AppColor.c000333),
                           ).marginOnly(bottom: 20),
                           boardTimeLine(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              item("Mã môn:", controller.subjectClassData?.id),
-                              item("Số tín chỉ:",
-                                  "${(controller.subjectClassData?.subject?.credits ?? "").toString()} tín"),
-                              item("Hệ số:",
-                                  "${(controller.subjectClassData?.subject?.factor ?? "").toString()}"),
-                              item(
-                                  "Học phí",
-                                  controller.subjectClassData?.schoolFee
-                                      ?.currency(),
-                                  isLast: true),
-                            ],
-                          ).paddingSymmetric(horizontal: 5),
+                          lineWidget(),
+                          IntrinsicHeight(
+                            child: Row(
+                              children: <Widget>[
+                                item(
+                                    "Mã môn:", controller.subjectClassData?.id),
+                                VerticalDivider(
+                                  thickness: 1,
+                                  width: 30,
+                                  color: AppColor.cd9d9d9,
+                                ),
+                                item("Số tín chỉ:",
+                                    "${(controller.subjectClassData?.subject?.credits ?? "").toString()} tín"),
+                                VerticalDivider(
+                                  thickness: 1,
+                                  width: 30,
+                                  color: AppColor.cd9d9d9,
+                                ),
+                                item("Hệ số:",
+                                    "${(controller.subjectClassData?.subject?.factor ?? "").toString()}"),
+                                VerticalDivider(
+                                  thickness: 1,
+                                  width: 30,
+                                  color: AppColor.cd9d9d9,
+                                ),
+                                item(
+                                    "Học phí",
+                                    controller.subjectClassData?.schoolFee
+                                        ?.currency(),
+                                    isLast: true),
+                              ],
+                            ).paddingSymmetric(horizontal: 5),
+                          ),
                           lineWidget(),
                           item("Mã lớp:", controller.subjectClassData?.id ?? "",
-                              isLast: true),
+                                  isLast: true)
+                              .paddingSymmetric(horizontal: 5),
                           lineWidget(),
                           ...controller.subjectClassData.listTimelineClass
                               .map((e) {
-                            return TeacherItemView(e.teacher);
+                            return TeacherItemView(e.teacher)
+                                .paddingSymmetric(horizontal: 5)
+                                .marginOnly(bottom: 10);
                           }).toList(),
-                          Column(children: [
-                            SizeTransition(
-                              axis: Axis.vertical,
-                              axisAlignment: 0,
-                              sizeFactor: controller.collapseAnimation,
-                              child: Column(children: [
-                                item(
-                                    "Số tiết học:",
-                                    (controller.subjectClassData
-                                                ?.numberOfLessons ??
-                                            [])
-                                        .map((e) =>
-                                            "${e.quanlity} tiết ${e.type}")
-                                        .join(" + "),
-                                    isLast: true),
-                                lineWidget(),
-                                item(
-                                    "Môn tiên quyết:",
-                                    controller.subjectClassData
-                                            ?.prerequisiteSubject?.name ??
-                                        "Không yêu cầu",
-                                    isLast: true),
-                                lineWidget(),
-                                item(
-                                    "Điều kiện thi:",
-                                    controller
-                                            .subjectClassData?.examConditions ??
-                                        "",
-                                    isLast: true),
-                                lineWidget(),
-                                item(
-                                    "Cách tính điểm:",
-                                    controller
-                                            .subjectClassData?.scoringMethod ??
-                                        "",
-                                    isLast: true),
-                                lineWidget(),
-                              ]),
-                            ),
-                            IconButton(
-                                icon: Icon(
-                                    !controller.collapsed()
-                                        ? Icons.keyboard_arrow_down
-                                        : Icons.keyboard_arrow_up,
-                                    size: 30),
-                                onPressed: () {
-                                  controller.collapseAnimate();
-                                  if (controller.collapseController.value ==
-                                      0) {
-                                    controller.collapseController.forward();
-                                  } else {
-                                    controller.collapseController.reverse();
-                                  }
-                                })
-                          ]),
+                          Divider(
+                            thickness: 1,
+                            height: 4,
+                            color: AppColor.cd9d9d9,
+                          ).marginOnly(bottom: 10),
+                          expansionDescription().marginOnly(bottom: 22),
                           documentWidget(
-                              "Tài liệu cần thiết",
-                              controller.subjectClassData.requiredListBook
-                                  .map((e) =>
-                                      {"title": e.name, "author": e.author})
-                                  .toList()),
+                                  "Tài liệu cần thiết",
+                                  controller.subjectClassData.requiredListBook
+                                      .map((e) =>
+                                          {"title": e.name, "author": e.author})
+                                      .toList())
+                              .marginOnly(bottom: 20)
+                              .paddingSymmetric(horizontal: 5),
                           documentWidget(
-                              "Tài liệu liên quan",
-                              controller.subjectClassData.optionListBook
-                                  .map((e) =>
-                                      {"title": e.name, "author": e.author})
-                                  .toList()),
-                          lineWidget(),
+                                  "Tài liệu liên quan",
+                                  controller.subjectClassData.optionListBook
+                                      .map((e) =>
+                                          {"title": e.name, "author": e.author})
+                                      .toList())
+                              .paddingSymmetric(horizontal: 5),
+                          lineWidget().marginSymmetric(vertical: 3),
                           Text(
                             "Mô tả môn",
                             style: fontInter(14,
@@ -155,9 +130,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
                                 color: AppColor.c4d4d4d),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                          )
-                              .marginOnly(bottom: 2)
-                              .paddingOnly(top: 15, bottom: 10),
+                          ).marginOnly(bottom: 2).paddingOnly(bottom: 10),
                           Container(
                             padding: EdgeInsets.all(15),
                             decoration: BoxDecoration(
@@ -183,9 +156,67 @@ class DetaiClassView extends GetView<DetaiClassController> {
             }),
           ],
         ),
-        bottomNavigationBar: getBottomBar(),
+        // bottomNavigationBar: getBottomBar(),
       ),
     );
+  }
+
+  Widget expansionDescription() {
+    return Column(children: [
+      SizeTransition(
+        axis: Axis.vertical,
+        axisAlignment: 0,
+        sizeFactor: controller.collapseAnimation,
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          item(
+                  "Số tiết học:",
+                  (controller.subjectClassData?.numberOfLessons ?? [])
+                      .map((e) => "${e.quanlity} tiết ${e.type}")
+                      .join(" + "),
+                  isLast: true)
+              .paddingSymmetric(horizontal: 5),
+          lineWidget(),
+          item(
+                  "Môn tiên quyết:",
+                  controller.subjectClassData?.prerequisiteSubject?.name ??
+                      "Không yêu cầu",
+                  isLast: true)
+              .paddingSymmetric(horizontal: 5),
+          lineWidget(),
+          item("Điều kiện thi:",
+                  controller.subjectClassData?.examConditions ?? "",
+                  isLast: true)
+              .paddingSymmetric(horizontal: 5),
+          lineWidget(),
+          item("Cách tính điểm:",
+                  controller.subjectClassData?.scoringMethod ?? "",
+                  isLast: true)
+              .paddingSymmetric(horizontal: 5),
+          lineWidget(),
+        ]),
+      ),
+      IconButton(
+          constraints: BoxConstraints(maxHeight: 23),
+          icon: Image.asset(
+              controller.collapsed() ? Images.dropup : Images.dropdown,
+              width: 14,
+              height: 7,
+              color: AppColor.c000333),
+          // (
+          //     !controller.collapsed()
+          //         ? Icons.keyboard_arrow_down
+          //         : Icons.keyboard_arrow_up,
+          //     color: AppColor.c000333,
+          //     size: 28),
+          onPressed: () {
+            controller.collapseAnimate();
+            if (controller.collapseController.value == 0) {
+              controller.collapseController.forward();
+            } else {
+              controller.collapseController.reverse();
+            }
+          })
+    ]);
   }
 
   void registerSubjectClass() {
@@ -208,163 +239,138 @@ class DetaiClassView extends GetView<DetaiClassController> {
               fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-        ).marginOnly(bottom: 2).paddingOnly(top: 15, bottom: 10),
+        ).marginOnly(bottom: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ...books
-                .map((e) => Container(
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                          color: AppColor.cfafafa,
-                          borderRadius: BorderRadius.circular(3)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            e["title"],
-                            style: fontInter(14,
-                                fontWeight: FontWeight.w600,
-                                color: AppColor.black),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ).marginOnly(bottom: 2),
-                          (e["author"].isEmpty
-                              ? SizedBox()
-                              : Text(
-                                  e["author"],
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: fontInter(11,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColor.c808080),
-                                )),
-                        ],
-                      ),
-                    ).marginOnly(bottom: 5))
-                .toList()
-          ],
-        ),
-      ],
-    );
-  }
-
-  Column boardTimeLine() {
-    return Column(
-      children: [
-        Container(
-          color: AppColor.cfafafa,
-          alignment: Alignment.center,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: controller.columnList
-                .asMap()
-                .map((index, e) {
-                  Widget _content = IntrinsicWidth(
+                .map(
+                  (e) => Container(
+                    decoration: BoxDecoration(
+                        color: AppColor.cfafafa,
+                        borderRadius: BorderRadius.circular(3)),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                                      color: AppColor.cf2f2f2, width: 1))),
-                          alignment: Alignment.centerLeft,
-                          height: 30,
-                          child: Text(
-                            e['title'],
-                            style: fontInter(11,
-                                color: AppColor.c808080,
-                                fontWeight: FontWeight.w500),
-                          ).paddingSymmetric(horizontal: 15),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: (e['data'] as List)
-                              .map(
-                                (i) => Container(
-                                    alignment: Alignment.centerLeft,
-                                    height: 30,
-                                    child: Text(
-                                      i,
-                                      style: fontInter(12,
-                                          color: controller.columnList.length ==
-                                                      4 &&
-                                                  controller.columnList
-                                                          .indexOf(e) ==
-                                                      0
-                                              ? AppColor.c000333
-                                                  .withOpacity(0.3)
-                                              : AppColor.c4d4d4d,
-                                          fontWeight: FontWeight.w600),
-                                    )),
-                              )
-                              .toList(),
-                        ).paddingSymmetric(horizontal: 15)
+                        Text(
+                          e["title"],
+                          style: fontInter(14,
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.black),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ).marginOnly(bottom: 2),
+                        (e["author"].isEmpty
+                            ? SizedBox()
+                            : Text(
+                                e["author"],
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: fontInter(11,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColor.c808080),
+                              )),
                       ],
                     ),
-                  );
-                  return MapEntry(
-                      index,
-                      index + 1 == controller.columnList.length
-                          ? Expanded(child: _content)
-                          : _content);
-                })
-                .values
-                .toList(),
-          ),
-        ),
-        lineWidget(),
+                  ),
+                )
+                .toList()
+          ],
+        ).paddingSymmetric(horizontal: 15, vertical: 10),
       ],
     );
   }
 
-  Container lineWidget() {
+  Widget boardTimeLine() {
     return Container(
-      margin: EdgeInsets.only(top: 12),
-      height: 1,
+      padding: EdgeInsets.only(left: 5, right: 5, top: 15, bottom: 6),
+      color: AppColor.cfafafa,
+      alignment: Alignment.center,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: controller.columnList
+            .asMap()
+            .map((index, e) {
+              bool isLast = index + 1 == controller.columnList.length;
+              Widget _content = IntrinsicWidth(
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                                  color: AppColor.cf2f2f2, width: 1))),
+                      alignment: Alignment.centerLeft,
+                      height: 30,
+                      child: Text(
+                        e['title'],
+                        style: fontInter(11,
+                            color: AppColor.c808080,
+                            fontWeight: FontWeight.w500),
+                      ).paddingOnly(left: 5, right: isLast ? 5 : 30),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: (e['data'] as List)
+                          .map(
+                            (i) => Container(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 6),
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  i,
+                                  style: fontInter(12,
+                                      color:
+                                          controller.columnList.length == 4 &&
+                                                  index == 0
+                                              ? AppColor.cb3b4c2
+                                              : AppColor.c4d4d4d,
+                                      fontWeight: FontWeight.w600),
+                                )),
+                          )
+                          .toList(),
+                    ).paddingOnly(left: 5, right: isLast ? 5 : 30),
+                  ],
+                ),
+              );
+              return MapEntry(
+                  index, isLast ? Expanded(child: _content) : _content);
+            })
+            .values
+            .toList(),
+      ),
+    );
+  }
+
+  Widget lineWidget() {
+    return Divider(
+      thickness: 1,
+      height: 24,
       color: AppColor.cd9d9d9,
     );
   }
 
   Widget item(String title, String subTitle, {bool isLast = false}) {
-    return Container(
-      padding: EdgeInsets.only(top: 16),
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: fontInter(11,
-                    fontWeight: FontWeight.w500, color: AppColor.c808080),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              SizedBox(
-                height: 2,
-              ),
-              Text(
-                subTitle,
-                softWrap: true,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: fontInter(14,
-                    fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
-              ),
-            ],
-          ),
-          isLast == true
-              ? SizedBox()
-              : Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  width: 1,
-                  height: 35,
-                  color: AppColor.cd9d9d9,
-                ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: fontInter(11,
+              fontWeight: FontWeight.w500, color: AppColor.c808080),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ).marginOnly(bottom: 2),
+        Text(
+          subTitle,
+          softWrap: true,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: fontInter(14,
+              fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
+        ),
+      ],
     );
   }
 }

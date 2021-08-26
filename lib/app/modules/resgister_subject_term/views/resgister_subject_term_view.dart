@@ -46,18 +46,19 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
             )
           ],
         ),
-        bottomNavigationBar: getBottomBar(),
+        // bottomNavigationBar: getBottomBar(),
       ),
     );
   }
 
   Widget viewItem(RegisterEntity item) {
-    Color textColor1 = AppColor.c4d4d4d;
+    Color textColor1 = AppColor.c000333;
     Color textColor2 = AppColor.c808080;
+    Color textColor3 = AppColor.c4d4d4d;
     Color backgroundColor = Colors.white;
     if (item.status == SujectGroupStatusEnum.OPEN ||
         item.status == SujectGroupStatusEnum.RE_OPEN) {
-      textColor1 = textColor2 = Colors.white;
+      textColor1 = textColor2 = textColor3 = Colors.white;
       backgroundColor = AppColor.cfc2626;
     }
     return InkWell(
@@ -69,14 +70,15 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
       child: Container(
         decoration: boxShadow.copyWith(
             borderRadius: BorderRadius.circular(3), color: backgroundColor),
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
         child: Column(
           children: [
             Container(
               alignment: Alignment.centerLeft,
-              height: 44,
+              padding: EdgeInsets.only(bottom: 6),
               margin: EdgeInsets.only(bottom: 10),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Text(
@@ -106,7 +108,7 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
                 Text(
                   item.getRegisterTime,
                   style: fontInter(14,
-                      color: textColor1, fontWeight: FontWeight.w600),
+                      color: textColor3, fontWeight: FontWeight.w600),
                 ),
               ],
             ).marginOnly(bottom: 10),

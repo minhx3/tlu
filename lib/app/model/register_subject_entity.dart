@@ -42,8 +42,8 @@ class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
 
   String get getAllTime {
     return listTimelineClass
-        .map((e) => e.listSchedule.map((e) => e.getTime))
-        .join(',');
+        .map((e) => e.listSchedule.map((e) => e.getTime).join(' - '))
+        .join('\n');
   }
 }
 

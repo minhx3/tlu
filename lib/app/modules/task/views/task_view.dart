@@ -31,7 +31,9 @@ class TaskView extends GetView<TaskController> {
                 padding: EdgeInsets.all(16),
                 children: [
                   headerView(),
-                  TeacherItemView(controller.subjectItem.teacher),
+                  TeacherItemView(controller.subjectItem.teacher)
+                      .marginSymmetric(vertical: 16),
+                  Divider(color: AppColor.lineColor, thickness: 1, height: 1),
                   documentWidget(),
                   noteWidget(),
                   // ButtonView(

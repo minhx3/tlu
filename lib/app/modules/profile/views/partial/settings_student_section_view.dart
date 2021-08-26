@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/enums/notification_type_enum.dart';
+import 'package:thanglong_university/app/model/user_setting_model.dart';
+import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/settings/item_setting_base_view.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/settings/item_setting_checkbox_view.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/settings/item_setting_expandable_view.dart';
@@ -11,17 +15,23 @@ import 'package:thanglong_university/app/modules/profile/views/partial/settings/
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/expandable_section_view.dart';
 
+// ignore: must_be_immutable
 class SettingsStudentSectionView extends StatelessWidget {
+  UserSetting userSettings;
+  SettingsStudentSectionView({this.userSettings});
+  final ProfileController controller = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColor.blockEducationBackground,
+      color: AppColor.cf2f2f2,
+      padding: const EdgeInsets.only(bottom: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding:
-                const EdgeInsets.only(left: 20, right: 30, top: 12, bottom: 8),
+                const EdgeInsets.only(left: 20, right: 30, top: 17, bottom: 8),
             child: Text('Cài đặt',
                 style: fontInter(
                   14,
@@ -29,32 +39,86 @@ class SettingsStudentSectionView extends StatelessWidget {
                   color: AppColor.textColor,
                 )),
           ),
-          _SettingsItemListView(),
+          settingsItemListView(),
         ],
       ),
     );
   }
-}
 
-class _SettingsItemListView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget settingsItemListView() {
     return ListView(
       shrinkWrap: true,
       padding: EdgeInsets.zero,
       physics: NeverScrollableScrollPhysics(),
       children: [
-        _ItemDarkModeSettingView(),
+        itemDarkModeSettingView(),
         _PushingNotificationView(),
         ItemSettingNavigateView(
+          colorTitle: AppColor.c4d4d4d,
           title: 'Câu hỏi thường gặp',
+          trailingWidth: 20,
+          trailingHeight: 20,
+          trailingColor: AppColor.cd9d9d9,
           onPressed: () {},
         ),
+        Divider(
+          thickness: 1,
+          indent: 15,
+          endIndent: 15,
+          height: 5,
+          color: AppColor.lineColor,
+        ),
         ItemSettingNavigateView(
+          colorTitle: AppColor.c4d4d4d,
+          trailingWidth: 20,
+          trailingHeight: 20,
+          trailingColor: AppColor.cd9d9d9,
           title: 'Trợ giúp',
           onPressed: () {},
         ),
-        _ItemLogoutSettingView()
+        Divider(
+          thickness: 1,
+          indent: 15,
+          endIndent: 15,
+          height: 5,
+          color: AppColor.lineColor,
+        ),
+        ItemSettingBaseView(
+          onPressed: () {
+            pushReplaceAllTo(Routes.AUTH);
+          },
+          colorTitle: AppColor.c4d4d4d,
+          title: 'Đăng xuất',
+          trailingChild: Image.asset(
+            Images.icLogout,
+            width: 20,
+            height: 20,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget itemDarkModeSettingView() {
+    return Column(
+      children: [
+        ItemSettingsSwitchView(
+          fontSizeTitle: 13,
+          colorTitle: AppColor.c4d4d4d,
+          title: 'Dark mode',
+          isChecked: userSettings?.darkMode,
+          onChanged: (value) {
+            // print(value);
+            controller.changeDarkModeSetting();
+          },
+        ),
+        Divider(
+          thickness: 1,
+          indent: 15,
+          endIndent: 15,
+          height: 5,
+          color: AppColor.lineColor,
+        )
       ],
     );
   }
@@ -68,13 +132,19 @@ class _PushingNotificationView extends StatefulWidget {
 
 class _PushingNotificationViewState extends State<_PushingNotificationView> {
   bool _isExpand = false;
+  final ProfileController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return ExpandableSectionView(
       expand: _isExpand,
       header: ItemSettingExpandableView(
+        colorTitle: AppColor.c4d4d4d,
+        trailingWidth: 20,
+        trailingHeight: 10,
+        trailingColor: AppColor.cd9d9d9,
         title: 'Bật thông báo đẩy',
+        fontSizeTitle: 13,
         isExpanded: _isExpand,
         onPressed: () {
           setState(() {
@@ -87,100 +157,33 @@ class _PushingNotificationViewState extends State<_PushingNotificationView> {
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         children: [
-          _ItemSettingsCheckBoxView(
-            title: "Quản lý lịch",
-          ),
-          _ItemSettingsCheckBoxView(
-            title: "Đăng kí học",
-            isChecked: false,
-          ),
-          _ItemSettingsCheckBoxView(
-            title: "Liên lạc",
-          ),
-          _ItemSettingsCheckBoxView(
-            title: "Đào tạo",
-            isChecked: false,
-          ),
-          _ItemSettingsCheckBoxView(
-            title: "Hỗ trợ",
-          ),
-          _ItemSettingsCheckBoxView(
-            title: "Khác",
-            isChecked: false,
-          ),
+          ...notificationTypeSwitch.map.entries
+              .map((e) => ItemSettingsCheckBoxView(
+                    fontSizeTitle: 12,
+                    fontWeightTitle: FontWeight.w600,
+                    colorTitle: AppColor.c8c8c8c,
+                    title: e.key,
+                    isChecked:
+                        controller.rxUserSetting()?.notificationSetting == null
+                            ? false
+                            : controller
+                                    .rxUserSetting()
+                                    .notificationSetting
+                                    .firstWhere(
+                                        (element) =>
+                                            element.type ==
+                                            notificationTypeValues
+                                                .reverse[e.value],
+                                        orElse: () => null)
+                                    ?.enable ??
+                                false,
+                    onChanged: () {
+                      controller.changeNotificationSetting(e.value);
+                    },
+                  ))
+              .toList(),
         ],
       ),
-    );
-  }
-}
-
-class _ItemDarkModeSettingView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ItemSettingsSwitchView(
-          title: 'Dark mode',
-          isChecked: false,
-        ),
-        Divider(
-          thickness: 1,
-          indent: 15,
-          endIndent: 15,
-          height: 5,
-          color: AppColor.lineColor,
-        )
-      ],
-    );
-  }
-}
-
-class _ItemLogoutSettingView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ItemSettingBaseView(
-      onPressed: () {
-        pushReplaceAllTo(Routes.AUTH);
-      },
-      title: 'Đăng xuất',
-      trailingChild: Image.asset(
-        Images.icLogout,
-        width: 20,
-        height: 20,
-      ),
-    );
-  }
-}
-
-class _ItemSettingsCheckBoxView extends StatelessWidget {
-  final String title;
-  final bool isChecked;
-  final VoidCallback onPressed;
-
-  const _ItemSettingsCheckBoxView(
-      {Key key, @required this.title, this.isChecked = true, this.onPressed})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ItemSettingsCheckBoxView(
-          title: title,
-          isChecked: isChecked,
-          onPressed: onPressed,
-          fontSizeTitle: 12,
-          fontWeightTitle: FontWeight.w600,
-          colorTitle: AppColor.labelColor,
-        ),
-        Divider(
-          thickness: 1,
-          indent: 15,
-          endIndent: 15,
-          height: 5,
-          color: AppColor.lineColor,
-        )
-      ],
     );
   }
 }

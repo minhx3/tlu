@@ -17,18 +17,19 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
   @override
   Widget build(BuildContext context) {
     return AppContainer(
-      child: Scaffold(
-        backgroundColor: AppColor.cf2f2f2,
-        body: Column(
-          children: [
-            AppBarView(
-              title: "Danh sách đã chọn",
-              type: AppBarType.white,
-            ),
-            blockView(context),
-            Expanded(
-              child: Obx(() {
-                return ListView(
+      child: Obx(() {
+        return Scaffold(
+          backgroundColor:
+              controller.rxEditMode() ? AppColor.whiteColor : AppColor.cf2f2f2,
+          body: Column(
+            children: [
+              AppBarView(
+                title: "Danh sách đã chọn",
+                type: AppBarType.white,
+              ),
+              blockView(context),
+              Expanded(
+                child: ListView(
                   padding: EdgeInsets.zero,
                   children: [
                     Row(
@@ -40,7 +41,7 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
                               color: AppColor.cbfbfbf,
                               fontWeight: FontWeight.w600),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () => controller.changeEditMode(),
                           child: Row(
                             children: [
@@ -62,7 +63,9 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
                           ),
                         ),
                       ],
-                    ).paddingOnly(top: 20, bottom: 10, left: 15, right: 15),
+                    )
+                        .marginSymmetric(horizontal: 20, vertical: 16)
+                        .paddingOnly(top: 10),
                     Column(
                             children: controller
                                 .rxSubjectCart()
@@ -76,7 +79,7 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
                                 })
                                 .values
                                 .toList())
-                        .paddingSymmetric(horizontal: 15),
+                        .paddingSymmetric(horizontal: 20),
                     Container(
                       color: Colors.white,
                       padding: EdgeInsets.all(15),
@@ -97,24 +100,29 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
                       ),
                     ),
                   ],
-                );
-              }),
-            ),
-          ],
-        ),
-        bottomNavigationBar: getBottomBar(),
-      ),
+                ),
+              ),
+            ],
+          ),
+          // bottomNavigationBar: getBottomBar(),
+        );
+      }),
     );
   }
 
   Container subjectItem(
       [int index = 1, RegisterSubjectEntity subject, bool editMode = false]) {
     return Container(
-      margin: EdgeInsets.only(top: 10),
-      decoration: BoxDecoration(
-          color: AppColor.whiteColor, borderRadius: BorderRadius.circular(3)),
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      height: 65,
+      constraints: BoxConstraints(minHeight: 65),
+      margin: EdgeInsets.only(bottom: 5),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Color(0xff000000).withOpacity(0.05),
+          offset: Offset(0, 2),
+          blurRadius: 12,
+        )
+      ], color: AppColor.whiteColor, borderRadius: BorderRadius.circular(3)),
+      padding: EdgeInsets.only(left: 11, right: 15, top: 15, bottom: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -123,10 +131,7 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
             "$index.",
             style: fontInter(14,
                 color: AppColor.c808080, fontWeight: FontWeight.w600),
-          ),
-          SizedBox(
-            width: 15,
-          ),
+          ).marginOnly(right: 15),
           Expanded(
             child: Text(
               subject.name ?? subject.id,
@@ -136,7 +141,8 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
                   color: AppColor.c000333, fontWeight: FontWeight.w600),
             ),
           ),
-          item("Thời gian", subject.getAllTime),
+          item(subject.listTimelineClass.length == 1 ? "Thời gian" : null,
+              subject.getAllTime),
           InkWell(
             onTap: () {
               if (editMode) {
@@ -175,31 +181,33 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
   }
 
   Widget item(String title, String subTitle, {bool isLast = false}) {
-    return Container(
-      width: 120,
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 15),
-            width: 1,
-            height: 35,
-            color: AppColor.lineColor,
-          ),
-          Expanded(
-            child: Column(
+    return IntrinsicHeight(
+      child: Container(
+        width: 120,
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            VerticalDivider(
+              color: AppColor.lineColor,
+              width: 30,
+              thickness: 1,
+            ).marginOnly(right: 7),
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  textAlign: TextAlign.end,
-                  style: fontInter(11,
-                      fontWeight: FontWeight.w500, color: AppColor.c808080),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                title != null
+                    ? Text(
+                        title,
+                        textAlign: TextAlign.end,
+                        style: fontInter(11,
+                            fontWeight: FontWeight.w500,
+                            color: AppColor.cbfbfbf),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ).marginOnly(bottom: 2)
+                    : SizedBox(),
                 Container(
                   width: 50,
                   child: Text(
@@ -209,19 +217,18 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
                     style: fontInter(12,
-                        fontWeight: FontWeight.w600, color: AppColor.c000333),
+                        fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
                   ),
                 ),
               ],
             ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 15),
-            width: 1,
-            height: 35,
-            color: AppColor.lineColor,
-          ),
-        ],
+            VerticalDivider(
+              color: AppColor.lineColor,
+              width: 30,
+              thickness: 1,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -59,20 +59,20 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                               border: Border(
                                   bottom: BorderSide(
                                       width: 1,
-                                      color: filter.type == ""
+                                      color: filter?.type == ""
                                           ? AppColor.c000333
                                           : AppColor.ce6e6e6))),
                           child: Text(
                             "Tất cả",
                             style: fontInter(12,
                                 fontWeight: FontWeight.w600,
-                                color: filter.type == ""
+                                color: filter?.type == ""
                                     ? AppColor.c000333
                                     : AppColor.c666666),
                           ),
                         ),
                         onTap: () {
-                          filter.type = "";
+                          filter?.type = "";
                           controller.updateFilter(filter);
                           controller.filterSubject();
                         },
@@ -83,7 +83,7 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                                   border: Border(
                                       bottom: BorderSide(
                                           width: 1,
-                                          color: filter.type ==
+                                          color: filter?.type ==
                                                   subjectTypeValues
                                                       .reverse[value.value]
                                               ? AppColor.c000333
@@ -93,7 +93,7 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                                 value.key,
                                 style: fontInter(12,
                                     fontWeight: FontWeight.w600,
-                                    color: filter.type ==
+                                    color: filter?.type ==
                                             subjectTypeValues
                                                 .reverse[value.value]
                                         ? AppColor.c000333
@@ -200,8 +200,9 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                       children: [
                         Text(
                           "Chọn thứ",
-                          style: TextStyle(
-                              fontSize: 10, fontWeight: FontWeight.w600),
+                          style: fontInter(10,
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.c000333),
                         ).marginSymmetric(vertical: 5),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -268,8 +269,9 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                       children: [
                         Text(
                           "Lọc theo ca",
-                          style: TextStyle(
-                              fontSize: 10, fontWeight: FontWeight.w600),
+                          style: fontInter(10,
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.c000333),
                         ).marginSymmetric(vertical: 5),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -428,7 +430,7 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
             ),
           ],
         ),
-        bottomNavigationBar: getBottomBar(),
+        // bottomNavigationBar: getBottomBar(),
       ),
     );
   }

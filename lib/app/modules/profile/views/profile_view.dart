@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
+import 'package:thanglong_university/app/model/user_info_model.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/item_group_time_table_by_subject_view.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/item_header_time_table_view.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/settings_student_section_view.dart';
@@ -15,28 +16,24 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.whiteColor,
-      body: _ContentView(),
+      body: isTeacher ? _TeacherProfileView() : studentProfileView(),
     );
   }
-}
 
-class _ContentView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return isTeacher ? _TeacherProfileView() : _StudentProfileView();
-  }
-}
-
-class _StudentProfileView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.only(top: Get.mediaQuery.padding.top, bottom: 20),
-      children: [
-        HeaderInfoStudentView(isAllowEdit: true),
-        SettingsStudentSectionView()
-      ],
-    );
+  studentProfileView() {
+    return Obx(() {
+      UserInfo userInfo = controller.rxUserInfo();
+      return ListView(
+        padding: EdgeInsets.only(top: Get.mediaQuery.padding.top, bottom: 20),
+        children: [
+          HeaderInfoStudentView(
+            isAllowEdit: true,
+            user: userInfo,
+          ),
+          SettingsStudentSectionView(userSettings: controller.rxUserSetting())
+        ],
+      );
+    });
   }
 }
 

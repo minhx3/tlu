@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/settings/item_setting_base_view.dart';
+import 'package:thanglong_university/app/views/views/partials/custom_checkbox.dart';
 
 class ItemSettingsCheckBoxView extends StatelessWidget {
   final String title;
   final bool isChecked;
-  final VoidCallback onPressed;
+  final Function onChanged;
 
   final Color colorTitle;
   final double fontSizeTitle;
@@ -14,7 +15,7 @@ class ItemSettingsCheckBoxView extends StatelessWidget {
       {Key key,
       @required this.title,
       this.isChecked = true,
-      this.onPressed,
+      this.onChanged,
       this.fontSizeTitle,
       this.fontWeightTitle,
       this.colorTitle})
@@ -23,16 +24,20 @@ class ItemSettingsCheckBoxView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ItemSettingBaseView(
-      onPressed: onPressed,
+      onPressed: onChanged,
       colorTitle: colorTitle,
       fontSizeTitle: fontSizeTitle,
       fontWeightTitle: fontWeightTitle,
       title: title,
-      trailingChild: Checkbox(
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        value: isChecked,
-        onChanged: (value) {},
-        activeColor: Colors.grey,
+      trailingChild: SizedBox(
+        width: 18,
+        height: 18,
+        child: CustomCheckbox(
+          checked: isChecked,
+          onChanged: (value) {
+            onChanged();
+          },
+        ),
       ),
     );
   }
