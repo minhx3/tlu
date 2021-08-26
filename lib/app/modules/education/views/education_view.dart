@@ -60,7 +60,7 @@ class EducationView extends GetView<EducationController> {
                               value: (data?.completeCredits ?? 0) /
                                   (data?.sumCredits ?? 0),
                               onTap: () {
-                                pushTo(Routes.TEST_SCHEDULE);
+                                pushTo(Routes.TEST_SCHEDULE, arguments: controller.rxScheduleList);
                               });
                         }),
                       ],
