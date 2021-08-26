@@ -12,6 +12,21 @@ class RegisterEntity with JsonConvert<RegisterEntity> {
   @JSONField(serialize: false, deserialize: false)
   SujectGroupStatusEnum status;
   String title;
+  int v;
+  DateTime updatedAt;
+  String id;
+
+  RegisterEntity({
+    this.semsterInfo,
+    this.status,
+    this.endTime,
+    this.startTime,
+    this.groupId,
+    this.groupName,
+    this.v,
+    this.updatedAt,
+    this.id,
+  });
 
   String get getTime {
     DateTime startDate =
@@ -54,6 +69,36 @@ class RegisterEntity with JsonConvert<RegisterEntity> {
       .add(Duration(
           milliseconds: startTime - DateTime.now().millisecondsSinceEpoch))
       .millisecondsSinceEpoch;
+
+  RegisterEntity fromJson(Map<String, dynamic> json) => RegisterEntity(
+        semsterInfo: json["semsterInfo"] == null
+            ? null
+            : RegisterSemsterInfo().fromJson(json["semsterInfo"]),
+        status: json["status"] == null
+            ? null
+            : subjectGroupStatus.map[json["status"]],
+        endTime: json["endTime"] == null ? null : json["endTime"],
+        startTime: json["startTime"] == null ? null : json["startTime"],
+        groupId: json["groupId"] == null ? null : json["groupId"],
+        groupName: json["groupName"] == null ? null : json["groupName"],
+        v: json["__v"] == null ? null : json["__v"],
+        updatedAt: json["updatedAt"] == null
+            ? null
+            : DateTime.parse(json["updatedAt"]),
+        id: json["id"] == null ? null : json["id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "semsterInfo": semsterInfo == null ? null : semsterInfo.toJson(),
+        "status": status == null ? null : status,
+        "endTime": endTime == null ? null : endTime,
+        "startTime": startTime == null ? null : startTime,
+        "groupId": groupId == null ? null : groupId,
+        "groupName": groupName == null ? null : groupName,
+        "__v": v == null ? null : v,
+        "updatedAt": updatedAt == null ? null : updatedAt.toIso8601String(),
+        "id": id == null ? null : id,
+      };
 }
 
 class RegisterSemsterInfo with JsonConvert<RegisterSemsterInfo> {

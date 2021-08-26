@@ -57,4 +57,11 @@ class Images {
   static const String unTick = 'assets/images/unTick.png';
   static const String icSort = 'assets/images/ic_sort.png';
   static const String iconStar = 'assets/images/iconStar.png';
+
+  static const String iconSetting = 'assets/images/iconSetting.png';
+  static const String iconEvent = 'assets/images/iconEvent.png';
+  static const String iconRegisterSubject =
+      'assets/images/iconRegisterSubject.png';
+  static const String iconTraining = 'assets/images/iconTraining.png';
+  static const String iconSchedule = 'assets/images/iconSchedule.png';
 }

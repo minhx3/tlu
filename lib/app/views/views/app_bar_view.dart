@@ -4,6 +4,7 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/modules/notification/controllers/notification_controller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/link_view.dart';
 
@@ -141,7 +142,7 @@ class AppBarView extends StatelessWidget {
                               Icons.arrow_back_ios,
                               color: AppColor.textColor,
                             ),
-                          ),
+                          ).marginOnly(right: 15),
                     Expanded(
                       child: Text(title,
                           style: fontInter(16,
@@ -199,15 +200,26 @@ class AppBarView extends StatelessWidget {
                         Icons.arrow_back_ios,
                         color: AppColor.whiteColor,
                       ),
+                    ).marginOnly(right: 5, left: 4),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      height: 40,
+                      padding: EdgeInsets.only(left: 10),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              left: BorderSide(
+                                  width: 1, color: AppColor.c33355a))),
+                      child: Text("Tin tức - Sự kiện",
+                          style: fontInter(16,
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.whiteColor)),
                     ),
-                    Text("Tin tức & sự kiện",
-                        style: fontInter(16,
-                            fontWeight: FontWeight.w600,
-                            color: AppColor.whiteColor)),
                   ],
                 ));
             break;
           case AppBarType.notfication:
+            NotificationController notificationController =
+                Get.find<NotificationController>();
             return Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 height: 60,
@@ -222,16 +234,17 @@ class AppBarView extends StatelessWidget {
                         Icons.arrow_back_ios,
                         color: AppColor.textColor,
                       ),
-                    ),
+                    ).marginOnly(right: 10),
                     Expanded(
-                      child: Text("Tin tức & sự kiện",
+                      child: Text("Thông báo",
                           style: fontInter(16,
                               fontWeight: FontWeight.w600,
                               color: AppColor.textColor)),
                     ),
                     LinkView(
-                      "Đánh đâu đã đọc hết",
-                      onTap: () {},
+                      "Đánh dấu đã đọc hết",
+                      textColor: AppColor.c666666,
+                      onTap: () => notificationController.readAll(),
                     ),
                   ],
                 ));
@@ -383,7 +396,7 @@ class AppBarView extends StatelessWidget {
                             Icons.arrow_back_ios,
                             color: AppColor.textColor,
                           ),
-                        ),
+                        ).marginOnly(right: 15),
                   Expanded(
                     child: Text(title,
                         style: fontInter(16,
@@ -407,7 +420,8 @@ class AppBarView extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Row(
               children: [
-                Icon(Icons.arrow_back_ios, color: AppColor.whiteColor),
+                Icon(Icons.arrow_back_ios, color: AppColor.whiteColor)
+                    .marginOnly(right: 15),
                 Expanded(
                   child: Text("Tin tức & sự kiện",
                       style: fontInter(16,
