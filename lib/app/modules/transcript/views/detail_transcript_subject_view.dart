@@ -78,7 +78,7 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
                       horizontalSpacing: 16,
                       onTap: () {
                         pushTo(Routes.DETAI_CLASS,
-                            arguments: {"id": item?.subject?.id});
+                            arguments: {"id": item?.subjectClassId});
                       },
                     )
                   ],
