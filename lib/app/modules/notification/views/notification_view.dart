@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
+import 'package:thanglong_university/app/configuration/constant/view_state.dart';
 import 'package:thanglong_university/app/modules/notification/views/notification_item_view.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
@@ -19,11 +20,17 @@ class NotificationView extends GetView<NotificationController> {
             AppBarView(
               type: AppBarType.notfication,
             ),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children:
-                    List.generate(10, (e) => NotificationItemView()).toList(),
+            Obx(
+              () => Expanded(
+                child: controller.rxViewState() == ViewState.loading
+                    ? Center(child: CircularProgressIndicator()).marginAll(30)
+                    : ListView(
+                        padding: EdgeInsets.zero,
+                        children: (controller.rxNotifications() ?? [])
+                            .map((notification) => NotificationItemView(
+                                  notification: notification,
+                                ))
+                            .toList()),
               ),
             )
           ],

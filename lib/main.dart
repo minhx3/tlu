@@ -10,12 +10,15 @@ import 'app/routes/app_pages.dart';
 import 'app/service/notification.dart';
 import 'app/utils/auto_size/src/auto_size.dart';
 import 'generated/locales.g.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   NotificationFCB.instance.takeFCMTokenWhenAppLaunch();
   NotificationFCB.instance.initLocalNotification();
+
+  timeago.setLocaleMessages('vi', timeago.ViMessages());
 
   await GetStorage.init();
 
