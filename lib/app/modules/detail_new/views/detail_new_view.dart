@@ -28,58 +28,62 @@ class DetailNewView extends GetView<DetailNewController> {
               child: Obx(
                 () => controller.rxViewState() == ViewState.loading
                     ? Center(child: CircularProgressIndicator()).marginAll(30)
-                    : ListView(children: [
-                        Text(
-                          controller.rxNews().title,
-                          style: fontInter(24, fontWeight: FontWeight.bold),
-                        )
-                            .paddingSymmetric(horizontal: 8)
-                            .marginOnly(bottom: 15),
-                        IntrinsicHeight(
-                          child: Row(
-                            children: [
-                              Text(
-                                controller.rxNews().type,
-                                style: fontInter(12,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColor.errorColor),
-                              ),
-                              VerticalDivider(
-                                width: 20,
-                                thickness: 1,
-                                color: AppColor.cb3b4c2,
-                              ),
-                              Text(
-                                controller.rxNews().createdAt.format(),
-                                style: fontInter(12,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColor.cb3b4c2),
-                              ),
-                            ],
-                          )
-                              .paddingSymmetric(horizontal: 8)
-                              .marginOnly(bottom: 10),
-                        ),
-                        Html(
-                          data: controller.rxNews().htmlContent,
-                          style: {
-                            "html": Style(
-                                fontFamily: "Inter", fontSize: FontSize(16)),
-                            "p": Style(lineHeight: 1.5),
-                            "caption": Style(
-                                fontSize: FontSize(12),
-                                color: AppColor.c666666,
-                                fontStyle: FontStyle.italic),
-                          },
-                          customRender: {
-                            // "p": (RenderContext context, Widget child,
-                            //     attributes, _) {
-                            //   return SelectableText(child.toString());
-                            // },
-                          },
-                        ),
-                      ]),
-              ).paddingSymmetric(vertical: 20, horizontal: 12),
+                    : ListView(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+                        children: [
+                            Text(
+                              controller.rxNews().title,
+                              style: fontInter(24, fontWeight: FontWeight.bold),
+                            )
+                                .paddingSymmetric(horizontal: 8)
+                                .marginOnly(bottom: 15),
+                            IntrinsicHeight(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    controller.rxNews().type,
+                                    style: fontInter(12,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColor.errorColor),
+                                  ),
+                                  VerticalDivider(
+                                    width: 20,
+                                    thickness: 1,
+                                    color: AppColor.cb3b4c2,
+                                  ),
+                                  Text(
+                                    controller.rxNews().createdAt.format(),
+                                    style: fontInter(12,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColor.cb3b4c2),
+                                  ),
+                                ],
+                              )
+                                  .paddingSymmetric(horizontal: 8)
+                                  .marginOnly(bottom: 10),
+                            ),
+                            Html(
+                              data: controller.rxNews().htmlContent,
+                              style: {
+                                "html": Style(
+                                    fontFamily: "Inter",
+                                    fontSize: FontSize(16)),
+                                "p": Style(lineHeight: 1.5),
+                                "caption": Style(
+                                    fontSize: FontSize(12),
+                                    color: AppColor.c666666,
+                                    fontStyle: FontStyle.italic),
+                              },
+                              customRender: {
+                                // "p": (RenderContext context, Widget child,
+                                //     attributes, _) {
+                                //   return SelectableText(child.toString());
+                                // },
+                              },
+                            ),
+                          ]),
+              ),
             ),
           ],
         ),

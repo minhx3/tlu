@@ -60,9 +60,11 @@ class RegisterEntity with JsonConvert<RegisterEntity> {
     return day;
   }
 
-  getIsOpenReigsterTime() {
-    final now = DateTime.now().millisecondsSinceEpoch;
-    return startTime > now && startTime - now <= 48 ? true : false;
+  bool getIsOpenReigsterTime() {
+    final now = DateTime.now();
+    final DateTime startDate = DateTime.fromMillisecondsSinceEpoch(startTime);
+    return startTime > now.millisecondsSinceEpoch &&
+        startDate.difference(now).inHours <= 48;
   }
 
   int getCountDownTime() => DateTime.now()

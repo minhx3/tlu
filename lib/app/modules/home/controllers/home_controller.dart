@@ -12,7 +12,6 @@ import 'package:thanglong_university/app/service/api/app_client.dart';
 class HomeController extends AppController {
   final count = 0.obs;
   final rxCardIndex = 0.obs;
-  SwiperController swiperController = SwiperController();
   final rxMenuList = RxList<MenuHomeItem>();
   final rxCalendarList = RxList<ScheduleModel>();
   final rxNewsList = RxList<NewsModel>();
@@ -35,9 +34,7 @@ class HomeController extends AppController {
 
   getCalendarList() async {
     DateTime currentDate = DateTime.now();
-
-    final dateFormat = DateFormat("dd/MM/yyyy");
-
+    final dateFormat = DateFormat("yyyy-MM-dd");
     String fromDate = dateFormat.format(currentDate);
     String toDate = dateFormat.format(currentDate.add(const Duration(days: 7)));
 
@@ -59,11 +56,12 @@ class HomeController extends AppController {
   getNewsList() async {
     final result = await Appclient.shared.getNews();
     rxNewsList(result ?? []);
-    hideLoading();
   }
 
   getAlertRegister() async {
-    final result = await Appclient.shared.getAlertRegister();
+    final result = await Appclient.shared
+        .getAlertRegister()
+        .whenComplete(() => hideLoading());
     rxAlert(result);
   }
 
