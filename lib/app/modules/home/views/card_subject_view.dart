@@ -4,43 +4,53 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
-import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/schedule_model.dart';
 import 'package:thanglong_university/app/modules/home/controllers/home_controller.dart';
 import 'package:thanglong_university/app/utils/global_constants.dart';
 
 class CardSubjectView extends GetView<HomeController> {
+  final SwiperController swiperController = SwiperController();
+  final List<ScheduleModel> subjects;
+
+  CardSubjectView(this.subjects);
+
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Container(
-          height: 160,
-          padding: EdgeInsets.symmetric(vertical: 16),
-          child: Swiper(
-            controller: controller.swiperController,
-            onIndexChanged: (index) {
-              controller.setCard(index);
-            },
-            onTap: (index) {
-              // controller.swiperController.move(index);
-              // pushTo(Routes.TASK, arguments: controller.rxCalendarList[index]);
-            },
-            itemBuilder: (BuildContext context, int index) {
-              return cardContentView(controller.rxCalendarList[index]);
-            },
-            viewportFraction: 0.85,
-            containerWidth: double.maxFinite,
-            scale: 1,
-            itemCount: controller.rxCalendarList().length,
-          ),
-        ));
+    return subjects.length == 0
+        ? SizedBox()
+        : Container(
+            height: 175,
+            child: Swiper(
+              controller: swiperController,
+              onIndexChanged: (index) {
+                controller.setCard(index);
+              },
+              onTap: (index) {
+                // controller.swiperController.move(index);
+                // pushTo(Routes.TASK, arguments: controller.rxCalendarList[index]);
+              },
+              itemBuilder: (BuildContext context, int index) {
+                return cardContentView(subjects[index]);
+              },
+              viewportFraction: 0.85,
+              containerWidth: double.maxFinite,
+              scale: 1,
+              itemCount: subjects.length,
+            ),
+          );
   }
 
   Widget cardContentView(ScheduleModel item) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: boxShadow.copyWith(
-          color: AppColor.c000333, borderRadius: BorderRadius.circular(5)),
-      padding: EdgeInsets.all(15),
+      margin: const EdgeInsets.only(left: 5, right: 5, top: 15, bottom: 25),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          offset: Offset(0, 12),
+          blurRadius: 10,
+          color: AppColor.black.withOpacity(0.2),
+        ),
+      ], color: AppColor.c000333, borderRadius: BorderRadius.circular(5)),
+      padding: EdgeInsets.symmetric(vertical: 18, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -59,7 +69,7 @@ class CardSubjectView extends GetView<HomeController> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 40),
+                margin: EdgeInsets.only(left: 15),
                 decoration: BoxDecoration(
                     color: AppColor.errorColor,
                     borderRadius: BorderRadius.circular(5)),
@@ -75,21 +85,15 @@ class CardSubjectView extends GetView<HomeController> {
                 ),
               ),
             ],
-          ),
-          Container(
-            height: 1.5,
-            color: AppColor.c14174B,
-            margin: EdgeInsets.only(top: 16, bottom: 8),
-          ),
+          ).marginOnly(bottom: 5),
+          Divider(thickness: 2, height: 20, color: AppColor.c33355a),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(Images.timeClock,
-                  height: 13, color: AppColor.cfc7171),
-              SizedBox(
-                width: 10,
-              ),
+                      width: 13, height: 13, color: AppColor.cfc7171)
+                  .marginOnly(right: 10),
               Text(
                 item.getTime + ' - ' + dateFormat(item.day),
                 style: fontInter(12,
@@ -98,18 +102,16 @@ class CardSubjectView extends GetView<HomeController> {
                 overflow: TextOverflow.ellipsis,
               ),
             ],
-          ),
+          ).marginOnly(bottom: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
                 Images.place,
+                width: 13,
                 height: 13,
-              ),
-              SizedBox(
-                width: 10,
-              ),
+              ).marginOnly(right: 10),
               Text(
                 "Phòng ${item?.address ?? ""}",
                 style: fontInter(12,

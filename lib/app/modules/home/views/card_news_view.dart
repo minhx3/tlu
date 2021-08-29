@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,59 +10,63 @@ import 'package:thanglong_university/app/modules/home/controllers/home_controlle
 import 'package:thanglong_university/app/routes/app_pages.dart';
 
 class CardNewsView extends GetView<HomeController> {
+  final List<NewsModel> news;
+
+  CardNewsView(this.news);
+
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Padding(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Text("Tin tức - Sự kiện",
-                    style: fontInter(12,
-                        fontWeight: FontWeight.w600,
-                        color: AppColor.textColor)),
-              ),
-              Container(
-                height: 255,
-                child: PageView.builder(
-                  onPageChanged: (index) {
-                    controller.setCard(index);
-                  },
-                  controller: PageController(
-                    viewportFraction: 0.8,
-                    initialPage: 0,
-                  ),
-                  // onTap: (index) {
-                  //   pushTo(Routes.DETAIL_NEW);
-                  // },
-                  itemBuilder: (BuildContext context, int index) {
-                    return cardContentView(
-                        controller.rxNewsList()[index], index);
-                  },
+    if (news.length == 0) return SizedBox();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          child: Text("Tin tức - Sự kiện",
+              style: fontInter(12,
+                  fontWeight: FontWeight.w600, color: AppColor.textColor)),
+        ).marginOnly(bottom: 5),
+        Container(
+          height: 260,
+          child: PageView.builder(
+            onPageChanged: (index) {
+              controller.setCard(index);
+            },
+            controller: PageController(
+              viewportFraction: 0.85,
+              initialPage: 0,
+            ),
+            // onTap: (index) {
+            //   pushTo(Routes.DETAIL_NEW);
+            // },
+            itemBuilder: (BuildContext context, int index) {
+              return cardContentView(news[index], index);
+            },
 
-                  itemCount: controller.rxNewsList().length,
-                ),
-              ),
-            ],
+            itemCount: news.length,
           ),
-        ));
+        ),
+      ],
+    );
   }
 
   Widget cardContentView(NewsModel item, int index) {
     final f = new DateFormat('dd-MM-yyyy');
     // if (item.thumb == null) {
     //   if (item.imageDescription?.contains("http") == false)
-    //     controller.rxNewsList()[index].thumb = base64Decode(
+    //     news[index].thumb = base64Decode(
     //         item.imageDescription.replaceAll("data:image/jpeg;base64,", ""));
     // }
     return InkWell(
       onTap: () => pushTo(Routes.DETAIL_NEW, arguments: {"id": item.id}),
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+        margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 10),
         decoration: boxShadow.copyWith(boxShadow: [
-          BoxShadow(color: AppColor.subTextColor.withOpacity(0.8))
+          BoxShadow(
+            offset: Offset(0, 2),
+            blurRadius: 12,
+            color: Colors.black.withOpacity(0.05),
+          ),
         ], color: AppColor.whiteColor, borderRadius: BorderRadius.circular(5)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
