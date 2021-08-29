@@ -37,7 +37,7 @@ class ScheduleModel {
   String content;
   int startTime;
   int endTime;
-  String day;
+  DateTime day;
   String customerId;
   String subjectName;
   bool favourite;
@@ -56,7 +56,7 @@ class ScheduleModel {
     String content,
     int startTime,
     int endTime,
-    String day,
+    DateTime day,
     String customerId,
     String subjectName,
     bool favourite,
@@ -95,7 +95,7 @@ class ScheduleModel {
         content: json["content"] == null ? null : json["content"],
         startTime: json["startTime"] == null ? null : json["startTime"],
         endTime: json["endTime"] == null ? null : json["endTime"],
-        day: json["day"] == null ? null : json["day"],
+        day: json["day"] == null ? null :DateTime.parse(json["day"]) ,
         customerId: json["customerId"] == null ? null : json["customerId"],
         subjectName: json["subjectName"] == null ? null : json["subjectName"],
         favourite: json["favourite"] == null ? null : json["favourite"],

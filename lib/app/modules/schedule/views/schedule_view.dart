@@ -25,14 +25,16 @@ class ScheduleView extends GetView<ScheduleController> {
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                AppBarView(
-                  automaticallyImplyLeading: false,
-                  type: AppBarType.button,
-                  title: "Thời khóa biểu",
-                  iconLeading: Images.iconStar,
-                  iconTintColor: AppColor.cffb359,
-                ),
-
+                Obx(() => AppBarView(
+                      automaticallyImplyLeading: false,
+                      type: AppBarType.button,
+                      title: "Thời khóa biểu",
+                      iconLeading: Images.iconStar,
+                      onAction: ()=> controller.switchFilter(),
+                      iconTintColor: controller.isFilter.isTrue
+                          ? AppColor.cffb359
+                          : Colors.white,
+                    )),
                 HeaderView(),
                 Obx(() => Expanded(
                       child: Container(
@@ -55,8 +57,7 @@ class ScheduleView extends GetView<ScheduleController> {
                                     ? SizedBox()
                                     : SectionView(),
                                 Column(
-                                    children: controller
-                                        .listSchedule
+                                    children: controller.listSchedule
                                         .map((e) => ScheduleItemView(e))
                                         .toList()),
                               ],

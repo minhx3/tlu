@@ -47,7 +47,7 @@ class MonthView extends GetView<ScheduleController> {
                 (currentMonth == checkMonth && currentYear == checkYear);
 
             bool isHasEvent =
-                controller.listDateIsEvent.contains(date.day.toString()) &&
+                controller.listDateIsEvent.contains(date.day) &&
                     currentMonth == checkMonth;
             print('currentDayX' + controller.currentDayX().toString());
             bool isSelected = controller.currentDayX() == date.day &&

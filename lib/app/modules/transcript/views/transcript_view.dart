@@ -197,11 +197,11 @@ Widget transcripItem(TranscriptModel item, int index) {
             style: fontInter(14, fontWeight: FontWeight.w600),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 14),
             child: Text(
-              item?.gpa.toString() ?? '0',
+              item.gpa>0? item.gpa.toString(): '-',
               style: fontInter(14,
-                  fontWeight: FontWeight.w600, color: AppColor.c31B27C),
+                  fontWeight: FontWeight.w600, color:item.gpa>0? AppColor.c31B27C: AppColor.c404040),
             ),
           ),
           Image.asset(

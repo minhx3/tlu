@@ -59,7 +59,7 @@ class TestScheduleView extends GetView<TestScheduleController> {
 
   Container note() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 18),
+      padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

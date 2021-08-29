@@ -22,15 +22,21 @@ class ScheduleController extends AppController {
   final rxScheduleList = RxList<ScheduleModel>();
   StreamSubscription streamSubscription;
 
-  List<String> get listDateIsEvent =>
-      rxScheduleList().map((e) => e.day.split('-').first).toList();
 
-  List<ScheduleModel> get listScheduleByMonth => rxScheduleList
-      .where((e) => e.day.split('-').first == currentDayX().toString())
+
+  List<ScheduleModel> get rxScheduleListFilter => isFilter.isTrue
+      ? rxScheduleList.where((e) => e.favourite).toList()
+      : rxScheduleList();
+
+  List<int> get listDateIsEvent =>
+      rxScheduleListFilter.map((e) => e.day.day).toList();
+
+  List<ScheduleModel> get listScheduleByMonth => rxScheduleListFilter
+      .where((e) => e.day.day == currentDayX())
       .toList();
 
   List<ScheduleModel> get listSchedule =>
-      tagIndex() == 0 ? rxScheduleList() : listScheduleByMonth;
+      tagIndex() == 2 ? listScheduleByMonth: rxScheduleListFilter ;
 
   @override
   void onInit() {

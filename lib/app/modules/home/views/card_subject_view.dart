@@ -7,6 +7,7 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/schedule_model.dart';
 import 'package:thanglong_university/app/modules/home/controllers/home_controller.dart';
+import 'package:thanglong_university/app/utils/global_constants.dart';
 
 class CardSubjectView extends GetView<HomeController> {
   @override
@@ -90,7 +91,7 @@ class CardSubjectView extends GetView<HomeController> {
                 width: 10,
               ),
               Text(
-                item.getTime + ' - ' + item.day.replaceAll('-', '/'),
+                item.getTime + ' - ' + dateFormat(item.day),
                 style: fontInter(12,
                     fontWeight: FontWeight.w600, color: AppColor.cfc7171),
                 maxLines: 2,

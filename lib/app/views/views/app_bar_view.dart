@@ -319,6 +319,9 @@ class AppBarView extends StatelessWidget {
                               color: iconTintColor,
                             ),
                             onPressed: () {
+                              if(this.onAction!=null){
+                                return this.onAction();
+                              }
                               pushTo(Routes.NOTIFICATION);
                             },
                           )
