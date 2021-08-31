@@ -34,7 +34,7 @@ class ScheduleItemView extends GetView {
                 ),
                 Text(
                   "${item.getTime} ${item.getSession}",
-                  style: fontInter(14,
+                  style: fontInter(12,
                       color: Colors.red, fontWeight: FontWeight.w600),
                 )
               ],

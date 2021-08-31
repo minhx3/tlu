@@ -13,6 +13,7 @@ import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/user.dart';
 import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/tile.dart';
+import 'package:thanglong_university/app/modules/emoij/src/chooser.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
@@ -36,7 +37,14 @@ class ChatDetailView extends GetView<ChatDetailController> {
           child: Column(
             children: [
               Expanded(child: _ContentChatListView()),
-              BottomChatView()
+              BottomChatView(),
+              EmojiChooser(
+                rows: 2,
+                onSelected: (emoji) {
+                  print(emoji);
+                  // Navigator.of(subcontext).pop(emoji);
+                },
+              ),
             ],
           ),
         ),
@@ -170,7 +178,10 @@ class _CommonAttachmentView extends GetView<ChatDetailController> {
                     onPressed: () {
                       controller.showAttachment.toggle();
                     },
-                    icon: Icon(Icons.arrow_forward_ios_outlined, color: AppColor.subTextColor,),
+                    icon: Icon(
+                      Icons.arrow_forward_ios_outlined,
+                      color: AppColor.subTextColor,
+                    ),
                   ),
           )),
     );
@@ -199,30 +210,25 @@ class _InputChatView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
-            child: KeyboardVisibilityBuilder(
-              builder: (context, isKeyboardVisible) {
-                return TextField(
-                  focusNode: focusNode,
-                  controller: controller,
-                  decoration: InputDecoration(
-                    fillColor: Colors.transparent,
-                    border: InputBorder.none,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 6),
-                    isDense: true,
-                    filled: true,
-                  ),
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  minLines: 1,
-                  //maxLengthEnforced: true,
-                  maxLines: isKeyboardVisible ? null : 1,
-                  textInputAction: TextInputAction.send,
-                  keyboardType: TextInputType.text,
-                  style: fontInter(14),
-                );
-              },
+              child: TextField(
+            focusNode: focusNode,
+            controller: controller,
+            decoration: InputDecoration(
+              fillColor: Colors.transparent,
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.symmetric(vertical: 6),
+              isDense: true,
+              filled: true,
             ),
-          ),
+            enableSuggestions: false,
+            autocorrect: false,
+            minLines: 1,
+            //maxLengthEnforced: true,
+            maxLines: 1,
+            textInputAction: TextInputAction.send,
+            keyboardType: TextInputType.text,
+            style: fontInter(14),
+          )),
           IconButton(
               icon: Image.asset(
                 Images.icEmoj,

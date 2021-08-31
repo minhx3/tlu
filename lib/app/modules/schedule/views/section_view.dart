@@ -5,15 +5,18 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/modules/schedule/controllers/schedule_controller.dart';
 
 class SectionView extends GetView<ScheduleController> {
+  final DateTime d;
+  SectionView(this.d);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      padding: EdgeInsets.only(top: 16, bottom: 5),
       alignment: Alignment.center,
       child: Text(
-        controller.getSectionDay(DateTime.now()),
+        controller.getSectionDay(d),
         style:
-            fontInter(16, color: AppColor.c666666, fontWeight: FontWeight.w600),
+            fontInter(14, color: AppColor.c666666, fontWeight: FontWeight.w600),
       ),
     );
   }

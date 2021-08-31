@@ -38,6 +38,7 @@ class ChatController extends GetxController {
   void onInit() {
     super.onInit();
     getGroup();
+    getGroupArchive();
   }
 
   @override
@@ -56,10 +57,10 @@ class ChatController extends GetxController {
   }
 
   getGroupArchive() async {
-    showArchive.toggle();
-    if (showArchive.isTrue) {
-      return;
-    }
+    // showArchive.toggle();
+    // if (showArchive.isTrue) {
+    //   return;
+    // }
     try {
       List<SubjectClassEntity> res =
           await Appclient.shared.getSubjectClassList(false);

@@ -1,0 +1,2 @@
+library emoji_chooser;
+

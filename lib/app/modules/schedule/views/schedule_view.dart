@@ -30,7 +30,7 @@ class ScheduleView extends GetView<ScheduleController> {
                       type: AppBarType.button,
                       title: "Thời khóa biểu",
                       iconLeading: Images.iconStar,
-                      onAction: ()=> controller.switchFilter(),
+                      onAction: () => controller.switchFilter(),
                       iconTintColor: controller.isFilter.isTrue
                           ? AppColor.cffb359
                           : Colors.white,
@@ -52,15 +52,15 @@ class ScheduleView extends GetView<ScheduleController> {
                                 ? MonthView()
                                 : SizedBox(),
                             Column(
-                              children: [
-                                controller.tagIndex() == 0
-                                    ? SizedBox()
-                                    : SectionView(),
-                                Column(
-                                    children: controller.listSchedule
-                                        .map((e) => ScheduleItemView(e))
-                                        .toList()),
-                              ],
+                              children: controller
+                                  .listScheduleGroupByDate.entries
+                                  .map((e) => Column(children: [
+                                        SectionView(DateTime.parse(e.key)),
+                                        ...e.value
+                                            .map((f) => ScheduleItemView(f))
+                                            .toList()
+                                      ]))
+                                  .toList(),
                             )
                           ],
                         ),

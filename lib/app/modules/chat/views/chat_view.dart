@@ -60,7 +60,7 @@ class ChatView extends GetView<ChatController> {
                           ? 'Ẩn lưu trữ'
                           : 'Xem lưu trữ',
                       onTap: () {
-                        controller.getGroupArchive();
+                        controller.showArchive.toggle();
                       },
                     )),
                 Obx(() => controller.showArchive.isTrue

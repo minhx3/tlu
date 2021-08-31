@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:collection/collection.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:thanglong_university/app/configuration/base/app_controller.dart';
@@ -22,8 +23,6 @@ class ScheduleController extends AppController {
   final rxScheduleList = RxList<ScheduleModel>();
   StreamSubscription streamSubscription;
 
-
-
   List<ScheduleModel> get rxScheduleListFilter => isFilter.isTrue
       ? rxScheduleList.where((e) => e.favourite).toList()
       : rxScheduleList();
@@ -31,12 +30,14 @@ class ScheduleController extends AppController {
   List<int> get listDateIsEvent =>
       rxScheduleListFilter.map((e) => e.day.day).toList();
 
-  List<ScheduleModel> get listScheduleByMonth => rxScheduleListFilter
-      .where((e) => e.day.day == currentDayX())
-      .toList();
+  List<ScheduleModel> get listScheduleByMonth =>
+      rxScheduleListFilter.where((e) => e.day.day == currentDayX()).toList();
 
   List<ScheduleModel> get listSchedule =>
-      tagIndex() == 2 ? listScheduleByMonth: rxScheduleListFilter ;
+      tagIndex() == 2 ? listScheduleByMonth : rxScheduleListFilter;
+
+  Map<String, List<ScheduleModel>> get listScheduleGroupByDate =>
+      groupBy(listSchedule, (e) => e.day.toString());
 
   @override
   void onInit() {
@@ -95,12 +96,12 @@ class ScheduleController extends AppController {
   setCurrentDay(int value) => currentDayX(value);
 
   String getToday() {
-    final dateFormat = DateFormat("dd/MM/yyyy");
+    final dateFormat = DateFormat("yyyy-MM-dd");
     return dateFormat.format(DateTime.now());
   }
 
   String getWeekDay({int day}) {
-    final dateFormat = DateFormat("dd/MM/yyyy");
+    final dateFormat = DateFormat("yyyy-MM-dd");
     if (day != null) currentDate = currentDate.add(Duration(days: day));
     fromDate = dateFormat.format(getFirstDateOfTheWeek(currentDate));
     toDate = dateFormat.format(getLastDateOfTheWeek(currentDate));
@@ -120,7 +121,7 @@ class ScheduleController extends AppController {
           : getLastDayOfMonth(currentDate).add(Duration(days: day));
       currentDate = newDay;
     }
-    final dateFormat = DateFormat("dd/MM/yyyy");
+    final dateFormat = DateFormat("yyyy-MM-dd");
     fromDate = dateFormat.format(getFirstDayOfMonth(currentDate));
     toDate = dateFormat.format(getLastDayOfMonth(currentDate));
     return "${getFirstDayOfMonth(currentDate).month}-${getFirstDayOfMonth(currentDate).year}";
