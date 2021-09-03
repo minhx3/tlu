@@ -4,6 +4,7 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
 
+@deprecated
 class ItemGroupTimeTableBySubjectView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

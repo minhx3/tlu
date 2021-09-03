@@ -16,12 +16,11 @@ class LabelValueInfoView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 34,
+    return IntrinsicHeight(
       child: Row(
         children: [
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -41,11 +40,8 @@ class LabelValueInfoView extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
-            width: 15,
-          ),
           VerticalDivider(
-            width: 1,
+            width: 30,
             thickness: 1,
             color: isHozSeparated ? AppColor.lineColor : Colors.transparent,
           )

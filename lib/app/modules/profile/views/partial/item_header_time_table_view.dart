@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 
+@deprecated
 class HeaderTimeTableView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

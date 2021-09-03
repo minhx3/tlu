@@ -46,6 +46,8 @@ class IndexView extends GetView<IndexController> {
                     ],
                   ),
                   bottomNavigationBar: BottomNavigationBar(
+                    selectedFontSize: 0,
+                    iconSize: 0,
                     onTap: controller.setTab,
                     type: BottomNavigationBarType.fixed,
                     items: controller.tabsList.map((e) {
@@ -74,8 +76,9 @@ class IndexView extends GetView<IndexController> {
                                 ? e.iconSelected
                                 : e.icon,
                             type: e.type ?? Type.assets,
-                            width: 24,
-                            height: 24,
+                            fit: BoxFit.contain,
+                            width: 25,
+                            height: 25,
                             color: index == controller.rxTabIndex()
                                 ? AppColor.iconTabSelected
                                 : AppColor.iconTabUnSelected,

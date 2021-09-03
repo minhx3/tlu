@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
+import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/view_state.dart';
 import 'package:thanglong_university/app/modules/notification/views/notification_item_view.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
@@ -24,13 +25,20 @@ class NotificationView extends GetView<NotificationController> {
               () => Expanded(
                 child: controller.rxViewState() == ViewState.loading
                     ? Center(child: CircularProgressIndicator()).marginAll(30)
-                    : ListView(
-                        padding: EdgeInsets.zero,
-                        children: (controller.rxNotifications() ?? [])
-                            .map((notification) => NotificationItemView(
-                                  notification: notification,
-                                ))
-                            .toList()),
+                    : (controller.rxNotifications().length == 0
+                        ? Text(
+                            "Chưa có thông báo nào dành cho bạn.",
+                            style: fontInter(12,
+                                fontStyle: FontStyle.italic,
+                                color: AppColor.cbfbfbf),
+                          ).paddingAll(30)
+                        : ListView(
+                            padding: EdgeInsets.zero,
+                            children: (controller.rxNotifications() ?? [])
+                                .map((notification) => NotificationItemView(
+                                      notification: notification,
+                                    ))
+                                .toList())),
               ),
             )
           ],

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
+import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
+import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
 import 'package:thanglong_university/app/views/views/value_box_view.dart';
 
@@ -16,7 +19,11 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
   Widget build(BuildContext context) {
     return PressableView(
       backgroundColor: Colors.transparent,
-      onPressed: onPressed,
+      onPressed: onPressed ??
+          () {
+            ChatCrud.instance.userViewMessage(item.groupId);
+            pushTo(Routes.CHAT_DETAIL, arguments: item);
+          },
       child: Container(
         height: 68,
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),

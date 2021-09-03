@@ -16,7 +16,7 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.whiteColor,
-      body: isTeacher ? _TeacherProfileView() : studentProfileView(),
+      body: isTeacher ? teacherProfileView() : studentProfileView(),
     );
   }
 
@@ -35,29 +35,46 @@ class ProfileView extends GetView<ProfileController> {
       );
     });
   }
-}
 
-class _TeacherProfileView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.only(top: Get.mediaQuery.padding.top, bottom: 20),
-      itemBuilder: (context, index) {
-        if (index == 0) {
-          return HeaderInfoTeacherView(isAllowEdit: false);
-        } else if (index == 1) {
-          return HeaderTimeTableView();
-        } else if (index == 5 - 1) {
-          return _ReadMoreTimeTableLastPeriodView();
-        } else {
-          return ItemGroupTimeTableBySubjectView();
-        }
-      },
-      itemCount: 5,
-    );
+  teacherProfileView() {
+    return Obx(() {
+      UserInfo userInfo = controller.rxUserInfo();
+      return ListView(
+        padding: EdgeInsets.only(top: Get.mediaQuery.padding.top, bottom: 20),
+        children: [
+          HeaderInfoTeacherView(
+            isAllowEdit: true,
+            user: userInfo,
+          ),
+          SettingsStudentSectionView(userSettings: controller.rxUserSetting())
+        ],
+      );
+    });
   }
 }
 
+// class _TeacherProfileView extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListView.builder(
+//       padding: EdgeInsets.only(top: Get.mediaQuery.padding.top, bottom: 20),
+//       itemBuilder: (context, index) {
+//         if (index == 0) {
+//           return HeaderInfoTeacherView(isAllowEdit: false);
+//         } else if (index == 1) {
+//           return HeaderTimeTableView();
+//         } else if (index == 5 - 1) {
+//           return _ReadMoreTimeTableLastPeriodView();
+//         } else {
+//           return ItemGroupTimeTableBySubjectView();
+//         }
+//       },
+//       itemCount: 5,
+//     );
+//   }
+// }
+
+@deprecated
 class _ReadMoreTimeTableLastPeriodView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
