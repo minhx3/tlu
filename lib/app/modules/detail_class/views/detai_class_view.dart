@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
-import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/configuration/constant/view_state.dart';
+import 'package:thanglong_university/app/configuration/extension/int.dart';
 import 'package:thanglong_university/app/enums/subject_class_status.dart';
 import 'package:thanglong_university/app/modules/subject_list_cart/controllers/subject_list_cart_controller.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/controllers/subject_list_term_controller.dart';
 import 'package:thanglong_university/app/modules/task/views/teacher_item_view.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
-import 'package:thanglong_university/app/configuration/extension/int.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 
 import '../controllers/detai_class_controller.dart';
@@ -23,7 +21,9 @@ import '../controllers/detai_class_controller.dart';
 class DetaiClassView extends GetView<DetaiClassController> {
   @override
   Widget build(BuildContext context) {
-    bool isEducation = Get.arguments['isEducation'] != null;
+    bool isStudying = Get.arguments['type'] == 'studying';
+    bool isStudied = Get.arguments['type'] == 'studied';
+    bool isEdu = isStudying || isStudied;
     return AppContainer(
       systemUiOverlayStyle: SystemUiOverlayStyle.light,
       child: Scaffold(
@@ -34,7 +34,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
               title: "Chi tiết lớp",
               type: AppBarType.white,
               iconSize: 50,
-              iconLeading: isEducation ? null : Images.plus,
+              iconLeading: isEdu ? null : Images.plus,
               iconTintColor: AppColor.cfc2626,
               onAction: () {
                 registerSubjectClass();
@@ -145,12 +145,14 @@ class DetaiClassView extends GetView<DetaiClassController> {
                                     fontWeight: FontWeight.normal,
                                     color: AppColor.black)),
                           ),
-                          ButtonView(
-                            title: "Đăng ký học",
-                            onTap: () {
-                              registerSubjectClass();
-                            },
-                          ).marginOnly(top: 16),
+                          isEdu
+                              ? SizedBox.shrink()
+                              : ButtonView(
+                                  title: "Đăng ký học",
+                                  onTap: () {
+                                    registerSubjectClass();
+                                  },
+                                ).marginOnly(top: 16),
                         ],
                       ),
               );

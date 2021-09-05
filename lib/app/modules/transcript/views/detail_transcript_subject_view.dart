@@ -108,7 +108,7 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
         await Appclient.shared.getSubjectsClassById(item?.subjectClassId);
 
     pushTo(Routes.DETAI_CLASS,
-        arguments: {"id": item?.subjectClassId, 'data': subjectClassData, 'isEducation': true});
+        arguments: {"id": item?.subjectClassId, 'data': subjectClassData, 'type': 'studying'});
   }
 
   Widget section(title, ScoreDetailEntity score) {
