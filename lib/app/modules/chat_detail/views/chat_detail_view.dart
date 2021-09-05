@@ -10,6 +10,7 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
+import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user.dart';
 import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/tile.dart';
@@ -30,6 +31,7 @@ class ChatDetailView extends GetView<ChatDetailController> {
       },
       child: Scaffold(
         appBar: _AppBarView(
+          cg: controller.cg,
           title: controller.cg.id,
         ),
         backgroundColor: AppColor.chatBackground,
@@ -59,8 +61,9 @@ class ChatDetailView extends GetView<ChatDetailController> {
 
 class _AppBarView extends StatelessWidget with PreferredSizeWidget {
   final String title;
+  final SubjectClassEntity cg;
 
-  const _AppBarView({Key key, @required this.title}) : super(key: key);
+  const _AppBarView({Key key, @required this.title,  this.cg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +81,7 @@ class _AppBarView extends StatelessWidget with PreferredSizeWidget {
               height: 25,
             ),
             onPressed: () {
-              pushTo(Routes.CHAT_GROUP_INFO);
+              pushTo(Routes.CHAT_GROUP_INFO, arguments: cg);
             },
           ),
         ],

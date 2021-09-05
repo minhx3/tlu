@@ -4,6 +4,7 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
+import 'package:thanglong_university/app/modules/chat_group_info/controllers/chat_group_info_controller.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/views/partial/info_student_group.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/views/partial/item_chat_group_view.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/views/partial/item_info_admin_view.dart';
@@ -11,7 +12,7 @@ import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/image_view.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
 
-class ChatGroupInfoView extends GetView<ChatDetailController> {
+class ChatGroupInfoView extends GetView<ChatGroupInfoController> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -107,7 +108,7 @@ class _EnterChatView extends StatelessWidget {
 /// Tìm kiếm
 /// Role: Giảng viên
 ///
-class _SearchBoxView extends StatelessWidget {
+class _SearchBoxView extends GetView<ChatGroupInfoController> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -134,13 +135,15 @@ class _SearchBoxView extends StatelessWidget {
               child: TextField(
             maxLines: 1,
             style: fontInter(12, fontWeight: FontWeight.w500),
+            controller: controller.searchCtrl,
             decoration: InputDecoration(
                 fillColor: Colors.transparent,
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.zero,
                 isDense: true,
                 hintText: 'Tìm kiếm',
-                hintStyle: fontInter(12, fontWeight: FontWeight.w500, color: AppColor.subTextColor)),
+                hintStyle: fontInter(12,
+                    fontWeight: FontWeight.w500, color: AppColor.subTextColor)),
           )),
         ],
       ),

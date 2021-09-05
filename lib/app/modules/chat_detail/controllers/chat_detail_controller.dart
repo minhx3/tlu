@@ -13,15 +13,18 @@ import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/service/notification.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
+import 'package:tiengviet/tiengviet.dart';
 
 class ChatDetailController extends GetxController {
   FocusNode focusNode;
   final _hasFocus = false.obs;
 
   RxList<UserEntity> u = RxList();
+  RxList<UserEntity> uf = RxList();
 
   bool get hasFocus => _hasFocus.value;
   final TextEditingController tec = TextEditingController();
+  final TextEditingController searchCtrl = TextEditingController();
   final list = <Chat>[].obs;
   final showAttachment = true.obs;
   final showEmoij = false.obs;
@@ -40,6 +43,8 @@ class ChatDetailController extends GetxController {
 
   @override
   void onInit() async {
+    super.onInit();
+
     await FirebaseMessaging.instance.subscribeToTopic(cg.groupId);
     list.bindStream(ChatCrud.instance.chatStream(cg.groupId));
     focusNode = FocusNode()
@@ -53,8 +58,6 @@ class ChatDetailController extends GetxController {
                   curve: Curves.fastLinearToSlowEaseIn,
                 ));
       });
-    super.onInit();
-    getListUser();
   }
 
   final _loading = false.obs;
@@ -68,7 +71,7 @@ class ChatDetailController extends GetxController {
   void getListUser() async {
     List<UserEntity> res = await Appclient.shared.getUserList(cg.groupId);
     UserEntity tec = UserEntity(
-        id: cg.teacher.id,
+        id: cg.teacher?.id,
         isTeacher: true,
         name: cg.teacher.fullName,
         mobile: cg.teacher.mobile,
@@ -77,6 +80,7 @@ class ChatDetailController extends GetxController {
         faculty: cg.teacher.faculty,
         teachingList: cg.teacher.teachingList);
     u([tec, ...res]);
+    uf([tec, ...res]);
   }
 
   Future<void> sendMessage({String img, String file, String fileName}) async {
@@ -87,7 +91,7 @@ class ChatDetailController extends GetxController {
       String uidFrom = getUserId;
       await ChatCrud.instance.sendNewChat(
           chat: Chat(
-              type: file!=null? 'attachment': getType(),
+              type: file != null ? 'attachment' : getType(),
               replyId: messageReply()?.id,
               replyText: messageReply()?.text,
               replyUserId: messageReply()?.uidFrom,
@@ -146,7 +150,7 @@ class ChatDetailController extends GetxController {
   }
 
   UserEntity getUserById(id) {
-    return u().firstWhere((element) => element.id == id, orElse: () => null);
+    return u().firstWhere((element) => element?.id == id, orElse: () => null);
   }
 
   Future<PickedFile> pickFile(
@@ -196,5 +200,18 @@ class ChatDetailController extends GetxController {
       print(e);
       // TODO
     }
+  }
+
+  filterList() {
+    String keyword = searchCtrl.text;
+    if (u.isEmpty || keyword.isEmpty) return;
+
+    String search = TiengViet.parse(keyword).toLowerCase();
+    var data = u.where((trans) {
+      String title = TiengViet.parse(trans.name).toLowerCase();
+      return title.contains(search);
+    }).toList();
+
+    uf(data);
   }
 }

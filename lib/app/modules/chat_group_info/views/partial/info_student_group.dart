@@ -5,6 +5,7 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
+import 'package:thanglong_university/app/modules/chat_group_info/controllers/chat_group_info_controller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
 import 'package:thanglong_university/app/views/views/value_box_view.dart';
@@ -12,7 +13,7 @@ import 'package:thanglong_university/app/views/views/value_box_view.dart';
 ///
 /// Nhóm sinh viên: role chung
 ///
-class StudentGroupView extends GetView<ChatDetailController> {
+class StudentGroupView extends GetView<ChatGroupInfoController> {
   final String groupName;
 
   const StudentGroupView({Key key, @required this.groupName}) : super(key: key);
@@ -49,7 +50,7 @@ class StudentGroupView extends GetView<ChatDetailController> {
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (c, index) {
-                UserEntity user = controller.u()[index];
+                UserEntity user = controller.uf()[index];
                 return _ItemStudentView(
                   user: user,
                   onPressed: () {
@@ -57,7 +58,7 @@ class StudentGroupView extends GetView<ChatDetailController> {
                   },
                 );
               },
-              itemCount: controller.u().length,
+              itemCount: controller.uf().length,
               separatorBuilder: (BuildContext context, int index) {
                 return Divider(
                   thickness: 1,
@@ -117,7 +118,7 @@ class _ItemStudentView extends StatelessWidget {
                   Row(
                     children: [
                       ValueBoxView(
-                        text: user.id,
+                        text: user?.id,
                       ),
                       SizedBox(
                         width: 6,

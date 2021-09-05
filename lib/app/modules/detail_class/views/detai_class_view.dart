@@ -23,6 +23,7 @@ import '../controllers/detai_class_controller.dart';
 class DetaiClassView extends GetView<DetaiClassController> {
   @override
   Widget build(BuildContext context) {
+    bool isEducation = Get.arguments['isEducation'] != null;
     return AppContainer(
       systemUiOverlayStyle: SystemUiOverlayStyle.light,
       child: Scaffold(
@@ -33,7 +34,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
               title: "Chi tiết lớp",
               type: AppBarType.white,
               iconSize: 50,
-              iconLeading: Images.plus,
+              iconLeading: isEducation ? null : Images.plus,
               iconTintColor: AppColor.cfc2626,
               onAction: () {
                 registerSubjectClass();

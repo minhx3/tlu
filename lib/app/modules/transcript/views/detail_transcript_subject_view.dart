@@ -6,10 +6,12 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/model/score_detail_entity.dart';
 import 'package:thanglong_university/app/model/transcript_model.dart';
 import 'package:thanglong_university/app/modules/transcript/controllers/transcript_controller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
+import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 
@@ -76,10 +78,7 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
                       title: "Chi tiết môn",
                       type: ButtonType.outline,
                       horizontalSpacing: 16,
-                      onTap: () {
-                        pushTo(Routes.DETAI_CLASS,
-                            arguments: {"id": item?.subjectClassId});
-                      },
+                      onTap: pushToDetailClass,
                     )
                   ],
                 ),
@@ -102,6 +101,14 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
         ),
       ),
     );
+  }
+
+  pushToDetailClass() async {
+    RegisterSubjectEntity subjectClassData =
+        await Appclient.shared.getSubjectsClassById(item?.subjectClassId);
+
+    pushTo(Routes.DETAI_CLASS,
+        arguments: {"id": item?.subjectClassId, 'data': subjectClassData, 'isEducation': true});
   }
 
   Widget section(title, ScoreDetailEntity score) {
