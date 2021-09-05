@@ -89,9 +89,9 @@ class _EmojiChooserState extends State<EmojiChooser> {
     Category.FOODS,
     Category.ACTIVITIES,
     Category.TRAVEL,
-    Category.OBJECTS,
-    Category.SYMBOLS,
-    Category.FLAGS,
+    // Category.OBJECTS,
+    // Category.SYMBOLS,
+    // Category.FLAGS,
   ];
 
   int _skin = 0;
@@ -163,9 +163,9 @@ class _EmojiChooserState extends State<EmojiChooser> {
         pageController = PageController(initialPage: 0);
         break;
     }
-    pageController.addListener(() {
-      setState(() {});
-    });
+    // pageController.addListener(() {
+    //   setState(() {});
+    // });
 
     List<Widget> pages = [];
     List<Widget> selectors = [];
@@ -215,26 +215,26 @@ class _EmojiChooserState extends State<EmojiChooser> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                selectedGroup.title.toUpperCase(),
-                style: TextStyle(
-                  color: Theme.of(context).primaryTextTheme.caption.color,
-                  fontSize: 12,
-                ),
-              ),
-            ],
-          ),
-          padding: EdgeInsets.fromLTRB(
-            10.0,
-            10.0,
-            10.0,
-            4.0,
-          ),
-        ),
+        // Padding(
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //     children: [
+        //       Text(
+        //         selectedGroup.title.toUpperCase(),
+        //         style: TextStyle(
+        //           color: Theme.of(context).primaryTextTheme.caption.color,
+        //           fontSize: 12,
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        //   padding: EdgeInsets.fromLTRB(
+        //     10.0,
+        //     10.0,
+        //     10.0,
+        //     4.0,
+        //   ),
+        // ),
         SizedBox(
           width: MediaQuery.of(context).size.width,
           height: (MediaQuery.of(context).size.width / widget.columns) *
@@ -291,13 +291,13 @@ class _EmojiChooserState extends State<EmojiChooser> {
             },
           ),
         ),
-        Container(
-          /* Category PICKER */
-          height: 50,
-          child: Row(
-            children: selectors,
-          ),
-        ),
+        // Container(
+        //   /* Category PICKER */
+        //   height: 50,
+        //   child: Row(
+        //     children: selectors,
+        //   ),
+        // ),
       ],
     );
   }

@@ -24,6 +24,7 @@ class ChatDetailController extends GetxController {
   final TextEditingController tec = TextEditingController();
   final list = <Chat>[].obs;
   final showAttachment = true.obs;
+  final showEmoij = false.obs;
 
   final ScrollController scrollController = ScrollController();
 

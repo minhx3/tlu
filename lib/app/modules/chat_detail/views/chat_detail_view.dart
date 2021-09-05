@@ -38,13 +38,17 @@ class ChatDetailView extends GetView<ChatDetailController> {
             children: [
               Expanded(child: _ContentChatListView()),
               BottomChatView(),
-              EmojiChooser(
-                rows: 2,
-                onSelected: (emoji) {
-                  print(emoji);
-                  // Navigator.of(subcontext).pop(emoji);
-                },
-              ),
+              Obx(() => controller.showEmoij.isTrue
+                  ? EmojiChooser(
+                      rows: 2,
+                      onSelected: (emoji) {
+                        controller.tec.value = TextEditingValue(
+                            text: controller.tec.text + emoji.char,
+                            selection: TextSelection.fromPosition(TextPosition(
+                                offset: controller.tec.text.length + 2)));
+                      },
+                    )
+                  : SizedBox.shrink()),
             ],
           ),
         ),
@@ -121,6 +125,7 @@ class BottomChatView extends GetView<ChatDetailController> {
                         child: _InputChatView(
                       controller: controller.tec,
                       focusNode: controller.focusNode,
+                      toogleEmoij: () => controller.showEmoij.toggle(),
                     )),
                     IconButton(
                       icon: Image.asset(
@@ -191,12 +196,11 @@ class _CommonAttachmentView extends GetView<ChatDetailController> {
 class _InputChatView extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
+  final Function toogleEmoij;
 
-  const _InputChatView({
-    Key key,
-    @required this.controller,
-    this.focusNode,
-  }) : super(key: key);
+  const _InputChatView(
+      {Key key, @required this.controller, this.focusNode, this.toogleEmoij})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -237,7 +241,9 @@ class _InputChatView extends StatelessWidget {
                 color: Color(0xFFBFBFBF),
                 fit: BoxFit.fill,
               ),
-              onPressed: () {})
+              onPressed: () {
+                toogleEmoij();
+              })
         ],
       ),
     );
