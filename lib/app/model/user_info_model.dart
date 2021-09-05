@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:thanglong_university/app/model/chat/base_model.dart';
+import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/university_model.dart';
 
 class UserInfo extends UserModel {
@@ -12,12 +13,14 @@ class UserInfo extends UserModel {
     this.mobile,
     this.fullName,
     this.schoolYear,
+    this.faculty,
     this.username,
     this.password,
     this.id,
     this.majorsInfo,
     this.universityInfo,
     this.semesters,
+    this.teachingList,
   }) {
     this.name = this.fullName;
     this.majors = this.majorsInfo?.fullName;
@@ -30,6 +33,7 @@ class UserInfo extends UserModel {
   String email;
   String mobile;
   String fullName;
+  String faculty;
   String schoolYear;
   String username;
   String password;
@@ -37,11 +41,16 @@ class UserInfo extends UserModel {
   MajorsInfo majorsInfo;
   UniversityInfo universityInfo;
   List<Semester> semesters;
+  List<SubjectClassTeacherTeachingList> teachingList;
 
-  factory UserInfo.fromRawJson(String str) =>
-      UserInfo.fromJson(json.decode(str));
+  // factory UserInfo.fromRawJson(String str) =>
+  //     UserInfo.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+  // String toRawJson() => json.encode(toJson());
+
+  String get getTeaching {
+    return teachingList.map((e) => e.name).join(', ');
+  }
 
   factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
         avatar: json["avatar"] == null ? null : json["avatar"],
@@ -53,6 +62,7 @@ class UserInfo extends UserModel {
         mobile: json["mobile"] == null ? null : json["mobile"],
         fullName: json["fullName"] == null ? null : json["fullName"],
         schoolYear: json["schoolYear"] == null ? null : json["schoolYear"],
+        faculty: json["faculty"] == null ? null : json["faculty"],
         username: json["username"] == null ? null : json["username"],
         password: json["password"] == null ? null : json["password"],
         id: json["id"] == null ? null : json["id"],
@@ -66,6 +76,11 @@ class UserInfo extends UserModel {
             ? null
             : List<Semester>.from(
                 json["semesters"].map((x) => Semester.fromJson(x))),
+        teachingList: json["teachingList"] == null
+            ? null
+            : (json['teachingList'] as List)
+                .map((v) => SubjectClassTeacherTeachingList().fromJson(v))
+                .toList(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,6 +90,7 @@ class UserInfo extends UserModel {
         "email": email == null ? null : email,
         "mobile": mobile == null ? null : mobile,
         "fullName": fullName == null ? null : fullName,
+        "faculty": faculty == null ? null : faculty,
         "schoolYear": schoolYear == null ? null : schoolYear,
         "username": username == null ? null : username,
         "password": password == null ? null : password,
@@ -85,6 +101,9 @@ class UserInfo extends UserModel {
         "semesters": semesters == null
             ? null
             : List<dynamic>.from(semesters.map((x) => x.toJson())),
+        "teachingList": teachingList == null
+            ? null
+            : List<dynamic>.from(teachingList.map((x) => x.toJson())),
       };
 }
 

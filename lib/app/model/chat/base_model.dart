@@ -15,4 +15,5 @@ abstract class UserModel {
   String degree;
   String faculty; // khoa
   String schoolYear; // khóa học
+  String get getTeaching;
 }

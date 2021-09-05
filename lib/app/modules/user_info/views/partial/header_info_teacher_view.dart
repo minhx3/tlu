@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
-import 'package:thanglong_university/app/model/chat/user_entity.dart';
+import 'package:thanglong_university/app/model/chat/base_model.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/avatar_user_name_view.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/item_info_view.dart';
 
 class HeaderInfoTeacherView extends StatelessWidget {
   final bool isAllowEdit;
-  final UserEntity user;
+  final UserModel user;
 
   const HeaderInfoTeacherView({Key key, this.isAllowEdit = false, this.user})
       : super(key: key);
@@ -15,7 +15,7 @@ class HeaderInfoTeacherView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColor.whiteColor,
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -39,6 +39,7 @@ class HeaderInfoTeacherView extends StatelessWidget {
           ItemInfoView(
             label: 'Môn học giảng dạy:',
             value: user?.getTeaching ?? '',
+            lineBreak: false,
           ),
         ],
       ),

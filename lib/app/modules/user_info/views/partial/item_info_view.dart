@@ -5,8 +5,13 @@ import 'package:thanglong_university/app/modules/user_info/views/partial/label_v
 class ItemInfoView extends StatelessWidget {
   final String label;
   final String value;
+  final bool lineBreak;
 
-  const ItemInfoView({Key key, @required this.label, @required this.value})
+  const ItemInfoView(
+      {Key key,
+      @required this.label,
+      @required this.value,
+      this.lineBreak = true})
       : super(key: key);
 
   @override
@@ -25,10 +30,12 @@ class ItemInfoView extends StatelessWidget {
         SizedBox(
           height: 12,
         ),
-        Divider(
-          height: 1,
-          color: AppColor.lineSectionColor,
-        ),
+        this.lineBreak
+            ? Divider(
+                height: 1,
+                color: AppColor.lineSectionColor,
+              )
+            : SizedBox(),
       ],
     );
   }

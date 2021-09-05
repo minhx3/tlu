@@ -49,7 +49,7 @@ class _CommonInfoView extends StatelessWidget {
           height: 26,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             LabelValueInfoView(
               label: 'Khoá:',
