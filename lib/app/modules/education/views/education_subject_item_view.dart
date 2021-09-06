@@ -5,19 +5,35 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
+import 'package:thanglong_university/app/model/score_detail_entity.dart';
+import 'package:thanglong_university/app/modules/transcript/views/detail_transcript_subject_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
+import 'package:thanglong_university/app/service/api/app_client.dart';
 
 class EducationSubjectItemView extends GetView {
   final RegisterSubjectEntity item;
   final double space;
+  final bool isCurrent;
 
-  EducationSubjectItemView({this.item, this.space = 5});
+  EducationSubjectItemView({this.item, this.space = 5, this.isCurrent = false});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        pushTo(Routes.DETAI_CLASS, arguments: {"id": item.id, "data": item});
+      onTap: () async {
+        if (isCurrent) {
+          pushTo(Routes.DETAI_CLASS, arguments: {
+            "id": item.id,
+            "data": item,
+            'type': ClassDetailType.studying
+          });
+        } else {
+          List<ScoreDetailEntity> res =
+              await Appclient.shared.getTrascriptById(item.id);
+          if (res != null) {
+            // Get.dialog(DetailTranscriptSubjectView(item, res));
+          }
+        }
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -88,7 +104,9 @@ class EducationSubjectItemView extends GetView {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 4,),
+                SizedBox(
+                  height: 4,
+                ),
                 Text(
                   subTitle,
                   maxLines: 2,

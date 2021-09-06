@@ -11,6 +11,7 @@ import 'package:thanglong_university/app/enums/subject_class_status.dart';
 import 'package:thanglong_university/app/modules/subject_list_cart/controllers/subject_list_cart_controller.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/controllers/subject_list_term_controller.dart';
 import 'package:thanglong_university/app/modules/task/views/teacher_item_view.dart';
+import 'package:thanglong_university/app/modules/transcript/views/detail_transcript_subject_view.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
@@ -21,8 +22,8 @@ import '../controllers/detai_class_controller.dart';
 class DetaiClassView extends GetView<DetaiClassController> {
   @override
   Widget build(BuildContext context) {
-    bool isStudying = Get.arguments['type'] == 'studying';
-    bool isStudied = Get.arguments['type'] == 'studied';
+    bool isStudying = Get.arguments['type'] == ClassDetailType.studying;
+    bool isStudied = Get.arguments['type'] ==  ClassDetailType.studied;
     bool isEdu = isStudying || isStudied;
     return AppContainer(
       systemUiOverlayStyle: SystemUiOverlayStyle.light,

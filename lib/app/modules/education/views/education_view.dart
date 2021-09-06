@@ -94,6 +94,7 @@ class EducationView extends GetView<EducationController> {
                                         [])
                                     .map((item) => EducationSubjectItemView(
                                         item: item,
+                                        isCurrent: true,
                                         space: (controller
                                                             .rxMapSubjectList()
                                                             ?.values

@@ -15,6 +15,11 @@ import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 
+enum ClassDetailType {
+  studying,
+  studied
+}
+
 class DetailTranscriptSubjectView extends GetView<TranscriptController> {
   final TranscriptModel item;
   final List<ScoreDetailEntity> scores;
@@ -108,7 +113,7 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
         await Appclient.shared.getSubjectsClassById(item?.subjectClassId);
 
     pushTo(Routes.DETAI_CLASS,
-        arguments: {"id": item?.subjectClassId, 'data': subjectClassData, 'type': 'studying'});
+        arguments: {"id": item?.subjectClassId, 'data': subjectClassData, 'type': ClassDetailType.studying});
   }
 
   Widget section(title, ScoreDetailEntity score) {
