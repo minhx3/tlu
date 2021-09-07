@@ -168,9 +168,9 @@ class _SectionTranscriptState extends State<SectionTranscript> {
 Widget transcripItem(TranscriptModel item, int index) {
   return InkWell(
     onTap: () async {
-      List<ScoreDetailEntity> res = await Appclient.shared.getTrascriptById(item.id);
+      ScoreDetailEntity res = await Appclient.shared.getTrascriptById(item.id);
       if (res != null) {
-        Get.dialog(DetailTranscriptSubjectView(item, res));
+        Get.dialog(DetailTranscriptSubjectView(res));
       }
     },
     child: Container(

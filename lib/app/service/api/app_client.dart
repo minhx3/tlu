@@ -349,17 +349,13 @@ class Appclient {
     }
   }
 
-  Future<List<ScoreDetailEntity>> getTrascriptById(String id) async {
+  Future<ScoreDetailEntity> getTrascriptById(String id) async {
     final result =
         await TranningRouter(TranningEndpoint.getTrascriptById, joinPath: id)
             .call;
 
     if (result?.statusCode == 200) {
-      List<ScoreDetailEntity> list = [];
-      result.data.forEach((e) {
-        list.add(ScoreDetailEntity().fromJson(e));
-      });
-      return list;
+      return ScoreDetailEntity.fromJson(result.data);
     } else {
       return null;
     }

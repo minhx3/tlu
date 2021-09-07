@@ -9,14 +9,14 @@ import 'package:thanglong_university/app/model/teacher_entity.dart';
 import 'package:thanglong_university/generated/json/teacher_entity_helper.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/generated/json/register_subject_entity_helper.dart';
-import 'package:thanglong_university/app/model/score_detail_entity.dart';
-import 'package:thanglong_university/generated/json/score_detail_entity_helper.dart';
 import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/generated/json/chat_group_entity_helper.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/generated/json/user_entity_helper.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/generated/json/subject_class_entity_helper.dart';
+import 'package:thanglong_university/app/model/score_detail_entity1.dart';
+import 'package:thanglong_university/generated/json/score_detail_entity1_helper.dart';
 
 class JsonConvert<T> {
 	T fromJson(Map<String, dynamic> json) {
@@ -71,10 +71,6 @@ class JsonConvert<T> {
 				return registerSubjectSemesterFromJson(data as RegisterSubjectSemester, json) as T;
 			case RegisterSubjectSubject:
 				return registerSubjectSubjectFromJson(data as RegisterSubjectSubject, json) as T;
-			case ScoreDetailEntity:
-				return scoreDetailEntityFromJson(data as ScoreDetailEntity, json) as T;
-			case ScoreDetailListScoreDetail:
-				return scoreDetailListScoreDetailFromJson(data as ScoreDetailListScoreDetail, json) as T;
 			case ChatGroupEntity:
 				return chatGroupEntityFromJson(data as ChatGroupEntity, json) as T;
 			case UserEntity:
@@ -86,7 +82,11 @@ class JsonConvert<T> {
 			case SubjectClassTeacherTeachingList:
 				return subjectClassTeacherTeachingListFromJson(data as SubjectClassTeacherTeachingList, json) as T;
 			case SubjectClassSemester:
-				return subjectClassSemesterFromJson(data as SubjectClassSemester, json) as T;    }
+				return subjectClassSemesterFromJson(data as SubjectClassSemester, json) as T;
+			case ScoreDetailEntity1:
+				return scoreDetailEntity1FromJson(data as ScoreDetailEntity1, json) as T;
+			case ScoreDetailListScoreDetail:
+				return scoreDetailListScoreDetailFromJson(data as ScoreDetailListScoreDetail, json) as T;    }
 		return data as T;
 	}
 
@@ -134,10 +134,6 @@ class JsonConvert<T> {
 				return registerSubjectSemesterToJson(data as RegisterSubjectSemester);
 			case RegisterSubjectSubject:
 				return registerSubjectSubjectToJson(data as RegisterSubjectSubject);
-			case ScoreDetailEntity:
-				return scoreDetailEntityToJson(data as ScoreDetailEntity);
-			case ScoreDetailListScoreDetail:
-				return scoreDetailListScoreDetailToJson(data as ScoreDetailListScoreDetail);
 			case ChatGroupEntity:
 				return chatGroupEntityToJson(data as ChatGroupEntity);
 			case UserEntity:
@@ -150,6 +146,10 @@ class JsonConvert<T> {
 				return subjectClassTeacherTeachingListToJson(data as SubjectClassTeacherTeachingList);
 			case SubjectClassSemester:
 				return subjectClassSemesterToJson(data as SubjectClassSemester);
+			case ScoreDetailEntity1:
+				return scoreDetailEntity1ToJson(data as ScoreDetailEntity1);
+			case ScoreDetailListScoreDetail:
+				return scoreDetailListScoreDetailToJson(data as ScoreDetailListScoreDetail);
 			}
 			return data as T;
 		}
@@ -219,12 +219,6 @@ class JsonConvert<T> {
 		if(type == (RegisterSubjectSubject).toString()){
 			return RegisterSubjectSubject().fromJson(json);
 		}
-		if(type == (ScoreDetailEntity).toString()){
-			return ScoreDetailEntity().fromJson(json);
-		}
-		if(type == (ScoreDetailListScoreDetail).toString()){
-			return ScoreDetailListScoreDetail().fromJson(json);
-		}
 		if(type == (ChatGroupEntity).toString()){
 			return ChatGroupEntity().fromJson(json);
 		}
@@ -242,6 +236,12 @@ class JsonConvert<T> {
 		}
 		if(type == (SubjectClassSemester).toString()){
 			return SubjectClassSemester().fromJson(json);
+		}
+		if(type == (ScoreDetailEntity1).toString()){
+			return ScoreDetailEntity1().fromJson(json);
+		}
+		if(type == (ScoreDetailListScoreDetail).toString()){
+			return ScoreDetailListScoreDetail().fromJson(json);
 		}
 
 		return null;
@@ -312,12 +312,6 @@ class JsonConvert<T> {
 		if(<RegisterSubjectSubject>[] is M){
 			return data.map<RegisterSubjectSubject>((e) => RegisterSubjectSubject().fromJson(e)).toList() as M;
 		}
-		if(<ScoreDetailEntity>[] is M){
-			return data.map<ScoreDetailEntity>((e) => ScoreDetailEntity().fromJson(e)).toList() as M;
-		}
-		if(<ScoreDetailListScoreDetail>[] is M){
-			return data.map<ScoreDetailListScoreDetail>((e) => ScoreDetailListScoreDetail().fromJson(e)).toList() as M;
-		}
 		if(<ChatGroupEntity>[] is M){
 			return data.map<ChatGroupEntity>((e) => ChatGroupEntity().fromJson(e)).toList() as M;
 		}
@@ -335,6 +329,12 @@ class JsonConvert<T> {
 		}
 		if(<SubjectClassSemester>[] is M){
 			return data.map<SubjectClassSemester>((e) => SubjectClassSemester().fromJson(e)).toList() as M;
+		}
+		if(<ScoreDetailEntity1>[] is M){
+			return data.map<ScoreDetailEntity1>((e) => ScoreDetailEntity1().fromJson(e)).toList() as M;
+		}
+		if(<ScoreDetailListScoreDetail>[] is M){
+			return data.map<ScoreDetailListScoreDetail>((e) => ScoreDetailListScoreDetail().fromJson(e)).toList() as M;
 		}
 
 		throw Exception("not found");

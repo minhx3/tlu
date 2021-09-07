@@ -21,6 +21,9 @@ registerSubjectEntityFromJson(RegisterSubjectEntity data, Map<String, dynamic> j
 	if (json['id'] != null) {
 		data.id = json['id'].toString();
 	}
+	if (json['transciptId'] != null) {
+		data.transciptId = json['transciptId'].toString();
+	}
 	if (json['name'] != null) {
 		data.name = json['name'].toString();
 	}
@@ -83,6 +86,7 @@ Map<String, dynamic> registerSubjectEntityToJson(RegisterSubjectEntity entity) {
 	data['examConditions'] = entity.examConditions;
 	data['haveRegistered'] = entity.haveRegistered;
 	data['id'] = entity.id;
+	data['transciptId'] = entity.transciptId;
 	data['name'] = entity.name;
 	data['isHasGreatExercise'] = entity.isHasGreatExercise;
 	data['isOnline'] = entity.isOnline;

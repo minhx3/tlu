@@ -4,7 +4,7 @@ import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'api_client.dart';
 import 'base_model.dart';
 
-enum ScheduleEndpoint { getSchedules, getScheduleList }
+enum ScheduleEndpoint { getSchedules, getScheduleList, getScheduleTeacherList}
 
 class ScheduleRouter extends BaseRouter {
   ScheduleEndpoint endPoint;
@@ -24,9 +24,10 @@ class ScheduleRouter extends BaseRouter {
         response =
             client(headers: headerParams).get(path, queryParameters: data);
         break;
-
-        break;
       case ScheduleEndpoint.getScheduleList:
+        response = client(headers: headerParams).get(path);
+        break;
+      case ScheduleEndpoint.getScheduleTeacherList:
         response = client(headers: headerParams).get(path);
         break;
     }
@@ -59,6 +60,10 @@ class ScheduleRouter extends BaseRouter {
         path = "test-schedule";
         break;
       case ScheduleEndpoint.getScheduleList:
+        path =
+            "schedule/tasks?fromDate=${data["fromDate"]}&toDate=${data["toDate"]}";
+        break;
+      case ScheduleEndpoint.getScheduleTeacherList:
         path =
             "schedule/tasks?fromDate=${data["fromDate"]}&toDate=${data["toDate"]}";
         break;

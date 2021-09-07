@@ -15,16 +15,12 @@ import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 
-enum ClassDetailType {
-  studying,
-  studied
-}
+enum ClassDetailType { studying, studied }
 
 class DetailTranscriptSubjectView extends GetView<TranscriptController> {
-  final TranscriptModel item;
-  final List<ScoreDetailEntity> scores;
+  final ScoreDetailEntity item;
 
-  DetailTranscriptSubjectView(this.item, this.scores);
+  DetailTranscriptSubjectView(this.item);
 
   @override
   Widget build(BuildContext context) {
@@ -45,24 +41,27 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     header(),
+                    SizedBox(
+                      height: 14,
+                    ),
                     section(
                         'Điểm QT trung bình:',
-                        scores.firstWhere(
+                        item.scores.firstWhere(
                             (element) => element.scoreName == 'PROGRESS',
                             orElse: () => null)),
                     section(
                         'Điểm thi trung bình:',
-                        scores.firstWhere(
+                        item.scores.firstWhere(
                             (element) => element.scoreName == 'TEST',
                             orElse: () => null)),
                     section(
                         'Điểm thi chuyên cần:',
-                        scores.firstWhere(
+                        item.scores.firstWhere(
                             (element) => element.scoreName == 'EXTRA',
                             orElse: () => null)),
                     section(
                         'Điểm kỹ năng:',
-                        scores.firstWhere(
+                        item.scores.firstWhere(
                             (element) => element.scoreName == 'SKILL',
                             orElse: () => null)),
                     Padding(
@@ -79,6 +78,7 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
                           title: "Số tín chỉ",
                           value: item?.subject?.credits?.toString() ?? ''),
                     ),
+                    SizedBox(height: 14,),
                     ButtonView(
                       title: "Chi tiết môn",
                       type: ButtonType.outline,
@@ -112,11 +112,14 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
     RegisterSubjectEntity subjectClassData =
         await Appclient.shared.getSubjectsClassById(item?.subjectClassId);
 
-    pushTo(Routes.DETAI_CLASS,
-        arguments: {"id": item?.subjectClassId, 'data': subjectClassData, 'type': ClassDetailType.studying});
+    pushTo(Routes.DETAI_CLASS, arguments: {
+      "id": item?.subjectClassId,
+      'data': subjectClassData,
+      'type': ClassDetailType.studying
+    });
   }
 
-  Widget section(title, ScoreDetailEntity score) {
+  Widget section(title, Score score) {
     if (score == null) {
       return SizedBox.shrink();
     }
@@ -125,14 +128,20 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
       child: Column(
         children: [
           rowItem(title: title, value: score.scoreAvg),
-          ...score.listScoreDetail.map(
-            (e) => rowItem(
-                title: e?.skill,
-                value: e?.scoreSkill.toString(),
-                padding: 8,
-                fontSize: 13,
-                isSubItem: true),
-          ),
+          score.listScoreDetail.length <= 1
+              ? SizedBox.shrink()
+              : Column(
+                  children: score.listScoreDetail
+                      .map(
+                        (e) => rowItem(
+                            title: e?.skill,
+                            value: e?.scoreSkill.toString(),
+                            padding: 8,
+                            fontSize: 13,
+                            isSubItem: true),
+                      )
+                      .toList(),
+                ),
           Divider(
             thickness: 1,
             indent: 12,
@@ -167,7 +176,7 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
             Expanded(
                 child: Text(
               title,
-              style: fontInter(fontSize,
+              style: fontInter(isSubItem? 13: 14,
                   fontWeight: FontWeight.w500,
                   color: isSubItem ? AppColor.c808080 : AppColor.c333333),
               maxLines: 2,
@@ -175,8 +184,8 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
             )),
             Text(
               value,
-              style: fontInter(fontSize,
-                  fontWeight: FontWeight.w500, color: AppColor.c000333),
+              style: fontInter(isSubItem? 13: 16,
+                  fontWeight: FontWeight.w600, color: AppColor.c000333),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             )

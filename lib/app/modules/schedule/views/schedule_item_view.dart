@@ -7,6 +7,7 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/schedule_model.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
+import 'package:thanglong_university/app/service/storage/storage.dart';
 
 class ScheduleItemView extends GetView {
   final ScheduleModel item;
@@ -27,7 +28,7 @@ class ScheduleItemView extends GetView {
               children: [
                 Padding(
                   child: Image.asset(
-                    Images.dotRipple,
+                    Images.dot,
                     width: 18,
                   ),
                   padding: EdgeInsets.all(8),
@@ -59,11 +60,11 @@ class ScheduleItemView extends GetView {
                   ], color: AppColor.whiteColor),
                   child: Row(
                     children: [
-                      blockView(
+                     isTeacher? SizedBox.shrink(): blockView(
                         "Mã lớp:",
                         item.subjectClassId ?? '',
                       ),
-                      SizedBox(
+                      isTeacher? SizedBox.shrink(): SizedBox(
                         width: 20,
                       ),
                       blockView("Địa điểm:", "${item.address}"),
@@ -82,7 +83,7 @@ class ScheduleItemView extends GetView {
                     ],
                   ),
                 ),
-                noteView()
+                // noteView()
               ],
             ),
           )
@@ -109,20 +110,23 @@ class ScheduleItemView extends GetView {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    color: AppColor.cfc7171,
-                    borderRadius: BorderRadius.circular(5)),
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                alignment: Alignment.center,
-                child: Text(
-                  "${item?.subjectId ?? ""}",
-                  style: fontInter(10,
-                      fontWeight: FontWeight.w600, color: AppColor.whiteColor),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
+              isTeacher
+                  ? SizedBox.shrink()
+                  : Container(
+                      decoration: BoxDecoration(
+                          color: AppColor.cfc7171,
+                          borderRadius: BorderRadius.circular(5)),
+                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "${item?.subjectId ?? ""}",
+                        style: fontInter(10,
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.whiteColor),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
             ],
           ),
           SizedBox(

@@ -28,10 +28,10 @@ class EducationSubjectItemView extends GetView {
             'type': ClassDetailType.studying
           });
         } else {
-          List<ScoreDetailEntity> res =
-              await Appclient.shared.getTrascriptById(item.id);
+          ScoreDetailEntity res =
+              await Appclient.shared.getTrascriptById(item.transciptId);
           if (res != null) {
-            // Get.dialog(DetailTranscriptSubjectView(item, res));
+            Get.dialog(DetailTranscriptSubjectView(res));
           }
         }
       },

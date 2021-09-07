@@ -25,6 +25,17 @@ registerEntityFromJson(RegisterEntity data, Map<String, dynamic> json) {
 	if (json['title'] != null) {
 		data.title = json['title'].toString();
 	}
+	if (json['v'] != null) {
+		data.v = json['v'] is String
+				? int.tryParse(json['v'])
+				: json['v'].toInt();
+	}
+	if(json['updatedAt'] != null){
+		data.updatedAt = DateTime.parse(json['updatedAt']);
+	}
+	if (json['id'] != null) {
+		data.id = json['id'].toString();
+	}
 	return data;
 }
 
@@ -36,6 +47,9 @@ Map<String, dynamic> registerEntityToJson(RegisterEntity entity) {
 	data['groupName'] = entity.groupName;
 	data['semsterInfo'] = entity.semsterInfo?.toJson();
 	data['title'] = entity.title;
+	data['v'] = entity.v;
+	data['updatedAt'] = entity.updatedAt?.toString();
+	data['id'] = entity.id;
 	return data;
 }
 

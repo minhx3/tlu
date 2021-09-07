@@ -1,6 +1,6 @@
-import 'package:thanglong_university/app/model/score_detail_entity.dart';
+import 'package:thanglong_university/app/model/score_detail_entity1.dart';
 
-scoreDetailEntityFromJson(ScoreDetailEntity data, Map<String, dynamic> json) {
+scoreDetailEntity1FromJson(ScoreDetailEntity1 data, Map<String, dynamic> json) {
 	if (json['listScoreDetail'] != null) {
 		data.listScoreDetail = (json['listScoreDetail'] as List).map((v) => ScoreDetailListScoreDetail().fromJson(v)).toList();
 	}
@@ -10,7 +10,7 @@ scoreDetailEntityFromJson(ScoreDetailEntity data, Map<String, dynamic> json) {
 	return data;
 }
 
-Map<String, dynamic> scoreDetailEntityToJson(ScoreDetailEntity entity) {
+Map<String, dynamic> scoreDetailEntity1ToJson(ScoreDetailEntity1 entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
 	data['listScoreDetail'] =  entity.listScoreDetail?.map((v) => v.toJson())?.toList();
 	data['scoreName'] = entity.scoreName;

@@ -12,6 +12,7 @@ class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
   String examConditions;
   int haveRegistered;
   String id;
+  String transciptId;
   String name;
   bool isHasGreatExercise;
   bool isOnline;
