@@ -52,15 +52,22 @@ class ScheduleView extends GetView<ScheduleController> {
                                 ? MonthView()
                                 : SizedBox(),
                             Column(
-                              children: controller
-                                  .listScheduleGroupByDate.entries
-                                  .map((e) => Column(children: [
-                                        SectionView(DateTime.parse(e.key)),
-                                        ...e.value
-                                            .map((f) => ScheduleItemView(f))
-                                            .toList()
-                                      ]))
-                                  .toList(),
+                              children:
+                                  controller.listScheduleGroupByDate.entries
+                                      .map((e) => Column(children: [
+                                            SectionView(DateTime.parse(e.key)),
+                                            ...e.value
+                                                .map((f) => ScheduleItemView(
+                                                      f,
+                                                      toggleFavourite: () =>
+                                                          controller
+                                                              .toggleFavourite(
+                                                                  f.taskId,
+                                                                  !f.favourite),
+                                                    ))
+                                                .toList()
+                                          ]))
+                                      .toList(),
                             )
                           ],
                         ),

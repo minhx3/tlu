@@ -165,4 +165,15 @@ class ScheduleController extends AppController {
   DateTime getFirstDayOfMonth(DateTime dateTime) {
     return DateTime(dateTime.year, dateTime.month, 1);
   }
+
+  toggleFavourite(String taskId, bool value) async {
+    bool res = await Appclient.shared.toggleFavourite(taskId: taskId, value: value);
+    if (res == true) {
+      rxScheduleList(rxScheduleList
+          .map((element) => element.taskId == taskId
+              ? element.copyWith(favourite: !element.favourite)
+              : element)
+          .toList());
+    }
+  }
 }

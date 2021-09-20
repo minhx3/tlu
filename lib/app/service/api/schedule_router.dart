@@ -4,7 +4,12 @@ import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'api_client.dart';
 import 'base_model.dart';
 
-enum ScheduleEndpoint { getSchedules, getScheduleList, getScheduleTeacherList}
+enum ScheduleEndpoint {
+  getSchedules,
+  getScheduleList,
+  getScheduleTeacherList,
+  toggleFavourite
+}
 
 class ScheduleRouter extends BaseRouter {
   ScheduleEndpoint endPoint;
@@ -13,6 +18,7 @@ class ScheduleRouter extends BaseRouter {
   bool isLoading = false;
   bool handleError;
   Map<String, dynamic> headers;
+
   ScheduleRouter(this.endPoint,
       {this.data, this.joinPath, this.handleError, this.headers});
 
@@ -29,6 +35,9 @@ class ScheduleRouter extends BaseRouter {
         break;
       case ScheduleEndpoint.getScheduleTeacherList:
         response = client(headers: headerParams).get(path);
+        break;
+      case ScheduleEndpoint.toggleFavourite:
+        response = client(headers: headerParams).patch(path, data: data);
         break;
     }
 
@@ -64,8 +73,10 @@ class ScheduleRouter extends BaseRouter {
             "schedule/tasks?fromDate=${data["fromDate"]}&toDate=${data["toDate"]}";
         break;
       case ScheduleEndpoint.getScheduleTeacherList:
-        path =
-            "schedule/tasks?fromDate=${data["fromDate"]}&toDate=${data["toDate"]}";
+        path = "schedule-teacher";
+        break;
+      case ScheduleEndpoint.toggleFavourite:
+        path = "schedule/tasks/$joinPath/favourite"; //taskId
         break;
     }
     return path;

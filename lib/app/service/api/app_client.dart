@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
@@ -13,6 +14,7 @@ import 'package:thanglong_university/app/model/process_model.dart';
 import 'package:thanglong_university/app/model/register_entity.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/model/schedule_model.dart';
+import 'package:thanglong_university/app/model/schedule_teacher_model.dart';
 import 'package:thanglong_university/app/model/score_detail_entity.dart';
 import 'package:thanglong_university/app/model/test_schedule_model.dart';
 import 'package:thanglong_university/app/model/transcript_model.dart';
@@ -377,6 +379,36 @@ class Appclient {
       return list;
     } else {
       return null;
+    }
+  }
+
+  Future<Map<String, List<ScheduleTeacherModel>>> getScheduleTeacherList(
+      {String fromDate, String toDate}) async {
+    final result =
+        await ScheduleRouter(ScheduleEndpoint.getScheduleTeacherList).call;
+
+    if (result?.statusCode == 200) {
+      List<ScheduleTeacherModel> list = [];
+      result.data.forEach((e) {
+        list.add(ScheduleTeacherModel.fromJson(e));
+      });
+      return groupBy(list, (e) => e.subjectId);
+    } else {
+      return null;
+    }
+  }
+
+  Future<bool> toggleFavourite({String taskId, bool value}) async {
+    final result =
+        await ScheduleRouter(ScheduleEndpoint.toggleFavourite, joinPath: taskId, data: {
+          "favourite": value
+        })
+            .call;
+
+    if (result?.statusCode == 200) {
+      return true;
+    } else {
+      return false;
     }
   }
 

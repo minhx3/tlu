@@ -11,8 +11,9 @@ import 'package:thanglong_university/app/service/storage/storage.dart';
 
 class ScheduleItemView extends GetView {
   final ScheduleModel item;
+  final Function toggleFavourite;
 
-  ScheduleItemView(this.item);
+  ScheduleItemView(this.item, {this.toggleFavourite});
 
   @override
   Widget build(BuildContext context) {
@@ -71,15 +72,16 @@ class ScheduleItemView extends GetView {
                       Expanded(
                         child: SizedBox(),
                       ),
-                      item.favourite
-                          ? GestureDetector(
+
+                      GestureDetector(
                               child: Image.asset(
                                 Images.iconStar,
                                 width: 18,
-                                color: Colors.amber,
+                                color: item.favourite? Colors.amber: Colors.grey,
                               ),
-                              onTap: () {})
-                          : SizedBox.shrink()
+                              onTap: toggleFavourite
+                      )
+
                     ],
                   ),
                 ),
