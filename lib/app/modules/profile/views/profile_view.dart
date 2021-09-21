@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/model/user_info_model.dart';
-import 'package:thanglong_university/app/modules/profile/views/partial/item_group_time_table_by_subject_view.dart';
-import 'package:thanglong_university/app/modules/profile/views/partial/item_header_time_table_view.dart';
 import 'package:thanglong_university/app/modules/profile/views/partial/settings_student_section_view.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/header_info_student_view.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/header_info_teacher_view.dart';

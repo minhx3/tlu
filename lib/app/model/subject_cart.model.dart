@@ -27,7 +27,7 @@ class SubjectCartModel {
         subjectClasses: json["subjectClasses"] == null
             ? null
             : List<RegisterSubjectEntity>.from(json["subjectClasses"]
-                .map((x) => RegisterSubjectEntity().fromJson(x))),
+                .map((x) => RegisterSubjectEntity.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

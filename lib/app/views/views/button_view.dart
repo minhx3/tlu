@@ -62,6 +62,7 @@ class ButtonView extends StatelessWidget {
             alignment: Alignment.center,
             height: height ?? 40,
             decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(3),
                 border: type == ButtonType.system
                     ? null
                     : Border.all(color: AppColor.cd9d9d9, width: 1)),
@@ -71,9 +72,7 @@ class ButtonView extends StatelessWidget {
                     title.tr,
                     textAlign: TextAlign.center,
                     style: fontInter(fontSize ?? 14,
-                        fontWeight: fontWeight ?? type == ButtonType.system
-                            ? FontWeight.bold
-                            : FontWeight.w600,
+                        fontWeight: fontWeight ?? FontWeight.w600,
                         color: textColor ?? type == ButtonType.system
                             ? Colors.white
                             : AppColor.c000333),

@@ -120,40 +120,57 @@ class _SubjectItemViewState extends State<SubjectItemView>
               overflow: TextOverflow.ellipsis,
               style: fontInter(16,
                   fontWeight: FontWeight.w600, color: AppColor.c33355a),
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                itemColTimeLine(
-                    "Lớp:",
-                    (widget.subject?.listTimelineClass ?? [])
-                        .map((timeLineClass) => timeLineClass.id)
-                        .join("\n")),
-                itemColTimeLine("Số lượng",
-                    "${widget.subject?.haveRegistered}/${widget.subject?.population}"),
-                itemColTimeLine(
-                    "Thời gian:",
-                    (widget.subject?.listTimelineClass ?? [])
-                        .map((timeLineClass) => timeLineClass.getAllTime)
-                        .join("\n"),
-                    toolTip: (widget.subject?.listTimelineClass ?? [])
-                        .map((timeLineClass) => timeLineClass.getAllTimeToolTip)
-                        .join("\n")),
-                itemColTimeLine(
-                    "Địa điểm:",
-                    (widget.subject?.listTimelineClass ?? [])
-                        .map((timeLineClass) => timeLineClass.listSchedule
-                            .map((e) => e.address ?? "")
-                            .join(','))
-                        .join('\n'),
-                    isLast: true),
-              ],
+            ).marginOnly(bottom: 10),
+            IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  itemColTimeLine(
+                      "Lớp:",
+                      (widget.subject?.listTimelineClass ?? [])
+                          .map((timeLineClass) => timeLineClass.id)
+                          .join("\n")),
+                  VerticalDivider(
+                    width: 30,
+                    color: AppColor.lineColor,
+                    thickness: 1,
+                  ),
+                  itemColTimeLine("Số lượng",
+                      "${widget.subject?.haveRegistered}/${widget.subject?.population}"),
+                  VerticalDivider(
+                    width: 30,
+                    color: AppColor.lineColor,
+                    thickness: 1,
+                  ),
+                  itemColTimeLine(
+                      "Thời gian:",
+                      (widget.subject?.listTimelineClass ?? [])
+                          .map((timeLineClass) => timeLineClass.getAllTime)
+                          .join("\n"),
+                      toolTip: (widget.subject?.listTimelineClass ?? [])
+                          .map((timeLineClass) =>
+                              timeLineClass.getAllTimeToolTip)
+                          .join("\n")),
+                  VerticalDivider(
+                    width: 30,
+                    color: AppColor.lineColor,
+                    thickness: 1,
+                  ),
+                  itemColTimeLine(
+                      "Địa điểm:",
+                      (widget.subject?.listTimelineClass ?? [])
+                          .map((timeLineClass) => timeLineClass.listSchedule
+                              .map((e) => e.address ?? "")
+                              .join(','))
+                          .join('\n')),
+                ],
+              ),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 10),
               height: 1,
-              color: AppColor.cbfbfbf,
+              color: AppColor.lineColor,
             ),
             Row(
               children: [
@@ -185,22 +202,25 @@ class _SubjectItemViewState extends State<SubjectItemView>
                     ],
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    if (widget.subject.status == SubjectClassStatusEnum.REGI) {
-                      SubjectListTermController controller = Get.find();
-                      controller.confirmRegisterSubject(widget.subject);
-                    } else {
-                      SubjectListCartController controller = Get.find();
-                      controller.confirmAddToCart(widget.subject);
-                    }
-                  },
-                  child: Image.asset(
-                    Images.addButtonIcon,
-                    height: 36,
-                    width: 36,
-                  ),
-                )
+                widget.subject.status == SubjectClassStatusEnum.PENDING
+                    ? SizedBox()
+                    : InkWell(
+                        onTap: () {
+                          if (widget.subject.status ==
+                              SubjectClassStatusEnum.REGI) {
+                            SubjectListTermController controller = Get.find();
+                            controller.confirmRegisterSubject(widget.subject);
+                          } else {
+                            SubjectListCartController controller = Get.find();
+                            controller.confirmAddToCart(widget.subject);
+                          }
+                        },
+                        child: Image.asset(
+                          Images.addButtonIcon,
+                          height: 36,
+                          width: 36,
+                        ),
+                      )
               ],
             )
           ],
@@ -209,57 +229,37 @@ class _SubjectItemViewState extends State<SubjectItemView>
     );
   }
 
-  Widget itemColTimeLine(String title, String subTitle,
-      {String toolTip, bool isLast = false}) {
-    return Container(
-      padding: EdgeInsets.only(top: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                softWrap: true,
-                style: fontInter(11,
-                    fontWeight: FontWeight.w500, color: AppColor.c84869C),
+  Widget itemColTimeLine(String title, String subTitle, {String toolTip}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          softWrap: true,
+          style: fontInter(11,
+              fontWeight: FontWeight.w500, color: AppColor.c84869C),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ).marginOnly(bottom: 2),
+        toolTip == null
+            ? Text(
+                subTitle,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-              ),
-              SizedBox(height: 2),
-              toolTip == null
-                  ? Text(
-                      subTitle,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: fontInter(12,
-                          fontWeight: FontWeight.w600, color: AppColor.c000333),
-                    )
-                  : Tooltip(
-                      message: toolTip,
-                      child: Text(
-                        subTitle,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: fontInter(12,
-                            fontWeight: FontWeight.w600,
-                            color: AppColor.c000333),
-                      ),
-                    ),
-            ],
-          ),
-          isLast == true
-              ? SizedBox()
-              : Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  width: 1,
-                  height: 35,
-                  color: AppColor.lineColor,
+                style: fontInter(12,
+                    fontWeight: FontWeight.w600, color: AppColor.c000333),
+              )
+            : Tooltip(
+                message: toolTip,
+                child: Text(
+                  subTitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: fontInter(12,
+                      fontWeight: FontWeight.w600, color: AppColor.c000333),
                 ),
-        ],
-      ),
+              ),
+      ],
     );
   }
 }

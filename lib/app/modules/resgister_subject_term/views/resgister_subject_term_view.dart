@@ -56,10 +56,12 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
     Color textColor2 = AppColor.c808080;
     Color textColor3 = AppColor.c4d4d4d;
     Color backgroundColor = Colors.white;
+    Color borderColor = AppColor.cd9d9d9;
     if (item.status == SujectGroupStatusEnum.OPEN ||
         item.status == SujectGroupStatusEnum.RE_OPEN) {
       textColor1 = textColor2 = textColor3 = Colors.white;
       backgroundColor = AppColor.cfc2626;
+      Color borderColor = AppColor.cfc7171;
     }
     return InkWell(
       onTap: () {
@@ -78,7 +80,7 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
               padding: EdgeInsets.only(bottom: 6),
               margin: EdgeInsets.only(bottom: 10),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
                     child: Text(
@@ -90,12 +92,13 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
                     ),
                   ),
                   SizedBox(child: statusWidget(item.status))
-                      .paddingOnly(left: 8),
+                      .paddingOnly(left: 8)
+                      .marginOnly(bottom: 5),
                 ],
               ),
               decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(width: 1, color: AppColor.cd9d9d9))),
+                  border:
+                      Border(bottom: BorderSide(width: 1, color: borderColor))),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

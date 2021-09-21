@@ -68,8 +68,15 @@ class DetailNewView extends GetView<DetailNewController> {
                               style: {
                                 "html": Style(
                                     fontFamily: "Inter",
+                                    lineHeight: 1.5,
                                     fontSize: FontSize(16)),
                                 "p": Style(lineHeight: 1.5),
+                                "h4": Style(
+                                    fontSize: FontSize(16), lineHeight: 1.5),
+                                "strong": Style(
+                                  fontSize: FontSize(16),
+                                  lineHeight: 1.5,
+                                ),
                                 "caption": Style(
                                     fontSize: FontSize(12),
                                     color: AppColor.c666666,

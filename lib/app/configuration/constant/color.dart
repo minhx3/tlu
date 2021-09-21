@@ -42,7 +42,7 @@ class AppColor {
   static const Color subTextColor = Color(0xff6D7278);
   static const Color descriptionTextColor = Color(0xff808080);
   static const Color textFiedBackground = Color(0xffF7F7F7);
-  static const Color lineColor = Color(0xffE6E6E6);
+  static const Color lineColor = Color(0xffD9D9D9);
   static const Color lineSectionColor = Color(0xffBFBFBF);
   static const Color inputBackground = Color(0xffF2F2F2);
   static const Color labelColor = Color(0xff8c8c8c);
