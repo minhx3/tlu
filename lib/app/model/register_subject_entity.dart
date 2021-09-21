@@ -74,7 +74,7 @@ class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
 
   factory RegisterSubjectEntity.fromJson(Map<String, dynamic> json) =>
       RegisterSubjectEntity(
-        id: json["_id"] == null ? null : json["_id"],
+        id: json["id"] == null ? null : json["id"],
         semester: json["semester"] == null
             ? null
             : RegisterSubjectSemester().fromJson(json['semester']),

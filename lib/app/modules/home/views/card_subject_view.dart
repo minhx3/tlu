@@ -19,7 +19,7 @@ class CardSubjectView extends GetView<HomeController> {
     return subjects.length == 0
         ? SizedBox()
         : Container(
-            height: 175,
+            height: 176,
             child: Swiper(
               controller: swiperController,
               onIndexChanged: (index) {
@@ -53,7 +53,7 @@ class CardSubjectView extends GetView<HomeController> {
       padding: EdgeInsets.symmetric(vertical: 18, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -63,7 +63,9 @@ class CardSubjectView extends GetView<HomeController> {
                 child: Text(
                   "${item.subjectName ?? ""}",
                   style: fontInter(16,
-                      fontWeight: FontWeight.w600, color: AppColor.cfafafa),
+                      fontWeight: FontWeight.w600,
+                      color: AppColor.cfafafa,
+                      height: 1.18),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -72,28 +74,30 @@ class CardSubjectView extends GetView<HomeController> {
                 margin: EdgeInsets.only(left: 15),
                 decoration: BoxDecoration(
                     color: AppColor.errorColor,
-                    borderRadius: BorderRadius.circular(5)),
+                    borderRadius: BorderRadius.circular(3)),
                 height: 18,
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                 child: Text(
                   "${item?.subjectId ?? ""}",
                   style: fontInter(10,
-                      fontWeight: FontWeight.w600, color: AppColor.whiteColor),
-                  maxLines: 2,
+                      fontWeight: FontWeight.w600,
+                      color: AppColor.whiteColor,
+                      height: 1.2),
+                  maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
-          ).marginOnly(bottom: 5),
-          Divider(thickness: 2, height: 20, color: AppColor.c33355a),
+          ).marginOnly(bottom: 8),
+          Divider(thickness: 2, height: 16, color: AppColor.c33355a),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(Images.timeClock,
                       width: 13, height: 13, color: AppColor.cfc7171)
-                  .marginOnly(right: 10),
+                  .marginOnly(right: 9),
               Text(
                 item.getTime + ' - ' + dateFormat(item.day),
                 style: fontInter(12,
@@ -111,7 +115,7 @@ class CardSubjectView extends GetView<HomeController> {
                 Images.place,
                 width: 13,
                 height: 13,
-              ).marginOnly(right: 10),
+              ).marginOnly(right: 9),
               Text(
                 "Phòng ${item?.address ?? ""}",
                 style: fontInter(12,

@@ -14,45 +14,51 @@ class AvatarUserNameView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        renderAvatar(user),
-        SizedBox(
-          width: 20,
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  ValueBoxView(
-                    text: "${user?.id ?? ""}",
-                  ),
-                  Spacer(),
-                  Visibility(
-                    visible: isAllowEdit == true,
-                    child: Image.asset(
-                      Images.icEdit,
-                      width: 20,
-                      height: 20,
-                    ),
-                  )
-                ],
-              ),
-              Text(
-                "${user?.name ?? user?.fullName ?? ""}",
-                style: fontInter(18,
-                    fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
-              )
-            ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
+      child: Row(
+        children: [
+          renderAvatar(user, isAllowEdit: isAllowEdit),
+          SizedBox(
+            width: 20,
           ),
-        ),
-      ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    ValueBoxView(
+                      text: "${user?.id ?? ""}",
+                    ),
+                    Spacer(),
+                    Visibility(
+                      visible: isAllowEdit == true,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Image.asset(
+                          Images.icEdit,
+                          width: 20,
+                          height: 20,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Text(
+                  "${user?.name ?? user?.fullName ?? ""}",
+                  style: fontInter(18,
+                      fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  CircleAvatar renderAvatar([UserModel _profile]) {
+  Widget renderAvatar(UserModel _profile, {bool isAllowEdit}) {
     NetworkImage _backgroundImage;
     Widget _child = SizedBox();
 
@@ -70,11 +76,37 @@ class AvatarUserNameView extends StatelessWidget {
       );
     }
 
-    return CircleAvatar(
-      radius: 35,
-      backgroundColor: AppColor.primaryColor,
-      backgroundImage: _backgroundImage,
-      child: _child,
-    );
+    return Stack(children: [
+      CircleAvatar(
+        radius: 35,
+        backgroundColor: AppColor.primaryColor,
+        backgroundImage: _backgroundImage,
+        child: _child,
+      ),
+      !isAllowEdit
+          ? SizedBox()
+          : Positioned(
+              bottom: 0,
+              right: 0,
+              child: InkWell(
+                onTap: () {},
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                      color: AppColor.c000333,
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: Colors.white, width: 2)),
+                  child: Center(
+                    child: Image.asset(
+                      Images.camera,
+                      fit: BoxFit.fill,
+                      width: 8,
+                      height: 8,
+                    ),
+                  ),
+                ),
+              ))
+    ]);
   }
 }

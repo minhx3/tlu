@@ -64,4 +64,5 @@ class Images {
   static const String unTick = 'assets/images/unTick.png';
   static const String icSort = 'assets/images/ic_sort.png';
   static const String iconStar = 'assets/images/iconStar.png';
+  static const String camera = 'assets/images/camera.png';
 }

@@ -141,6 +141,7 @@ class AppBarView extends StatelessWidget {
                             child: Icon(
                               Icons.arrow_back_ios,
                               color: AppColor.textColor,
+                              size: 18,
                             ),
                           ).marginOnly(right: 15),
                     Expanded(
@@ -199,6 +200,7 @@ class AppBarView extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_back_ios,
                         color: AppColor.whiteColor,
+                        size: 18,
                       ),
                     ).marginOnly(right: 5, left: 4),
                     Container(
@@ -233,6 +235,7 @@ class AppBarView extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_back_ios,
                         color: AppColor.textColor,
+                        size: 18,
                       ),
                     ).marginOnly(right: 10),
                     Expanded(
@@ -319,7 +322,7 @@ class AppBarView extends StatelessWidget {
                               color: iconTintColor,
                             ),
                             onPressed: () {
-                              if(this.onAction!=null){
+                              if (this.onAction != null) {
                                 return this.onAction();
                               }
                               pushTo(Routes.NOTIFICATION);
@@ -339,6 +342,7 @@ class AppBarView extends StatelessWidget {
                     child: Icon(
                       Icons.arrow_back_ios,
                       color: AppColor.textColor,
+                      size: 18,
                     ),
                     onTap: () {
                       pop();
@@ -398,6 +402,7 @@ class AppBarView extends StatelessWidget {
                           child: Icon(
                             Icons.arrow_back_ios,
                             color: AppColor.textColor,
+                            size: 18,
                           ),
                         ).marginOnly(right: 15),
                   Expanded(

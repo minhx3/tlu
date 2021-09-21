@@ -23,7 +23,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
   @override
   Widget build(BuildContext context) {
     bool isStudying = Get.arguments['type'] == ClassDetailType.studying;
-    bool isStudied = Get.arguments['type'] ==  ClassDetailType.studied;
+    bool isStudied = Get.arguments['type'] == ClassDetailType.studied;
     bool isEdu = isStudying || isStudied;
     return AppContainer(
       systemUiOverlayStyle: SystemUiOverlayStyle.light,
@@ -63,26 +63,26 @@ class DetaiClassView extends GetView<DetaiClassController> {
                           IntrinsicHeight(
                             child: Row(
                               children: <Widget>[
-                                item(
-                                    "Mã môn:", controller.subjectClassData?.id),
+                                item("Mã môn:",
+                                    controller.subjectClassData?.subject?.id),
                                 VerticalDivider(
                                   thickness: 1,
                                   width: 30,
-                                  color: AppColor.cd9d9d9,
+                                  color: AppColor.lineColor,
                                 ),
                                 item("Số tín chỉ:",
                                     "${(controller.subjectClassData?.subject?.credits ?? "").toString()} tín"),
                                 VerticalDivider(
                                   thickness: 1,
                                   width: 30,
-                                  color: AppColor.cd9d9d9,
+                                  color: AppColor.lineColor,
                                 ),
                                 item("Hệ số:",
                                     "${(controller.subjectClassData?.subject?.factor ?? "").toString()}"),
                                 VerticalDivider(
                                   thickness: 1,
                                   width: 30,
-                                  color: AppColor.cd9d9d9,
+                                  color: AppColor.lineColor,
                                 ),
                                 item(
                                     "Học phí",
@@ -99,15 +99,17 @@ class DetaiClassView extends GetView<DetaiClassController> {
                           lineWidget(),
                           ...controller.subjectClassData.listTimelineClass
                               .map((e) {
-                            return TeacherItemView(e.teacher)
-                                .paddingSymmetric(horizontal: 5)
-                                .marginOnly(bottom: 10);
+                            return Column(children: [
+                              TeacherItemView(e.teacher)
+                                  .paddingSymmetric(horizontal: 5)
+                                  .marginOnly(bottom: 10),
+                              Divider(
+                                thickness: 1,
+                                height: 1,
+                                color: AppColor.lineColor,
+                              ).marginOnly(bottom: 10),
+                            ]);
                           }).toList(),
-                          Divider(
-                            thickness: 1,
-                            height: 4,
-                            color: AppColor.cd9d9d9,
-                          ).marginOnly(bottom: 10),
                           expansionDescription().marginOnly(bottom: 22),
                           documentWidget(
                                   "Tài liệu cần thiết",
@@ -115,8 +117,8 @@ class DetaiClassView extends GetView<DetaiClassController> {
                                       .map((e) =>
                                           {"title": e.name, "author": e.author})
                                       .toList())
-                              .marginOnly(bottom: 20)
-                              .paddingSymmetric(horizontal: 5),
+                              .paddingSymmetric(horizontal: 5)
+                              .marginOnly(bottom: 20),
                           documentWidget(
                                   "Tài liệu liên quan",
                                   controller.subjectClassData.optionListBook
@@ -132,20 +134,26 @@ class DetaiClassView extends GetView<DetaiClassController> {
                                 color: AppColor.c4d4d4d),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                          ).marginOnly(bottom: 2).paddingOnly(bottom: 10),
+                          )
+                              .marginOnly(bottom: 2)
+                              .paddingOnly(bottom: 10)
+                              .paddingSymmetric(horizontal: 5),
                           Container(
                             padding: EdgeInsets.all(15),
                             decoration: BoxDecoration(
                                 color: AppColor.cfafafa,
                                 borderRadius: BorderRadius.circular(3)),
                             child: Text(
-                                controller.subjectClassData?.subject
-                                        ?.description ??
-                                    "",
-                                style: fontInter(12,
-                                    fontWeight: FontWeight.normal,
-                                    color: AppColor.black)),
-                          ),
+                                    controller.subjectClassData?.subject
+                                            ?.description ??
+                                        "",
+                                    style: fontInter(12,
+                                        fontWeight: FontWeight.normal,
+                                        color: AppColor.black))
+                                .marginOnly(bottom: 14),
+                          )
+                              .paddingSymmetric(horizontal: 5)
+                              .marginOnly(bottom: 16),
                           isEdu
                               ? SizedBox.shrink()
                               : ButtonView(
@@ -153,7 +161,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
                                   onTap: () {
                                     registerSubjectClass();
                                   },
-                                ).marginOnly(top: 16),
+                                ),
                         ],
                       ),
               );
@@ -250,6 +258,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
             ...books
                 .map(
                   (e) => Container(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                     decoration: BoxDecoration(
                         color: AppColor.cfafafa,
                         borderRadius: BorderRadius.circular(3)),
@@ -263,7 +272,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
                               color: AppColor.black),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                        ).marginOnly(bottom: 2),
+                        ).marginOnly(bottom: 4),
                         (e["author"].isEmpty
                             ? SizedBox()
                             : Text(
@@ -280,16 +289,19 @@ class DetaiClassView extends GetView<DetaiClassController> {
                 )
                 .toList()
           ],
-        ).paddingSymmetric(horizontal: 15, vertical: 10),
+        ),
       ],
     );
   }
 
   Widget boardTimeLine() {
     return Container(
-      padding: EdgeInsets.only(left: 5, right: 5, top: 15, bottom: 6),
-      color: AppColor.cfafafa,
+      padding: EdgeInsets.all(10),
       alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(3),
+        color: AppColor.cfafafa,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -306,13 +318,13 @@ class DetaiClassView extends GetView<DetaiClassController> {
                               bottom: BorderSide(
                                   color: AppColor.cf2f2f2, width: 1))),
                       alignment: Alignment.centerLeft,
-                      height: 30,
+                      padding: EdgeInsets.only(bottom: 7, top: 5),
                       child: Text(
                         e['title'],
                         style: fontInter(11,
                             color: AppColor.c808080,
                             fontWeight: FontWeight.w500),
-                      ).paddingOnly(left: 5, right: isLast ? 5 : 30),
+                      ).marginOnly(left: 5, right: isLast ? 5 : 30),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -351,7 +363,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
     return Divider(
       thickness: 1,
       height: 24,
-      color: AppColor.cd9d9d9,
+      color: AppColor.lineColor,
     );
   }
 

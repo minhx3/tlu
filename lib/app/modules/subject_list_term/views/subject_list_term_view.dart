@@ -409,11 +409,12 @@ class SubjectListTermView extends GetView<SubjectListTermController> {
                       child: SizedBox(),
                     ),
                     SizedBox(
-                      width: 108,
+                      width: 128,
                       child: ButtonView(
+                        buttonPadding: EdgeInsets.symmetric(horizontal: 20),
+                        fontWeight: FontWeight.w600,
                         verticalSpacing: 0,
                         title: "Danh sách",
-                        horizontalSpacing: 10,
                         onTap: () {
                           pushTo(Routes.SUBJECT_LIST_CART);
                         },
