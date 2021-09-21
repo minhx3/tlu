@@ -31,6 +31,31 @@ class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
   RegisterSubjectSemester semester;
   RegisterSubjectSubject subject;
 
+  RegisterSubjectEntity(
+      {this.closeRgister,
+      this.openRegister,
+      this.status,
+      this.examConditions,
+      this.haveRegistered,
+      this.id,
+      this.transciptId,
+      this.name,
+      this.isHasGreatExercise,
+      this.isOnline,
+      this.group,
+      this.listTeacher,
+      this.listTimelineClass,
+      this.note,
+      this.numberOfLessons,
+      this.optionListBook,
+      this.population,
+      this.prerequisiteSubject,
+      this.requiredListBook,
+      this.schoolFee,
+      this.scoringMethod,
+      this.semester,
+      this.subject});
+
   List<ChatGroupEntity> get getListSubject {
     return listTeacher
         .map((e) => e.teachingList.map((e1) {
@@ -46,6 +71,105 @@ class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
         .map((e) => e.listSchedule.map((e) => e.getTime).join(' - '))
         .join('\n');
   }
+
+  factory RegisterSubjectEntity.fromJson(Map<String, dynamic> json) =>
+      RegisterSubjectEntity(
+        id: json["_id"] == null ? null : json["_id"],
+        semester: json["semester"] == null
+            ? null
+            : RegisterSubjectSemester().fromJson(json['semester']),
+        examConditions:
+            json["examConditions"] == null ? null : json["examConditions"],
+        isHasGreatExercise: json["isHasGreatExercise"] == null
+            ? null
+            : json["isHasGreatExercise"],
+        isOnline: json["isOnline"] == null ? null : json["isOnline"],
+        population: json["population"] == null ? null : json["population"],
+        status: json["status"] == null
+            ? null
+            : subjectClassStatus.map[json["status"]],
+        schoolFee: json["schoolFee"] == null ? null : json["schoolFee"],
+        scoringMethod:
+            json["scoringMethod"] == null ? null : json["scoringMethod"],
+        note: json["note"] == null ? null : json["note"],
+        listTimelineClass: json["listTimelineClass"] == null
+            ? null
+            : (json['listTimelineClass'] as List)
+                .map((v) =>
+                    RegisterSubjectListTimelineClassTimeLines().fromJson(v))
+                .toList(),
+        numberOfLessons: json["numberOfLessons"] == null
+            ? null
+            : (json['numberOfLessons'] as List)
+                .map((v) => RegisterSubjectNumberOfLessons().fromJson(v))
+                .toList(),
+        optionListBook: json["optionListBook"] == null
+            ? null
+            : (json['optionListBook'] as List)
+                .map((v) => RegisterSubjectOptionListBook().fromJson(v))
+                .toList(),
+        prerequisiteSubject: json["prerequisiteSubject"] == null
+            ? null
+            : RegisterSubjectPrerequisiteSubject()
+                .fromJson(json['prerequisiteSubject']),
+        requiredListBook: json["requiredListBook"] == null
+            ? null
+            : (json['requiredListBook'] as List)
+                .map((v) => RegisterSubjectRequiredListBook().fromJson(v))
+                .toList(),
+        subject: json["subject"] == null
+            ? null
+            : RegisterSubjectSubject().fromJson(json['subject']),
+        haveRegistered:
+            json["haveRegistered"] == null ? null : json["haveRegistered"],
+        closeRgister: json["closeRgister"],
+        group: json["group"],
+        listTeacher: json["listTeacher"] == null
+            ? null
+            : List<Teacher>.from(
+                json["listTeacher"].map((e) => Teacher.fromJson(e))),
+        name: json["name"],
+        openRegister: json["openRegister"],
+        transciptId: json["transciptId"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
+        "semester": semester == null ? null : semester.toJson(),
+        "examConditions": examConditions == null ? null : examConditions,
+        "isHasGreatExercise":
+            isHasGreatExercise == null ? null : isHasGreatExercise,
+        "isOnline": isOnline == null ? null : isOnline,
+        "population": population == null ? null : population,
+        "status": status == null ? null : status,
+        "schoolFee": schoolFee == null ? null : schoolFee,
+        "scoringMethod": scoringMethod == null ? null : scoringMethod,
+        "note": note == null ? null : note,
+        "listTimelineClass": listTimelineClass == null
+            ? null
+            : List<dynamic>.from(listTimelineClass.map((x) => x.toJson())),
+        "numberOfLessons": numberOfLessons == null
+            ? null
+            : List<dynamic>.from(numberOfLessons.map((x) => x.toJson())),
+        "optionListBook": optionListBook == null
+            ? null
+            : List<dynamic>.from(optionListBook.map((x) => x.toJson())),
+        "prerequisiteSubject":
+            prerequisiteSubject == null ? null : prerequisiteSubject.toJson(),
+        "requiredListBook": requiredListBook == null
+            ? null
+            : List<dynamic>.from(requiredListBook.map((x) => x.toJson())),
+        "subject": subject == null ? null : subject.toJson(),
+        "haveRegistered": haveRegistered == null ? null : haveRegistered,
+        "listTeacher": listTeacher == null
+            ? null
+            : List<dynamic>.from(listTeacher.map((x) => x.toJson())),
+        "closeRgister": closeRgister,
+        "group": group,
+        "name": name,
+        "openRegister": openRegister,
+        "transciptId": transciptId,
+      };
 }
 
 @deprecated

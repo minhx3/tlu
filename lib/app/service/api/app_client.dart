@@ -184,7 +184,7 @@ class Appclient {
 
     if (result?.data is List) {
       return (result.data as List)
-          .map((e) => RegisterSubjectEntity().fromJson(e))
+          .map((e) => RegisterSubjectEntity.fromJson(e))
           .toList();
     } else {
       return null;
@@ -200,7 +200,7 @@ class Appclient {
       return null;
     }
 
-    return RegisterSubjectEntity().fromJson(result.data);
+    return RegisterSubjectEntity.fromJson(result.data);
   }
 
   Future<BaseModel> postRegisterSubjectClass(String subjectClassId) async {
@@ -260,7 +260,7 @@ class Appclient {
     if (result?.statusCode == 200) {
       List<RegisterSubjectEntity> list = [];
       result.data.forEach((e) {
-        list.add(RegisterSubjectEntity().fromJson(e));
+        list.add(RegisterSubjectEntity.fromJson(e));
       });
       return list;
     } else {
@@ -301,7 +301,7 @@ class Appclient {
     if (result?.statusCode == 200) {
       List<RegisterSubjectEntity> list = [];
       result.data.forEach((e) {
-        list.add(RegisterSubjectEntity().fromJson(e));
+        list.add(RegisterSubjectEntity.fromJson(e));
       });
       return list;
     } else {

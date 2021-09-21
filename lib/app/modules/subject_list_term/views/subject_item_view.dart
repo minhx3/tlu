@@ -185,22 +185,25 @@ class _SubjectItemViewState extends State<SubjectItemView>
                     ],
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    if (widget.subject.status == SubjectClassStatusEnum.REGI) {
-                      SubjectListTermController controller = Get.find();
-                      controller.confirmRegisterSubject(widget.subject);
-                    } else {
-                      SubjectListCartController controller = Get.find();
-                      controller.confirmAddToCart(widget.subject);
-                    }
-                  },
-                  child: Image.asset(
-                    Images.addButtonIcon,
-                    height: 36,
-                    width: 36,
-                  ),
-                )
+                widget.subject.status == SubjectClassStatusEnum.PENDING
+                    ? SizedBox()
+                    : InkWell(
+                        onTap: () {
+                          if (widget.subject.status ==
+                              SubjectClassStatusEnum.REGI) {
+                            SubjectListTermController controller = Get.find();
+                            controller.confirmRegisterSubject(widget.subject);
+                          } else {
+                            SubjectListCartController controller = Get.find();
+                            controller.confirmAddToCart(widget.subject);
+                          }
+                        },
+                        child: Image.asset(
+                          Images.addButtonIcon,
+                          height: 36,
+                          width: 36,
+                        ),
+                      )
               ],
             )
           ],

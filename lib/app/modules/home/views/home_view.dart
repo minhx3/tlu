@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
-import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/configuration/constant/view_state.dart';
-import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/schedule_model.dart';
 import 'package:thanglong_university/app/modules/chat/controllers/chat_cotroller.dart';
@@ -14,7 +12,6 @@ import 'package:thanglong_university/app/modules/home/views/card_news_view.dart'
 import 'package:thanglong_university/app/modules/home/views/card_subject_info_view.dart';
 import 'package:thanglong_university/app/modules/home/views/card_subject_view.dart';
 import 'package:thanglong_university/app/modules/home/views/menu_view.dart';
-import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
@@ -24,7 +21,6 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    print(isTeacher);
     return Obx(() => AppContainer(
           child: Container(
               color: AppColor.cf6f6f6,
