@@ -144,8 +144,8 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
                 ),
           Divider(
             thickness: 1,
-            indent: 12,
-            endIndent: 12,
+            indent: 0,
+            endIndent: 0,
             color: AppColor.lineColor,
           )
         ],

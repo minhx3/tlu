@@ -169,7 +169,7 @@ class EducationView extends GetView<EducationController> {
         decoration: boxShadow.copyWith(
             color: type == 1 ? AppColor.c000333 : AppColor.whiteColor,
             borderRadius: BorderRadius.circular(5)),
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: Column(
           children: [
             Row(

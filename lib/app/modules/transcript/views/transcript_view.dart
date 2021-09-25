@@ -3,17 +3,31 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
+import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/configuration/extension/iterable.dart';
 import 'package:thanglong_university/app/model/process_model.dart';
+import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/model/score_detail_entity.dart';
 import 'package:thanglong_university/app/model/transcript_model.dart';
 import 'package:thanglong_university/app/modules/transcript/views/detail_transcript_subject_view.dart';
+import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/link_view.dart';
 
 import '../controllers/transcript_controller.dart';
+
+pushToDetailClass(subjectClassId) async {
+  RegisterSubjectEntity subjectClassData =
+      await Appclient.shared.getSubjectsClassById(subjectClassId);
+
+  pushTo(Routes.DETAI_CLASS, arguments: {
+    "id": subjectClassId,
+    'data': subjectClassData,
+    'type': ClassDetailType.studying
+  });
+}
 
 class TranscriptView extends GetView<TranscriptController> {
   @override
@@ -170,7 +184,9 @@ Widget transcripItem(TranscriptModel item, int index) {
     onTap: () async {
       ScoreDetailEntity res = await Appclient.shared.getTrascriptById(item.id);
       if (res != null) {
-        Get.dialog(DetailTranscriptSubjectView(res));
+        res.gpa == -1
+            ? pushToDetailClass(item.subjectClassId)
+            : Get.dialog(DetailTranscriptSubjectView(res));
       }
     },
     child: Container(
@@ -199,9 +215,10 @@ Widget transcripItem(TranscriptModel item, int index) {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14),
             child: Text(
-              item.gpa>0? item.gpa.toString(): '-',
+              item.gpa > 0 ? item.gpa.toString() : '   -  ',
               style: fontInter(14,
-                  fontWeight: FontWeight.w600, color:item.gpa>0? AppColor.c31B27C: AppColor.c404040),
+                  fontWeight: FontWeight.w600,
+                  color: item.gpa > 0 ? AppColor.c31B27C : AppColor.c404040),
             ),
           ),
           Image.asset(
