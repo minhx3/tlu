@@ -73,7 +73,7 @@ class LoginMobilePage extends GetView<AuthController> {
                                                 : LocaleKeys
                                                     .auth_login_title.tr,
                                             style: fontInter(18,
-                                                fontWeight: FontWeight.bold,
+                                                fontWeight: FontWeight.w600,
                                                 color: AppColor.c000333),
                                           ),
                                           decoration: BoxDecoration(

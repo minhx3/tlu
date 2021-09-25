@@ -37,7 +37,7 @@ class StudentGroupView extends GetView<ChatGroupInfoController> {
           ),
         ),
         Divider(
-          color: AppColor.labelColor,
+          color: AppColor.cd9d9d9,
           thickness: 1.5,
           indent: 12,
           endIndent: 12,

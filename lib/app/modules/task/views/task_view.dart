@@ -28,7 +28,7 @@ class TaskView extends GetView<TaskController> {
             ),
             Expanded(
               child: ListView(
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.all(20),
                 children: [
                   headerView(),
                   TeacherItemView(controller.subjectItem.teacher)

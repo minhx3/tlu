@@ -11,7 +11,7 @@ class SectionView extends GetView<ScheduleController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 16, bottom: 5),
+      padding: EdgeInsets.only(top: 12, bottom: 5),
       alignment: Alignment.center,
       child: Text(
         controller.getSectionDay(d),

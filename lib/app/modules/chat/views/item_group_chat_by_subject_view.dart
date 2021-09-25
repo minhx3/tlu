@@ -87,7 +87,7 @@ class _RowBottom extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: fontInter(12,
               color: AppColor.descriptionTextColor,
-              fontWeight: FontWeight.w600),
+              fontWeight: FontWeight.w500),
         ),
         Spacer(),
         badge > 0

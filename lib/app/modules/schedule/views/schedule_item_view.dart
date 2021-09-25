@@ -77,7 +77,7 @@ class ScheduleItemView extends GetView {
                               child: Image.asset(
                                 Images.iconStar,
                                 width: 18,
-                                color: item.favourite? Colors.amber: Colors.grey,
+                                color: item.favourite? Colors.amber: AppColor.cf2f2f2,
                               ),
                               onTap: toggleFavourite
                       )

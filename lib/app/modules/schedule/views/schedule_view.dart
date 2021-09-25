@@ -38,7 +38,7 @@ class ScheduleView extends GetView<ScheduleController> {
                 HeaderView(),
                 Obx(() => Expanded(
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: EdgeInsets.symmetric(horizontal: 15),
                         child: ListView(
                           padding: EdgeInsets.zero,
                           children: [

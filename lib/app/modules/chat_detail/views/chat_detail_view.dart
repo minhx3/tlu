@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:thanglong_university/Images/resources.dart';
@@ -97,13 +96,14 @@ class BottomChatView extends GetView<ChatDetailController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(minHeight: 60, maxHeight: 120),
+      constraints: BoxConstraints(minHeight: 60, maxHeight: 80),
       margin: EdgeInsets.zero,
       padding: const EdgeInsets.symmetric(horizontal: 6),
       decoration: BoxDecoration(
           border: Border(top: BorderSide(color: AppColor.lineColor))),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Obx(() => controller.messageReply()?.text != null
               ? Row(
@@ -117,11 +117,12 @@ class BottomChatView extends GetView<ChatDetailController> {
                 )
               : SizedBox.shrink()),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _CommonAttachmentView(),
               Expanded(
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Expanded(
@@ -162,11 +163,11 @@ class _CommonAttachmentView extends GetView<ChatDetailController> {
       height: 40,
       child: Obx(() => AnimatedSwitcher(
             duration: 250.milliseconds,
-            child: controller.showAttachment() == false
+            child: controller.showAttachment() == true
                 ? Wrap(
                     alignment: WrapAlignment.center,
                     runAlignment: WrapAlignment.center,
-                    spacing: 8,
+                    spacing: 0,
                     children: [
                       _IconAttachmentView(
                         imageAsset: Images.icUpload,
@@ -209,7 +210,7 @@ class _InputChatView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 12),
-      height: 44,
+      height: 40,
       decoration: BoxDecoration(
           color: AppColor.inputChatBackground,
           borderRadius: BorderRadius.circular(22)),

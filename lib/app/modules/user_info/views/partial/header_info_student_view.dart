@@ -17,7 +17,7 @@ class HeaderInfoStudentView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColor.whiteColor,
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 12, bottom: 12),
+      padding: const EdgeInsets.only(left: 24, right: 20, top: 12, bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -114,7 +114,7 @@ class _BranchView extends StatelessWidget {
               isHozSeparated: true,
             ),
             SizedBox(
-              width: 12,
+              width: 2,
             ),
             LabelValueInfoView(
               label: 'Lớp:',

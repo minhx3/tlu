@@ -39,18 +39,18 @@ class FormLoginView extends GetView<AuthController> {
                     : LocaleKeys.auth_teacher_hint.tr,
                 verticalSpacing: 20,
               ),
-              Obx(() => controller.rxUserNameValidate().isNotEmpty
-                  ? Padding(
-                      padding: const EdgeInsets.only(top: 17),
-                      child: Text(
-                        controller.rxUserNameValidate(),
-                        textAlign: TextAlign.left,
-                        style: fontInter(12,
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.cfc7171),
-                      ),
-                    )
-                  : SizedBox()),
+              // Obx(() => controller.rxUserNameValidate().isNotEmpty
+              //     ? Padding(
+              //         padding: const EdgeInsets.only(top: 17),
+              //         child: Text(
+              //           controller.rxUserNameValidate(),
+              //           textAlign: TextAlign.left,
+              //           style: fontInter(12,
+              //               fontWeight: FontWeight.w500,
+              //               color: AppColor.cfc7171),
+              //         ),
+              //       )
+              //     : SizedBox()),
               TextFieldView(
                 label: LocaleKeys.auth_password_label.tr,
                 hintText: LocaleKeys.auth_password_hint.tr,
@@ -58,25 +58,25 @@ class FormLoginView extends GetView<AuthController> {
                 obscureText: true,
                 verticalSpacing: 12,
               ),
-              Obx(() => controller.rxPasswordValidate().isNotEmpty
-                  ? Padding(
-                      padding: const EdgeInsets.only(top: 17),
-                      child: Text(
-                        controller.rxPasswordValidate(),
-                        textAlign: TextAlign.left,
-                        style: fontInter(12,
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.cfc7171),
-                      ),
-                    )
-                  : SizedBox()),
+              // Obx(() => controller.rxPasswordValidate().isNotEmpty
+              //     ? Padding(
+              //         padding: const EdgeInsets.only(top: 17),
+              //         child: Text(
+              //           controller.rxPasswordValidate(),
+              //           textAlign: TextAlign.left,
+              //           style: fontInter(12,
+              //               fontWeight: FontWeight.w500,
+              //               color: AppColor.cfc7171),
+              //         ),
+              //       )
+              //     : SizedBox()),
               Obx(() => controller.rxErrMessage().isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.only(top: 17),
                       child: Text(
                         controller.rxErrMessage(),
                         textAlign: TextAlign.center,
-                        style: fontInter(12,
+                        style: fontInter(10,
                             fontWeight: FontWeight.w500,
                             color: AppColor.cfc7171),
                       ),
@@ -118,7 +118,7 @@ class FormLoginView extends GetView<AuthController> {
                 color: controller.tabIndex() == index
                     ? Colors.white
                     : AppColor.c4d4d4d,
-                fontWeight: FontWeight.bold),
+                fontWeight: FontWeight.w600),
           ),
         ),
       ),

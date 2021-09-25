@@ -50,7 +50,7 @@ class ChatDetailController extends GetxController {
     focusNode = FocusNode()
       ..addListener(() {
         _hasFocus(focusNode.hasFocus);
-        showAttachment(focusNode.hasFocus);
+        showAttachment(!focusNode.hasFocus);
         Future.delayed(Duration(milliseconds: 250))
             .whenComplete(() => scrollController.animateTo(
                   scrollController.position.minScrollExtent,

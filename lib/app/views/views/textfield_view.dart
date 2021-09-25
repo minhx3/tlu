@@ -87,7 +87,7 @@ class TextFieldView extends GetView {
                               hintStyle: fontInter(12,
                                   color: AppColor.cbfbfbf,
                                   fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w500)),
+                                  fontWeight: FontWeight.w600)),
                         ),
                       ),
                     ],
