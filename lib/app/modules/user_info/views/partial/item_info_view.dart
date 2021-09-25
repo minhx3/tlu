@@ -23,9 +23,12 @@ class ItemInfoView extends StatelessWidget {
         SizedBox(
           height: 12,
         ),
-        LabelValueInfoView(
-          label: label ?? '',
-          value: value ?? '',
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: LabelValueInfoView(
+            label: label ?? '',
+            value: value ?? '',
+          ),
         ),
         SizedBox(
           height: 12,

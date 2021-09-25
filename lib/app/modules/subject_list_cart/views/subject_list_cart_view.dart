@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
-import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/modules/subject_list_cart/controllers/subject_list_cart_controller.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/controllers/subject_list_term_controller.dart';
-import 'package:thanglong_university/app/views/views/app_bar_view.dart';
+import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 import 'package:thanglong_university/app/configuration/extension/int.dart';
@@ -23,11 +22,11 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
               controller.rxEditMode() ? AppColor.whiteColor : AppColor.cf2f2f2,
           body: Column(
             children: [
-              AppBarView(
-                title: "Danh sách đã chọn",
-                type: AppBarType.white,
-              ),
-              blockView(context),
+              // AppBarView(
+              //   title: "Danh sách đã chọn",
+              //   type: AppBarType.white,
+              // ),
+              blockView(context).marginOnly(top: context.mediaQueryPadding.top),
               Expanded(
                 child: ListView(
                   padding: EdgeInsets.zero,
@@ -163,6 +162,7 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
                     child: Text(
                       editMode ? "-" : "+",
                       style: fontInter(18,
+                          height: 1.2,
                           color: AppColor.whiteColor,
                           fontWeight: FontWeight.w600),
                     ),
@@ -260,11 +260,14 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
               child: SizedBox(),
             ),
             SizedBox(
-              width: 108,
               child: ButtonView(
+                onTap: () {
+                  Get.toNamed(Routes.RESGISTER_SUBJECT_TERM);
+                },
+                fontWeight: FontWeight.w600,
                 verticalSpacing: 0,
                 title: "List môn",
-                horizontalSpacing: 10,
+                buttonPadding: EdgeInsets.symmetric(horizontal: 20),
               ),
             )
           ],

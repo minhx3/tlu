@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
+import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/chat/base_model.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/avatar_user_name_view.dart';
 import 'package:thanglong_university/app/modules/user_info/views/partial/item_info_view.dart';
@@ -16,8 +17,8 @@ class HeaderInfoStudentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColor.whiteColor,
-      padding: const EdgeInsets.only(left: 24, right: 20, top: 12, bottom: 12),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 12),
+      decoration: boxShadow,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -48,24 +49,27 @@ class _CommonInfoView extends StatelessWidget {
         SizedBox(
           height: 26,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            LabelValueInfoView(
-              label: 'Khoá:',
-              value: "${user?.schoolYear ?? ""}",
-              isHozSeparated: true,
-            ),
-            LabelValueInfoView(
-              label: 'Số điện thoại:',
-              value: "${user?.mobile ?? ""}",
-              isHozSeparated: true,
-            ),
-            LabelValueInfoView(
-              label: 'Ngày sinh',
-              value: "${user?.dob?.dateFormat() ?? ""}",
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              LabelValueInfoView(
+                label: 'Khoá:',
+                value: "${user?.schoolYear ?? ""}",
+                isHozSeparated: true,
+              ),
+              LabelValueInfoView(
+                label: 'Số điện thoại:',
+                value: "${user?.mobile ?? ""}",
+                isHozSeparated: true,
+              ),
+              LabelValueInfoView(
+                label: 'Ngày sinh',
+                value: "${user?.dob?.dateFormat() ?? ""}",
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: 12,
@@ -106,28 +110,27 @@ class _BranchView extends StatelessWidget {
         SizedBox(
           height: 12,
         ),
-        Row(
-          children: [
-            LabelValueInfoView(
-              label: 'Khoa ngành:',
-              value: user?.faculty ?? user?.majors ?? '',
-              isHozSeparated: true,
-            ),
-            SizedBox(
-              width: 2,
-            ),
-            LabelValueInfoView(
-              label: 'Lớp:',
-              value: user?.className ?? '',
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: Row(
+            children: [
+              LabelValueInfoView(
+                label: 'Khoa ngành:',
+                value: user?.faculty ?? user?.majors ?? '',
+                isHozSeparated: true,
+              ),
+              SizedBox(
+                width: 12,
+              ),
+              LabelValueInfoView(
+                label: 'Lớp:',
+                value: user?.className ?? '',
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: 12,
-        ),
-        Divider(
-          height: 1,
-          color: AppColor.lineSectionColor,
         ),
       ],
     );
