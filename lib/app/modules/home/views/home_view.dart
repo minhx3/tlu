@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/view_state.dart';
-import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
+import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
 import 'package:thanglong_university/app/model/schedule_model.dart';
 import 'package:thanglong_university/app/modules/chat/controllers/chat_cotroller.dart';
 import 'package:thanglong_university/app/modules/chat/views/item_group_chat_by_subject_view.dart';
@@ -119,7 +118,7 @@ class _TeacherDashboardView extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (c, index) {
-                        SubjectClassEntity g =
+                        GroupChatModel g =
                             controller.getGroupWithBadge[index];
                         return ItemGroupChatBySubjectView(
                           item: g,

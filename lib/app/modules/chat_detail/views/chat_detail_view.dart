@@ -120,6 +120,7 @@ class BottomChatView extends GetView<ChatDetailController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _CommonAttachmentView(),
+              SizedBox(width: 6,),
               Expanded(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,

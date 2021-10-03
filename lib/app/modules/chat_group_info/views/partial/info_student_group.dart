@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
@@ -62,8 +63,8 @@ class StudentGroupView extends GetView<ChatGroupInfoController> {
               separatorBuilder: (BuildContext context, int index) {
                 return Divider(
                   thickness: 1,
-                  indent: 12,
-                  endIndent: 12,
+                  indent: 15,
+                  endIndent: 15,
                   color: AppColor.lineColor,
                 );
               },
@@ -94,13 +95,13 @@ class _ItemStudentView extends StatelessWidget {
       backgroundColor: Colors.transparent,
       onPressed: onPressed,
       child: Container(
-        height: 74,
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+        height: 70,
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
-              radius: 25,
+              radius: 20,
               backgroundColor: AppColor.subjectBackgroundColor,
               child: Text(
                 'TM',
@@ -121,7 +122,7 @@ class _ItemStudentView extends StatelessWidget {
                         text: user?.id,
                       ),
                       SizedBox(
-                        width: 6,
+                        width: 2,
                       ),
                       Visibility(
                         visible: isClassPresident,
@@ -133,7 +134,7 @@ class _ItemStudentView extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 4,
+                    height: 1,
                   ),
                   Text(
                     user.name,
@@ -146,9 +147,9 @@ class _ItemStudentView extends StatelessWidget {
               ),
             ),
             Icon(
-              Icons.chevron_right,
-              color: AppColor.trailingIconItemColor,
-              size: 40,
+              Entypo.chevron_thin_right,
+              color: AppColor.cb3b4c2,
+              size: 24,
             ),
           ],
         ),

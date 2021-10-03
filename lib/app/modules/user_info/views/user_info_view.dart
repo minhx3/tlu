@@ -13,7 +13,7 @@ class UserInfoView extends GetView<UserInfoController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _AppBarView(),
-      backgroundColor: AppColor.userInfoBackground,
+      backgroundColor: AppColor.whiteColor,
       body: _ListContentView(),
     );
   }

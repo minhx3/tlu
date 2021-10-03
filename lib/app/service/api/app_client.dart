@@ -382,7 +382,7 @@ class Appclient {
     }
   }
 
-  Future<Map<String, List<ScheduleTeacherModel>>> getScheduleTeacherList(
+  Future<List<ScheduleTeacherModel>> getScheduleTeacherList(
       {String fromDate, String toDate}) async {
     final result =
         await ScheduleRouter(ScheduleEndpoint.getScheduleTeacherList).call;
@@ -392,7 +392,8 @@ class Appclient {
       result.data.forEach((e) {
         list.add(ScheduleTeacherModel.fromJson(e));
       });
-      return groupBy(list, (e) => e.subjectId);
+      return list;
+      // return groupBy(list, (e) => e.subjectClassName);
     } else {
       return null;
     }

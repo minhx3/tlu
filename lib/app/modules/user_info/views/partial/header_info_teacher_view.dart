@@ -15,7 +15,7 @@ class HeaderInfoTeacherView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColor.whiteColor,
-      padding: const EdgeInsets.only(left: 24, right: 20, top: 12),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,

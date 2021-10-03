@@ -3,6 +3,7 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
+import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
@@ -10,9 +11,10 @@ import 'package:thanglong_university/app/views/views/value_box_view.dart';
 
 class ItemGroupChatBySubjectView extends StatelessWidget {
   final VoidCallback onPressed;
-  final SubjectClassEntity item;
+  final GroupChatModel item;
+  final String subjectClassId;
 
-  const ItemGroupChatBySubjectView({Key key, this.onPressed, this.item})
+  const ItemGroupChatBySubjectView({Key key, this.onPressed, this.item, this.subjectClassId})
       : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
       backgroundColor: Colors.transparent,
       onPressed: onPressed ??
           () {
-            ChatCrud.instance.userViewMessage(item.groupId);
+            ChatCrud.instance.userViewMessage(subjectClassId);
             pushTo(Routes.CHAT_DETAIL, arguments: item);
           },
       child: Container(
@@ -34,7 +36,7 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
               radius: 25,
               backgroundColor: AppColor.subjectBackgroundColor,
               child: Text(
-                item?.id?.substring(0, 2)?.toUpperCase() ?? '',
+                item?.subjectClassId?.substring(0, 2)?.toUpperCase() ?? '',
                 style: fontInter(14, color: AppColor.whiteColor),
               ),
             ),
@@ -47,7 +49,7 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _RowTop(
-                    title: item?.id ?? '',
+                    title: subjectClassId ?? '',
                     time: item?.latestMessage?.getTime ?? '',
                   ),
                   SizedBox(

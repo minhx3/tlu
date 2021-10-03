@@ -44,7 +44,8 @@ class HeaderView extends GetView<ScheduleController> {
                         Text(
                           "${controller.getToday()}",
                           style: fontInter(16,
-                              color: AppColor.cfc7171, fontWeight: FontWeight.w600),
+                              color: AppColor.cfc7171,
+                              fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -85,7 +86,6 @@ class HeaderView extends GetView<ScheduleController> {
       child: Container(
         height: 30,
         width: 71,
-        padding: EdgeInsets.symmetric(horizontal: 8),
         alignment: Alignment.center,
         decoration: BoxDecoration(
             color: isSelected == false
@@ -95,6 +95,7 @@ class HeaderView extends GetView<ScheduleController> {
         child: Text(title ?? "",
             style: fontInter(13,
                 fontWeight: FontWeight.w600,
+                height: null,
                 color: isSelected == true
                     ? AppColor.c000333
                     : AppColor.whiteColor)),

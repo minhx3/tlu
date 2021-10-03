@@ -60,7 +60,8 @@ class EducationView extends GetView<EducationController> {
                               value: (data?.completeCredits ?? 0) /
                                   (data?.sumCredits ?? 0),
                               onTap: () {
-                                pushTo(Routes.TEST_SCHEDULE, arguments: controller.rxScheduleList);
+                                pushTo(Routes.TEST_SCHEDULE,
+                                    arguments: controller.rxScheduleList);
                               });
                         }),
                       ],
@@ -169,7 +170,7 @@ class EducationView extends GetView<EducationController> {
         decoration: boxShadow.copyWith(
             color: type == 1 ? AppColor.c000333 : AppColor.whiteColor,
             borderRadius: BorderRadius.circular(5)),
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        padding: EdgeInsets.fromLTRB(15, type == 1 ? 15 : 11, 15, 12),
         child: Column(
           children: [
             Row(

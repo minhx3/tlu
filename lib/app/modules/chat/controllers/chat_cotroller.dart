@@ -1,20 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
+import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
+import 'package:thanglong_university/app/model/schedule_teacher_model.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 
 class ChatController extends GetxController {
-  RxList<SubjectClassEntity> group = RxList();
-  RxList<SubjectClassEntity> groupArchive = RxList();
+  RxList<GroupChatModel> group = RxList();
+  RxList<GroupChatModel> groupArchive = RxList();
   final listLastMessage = <Chat>[].obs;
   RxBool showArchive = RxBool(false);
 
-  List<SubjectClassEntity> get getGroupWithBadge {
+  List<GroupChatModel> get getGroupWithBadge {
     return group().map((e) {
-      Chat c = listLastMessage.firstWhere((element) => element.id == e.groupId,
+      Chat c = listLastMessage.firstWhere(
+          (element) => element.id == e.subjectClassId,
           orElse: () => null);
       if (c != null) {
         e.latestMessage = c;
@@ -34,6 +38,10 @@ class ChatController extends GetxController {
       });
   }
 
+  Map<String, List<GroupChatModel>> get groupTeacherWithBadge {
+    return groupBy(getGroupWithBadge, (e) => e.subjectClassName);
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -49,9 +57,16 @@ class ChatController extends GetxController {
 
   getGroup() async {
     try {
+      if (isTeacher) {
+        List<ScheduleTeacherModel> resTeacher =
+            await Appclient.shared.getScheduleTeacherList();
+        group(resTeacher.map((e) => GroupChatModel()).toList());
+        return;
+      }
       List<SubjectClassEntity> res =
           await Appclient.shared.getSubjectClassList(true);
-      group(res);
+      group(res.map((e) => GroupChatModel()).toList());
+
       // ignore: unused_catch_clause
     } on Exception catch (e) {} finally {}
   }
@@ -64,7 +79,7 @@ class ChatController extends GetxController {
     try {
       List<SubjectClassEntity> res =
           await Appclient.shared.getSubjectClassList(false);
-      groupArchive(res);
+      groupArchive(res.map((e) => GroupChatModel()).toList());
     } on Exception catch (e) {} finally {}
   }
 }

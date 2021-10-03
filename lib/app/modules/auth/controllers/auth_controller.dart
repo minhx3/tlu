@@ -69,7 +69,7 @@ class AuthController extends AppController {
         passwordTextEdit.text.isEmpty ? "Vui lòng nhập mật khẩu" : "");
 
     if (usernameTextEdit.text.isEmpty || passwordTextEdit.text.isEmpty) {
-      rxErrMessage("");
+      rxErrMessage("Vui lòng nhập tài khoản/mật khẩu");
       return;
     }
 
