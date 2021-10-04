@@ -60,12 +60,20 @@ class ChatController extends GetxController {
       if (isTeacher) {
         List<ScheduleTeacherModel> resTeacher =
             await Appclient.shared.getScheduleTeacherList();
-        group(resTeacher.map((e) => GroupChatModel()).toList());
+        group(resTeacher
+            .map((e) => GroupChatModel(
+                  subjectClassId: e.subjectClassId,
+                  subjectClassName: e.subjectClassName,
+                ))
+            .toList());
         return;
       }
       List<SubjectClassEntity> res =
           await Appclient.shared.getSubjectClassList(true);
-      group(res.map((e) => GroupChatModel()).toList());
+      group(res
+          .map((e) =>
+              GroupChatModel(subjectClassId: e.id, subjectClassName: e.name))
+          .toList());
 
       // ignore: unused_catch_clause
     } on Exception catch (e) {} finally {}

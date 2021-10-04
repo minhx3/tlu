@@ -9,7 +9,7 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
-import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
+import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
 import 'package:thanglong_university/app/model/chat/user.dart';
 import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
 import 'package:thanglong_university/app/modules/chat_detail/views/tile.dart';
@@ -31,7 +31,7 @@ class ChatDetailView extends GetView<ChatDetailController> {
       child: Scaffold(
         appBar: _AppBarView(
           cg: controller.cg,
-          title: controller.cg.id,
+          title: controller.cg.subjectClassId,
         ),
         backgroundColor: AppColor.chatBackground,
         body: SafeArea(
@@ -60,7 +60,7 @@ class ChatDetailView extends GetView<ChatDetailController> {
 
 class _AppBarView extends StatelessWidget with PreferredSizeWidget {
   final String title;
-  final SubjectClassEntity cg;
+  final GroupChatModel cg;
 
   const _AppBarView({Key key, @required this.title,  this.cg}) : super(key: key);
 

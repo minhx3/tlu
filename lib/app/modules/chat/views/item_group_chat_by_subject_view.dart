@@ -49,7 +49,7 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _RowTop(
-                    title: subjectClassId ?? '',
+                    title: item?.subjectClassId ?? '',
                     time: item?.latestMessage?.getTime ?? '',
                   ),
                   SizedBox(
@@ -124,7 +124,7 @@ class _RowTop extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            title,
+            title??'',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: fontInter(14, fontWeight: FontWeight.w600),

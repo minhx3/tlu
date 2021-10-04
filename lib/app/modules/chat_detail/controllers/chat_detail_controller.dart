@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
+import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
 import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
@@ -31,7 +32,7 @@ class ChatDetailController extends GetxController {
 
   final ScrollController scrollController = ScrollController();
 
-  SubjectClassEntity cg = Get.arguments;
+  GroupChatModel cg = Get.arguments;
 
   Rx<Chat> messageReply = Rx();
 
@@ -45,8 +46,8 @@ class ChatDetailController extends GetxController {
   void onInit() async {
     super.onInit();
 
-    await FirebaseMessaging.instance.subscribeToTopic(cg.groupId);
-    list.bindStream(ChatCrud.instance.chatStream(cg.groupId));
+    await FirebaseMessaging.instance.subscribeToTopic(cg.subjectClassId);
+    list.bindStream(ChatCrud.instance.chatStream(cg.subjectClassId));
     focusNode = FocusNode()
       ..addListener(() {
         _hasFocus(focusNode.hasFocus);
@@ -69,16 +70,17 @@ class ChatDetailController extends GetxController {
   String get error => _error.value;
 
   void getListUser() async {
-    List<UserEntity> res = await Appclient.shared.getUserList(cg.groupId);
+    List<UserEntity> res = await Appclient.shared.getUserList(cg.subjectClassId);
     UserEntity tec = UserEntity(
-        id: cg.teacher?.id,
-        isTeacher: true,
-        name: cg.teacher.fullName,
-        mobile: cg.teacher.mobile,
-        email: cg.teacher.email,
-        avatar: cg.teacher.avatar,
-        faculty: cg.teacher.faculty,
-        teachingList: cg.teacher.teachingList);
+        // id: cg.teacher?.id,
+        // isTeacher: true,
+        // name: cg.teacher.fullName,
+        // mobile: cg.teacher.mobile,
+        // email: cg.teacher.email,
+        // avatar: cg.teacher.avatar,
+        // faculty: cg.teacher.faculty,
+        // teachingList: cg.teacher.teachingList
+    );
     u([tec, ...res]);
     uf([tec, ...res]);
   }
@@ -100,14 +102,14 @@ class ChatDetailController extends GetxController {
               file: file,
               img: img,
               badge: 0),
-          groupId: cg.groupId,
+               groupId: cg.subjectClassId,
           listUser: u());
       await NotificationFCB.instance.sendNotificationMessageToPeerUser(
           unReadMSGCount: 0,
           messageType: getType(),
           textFromTextField: tec.text,
           myName: 'Leo Messi',
-          chatroomId: cg.groupId,
+          chatroomId: cg.subjectClassId,
           myImageUrl: '');
 
       cleanMessage();

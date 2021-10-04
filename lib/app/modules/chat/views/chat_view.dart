@@ -5,14 +5,11 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
-import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/modules/chat/controllers/chat_cotroller.dart';
-import 'package:thanglong_university/app/modules/chat/views/chat_list_teacher.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 
-import 'chat_list_student.dart';
 import 'item_group_chat_by_subject_view.dart';
 
 class ChatView extends GetView<ChatController> {
@@ -26,7 +23,7 @@ class ChatView extends GetView<ChatController> {
             type: AppBarType.chat,
             title: "Chat",
           ),
-          Expanded(child: ChatListTeacherView(controller))
+          Expanded(child: ChatListStudent(controller:controller))
         ]));
   }
 }
