@@ -23,7 +23,7 @@ class ChatView extends GetView<ChatController> {
             type: AppBarType.chat,
             title: "Chat",
           ),
-          Expanded(child: ChatListStudent(controller:controller))
+          Expanded(child: ChatListStudent(controller: controller))
         ]));
   }
 }

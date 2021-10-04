@@ -262,7 +262,7 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
             SizedBox(
               child: ButtonView(
                 onTap: () {
-                  Get.toNamed(Routes.RESGISTER_SUBJECT_TERM);
+                  Get.back();
                 },
                 fontWeight: FontWeight.w600,
                 verticalSpacing: 0,

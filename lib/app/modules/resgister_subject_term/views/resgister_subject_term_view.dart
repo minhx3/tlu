@@ -61,7 +61,7 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
         item.status == SujectGroupStatusEnum.RE_OPEN) {
       textColor1 = textColor2 = textColor3 = Colors.white;
       backgroundColor = AppColor.cfc2626;
-      Color borderColor = AppColor.cfc7171;
+      borderColor = AppColor.cfc7171;
     }
     return InkWell(
       onTap: () {
@@ -136,9 +136,10 @@ class ResgisterSubjectTermView extends GetView<ResgisterSubjectTermController> {
     }
     return Container(
         height: 26,
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+        padding: EdgeInsets.symmetric(vertical: 7, horizontal: 8),
         child: Text(subjectGroupStatusSwitch.reverse[status],
             style: TextStyle(
+                height: 1,
                 color: Colors.white,
                 fontSize: 12,
                 fontWeight: FontWeight.w600)),

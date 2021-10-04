@@ -44,7 +44,8 @@ class DetaiClassController extends AppController
       (subjectClassData.listTimelineClass ?? [])
           .asMap()
           .forEach((index, element) {
-        (columnList[0]['data'] as List).add(element.id ?? "");
+        (columnList[0]['data'] as List)
+            .add(element.isExerciseClass == true ? ".BT" : ".LT");
         (columnList[1]['data'] as List)
             .add((element.teacher?.id ?? "").toUpperCase());
         (columnList[2]['data'] as List)
