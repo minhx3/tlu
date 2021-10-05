@@ -8,7 +8,6 @@ class AppBinding extends Bindings {
   @override
   void dependencies() {
     GetStorage.init().then((state) {
-      print("GetStorage is $state");
 
       if (Storage?.getLanguage() != null) {
         changeLanguage(Storage?.getLanguage());
