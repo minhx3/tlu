@@ -19,15 +19,25 @@ class ChatListTeacherView extends StatelessWidget {
     Map<String, List<GroupChatModel>> groupTeacher =
         controller.groupTeacherWithBadge;
     return Expanded(
-      child: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          children: groupTeacher.entries
-              .map((e) => _ItemGroupBySubjectView(
-                    subjectName: e.key,
-                    itemChilds: e.value,
-                  ))
-              .toList()),
-    );
+        child: ListView.separated(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      itemBuilder: (c, index) {
+        var item = groupTeacher.entries.elementAt(index);
+        return _ItemGroupBySubjectView(
+          subjectName: item.key,
+          itemChilds: item.value,
+        );
+      },
+      itemCount: groupTeacher.entries.length,
+      separatorBuilder: (BuildContext context, int index) {
+        return Divider(
+          thickness: 1.5,
+          indent: 12,
+          endIndent: 12,
+          color: AppColor.cbfbfbf,
+        );
+      },
+    ));
   }
 }
 
@@ -79,12 +89,6 @@ class _ItemGroupBySubjectView extends StatelessWidget {
             );
           },
         ),
-        Divider(
-          thickness: 1.5,
-          indent: 12,
-          endIndent: 12,
-          color: AppColor.cbfbfbf,
-        )
       ],
     );
   }

@@ -8,6 +8,7 @@ import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
 import 'package:thanglong_university/app/modules/chat/controllers/chat_cotroller.dart';
 import 'package:thanglong_university/app/modules/chat/views/chat_list_teacher.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
+import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 
@@ -24,7 +25,7 @@ class ChatView extends GetView<ChatController> {
             type: AppBarType.chat,
             title: "Chat",
           ),
-          ChatListTeacherView(controller:controller)
+         isTeacher? ChatListTeacherView(controller:controller): ChatListStudent(controller: controller)
         ]));
   }
 }
