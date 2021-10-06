@@ -8,7 +8,6 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/model/score_detail_entity.dart';
-import 'package:thanglong_university/app/model/transcript_model.dart';
 import 'package:thanglong_university/app/modules/transcript/controllers/transcript_controller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
@@ -78,7 +77,9 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
                           title: "Số tín chỉ",
                           value: item?.subject?.credits?.toString() ?? ''),
                     ),
-                    SizedBox(height: 14,),
+                    SizedBox(
+                      height: 14,
+                    ),
                     ButtonView(
                       title: "Chi tiết môn",
                       type: ButtonType.outline,
@@ -176,7 +177,7 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
             Expanded(
                 child: Text(
               title,
-              style: fontInter(isSubItem? 13: 14,
+              style: fontInter(isSubItem ? 13 : 14,
                   fontWeight: FontWeight.w500,
                   color: isSubItem ? AppColor.c808080 : AppColor.c333333),
               maxLines: 2,
@@ -184,7 +185,7 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
             )),
             Text(
               value,
-              style: fontInter(isSubItem? 13: 16,
+              style: fontInter(isSubItem ? 13 : 16,
                   fontWeight: FontWeight.w600, color: AppColor.c000333),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

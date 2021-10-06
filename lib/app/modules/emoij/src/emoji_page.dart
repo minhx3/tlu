@@ -27,6 +27,7 @@ class EmojiPage extends StatelessWidget {
             if (index >= emojis.length) return Container();
             var emoji = emojis[index];
             return Center(
+              // ignore: deprecated_member_use
               child: FlatButton(
                 padding: EdgeInsets.all(0.0),
                 child: Center(

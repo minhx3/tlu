@@ -116,7 +116,9 @@ class TestScheduleView extends GetView<TestScheduleController> {
                   overflow: TextOverflow.ellipsis,
                   style: fontInter(14,
                       fontWeight: FontWeight.w600,
-                      color: t.status=='ONGOING'?AppColor.c000333: AppColor.c808080),
+                      color: t.status == 'ONGOING'
+                          ? AppColor.c000333
+                          : AppColor.c808080),
                 ),
                 Text(
                   "${t.subjectClassId}",
@@ -151,7 +153,9 @@ class TestScheduleView extends GetView<TestScheduleController> {
                   style: fontInter(
                     14,
                     fontWeight: FontWeight.w600,
-                    color: t.status=='ONGOING'? AppColor.cfc7171: AppColor.cbfbfbf,
+                    color: t.status == 'ONGOING'
+                        ? AppColor.cfc7171
+                        : AppColor.cbfbfbf,
                   ),
                 )
               ],
@@ -231,19 +235,18 @@ class TestScheduleView extends GetView<TestScheduleController> {
 
   RichText richTextSection(int i, String time) {
     return RichText(
-              text: TextSpan(
-                text: 'Ca ${i}: ',
-                style: fontInter(13,
-                    color: AppColor.cb3b4c2, fontWeight: FontWeight.w600),
-                children: <TextSpan>[
-                  TextSpan(
-                      text: time,
-                      style: fontInter(13,
-                          color: AppColor.c595C82,
-                          fontWeight: FontWeight.w600)),
-                ],
-              ),
-            );
+      text: TextSpan(
+        text: 'Ca $i: ',
+        style:
+            fontInter(13, color: AppColor.cb3b4c2, fontWeight: FontWeight.w600),
+        children: <TextSpan>[
+          TextSpan(
+              text: time,
+              style: fontInter(13,
+                  color: AppColor.c595C82, fontWeight: FontWeight.w600)),
+        ],
+      ),
+    );
   }
 
   Container sectionOverview() {

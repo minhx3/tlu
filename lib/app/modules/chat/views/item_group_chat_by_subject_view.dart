@@ -4,7 +4,6 @@ import 'package:thanglong_university/app/configuration/constant/font_style.dart'
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
-import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/pressable_view.dart';
 import 'package:thanglong_university/app/views/views/value_box_view.dart';
@@ -14,7 +13,8 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
   final GroupChatModel item;
   final String subjectClassId;
 
-  const ItemGroupChatBySubjectView({Key key, this.onPressed, this.item, this.subjectClassId})
+  const ItemGroupChatBySubjectView(
+      {Key key, this.onPressed, this.item, this.subjectClassId})
       : super(key: key);
 
   @override
@@ -124,7 +124,7 @@ class _RowTop extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            title??'',
+            title ?? '',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: fontInter(14, fontWeight: FontWeight.w600),

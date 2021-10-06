@@ -19,6 +19,7 @@ class CategorySelector extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 9,
       height: MediaQuery.of(context).size.width / 9,
+      // ignore: deprecated_member_use
       child: FlatButton(
         padding: EdgeInsets.all(0.0),
         color: selected ? Colors.black12 : Colors.transparent,

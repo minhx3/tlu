@@ -33,7 +33,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
           children: [
             AppBarView(
               title: "Chi tiết lớp",
-              type: AppBarType.white,
+              type: AppBarType.navigator,
               iconSize: 50,
               iconLeading: isEdu ? null : Images.plus,
               iconTintColor: AppColor.cfc2626,
@@ -93,10 +93,27 @@ class DetaiClassView extends GetView<DetaiClassController> {
                             ).paddingSymmetric(horizontal: 5),
                           ),
                           lineWidget(),
-                          item("Mã lớp:", controller.subjectClassData?.id ?? "",
-                                  isLast: true)
-                              .paddingSymmetric(horizontal: 5),
-                          lineWidget(),
+                          ...controller.subjectClassData.listTimelineClass
+                              .map((e) => Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      item(
+                                              controller
+                                                          .subjectClassData
+                                                          .listTimelineClass
+                                                          .length ==
+                                                      1
+                                                  ? "Mã lớp:"
+                                                  : "Mã lớp ${e.isExerciseClass == false ? "lý thuyết" : "thực hành"}:",
+                                              e?.id ?? "",
+                                              isLast: true)
+                                          .paddingSymmetric(horizontal: 5),
+                                      lineWidget(),
+                                    ],
+                                  ))
+                              .toList(),
                           ...controller.subjectClassData.listTimelineClass
                               .map((e) {
                             return Column(children: [

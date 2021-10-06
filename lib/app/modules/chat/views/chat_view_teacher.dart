@@ -5,7 +5,6 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
-import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/modules/chat/controllers/chat_cotroller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
@@ -33,8 +32,7 @@ class ChatView extends GetView<ChatController> {
                       padding: EdgeInsets.zero,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (c, index) {
-                        GroupChatModel g =
-                            controller.getGroupWithBadge[index];
+                        GroupChatModel g = controller.getGroupWithBadge[index];
                         return ItemGroupChatBySubjectView(
                           item: g,
                           onPressed: () {
@@ -74,7 +72,8 @@ class ChatView extends GetView<ChatController> {
                           return ItemGroupChatBySubjectView(
                             item: g,
                             onPressed: () {
-                              ChatCrud.instance.userViewMessage(g.subjectClassId);
+                              ChatCrud.instance
+                                  .userViewMessage(g.subjectClassId);
                               pushTo(Routes.CHAT_DETAIL, arguments: g);
                             },
                           );
