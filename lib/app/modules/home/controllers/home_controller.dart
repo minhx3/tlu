@@ -1,4 +1,3 @@
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:thanglong_university/Images/resources.dart';

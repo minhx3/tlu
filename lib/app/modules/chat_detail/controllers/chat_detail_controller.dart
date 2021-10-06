@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
-import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
 import 'package:thanglong_university/app/service/notification.dart';
@@ -70,7 +69,8 @@ class ChatDetailController extends GetxController {
   String get error => _error.value;
 
   void getListUser() async {
-    List<UserEntity> res = await Appclient.shared.getUserList(cg.subjectClassId);
+    List<UserEntity> res =
+        await Appclient.shared.getUserList(cg.subjectClassId);
     UserEntity tec = UserEntity(
         // id: cg.teacher?.id,
         // isTeacher: true,
@@ -80,7 +80,7 @@ class ChatDetailController extends GetxController {
         // avatar: cg.teacher.avatar,
         // faculty: cg.teacher.faculty,
         // teachingList: cg.teacher.teachingList
-    );
+        );
     u([tec, ...res]);
     uf([tec, ...res]);
   }
@@ -102,7 +102,7 @@ class ChatDetailController extends GetxController {
               file: file,
               img: img,
               badge: 0),
-               groupId: cg.subjectClassId,
+          groupId: cg.subjectClassId,
           listUser: u());
       await NotificationFCB.instance.sendNotificationMessageToPeerUser(
           unReadMSGCount: 0,
@@ -155,6 +155,7 @@ class ChatDetailController extends GetxController {
     return u().firstWhere((element) => element?.id == id, orElse: () => null);
   }
 
+  // ignore: missing_return
   Future<PickedFile> pickFile(
       {ImageSource source = ImageSource.gallery,
       double maxWidth = 600,
@@ -185,7 +186,6 @@ class ChatDetailController extends GetxController {
       return url.toString();
     } on Exception catch (e) {
       print(e);
-      // TODO
     }
   }
 
@@ -200,7 +200,6 @@ class ChatDetailController extends GetxController {
       }
     } on Exception catch (e) {
       print(e);
-      // TODO
     }
   }
 

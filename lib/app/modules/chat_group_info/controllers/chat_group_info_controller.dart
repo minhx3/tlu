@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
+import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
 import 'package:thanglong_university/app/model/chat/user_entity.dart';
 import 'package:thanglong_university/app/service/api/app_client.dart';
+import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'package:tiengviet/tiengviet.dart';
 
 class ChatGroupInfoController extends GetxController {
@@ -33,8 +34,9 @@ class ChatGroupInfoController extends GetxController {
   }
 
   void getListUser() async {
-    SubjectClassEntity cg = Get.arguments;
-    List<UserEntity> res = await Appclient.shared.getUserList(cg.id);
+    GroupChatModel cg = Get.arguments;
+    List<UserEntity> res =
+        await Appclient.shared.getUserList(cg.subjectClassId);
     UserEntity tec = UserEntity(
         id: cg.teacher?.id,
         isTeacher: true,
@@ -44,8 +46,9 @@ class ChatGroupInfoController extends GetxController {
         avatar: cg.teacher.avatar,
         faculty: cg.teacher.faculty,
         teachingList: cg.teacher.teachingList);
-    u([tec, ...res]);
-    uf([tec, ...res]);
+    List<UserEntity> listUserWithTeacher = isTeacher ? res : [tec, ...res];
+    u(listUserWithTeacher);
+    uf(listUserWithTeacher);
   }
 
   filterList() {

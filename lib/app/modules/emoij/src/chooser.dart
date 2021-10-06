@@ -169,7 +169,6 @@ class _EmojiChooserState extends State<EmojiChooser> {
 
     List<Widget> pages = [];
     List<Widget> selectors = [];
-    Group selectedGroup = _groups[selectedCategory];
     int index = 0;
     for (Category category in _groups.keys) {
       Group group = _groups[category];

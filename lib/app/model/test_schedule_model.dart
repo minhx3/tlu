@@ -71,7 +71,7 @@ class TestScheduleModel {
     if (status == 'BANNED') {
       return banned;
     }
-    return 'Ca ${session}, ${DateFormat('dd/mm/yy').format(date)}';
+    return 'Ca $session, ${DateFormat('dd/mm/yy').format(date)}';
   }
 
   TestStatus get getStatus {

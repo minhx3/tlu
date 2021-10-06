@@ -86,6 +86,7 @@ class SkinDotButton extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 9,
       height: MediaQuery.of(context).size.width / 9,
+      // ignore: deprecated_member_use
       child: FlatButton(
         autofocus: true,
         padding: EdgeInsets.all(0.0),

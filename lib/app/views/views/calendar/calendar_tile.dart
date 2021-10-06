@@ -47,6 +47,7 @@ class CalendarTile extends StatelessWidget {
           child: new Text(
             Utils.formatDay(date).toString(),
             style: isSelected
+                // ignore: deprecated_member_use
                 ? Theme.of(context).primaryTextTheme.body1
                 : dateStyles,
             textAlign: TextAlign.center,

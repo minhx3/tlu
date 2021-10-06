@@ -53,7 +53,7 @@ class TranscriptController extends GetxController {
       if (res != null) {
         rxTranscripts(res);
       }
+      // ignore: unused_catch_clause
     } on Exception catch (e) {} finally {}
   }
-
 }

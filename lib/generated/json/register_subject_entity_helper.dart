@@ -1,6 +1,4 @@
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
-import 'package:thanglong_university/app/enums/subject_class_status.dart';
-import 'package:thanglong_university/app/model/chat_group_entity.dart';
 import 'package:thanglong_university/app/model/teacher_model.dart';
 
 registerSubjectEntityFromJson(
@@ -122,7 +120,9 @@ Map<String, dynamic> registerSubjectEntityToJson(RegisterSubjectEntity entity) {
 }
 
 registerSubjectListTeacherFromJson(
-    RegisterSubjectListTeacher data, Map<String, dynamic> json) {
+    // ignore: deprecated_member_use_from_same_package
+    RegisterSubjectListTeacher data,
+    Map<String, dynamic> json) {
   if (json['avatar'] != null) {
     data.avatar = json['avatar'].toString();
   }
@@ -146,6 +146,7 @@ registerSubjectListTeacherFromJson(
   }
   if (json['teachingList'] != null) {
     data.teachingList = (json['teachingList'] as List)
+        // ignore: deprecated_member_use_from_same_package
         .map((v) => RegisterSubjectListTeacherTeachingList().fromJson(v))
         .toList();
   }
@@ -153,6 +154,7 @@ registerSubjectListTeacherFromJson(
 }
 
 Map<String, dynamic> registerSubjectListTeacherToJson(
+    // ignore: deprecated_member_use_from_same_package
     RegisterSubjectListTeacher entity) {
   final Map<String, dynamic> data = new Map<String, dynamic>();
   data['avatar'] = entity.avatar;
@@ -167,7 +169,9 @@ Map<String, dynamic> registerSubjectListTeacherToJson(
 }
 
 registerSubjectListTeacherTeachingListFromJson(
-    RegisterSubjectListTeacherTeachingList data, Map<String, dynamic> json) {
+    // ignore: deprecated_member_use_from_same_package
+    RegisterSubjectListTeacherTeachingList data,
+    Map<String, dynamic> json) {
   if (json['credits'] != null) {
     data.credits = json['credits'] is String
         ? int.tryParse(json['credits'])
@@ -197,6 +201,7 @@ registerSubjectListTeacherTeachingListFromJson(
 }
 
 Map<String, dynamic> registerSubjectListTeacherTeachingListToJson(
+    // ignore: deprecated_member_use_from_same_package
     RegisterSubjectListTeacherTeachingList entity) {
   final Map<String, dynamic> data = new Map<String, dynamic>();
   data['credits'] = entity.credits;
@@ -235,7 +240,9 @@ Map<String, dynamic> registerSubjectListTimelineClassToJson(
 }
 
 registerSubjectListTimelineClassTeacherFromJson(
-    RegisterSubjectListTimelineClassTeacher data, Map<String, dynamic> json) {
+    // ignore: deprecated_member_use_from_same_package
+    RegisterSubjectListTimelineClassTeacher data,
+    Map<String, dynamic> json) {
   if (json['avatar'] != null) {
     data.avatar = json['avatar'].toString();
   }
@@ -266,6 +273,7 @@ registerSubjectListTimelineClassTeacherFromJson(
 }
 
 Map<String, dynamic> registerSubjectListTimelineClassTeacherToJson(
+    // ignore: deprecated_member_use_from_same_package
     RegisterSubjectListTimelineClassTeacher entity) {
   final Map<String, dynamic> data = new Map<String, dynamic>();
   data['avatar'] = entity.avatar;
@@ -280,6 +288,7 @@ Map<String, dynamic> registerSubjectListTimelineClassTeacherToJson(
 }
 
 registerSubjectListTimelineClassTeacherTeachingListFromJson(
+    // ignore: deprecated_member_use_from_same_package
     RegisterSubjectListTimelineClassTeacherTeachingList data,
     Map<String, dynamic> json) {
   if (json['credits'] != null) {
@@ -311,6 +320,7 @@ registerSubjectListTimelineClassTeacherTeachingListFromJson(
 }
 
 Map<String, dynamic> registerSubjectListTimelineClassTeacherTeachingListToJson(
+    // ignore: deprecated_member_use_from_same_package
     RegisterSubjectListTimelineClassTeacherTeachingList entity) {
   final Map<String, dynamic> data = new Map<String, dynamic>();
   data['credits'] = entity.credits;

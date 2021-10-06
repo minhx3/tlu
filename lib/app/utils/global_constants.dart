@@ -197,6 +197,7 @@ void confirmDialog({
 
 void showErrorSnackBar({
   @required String body,
+  // ignore: deprecated_member_use
   FlatButton button,
   Duration duration,
   SnackbarStatusCallback snackbarStatus,
@@ -230,6 +231,7 @@ void showErrorSnackBar({
 
 void showInfoSnackBar({
   @required String body,
+  // ignore: deprecated_member_use
   FlatButton button,
   Duration duration,
 }) {
@@ -261,6 +263,7 @@ void showInfoSnackBar({
 
 void showSuccessSnackBar({
   @required String body,
+  // ignore: deprecated_member_use
   FlatButton button,
   Duration duration,
 }) {

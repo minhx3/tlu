@@ -1,3 +1,5 @@
+import 'package:thanglong_university/app/model/chat/subject_class_entity.dart';
+
 import 'chat.dart';
 
 class GroupChatModel {
@@ -7,6 +9,7 @@ class GroupChatModel {
   String title;
   Chat latestMessage;
   int badge;
+  SubjectClassTeacher teacher;
 
   GroupChatModel(
       {this.subjectClassId,
@@ -14,5 +17,6 @@ class GroupChatModel {
       this.subjectId,
       this.title,
       this.latestMessage,
-      this.badge});
+      this.badge,
+      this.teacher});
 }

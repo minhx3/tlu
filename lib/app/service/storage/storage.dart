@@ -49,7 +49,7 @@ class Storage {
   static String getUserToken() => get(Keys.userToken);
 }
 
-bool isTeacher = Storage.getUserType() == Constant.teacher ? true : false;
+bool get isTeacher => Storage.getUserType() == Constant.teacher ? true : false;
 
 String userId;
 
