@@ -27,7 +27,7 @@ class EducationTeacherView extends GetView<EducationController> {
             Map<String, List<ScheduleTeacherModel>> scheduleTeacher =
                 controller.rxScheduleTeacherList();
             if (scheduleTeacher == null) {
-              return Text('kdkd11');
+              return SizedBox.shrink();
             }
             return Column(
               children: scheduleTeacher.entries
