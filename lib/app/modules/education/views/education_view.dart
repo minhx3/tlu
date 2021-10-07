@@ -8,6 +8,7 @@ import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/modules/education/views/education_student_view.dart';
 import 'package:thanglong_university/app/modules/education/views/education_subject_item_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
+import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
@@ -28,7 +29,7 @@ class EducationView extends GetView<EducationController> {
               type: AppBarType.tab,
               title: "Đào tạo",
             ),
-            EducationTeacherView()
+            isTeacher ? EducationTeacherView() : EducationStudentView()
           ],
         ),
       ),

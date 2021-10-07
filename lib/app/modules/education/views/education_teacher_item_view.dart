@@ -38,7 +38,7 @@ class EducationTeacherItemView extends GetView {
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        margin: EdgeInsets.only(left: 16, right: 16, top: 5),
+        margin: EdgeInsets.only(left: 15, right: 15, top: 5),
         decoration: boxShadow
             .copyWith(borderRadius: BorderRadius.circular(5), boxShadow: []),
         child: Column(
@@ -61,7 +61,7 @@ class EducationTeacherItemView extends GetView {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 itemView("Thời gian:", "T2, 1-3\nT2, 1-3"),
-                itemView("Địa điểm:", "B301"),
+                itemView("Địa điểm:", "B301", isLast: true),
               ],
             )
           ],

@@ -31,8 +31,10 @@ class EducationTeacherView extends GetView<EducationController> {
             }
             return Column(
               children: scheduleTeacher.entries
-                  .map((e) => _ItemGroupBySubjectView(
-                      subjectName: e.key, itemChilds: e.value))
+                  .map((e) => _ItemGroupByTeacherSubjectView(
+                      isLastItem: e.key.contains(scheduleTeacher.keys.last),
+                      subjectName: e.key,
+                      itemChilds: e.value))
                   .toList(),
             );
           }),
@@ -56,13 +58,16 @@ class EducationTeacherView extends GetView<EducationController> {
   }
 }
 
-class _ItemGroupBySubjectView extends StatelessWidget {
+class _ItemGroupByTeacherSubjectView extends StatelessWidget {
   final String subjectName;
-
+  final bool isLastItem;
   final List<ScheduleTeacherModel> itemChilds;
 
-  const _ItemGroupBySubjectView(
-      {Key key, @required this.subjectName, @required this.itemChilds})
+  const _ItemGroupByTeacherSubjectView(
+      {Key key,
+      @required this.subjectName,
+      @required this.itemChilds,
+      this.isLastItem = false})
       : super(key: key);
 
   @override
@@ -71,14 +76,12 @@ class _ItemGroupBySubjectView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
           child: Text(
             subjectName,
-            style: fontInter(16, color: AppColor.labelColor),
+            style: fontInter(16,
+                color: AppColor.c4d4d4d, fontWeight: FontWeight.w600),
           ),
-        ),
-        SizedBox(
-          height: 8,
         ),
         ListView(
           padding: EdgeInsets.zero,
@@ -90,6 +93,17 @@ class _ItemGroupBySubjectView extends StatelessWidget {
                   ))
               .toList(),
         ),
+        SizedBox(
+          height: 20,
+        ),
+        !isLastItem
+            ? Divider(
+                thickness: 2,
+                indent: 15,
+                endIndent: 15,
+                color: AppColor.ce6e6e6,
+              )
+            : SizedBox.shrink(),
       ],
     );
   }

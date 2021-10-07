@@ -5,6 +5,7 @@ import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
+import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/modules/education/views/education_subject_item_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
@@ -28,7 +29,7 @@ class EducationStudentView extends GetView<EducationController> {
                   final data = controller.rxProcess();
                   return counterView(
                       title:
-                      "${data?.completeCredits ?? 0}/${data?.sumCredits ?? 0}",
+                          "${data?.completeCredits ?? 0}/${data?.sumCredits ?? 0}",
                       subTitle: "${data?.gpa ?? 0}",
                       hasProgress: true,
                       value: (data?.completeCredits ?? 0) /
@@ -61,71 +62,46 @@ class EducationStudentView extends GetView<EducationController> {
             margin: EdgeInsets.symmetric(horizontal: 16),
             color: AppColor.ce6e6e6,
           ),
-          Obx(() => Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 25, 20, 10),
-                child: Text(
-                  "${controller.rxMapSubjectList()?.keys?.first ?? ""}",
-                  style: fontInter(14,
-                      fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              ListView(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                physics: NeverScrollableScrollPhysics(),
-                children: (controller.rxMapSubjectList()?.values?.first ??
-                    [])
-                    .map((item) => EducationSubjectItemView(
-                    item: item,
-                    isCurrent: true,
-                    space:
-                    (controller.rxMapSubjectList()?.values?.first ??
-                        [])
-                        .indexOf(item) ==
-                        0
-                        ? 0
-                        : 5))
-                    .toList(),
-              ),
-            ],
-          )),
+          Obx(() {
+            Map<String, List<RegisterSubjectEntity>> studentSubject =
+                controller.rxMapSubjectList();
+
+            return Column(
+              children: studentSubject.entries
+                  .map((e) => _ItemGroupByStudentSubjectView(
+                      isLastItem: e.key.contains(studentSubject.keys.last),
+                      subjectName: e.key,
+                      itemChilds: e.value))
+                  .toList(),
+            );
+          }),
           Obx(() => ButtonView(
-            title: controller.isShowOther.isTrue
-                ? 'Ẩn các kỳ trước'
-                : "Xem thêm các kì trước",
-            type: ButtonType.outline,
-            horizontalSpacing: 16,
-            verticalSpacing: 16,
-            onTap: () {
-              controller.isShowOther.toggle();
-            },
-          )),
-          Obx(() => controller.isShowOther.isTrue
-              ? ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            physics: NeverScrollableScrollPhysics(),
-            children:
-            (controller.rxMapOtherSubjectList()?.values?.first ?? [])
-                .map((item) => EducationSubjectItemView(
-                item: item,
-                space: (controller
-                    .rxMapSubjectList()
-                    ?.values
-                    ?.first ??
-                    [])
-                    .indexOf(item) ==
-                    0
-                    ? 0
-                    : 5))
-                .toList(),
-          )
-              : SizedBox.shrink()),
+                title: controller.isShowOther.isTrue
+                    ? 'Ẩn các kỳ trước'
+                    : "Xem thêm các kì trước",
+                type: ButtonType.outline,
+                horizontalSpacing: 16,
+                verticalSpacing: 16,
+                onTap: () {
+                  controller.isShowOther.toggle();
+                },
+              )),
+          Obx(() {
+            if (controller.isShowOther.isFalse) {
+              return SizedBox.shrink();
+            }
+            Map<String, List<RegisterSubjectEntity>> studentSubject =
+                controller.rxMapSubjectList();
+
+            return Column(
+              children: studentSubject.entries
+                  .map((e) => _ItemGroupByStudentSubjectView(
+                      isLastItem: e.key.contains(studentSubject.keys.last),
+                      subjectName: e.key,
+                      itemChilds: e.value))
+                  .toList(),
+            );
+          }),
         ],
       ),
     );
@@ -133,12 +109,12 @@ class EducationStudentView extends GetView<EducationController> {
 
   Widget counterView(
       {int type = 1,
-        String title,
-        String subTitle,
-        bool hasProgress = false,
-        double value,
-        double space = 0,
-        Function onTap}) {
+      String title,
+      String subTitle,
+      bool hasProgress = false,
+      double value,
+      double space = 0,
+      Function onTap}) {
     return InkWell(
       onTap: () {
         onTap();
@@ -233,25 +209,76 @@ class EducationStudentView extends GetView<EducationController> {
             hasProgress == false
                 ? SizedBox()
                 : Container(
-              alignment: Alignment.center,
-              height: 50,
-              child: Container(
-                  height: 7,
-                  margin: EdgeInsets.only(top: 20),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(7),
-                    child: LinearProgressIndicator(
-                      backgroundColor:
-                      AppColor.whiteColor.withOpacity(0.15),
-                      valueColor:
-                      AlwaysStoppedAnimation<Color>(AppColor.cfc2626),
-                      value: (value.isNaN) ? 0 : value,
-                    ),
-                  )),
-            )
+                    alignment: Alignment.center,
+                    height: 50,
+                    child: Container(
+                        height: 7,
+                        margin: EdgeInsets.only(top: 20),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(7),
+                          child: LinearProgressIndicator(
+                            backgroundColor:
+                                AppColor.whiteColor.withOpacity(0.15),
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(AppColor.cfc2626),
+                            value: (value.isNaN) ? 0 : value,
+                          ),
+                        )),
+                  )
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ItemGroupByStudentSubjectView extends StatelessWidget {
+  final String subjectName;
+  final bool isLastItem;
+  final List<RegisterSubjectEntity> itemChilds;
+
+  const _ItemGroupByStudentSubjectView(
+      {Key key,
+      @required this.subjectName,
+      @required this.itemChilds,
+      this.isLastItem = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
+          child: Text(
+            subjectName,
+            style: fontInter(16,
+                color: AppColor.c4d4d4d, fontWeight: FontWeight.w600),
+          ),
+        ),
+        ListView(
+          padding: EdgeInsets.zero,
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          children: itemChilds
+              .map((e) => EducationSubjectItemView(
+                    item: e,
+                  ))
+              .toList(),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        !isLastItem
+            ? Divider(
+                thickness: 2,
+                indent: 15,
+                endIndent: 15,
+                color: AppColor.ce6e6e6,
+              )
+            : SizedBox.shrink(),
+      ],
     );
   }
 }
