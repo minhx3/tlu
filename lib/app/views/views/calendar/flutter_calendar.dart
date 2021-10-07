@@ -282,8 +282,9 @@ class _CalendarState extends State<Calendar> {
                   day.add(Duration(
                       days: widget.firstDayOfWeek == DateTime.monday ? 1 : 0))),
               date: day,
-              onDateSelected: () => handleSelectedDateAndUserCallback(day.add(Duration(
-                  days: widget.firstDayOfWeek == DateTime.monday ? 1 : 0))),
+              onDateSelected: () => handleSelectedDateAndUserCallback(day.add(
+                  Duration(
+                      days: widget.firstDayOfWeek == DateTime.monday ? 1 : 0))),
             ),
           );
         } else {
@@ -303,6 +304,7 @@ class _CalendarState extends State<Calendar> {
 
   TextStyle configureDateStyle(monthStarted, monthEnded) {
     TextStyle dateStyles;
+    // ignore: deprecated_member_use
     final TextStyle body1Style = Theme.of(context).textTheme.body1;
 
     if (isExpandable) {
@@ -352,7 +354,6 @@ class _CalendarState extends State<Calendar> {
         children: <Widget>[
           widget.showHeaderControl == false ? SizedBox() : nameAndIconRow,
           new ExpansionCrossFade(
-
             collapsed: calendarGridView,
             expanded: calendarGridView,
             isExpanded: isExpandable,

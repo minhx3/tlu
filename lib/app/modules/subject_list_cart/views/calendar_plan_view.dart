@@ -4,7 +4,7 @@ import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 
-final double rowheight = 26;
+final double rowheight = 28;
 final double leftSpace = 45;
 
 // ignore: must_be_immutable
@@ -39,7 +39,6 @@ class CalendarPlanView extends StatelessWidget {
     getListSchedule();
     return Column(children: [
       Container(
-        margin: EdgeInsets.only(bottom: 5),
         decoration: BoxDecoration(
             border: Border(
                 bottom: BorderSide(color: AppColor.cb3b4c2, width: 1.5))),

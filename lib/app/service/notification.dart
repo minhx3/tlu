@@ -60,6 +60,7 @@ class NotificationFCB {
         .then((val) async {
       print('Token: ' + val);
       Storage.setUserToken(val);
+      // ignore: unused_local_variable
       String userID = getUserId;
     });
   }

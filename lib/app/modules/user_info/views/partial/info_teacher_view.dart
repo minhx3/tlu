@@ -22,6 +22,7 @@ class InfoTeacherView extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 class _ConnectTeacherView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class _ConnectTeacherView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(children: [
         Expanded(
+            // ignore: deprecated_member_use
             child: FlatButton(
           height: 50,
           onPressed: () {},
@@ -44,6 +46,7 @@ class _ConnectTeacherView extends StatelessWidget {
           width: 20,
         ),
         Expanded(
+            // ignore: deprecated_member_use
             child: FlatButton(
           height: 50,
           onPressed: () {},

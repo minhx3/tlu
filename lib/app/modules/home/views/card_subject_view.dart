@@ -53,21 +53,24 @@ class CardSubjectView extends GetView<HomeController> {
       padding: EdgeInsets.symmetric(vertical: 18, horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Text(
-                  "${item.subjectName ?? ""}",
-                  style: fontInter(16,
-                      fontWeight: FontWeight.w600,
-                      color: AppColor.cfafafa,
-                      height: 1.18),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                child: SizedBox(
+                  height: 38,
+                  child: Text(
+                    "${item.subjectName ?? ""}",
+                    style: fontInter(16,
+                        fontWeight: FontWeight.w600,
+                        color: AppColor.cfafafa,
+                        height: 1.18),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
               Container(

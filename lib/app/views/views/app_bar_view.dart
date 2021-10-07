@@ -52,6 +52,18 @@ class AppBarView extends StatelessWidget {
       this.iconSize = 20})
       : super(key: key);
 
+  Widget lineLight() => Container(
+      color: AppColor.cf2f2f2,
+      width: 1,
+      height: 26,
+      margin: EdgeInsets.only(left: 15, right: 10));
+
+  Widget lineDark() => Container(
+      color: AppColor.c33355a,
+      width: 1,
+      height: 26,
+      margin: EdgeInsets.only(left: 15, right: 10));
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,7 +83,7 @@ class AppBarView extends StatelessWidget {
         switch (type) {
           case AppBarType.info:
             return Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               height: 60,
               alignment: Alignment.centerLeft,
               child: Row(
@@ -124,63 +136,36 @@ class AppBarView extends StatelessWidget {
               ),
             );
             break;
-
           case AppBarType.tab:
             return Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.only(
+                    left: 20, top: 22, right: 15, bottom: 17),
                 height: 60,
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
                     automaticallyImplyLeading == false
                         ? SizedBox()
-                        : InkWell(
-                            onTap: () {
-                              pop();
-                            },
-                            child: Icon(
-                              Icons.arrow_back_ios,
-                              color: AppColor.textColor,
-                              size: 18,
+                        : SizedBox(
+                            width: 14,
+                            child: InkWell(
+                              onTap: () {
+                                pop();
+                              },
+                              child: Icon(
+                                Icons.arrow_back_ios,
+                                color: AppColor.textColor,
+                                size: 18,
+                              ),
                             ),
-                          ).marginOnly(right: 15),
+                          ),
+                    automaticallyImplyLeading ? lineLight() : SizedBox(),
                     Expanded(
                       child: Text(title,
                           style: fontInter(16,
                               fontWeight: FontWeight.w600,
                               color: AppColor.textColor)),
                     ),
-                    // SizedBox(
-                    //   height: 35,
-                    //   child: Row(
-                    //     children: [
-                    //       Container(
-                    //         height: 33,
-                    //         padding: EdgeInsets.symmetric(horizontal: 8),
-                    //         decoration: BoxDecoration(
-                    //             color: AppColor.tabUnSelectedColor,
-                    //             borderRadius: BorderRadius.circular(3)),
-                    //         alignment: Alignment.center,
-                    //         child: Text("Ngành 1",
-                    //             style: fontInter(12,
-                    //                 fontWeight: FontWeight.w600,
-                    //                 color: AppColor.subTextColor)),
-                    //       ),
-                    //       Container(
-                    //         alignment: Alignment.center,
-                    //         decoration: BoxDecoration(
-                    //             color: AppColor.errorColor,
-                    //             borderRadius: BorderRadius.circular(3)),
-                    //         padding: EdgeInsets.symmetric(horizontal: 8),
-                    //         height: 35,
-                    //         child: Text("Ngành 2",
-                    //             style: fontInter(12,
-                    //                 fontWeight: FontWeight.w600,
-                    //                 color: AppColor.whiteColor)),
-                    //       )
-                    //     ],
-                    //   ),
-                    // )
                   ],
                 ));
             break;
@@ -188,30 +173,28 @@ class AppBarView extends StatelessWidget {
             return _ChatAppBar();
           case AppBarType.navigator:
             return Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.only(
+                    left: 20, top: 22, right: 15, bottom: 17),
                 height: 60,
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        onBack != null ? onBack() : pop();
-                      },
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        color: AppColor.whiteColor,
-                        size: 18,
+                    SizedBox(
+                      width: 14,
+                      child: InkWell(
+                        onTap: () {
+                          onBack != null ? onBack() : pop();
+                        },
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: AppColor.whiteColor,
+                          size: 18,
+                        ),
                       ),
-                    ).marginOnly(right: 5, left: 4),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      height: 40,
-                      padding: EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              left: BorderSide(
-                                  width: 1, color: AppColor.c33355a))),
-                      child: Text("Tin tức - Sự kiện",
+                    ),
+                    lineDark(),
+                    Expanded(
+                      child: Text(title ?? "Tin tức - Sự kiện",
                           style: fontInter(16,
                               fontWeight: FontWeight.w600,
                               color: AppColor.whiteColor)),
@@ -223,21 +206,26 @@ class AppBarView extends StatelessWidget {
             NotificationController notificationController =
                 Get.find<NotificationController>();
             return Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding:
+                    EdgeInsets.only(left: 20, top: 22, right: 15, bottom: 17),
                 height: 60,
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        pop();
-                      },
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        color: AppColor.textColor,
-                        size: 18,
+                    SizedBox(
+                      width: 14,
+                      child: InkWell(
+                        onTap: () {
+                          pop();
+                        },
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: AppColor.textColor,
+                          size: 18,
+                        ),
                       ),
-                    ).marginOnly(right: 10),
+                    ),
+                    lineLight(),
                     Expanded(
                       child: Text("Thông báo",
                           style: fontInter(16,
@@ -254,24 +242,30 @@ class AppBarView extends StatelessWidget {
             break;
           case AppBarType.white:
             return Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding:
+                    EdgeInsets.only(left: 20, top: 22, right: 15, bottom: 17),
                 height: 60,
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        pop();
-                      },
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        color: AppColor.textColor,
-                        size: 18,
+                    SizedBox(
+                      width: 14,
+                      child: InkWell(
+                        onTap: () {
+                          pop();
+                        },
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: AppColor.textColor,
+                          size: 18,
+                        ),
                       ),
-                    ).marginOnly(right: 15),
+                    ),
+                    lineLight(),
                     Expanded(
                       child: Text(title,
                           style: fontInter(16,
+                              height: 1,
                               fontWeight: FontWeight.w600,
                               color: AppColor.textColor)),
                     ),
@@ -293,20 +287,26 @@ class AppBarView extends StatelessWidget {
             break;
           case AppBarType.button:
             return Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding:
+                    EdgeInsets.only(left: 20, top: 22, right: 15, bottom: 17),
                 height: 60,
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    automaticallyImplyLeading == true
-                        ? InkWell(
-                            child: Icon(Icons.arrow_back_ios,
-                                color: iconTintColor ?? AppColor.whiteColor),
-                            onTap: () {
-                              pop();
-                            },
+                    automaticallyImplyLeading
+                        ? SizedBox(
+                            height: 14,
+                            child: InkWell(
+                              child: Icon(Icons.arrow_back_ios,
+                                  color: iconTintColor ?? AppColor.whiteColor,
+                                  size: 18),
+                              onTap: () {
+                                pop();
+                              },
+                            ),
                           )
                         : SizedBox(),
+                    automaticallyImplyLeading ? lineDark() : SizedBox(),
                     Expanded(
                       child: Text(title ?? "",
                           style: fontInter(16,
@@ -333,7 +333,8 @@ class AppBarView extends StatelessWidget {
                 ));
           case AppBarType.icon:
             return Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.only(
+                  left: 20, top: 22, right: 15, bottom: 17),
               height: 60,
               alignment: Alignment.centerLeft,
               child: Row(
@@ -348,6 +349,7 @@ class AppBarView extends StatelessWidget {
                       pop();
                     },
                   ),
+                  lineLight(),
                   Expanded(
                     child: Text(title ?? "",
                         style: fontInter(16,
@@ -387,7 +389,8 @@ class AppBarView extends StatelessWidget {
             break;
           case AppBarType.detail:
             return Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.only(
+                  left: 20, top: 22, right: 15, bottom: 17),
               height: 60,
               color: AppColor.whiteColor,
               alignment: Alignment.centerLeft,
@@ -395,16 +398,20 @@ class AppBarView extends StatelessWidget {
                 children: [
                   automaticallyImplyLeading == false
                       ? SizedBox()
-                      : InkWell(
-                          onTap: () {
-                            pop();
-                          },
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: AppColor.textColor,
-                            size: 18,
+                      : SizedBox(
+                          width: 14,
+                          child: InkWell(
+                            onTap: () {
+                              pop();
+                            },
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              color: AppColor.textColor,
+                              size: 18,
+                            ),
                           ),
-                        ).marginOnly(right: 15),
+                        ),
+                  lineLight(),
                   Expanded(
                     child: Text(title,
                         style: fontInter(16,
@@ -423,15 +430,28 @@ class AppBarView extends StatelessWidget {
         }
 
         return Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding:
+                const EdgeInsets.only(left: 20, top: 22, right: 15, bottom: 17),
             height: 60,
             alignment: Alignment.centerLeft,
             child: Row(
               children: [
-                Icon(Icons.arrow_back_ios, color: AppColor.whiteColor)
-                    .marginOnly(right: 15),
+                SizedBox(
+                  width: 14,
+                  child: InkWell(
+                    onTap: () {
+                      pop();
+                    },
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: AppColor.textColor,
+                      size: 18,
+                    ),
+                  ),
+                ),
+                lineLight(),
                 Expanded(
-                  child: Text("Tin tức & sự kiện",
+                  child: Text(title.toString(),
                       style: fontInter(16,
                           fontWeight: FontWeight.w600,
                           color: AppColor.textColor)),
@@ -446,7 +466,7 @@ class AppBarView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(3)),
                     padding: EdgeInsets.symmetric(horizontal: 8),
                     height: 35,
-                    child: Text("Xem điểm",
+                    child: Text(title ?? "Xem điểm",
                         style: fontInter(12,
                             fontWeight: FontWeight.w600,
                             color: AppColor.whiteColor)),
@@ -499,19 +519,6 @@ class _ChatAppBar extends StatelessWidget {
                 style: fontInter(16,
                     fontWeight: FontWeight.w600, color: AppColor.textColor)),
           ),
-          // Stack(
-          //   alignment: Alignment.center,
-          //   children: [
-          //     IconButton(
-          //       icon: Image.asset(
-          //         Images.icEdit,
-          //         width: 20,
-          //         height: 20,
-          //       ),
-          //       onPressed: () {},
-          //     ),
-          //   ],
-          // )
         ],
       ),
     );

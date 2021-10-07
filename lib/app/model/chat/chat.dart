@@ -111,6 +111,7 @@ class ChatCrud {
     );
   }
 
+  // ignore: missing_return
   Future sendNewChat({Chat chat, groupId, List<UserEntity> listUser}) {
     final _data = {
       "dateCreated": Timestamp.now(),

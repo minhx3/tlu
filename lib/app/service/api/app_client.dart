@@ -1,7 +1,5 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:intl/intl.dart';
 
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:thanglong_university/app/enums/notification_type_enum.dart';
@@ -400,11 +398,8 @@ class Appclient {
   }
 
   Future<bool> toggleFavourite({String taskId, bool value}) async {
-    final result =
-        await ScheduleRouter(ScheduleEndpoint.toggleFavourite, joinPath: taskId, data: {
-          "favourite": value
-        })
-            .call;
+    final result = await ScheduleRouter(ScheduleEndpoint.toggleFavourite,
+        joinPath: taskId, data: {"favourite": value}).call;
 
     if (result?.statusCode == 200) {
       return true;

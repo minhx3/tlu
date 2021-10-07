@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
-import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/controllers/chat_group_info_controller.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/views/partial/info_student_group.dart';
 import 'package:thanglong_university/app/modules/chat_group_info/views/partial/item_chat_group_view.dart';
@@ -65,6 +64,7 @@ class _ListContentView extends StatelessWidget {
 /// Nếu có tin nhắn mới sẽ đổi màu đỏ
 /// Role: Sinh viên
 ///
+// ignore: unused_element
 class _EnterChatView extends StatelessWidget {
   final bool hasNewMessage;
 
@@ -155,6 +155,7 @@ class _SearchBoxView extends GetView<ChatGroupInfoController> {
 /// Nhóm chat
 /// Role Giảng viên
 ///
+// ignore: unused_element
 class _ChatGroupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -202,6 +203,7 @@ class _ChatGroupView extends StatelessWidget {
 /// Quản trị
 /// Role: Sinh viên
 ///
+// ignore: unused_element
 class _AdminListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -226,6 +228,7 @@ class _AdminListView extends StatelessWidget {
 ///
 /// DS Sinh viên: Chung
 ///
+// ignore: unused_element
 class _StudentListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

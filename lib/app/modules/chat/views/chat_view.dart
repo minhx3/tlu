@@ -25,7 +25,9 @@ class ChatView extends GetView<ChatController> {
             type: AppBarType.chat,
             title: "Chat",
           ),
-         isTeacher? ChatListTeacherView(controller:controller): ChatListStudent(controller: controller)
+          isTeacher
+              ? ChatListTeacherView(controller: controller)
+              : ChatListStudent(controller: controller)
         ]));
   }
 }

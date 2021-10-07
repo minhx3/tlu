@@ -73,6 +73,7 @@ class ProfileView extends GetView<ProfileController> {
 // }
 
 @deprecated
+// ignore: unused_element
 class _ReadMoreTimeTableLastPeriodView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

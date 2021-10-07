@@ -96,7 +96,7 @@ class RegisterSubjectEntity with JsonConvert<RegisterSubjectEntity> {
             ? null
             : (json['listTimelineClass'] as List)
                 .map((v) =>
-                    RegisterSubjectListTimelineClassTimeLines().fromJson(v))
+                    RegisterSubjectListTimelineClassTimeLines.fromJson(v))
                 .toList(),
         numberOfLessons: json["numberOfLessons"] == null
             ? null
@@ -203,9 +203,25 @@ class RegisterSubjectListTimelineClass
   Teacher teacher;
   List<RegisterSubjectListTimelineClassTimeLines> timeLines;
 
+  RegisterSubjectListTimelineClass({this.code, this.timeLines, this.teacher});
+
   String get getAllTime {
     return timeLines.map((e) => e.listSchedule.map((e) => e.getTime)).join(',');
   }
+
+  factory RegisterSubjectListTimelineClass.fromJson(
+          Map<String, dynamic> json) =>
+      RegisterSubjectListTimelineClass(
+        code: json["code"] == null ? null : json["code"],
+        teacher:
+            json["teacher"] == null ? null : Teacher.fromJson(json['teacher']),
+        timeLines: json["timeLines"] == null
+            ? null
+            : (json['timeLines'] as List)
+                .map((v) =>
+                    RegisterSubjectListTimelineClassTimeLines.fromJson(v))
+                .toList(),
+      );
 }
 
 @deprecated
@@ -240,8 +256,17 @@ class RegisterSubjectListTimelineClassTimeLines
   String id;
   List<RegisterSubjectListTimelineClassTimeLinesListSchedule> listSchedule;
   String toDate;
+  bool isExerciseClass;
   @JSONField(myModel: true)
   Teacher teacher;
+
+  RegisterSubjectListTimelineClassTimeLines(
+      {this.id,
+      this.fromDate,
+      this.listSchedule,
+      this.toDate,
+      this.isExerciseClass,
+      this.teacher});
 
   String get getAllTime {
     return listSchedule.map((e) => e.getTime).join(',');
@@ -250,6 +275,25 @@ class RegisterSubjectListTimelineClassTimeLines
   String get getAllTimeToolTip {
     return listSchedule.map((e) => e.getTimeName).join(',');
   }
+
+  factory RegisterSubjectListTimelineClassTimeLines.fromJson(
+          Map<String, dynamic> json) =>
+      RegisterSubjectListTimelineClassTimeLines(
+        id: json["id"] == null ? null : json["id"],
+        fromDate: json["fromDate"] == null ? null : json["fromDate"],
+        toDate: json["toDate"] == null ? null : json["toDate"],
+        isExerciseClass:
+            json["isExerciseClass"] == null ? null : json["isExerciseClass"],
+        teacher:
+            json["teacher"] == null ? null : Teacher.fromJson(json['teacher']),
+        listSchedule: json["listSchedule"] == null
+            ? null
+            : (json['listSchedule'] as List)
+                .map((v) =>
+                    RegisterSubjectListTimelineClassTimeLinesListSchedule()
+                        .fromJson(v))
+                .toList(),
+      );
 }
 
 List dayOfWeekToName = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
