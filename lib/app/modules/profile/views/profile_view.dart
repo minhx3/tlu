@@ -28,7 +28,7 @@ class ProfileView extends GetView<ProfileController> {
             isAllowEdit: true,
             user: userInfo,
           ),
-          SettingsStudentSectionView(userSettings: controller.rxUserSetting())
+          SettingsProfileSectionView(userSettings: controller.rxUserSetting())
         ],
       );
     });
@@ -44,33 +44,12 @@ class ProfileView extends GetView<ProfileController> {
             isAllowEdit: true,
             user: userInfo,
           ),
-          SettingsStudentSectionView(userSettings: controller.rxUserSetting())
+          SettingsProfileSectionView(userSettings: controller.rxUserSetting())
         ],
       );
     });
   }
 }
-
-// class _TeacherProfileView extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView.builder(
-//       padding: EdgeInsets.only(top: Get.mediaQuery.padding.top, bottom: 20),
-//       itemBuilder: (context, index) {
-//         if (index == 0) {
-//           return HeaderInfoTeacherView(isAllowEdit: false);
-//         } else if (index == 1) {
-//           return HeaderTimeTableView();
-//         } else if (index == 5 - 1) {
-//           return _ReadMoreTimeTableLastPeriodView();
-//         } else {
-//           return ItemGroupTimeTableBySubjectView();
-//         }
-//       },
-//       itemCount: 5,
-//     );
-//   }
-// }
 
 @deprecated
 // ignore: unused_element

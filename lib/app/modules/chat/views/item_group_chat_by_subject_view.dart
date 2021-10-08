@@ -32,12 +32,15 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: 25,
-              backgroundColor: AppColor.subjectBackgroundColor,
-              child: Text(
-                item?.subjectClassId?.substring(0, 2)?.toUpperCase() ?? '',
-                style: fontInter(14, color: AppColor.whiteColor),
+            SizedBox(
+              width: 50,
+              child: CircleAvatar(
+                radius: 25,
+                backgroundColor: AppColor.subjectBackgroundColor,
+                child: Text(
+                  item?.subjectClassId?.substring(0, 2)?.toUpperCase() ?? '',
+                  style: fontInter(14, color: AppColor.whiteColor),
+                ),
               ),
             ),
             SizedBox(

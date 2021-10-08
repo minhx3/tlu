@@ -71,60 +71,55 @@ class EducationSubjectItemView extends GetView {
                 ),
               ],
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                itemView("Thời gian:", "T2, 1-3\nT2, 1-3"),
-                itemView("Địa điểm:", "B301"),
-                itemView("Số tín chỉ:",
-                    "${item?.prerequisiteSubject?.credits ?? 0} Tín",
-                    isLast: true),
-              ],
-            )
+            IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  itemView("Thời gian:", "T2, 1-3\nT2, 1-3"),
+                  VerticalDivider(
+                    thickness: 1,
+                    color: AppColor.lineColor,
+                    width: 30,
+                  ),
+                  itemView("Địa điểm:", "B301"),
+                  VerticalDivider(
+                    thickness: 1,
+                    color: AppColor.lineColor,
+                    width: 30,
+                  ),
+                  itemView("Số tín chỉ:",
+                      "${item?.prerequisiteSubject?.credits ?? 0} Tín"),
+                ],
+              ),
+            ).marginOnly(top: 10)
           ],
         ),
       ),
     );
   }
 
-  Widget itemView(String title, String subTitle, {bool isLast = false}) {
-    return Container(
-      width: 85,
-      padding: EdgeInsets.only(top: 16),
-      child: Row(
+  Widget itemView(String title, String subTitle) {
+    return IntrinsicHeight(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: fontInter(11,
-                      fontWeight: FontWeight.w500, color: AppColor.c808080),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  subTitle,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: fontInter(12,
-                      fontWeight: FontWeight.w600, color: AppColor.c000333),
-                ),
-              ],
-            ),
+          Text(
+            title,
+            style: fontInter(11,
+                fontWeight: FontWeight.w500, color: AppColor.c808080),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
-          isLast == true
-              ? SizedBox()
-              : Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  width: 1,
-                  height: 35,
-                  color: AppColor.lineColor,
-                ),
+          SizedBox(
+            height: 4,
+          ),
+          Text(
+            subTitle,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: fontInter(12,
+                fontWeight: FontWeight.w600, color: AppColor.c000333),
+          ),
         ],
       ),
     );

@@ -108,7 +108,7 @@ class AppBarView extends StatelessWidget {
                                 color: AppColor.c000333)),
                         Text(
                           "Ngô Tiên Tiến",
-                          style: fontInter(18,
+                          style: fontInter(16,
                               fontWeight: FontWeight.w600,
                               color: AppColor.cfc2626),
                         )

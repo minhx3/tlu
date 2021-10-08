@@ -22,7 +22,7 @@ class ChatListStudentView extends StatelessWidget {
           thickness: 1,
           indent: 12,
           endIndent: 12,
-          color: AppColor.lineColor,
+          color: AppColor.ce6e6e6,
         );
       },
     );
