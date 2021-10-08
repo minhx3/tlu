@@ -33,8 +33,8 @@ class DetaiClassView extends GetView<DetaiClassController> {
           children: [
             AppBarView(
               title: "Chi tiết lớp",
-              type: AppBarType.navigator,
-              iconSize: 50,
+              type: AppBarType.icon,
+              iconSize: 36,
               iconLeading: isEdu ? null : Images.plus,
               iconTintColor: AppColor.cfc2626,
               onAction: () {

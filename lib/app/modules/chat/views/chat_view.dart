@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
@@ -7,6 +8,7 @@ import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
 import 'package:thanglong_university/app/modules/chat/controllers/chat_cotroller.dart';
 import 'package:thanglong_university/app/modules/chat/views/chat_list_teacher.dart';
+import 'package:thanglong_university/app/modules/index/controllers/index_controller.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
@@ -15,14 +17,17 @@ import 'package:thanglong_university/app/views/views/button_view.dart';
 import 'item_group_chat_by_subject_view.dart';
 
 class ChatView extends GetView<ChatController> {
+  final IndexController indexController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Container(
         color: AppColor.chatBackground,
         child: Column(children: [
           AppBarView(
-            automaticallyImplyLeading: false,
-            type: AppBarType.chat,
+            onBack: () {
+              indexController.setTab(0);
+            },
+            type: AppBarType.white,
             title: "Chat",
           ),
           isTeacher

@@ -8,8 +8,6 @@ import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/modules/education/views/education_subject_item_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
-import 'package:thanglong_university/app/views/views/app_bar_view.dart';
-import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 
 import '../controllers/education_controller.dart';

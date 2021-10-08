@@ -21,7 +21,8 @@ class DetailNewView extends GetView<DetailNewController> {
         body: Column(
           children: [
             AppBarView(
-              type: AppBarType.navigator,
+              type: AppBarType.dark,
+              title: "Tin tức - sự kiện",
             ),
             Expanded(
               child: Obx(

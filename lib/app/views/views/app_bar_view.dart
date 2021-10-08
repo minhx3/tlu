@@ -8,17 +8,7 @@ import 'package:thanglong_university/app/modules/notification/controllers/notifi
 import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/link_view.dart';
 
-enum AppBarType {
-  info,
-  navigator,
-  tab,
-  chat,
-  notfication,
-  white,
-  button,
-  icon,
-  detail
-}
+enum AppBarType { info, dark, tab, notfication, white, button, icon, detail }
 
 class AppBarView extends StatelessWidget {
   final AppBarType type;
@@ -34,6 +24,7 @@ class AppBarView extends StatelessWidget {
   final Color titleColor;
   final Color backgroundColor;
   final double iconSize;
+  static const double backSize = 18;
 
   const AppBarView(
       {Key key,
@@ -63,6 +54,24 @@ class AppBarView extends StatelessWidget {
       width: 1,
       height: 26,
       margin: EdgeInsets.only(left: 15, right: 10));
+
+  Widget backButton([Color color = AppColor.textColor]) {
+    return automaticallyImplyLeading
+        ? SizedBox(
+            width: 14,
+            child: InkWell(
+              onTap: () {
+                onBack != null ? onBack() : pop();
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: color,
+                size: backSize,
+              ),
+            ),
+          )
+        : SizedBox();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,21 +153,7 @@ class AppBarView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    automaticallyImplyLeading == false
-                        ? SizedBox()
-                        : SizedBox(
-                            width: 14,
-                            child: InkWell(
-                              onTap: () {
-                                pop();
-                              },
-                              child: Icon(
-                                Icons.arrow_back_ios,
-                                color: AppColor.textColor,
-                                size: 18,
-                              ),
-                            ),
-                          ),
+                    backButton(),
                     automaticallyImplyLeading ? lineLight() : SizedBox(),
                     Expanded(
                       child: Text(title,
@@ -169,9 +164,7 @@ class AppBarView extends StatelessWidget {
                   ],
                 ));
             break;
-          case AppBarType.chat:
-            return _ChatAppBar();
-          case AppBarType.navigator:
+          case AppBarType.dark:
             return Container(
                 padding: const EdgeInsets.only(
                     left: 20, top: 22, right: 15, bottom: 17),
@@ -179,22 +172,10 @@ class AppBarView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 14,
-                      child: InkWell(
-                        onTap: () {
-                          onBack != null ? onBack() : pop();
-                        },
-                        child: Icon(
-                          Icons.arrow_back_ios,
-                          color: AppColor.whiteColor,
-                          size: 18,
-                        ),
-                      ),
-                    ),
+                    backButton(AppColor.whiteColor),
                     lineDark(),
                     Expanded(
-                      child: Text(title ?? "Tin tức - Sự kiện",
+                      child: Text(title,
                           style: fontInter(16,
                               fontWeight: FontWeight.w600,
                               color: AppColor.whiteColor)),
@@ -212,19 +193,7 @@ class AppBarView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 14,
-                      child: InkWell(
-                        onTap: () {
-                          pop();
-                        },
-                        child: Icon(
-                          Icons.arrow_back_ios,
-                          color: AppColor.textColor,
-                          size: 18,
-                        ),
-                      ),
-                    ),
+                    backButton(),
                     lineLight(),
                     Expanded(
                       child: Text("Thông báo",
@@ -248,19 +217,7 @@ class AppBarView extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 14,
-                      child: InkWell(
-                        onTap: () {
-                          pop();
-                        },
-                        child: Icon(
-                          Icons.arrow_back_ios,
-                          color: AppColor.textColor,
-                          size: 18,
-                        ),
-                      ),
-                    ),
+                    backButton(),
                     lineLight(),
                     Expanded(
                       child: Text(title,
@@ -294,17 +251,7 @@ class AppBarView extends StatelessWidget {
                 child: Row(
                   children: [
                     automaticallyImplyLeading
-                        ? SizedBox(
-                            height: 14,
-                            child: InkWell(
-                              child: Icon(Icons.arrow_back_ios,
-                                  color: iconTintColor ?? AppColor.whiteColor,
-                                  size: 18),
-                              onTap: () {
-                                pop();
-                              },
-                            ),
-                          )
+                        ? backButton(AppColor.whiteColor)
                         : SizedBox(),
                     automaticallyImplyLeading ? lineDark() : SizedBox(),
                     Expanded(
@@ -314,14 +261,15 @@ class AppBarView extends StatelessWidget {
                               color: titleColor ?? AppColor.whiteColor)),
                     ),
                     iconLeading != null
-                        ? IconButton(
-                            icon: Image.asset(
+                        ? InkWell(
+                            child: Image.asset(
                               iconLeading,
                               width: 20,
                               height: 20,
                               color: iconTintColor,
+                              fit: BoxFit.contain,
                             ),
-                            onPressed: () {
+                            onTap: () {
                               if (this.onAction != null) {
                                 return this.onAction();
                               }
@@ -333,59 +281,39 @@ class AppBarView extends StatelessWidget {
                 ));
           case AppBarType.icon:
             return Container(
-              padding: const EdgeInsets.only(
-                  left: 20, top: 22, right: 15, bottom: 17),
-              height: 60,
-              alignment: Alignment.centerLeft,
-              child: Row(
-                children: [
-                  InkWell(
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: AppColor.textColor,
-                      size: 18,
+                padding:
+                    EdgeInsets.only(left: 20, top: 22, right: 15, bottom: 17),
+                height: 60,
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    automaticallyImplyLeading ? backButton() : SizedBox(),
+                    automaticallyImplyLeading ? lineLight() : SizedBox(),
+                    Expanded(
+                      child: Text(title ?? "",
+                          style: fontInter(16,
+                              fontWeight: FontWeight.w600,
+                              color: titleColor ?? AppColor.textColor)),
                     ),
-                    onTap: () {
-                      pop();
-                    },
-                  ),
-                  lineLight(),
-                  Expanded(
-                    child: Text(title ?? "",
-                        style: fontInter(16,
-                            fontWeight: FontWeight.w600,
-                            color: AppColor.textColor)),
-                  ),
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      IconButton(
-                        icon: Image.asset(
-                          iconLeading,
-                          width: 20,
-                          height: 20,
-                        ),
-                        onPressed: () {
-                          onAction();
-                        },
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 20, left: 20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: AppColor.errorColor),
-                          height: 10,
-                          width: 10,
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            );
-
+                    iconLeading != null
+                        ? InkWell(
+                            child: Image.asset(
+                              iconLeading,
+                              width: 20,
+                              height: 20,
+                              color: iconTintColor,
+                              fit: BoxFit.contain,
+                            ),
+                            onTap: () {
+                              if (this.onAction != null) {
+                                return this.onAction();
+                              }
+                              pushTo(Routes.NOTIFICATION);
+                            },
+                          )
+                        : SizedBox(),
+                  ],
+                ));
             break;
           case AppBarType.detail:
             return Container(
@@ -398,19 +326,7 @@ class AppBarView extends StatelessWidget {
                 children: [
                   automaticallyImplyLeading == false
                       ? SizedBox()
-                      : SizedBox(
-                          width: 14,
-                          child: InkWell(
-                            onTap: () {
-                              pop();
-                            },
-                            child: Icon(
-                              Icons.arrow_back_ios,
-                              color: AppColor.textColor,
-                              size: 18,
-                            ),
-                          ),
-                        ),
+                      : backButton(),
                   lineLight(),
                   Expanded(
                     child: Text(title,
@@ -436,19 +352,7 @@ class AppBarView extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Row(
               children: [
-                SizedBox(
-                  width: 14,
-                  child: InkWell(
-                    onTap: () {
-                      pop();
-                    },
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: AppColor.textColor,
-                      size: 18,
-                    ),
-                  ),
-                ),
+                backButton(),
                 lineLight(),
                 Expanded(
                   child: Text(title.toString(),
@@ -482,11 +386,9 @@ class AppBarView extends StatelessWidget {
     switch (type) {
       case AppBarType.info:
         return AppColor.appBarWhiteBackground;
-      case AppBarType.navigator:
+      case AppBarType.dark:
         return AppColor.appBarDarkBackground;
       case AppBarType.tab:
-        return AppColor.appBarWhiteBackground;
-      case AppBarType.chat:
         return AppColor.appBarWhiteBackground;
       case AppBarType.notfication:
         return AppColor.appBarWhiteBackground;
@@ -501,26 +403,5 @@ class AppBarView extends StatelessWidget {
         break;
     }
     return AppColor.appBarDarkBackground;
-  }
-}
-
-class _ChatAppBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      height: 60,
-      color: AppColor.whiteColor,
-      alignment: Alignment.centerLeft,
-      child: Row(
-        children: [
-          Expanded(
-            child: Text("Chat",
-                style: fontInter(16,
-                    fontWeight: FontWeight.w600, color: AppColor.textColor)),
-          ),
-        ],
-      ),
-    );
   }
 }

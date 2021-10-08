@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
-import 'package:thanglong_university/app/configuration/constant/global.dart';
-import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
 import 'package:thanglong_university/app/model/schedule_teacher_model.dart';
-import 'package:thanglong_university/app/modules/chat/views/item_group_chat_by_subject_view.dart';
-import 'package:thanglong_university/app/modules/education/views/education_subject_item_view.dart';
-import 'package:thanglong_university/app/routes/app_pages.dart';
-import 'package:thanglong_university/app/views/views/app_bar_view.dart';
-import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 
 import '../controllers/education_controller.dart';

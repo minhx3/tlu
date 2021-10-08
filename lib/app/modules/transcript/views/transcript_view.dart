@@ -39,47 +39,41 @@ class TranscriptView extends GetView<TranscriptController> {
                 children: [
                   AppBarView(
                     title: "Bảng điểm",
-                    type: AppBarType.white,
-                    iconLeading: Images.icSort,
+                    type: AppBarType.icon,
+                    iconLeading: controller.isFilter.isTrue
+                        ? Images.icSort
+                        : Images.icSortAsc,
                     iconTintColor: Color(
                         controller.isFilter.isTrue ? 0xff000333 : 0xffCACAD4),
                     onAction: () {
                       controller.setFilter(!controller.isFilter());
                     },
                   ),
-                  // controller.isFilter() == true
-                  //     ? TranscriptFilterView()
-                  //     : SizedBox(),
-
                   Expanded(
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 16, vertical: 5),
                       decoration: BoxDecoration(
-                          color: AppColor.homeBackground,
                           borderRadius: BorderRadius.circular(
                               controller.isFilter() ? 5 : 0)),
-                      child: Container(
-                        color: AppColor.homeBackground,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            sectionOverview(controller.isFilter()),
-                            Expanded(
-                              child: ListView(
-                                padding: EdgeInsets.zero,
-                                children: [
-                                  SectionTranscript(
-                                      name: 'Môn đại cương',
-                                      data: controller.transcriptsDC),
-                                  SectionTranscript(
-                                      name: 'Môn chuyên ngành',
-                                      data: controller.transcriptsCN)
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          sectionOverview(controller.isFilter()),
+                          Expanded(
+                            child: ListView(
+                              padding: EdgeInsets.zero,
+                              children: [
+                                SectionTranscript(
+                                    name: 'Môn đại cương',
+                                    data: controller.transcriptsDC),
+                                SectionTranscript(
+                                    name: 'Môn chuyên ngành',
+                                    data: controller.transcriptsCN)
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   )

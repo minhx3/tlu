@@ -4,12 +4,7 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
-import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/model/schedule_teacher_model.dart';
-import 'package:thanglong_university/app/model/score_detail_entity.dart';
-import 'package:thanglong_university/app/modules/transcript/views/detail_transcript_subject_view.dart';
-import 'package:thanglong_university/app/routes/app_pages.dart';
-import 'package:thanglong_university/app/service/api/app_client.dart';
 
 class EducationTeacherItemView extends GetView {
   final ScheduleTeacherModel item;
