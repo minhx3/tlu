@@ -128,9 +128,10 @@ class CardSubjectInfoView extends StatelessWidget {
                       width: 5,
                     ),
               Image.asset(
-                Images.noteIcon,
+                Images.addNoteIcon,
                 height: 40,
-                fit: BoxFit.cover,
+                width: 20,
+                fit: BoxFit.contain,
               )
             ],
           ),

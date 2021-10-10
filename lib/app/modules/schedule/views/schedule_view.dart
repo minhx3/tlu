@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
+import 'package:thanglong_university/app/modules/index/controllers/index_controller.dart';
 import 'package:thanglong_university/app/modules/schedule/views/header_view.dart';
 import 'package:thanglong_university/app/modules/schedule/views/month_view.dart';
 import 'package:thanglong_university/app/modules/schedule/views/schedule_item_view.dart';
@@ -14,7 +15,9 @@ import 'package:thanglong_university/app/views/views/app_widget.dart';
 
 import '../controllers/schedule_controller.dart';
 
+// ignore: must_be_immutable
 class ScheduleView extends GetView<ScheduleController> {
+  IndexController indexController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Obx(() => AppContainer(
@@ -26,11 +29,13 @@ class ScheduleView extends GetView<ScheduleController> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Obx(() => AppBarView(
-                      automaticallyImplyLeading: false,
                       type: AppBarType.button,
                       title: "Thời khóa biểu",
                       iconLeading: Images.iconStar,
                       onAction: () => controller.switchFilter(),
+                      onBack: () {
+                        indexController.setTab(0);
+                      },
                       iconTintColor: controller.isFilter.isTrue
                           ? AppColor.cffb359
                           : Colors.white,

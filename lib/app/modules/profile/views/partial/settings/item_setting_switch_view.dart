@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
-import 'package:thanglong_university/app/modules/profile/views/partial/settings/item_setting_base_view.dart';
+import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 
 class ItemSettingsSwitchView extends StatelessWidget {
   final String title;
@@ -19,22 +19,41 @@ class ItemSettingsSwitchView extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ItemSettingBaseView(
-      onPressed: () => onChanged(!isChecked),
-      title: title,
-      colorTitle: colorTitle,
-      fontSizeTitle: fontSizeTitle,
-      trailingChild: MediaQuery.removePadding(
-          context: context,
-          child: Switch(
-            activeTrackColor: AppColor.cd9d9d9,
-            inactiveTrackColor: AppColor.cd9d9d9,
-            inactiveThumbColor: AppColor.c8c8c8c,
-            value: isChecked,
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onChanged: (value) => onChanged(value),
-            activeColor: AppColor.primaryColor,
-          )),
+    return Material(
+      color: Colors.transparent,
+      child: SizedBox(
+        height: 50,
+        child: InkWell(
+          onTap: () => onChanged(!isChecked),
+          splashColor: AppColor.primaryColor,
+          highlightColor: AppColor.primaryColor.withOpacity(0.5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Text(
+                  title ?? '',
+                  style: fontInter(fontSizeTitle,
+                      color: colorTitle, fontWeight: FontWeight.w600),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: Switch(
+                  activeTrackColor: AppColor.cd9d9d9,
+                  inactiveTrackColor: AppColor.cd9d9d9,
+                  inactiveThumbColor: AppColor.c8c8c8c,
+                  value: isChecked,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  onChanged: (value) => onChanged(value),
+                  activeColor: AppColor.primaryColor,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

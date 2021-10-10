@@ -8,8 +8,6 @@ import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/model/register_subject_entity.dart';
 import 'package:thanglong_university/app/modules/education/views/education_subject_item_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
-import 'package:thanglong_university/app/views/views/app_bar_view.dart';
-import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
 
 import '../controllers/education_controller.dart';
@@ -18,91 +16,95 @@ class EducationStudentView extends GetView<EducationController> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView(
-        padding: EdgeInsets.only(bottom: 30),
-        children: [
-          Container(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Obx(() {
-                  final data = controller.rxProcess();
-                  return counterView(
-                      title:
-                          "${data?.completeCredits ?? 0}/${data?.sumCredits ?? 0}",
-                      subTitle: "${data?.gpa ?? 0}",
-                      hasProgress: true,
-                      value: (data?.completeCredits ?? 0) /
-                          (data?.sumCredits ?? 0),
-                      onTap: () {
-                        pushTo(Routes.TRANSCRIPT,
-                            arguments: controller.rxProcess());
-                      });
-                }),
-                Obx(() {
-                  final data = controller.rxProcess();
-                  final count = controller.rxScheduleList().length;
-                  return counterView(
-                      title: "${data?.sumCreditsInSemster ?? 0} tín chỉ",
-                      subTitle: "${count ?? 0} môn",
-                      space: 10,
-                      type: 2,
-                      value: (data?.completeCredits ?? 0) /
-                          (data?.sumCredits ?? 0),
-                      onTap: () {
-                        pushTo(Routes.TEST_SCHEDULE,
-                            arguments: controller.rxScheduleList);
-                      });
-                }),
-              ],
+      child: MediaQuery.removePadding(
+        context: context,
+        removeTop: true,
+        child: ListView(
+          padding: EdgeInsets.only(bottom: 30),
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Obx(() {
+                    final data = controller.rxProcess();
+                    return counterView(
+                        title:
+                            "${data?.completeCredits ?? 0}/${data?.sumCredits ?? 0}",
+                        subTitle: "${data?.gpa ?? 0}",
+                        hasProgress: true,
+                        value: (data?.completeCredits ?? 0) /
+                            (data?.sumCredits ?? 0),
+                        onTap: () {
+                          pushTo(Routes.TRANSCRIPT,
+                              arguments: controller.rxProcess());
+                        });
+                  }),
+                  Obx(() {
+                    final data = controller.rxProcess();
+                    final count = controller.rxScheduleList().length;
+                    return counterView(
+                        title: "${data?.sumCreditsInSemster ?? 0} tín chỉ",
+                        subTitle: "${count ?? 0} môn",
+                        space: 10,
+                        type: 2,
+                        value: (data?.completeCredits ?? 0) /
+                            (data?.sumCredits ?? 0),
+                        onTap: () {
+                          pushTo(Routes.TEST_SCHEDULE,
+                              arguments: controller.rxScheduleList);
+                        });
+                  }),
+                ],
+              ),
             ),
-          ),
-          Container(
-            height: 1,
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            color: AppColor.ce6e6e6,
-          ),
-          Obx(() {
-            Map<String, List<RegisterSubjectEntity>> studentSubject =
-                controller.rxMapSubjectList();
+            Container(
+              height: 1,
+              margin: EdgeInsets.symmetric(horizontal: 16),
+              color: AppColor.ce6e6e6,
+            ),
+            Obx(() {
+              Map<String, List<RegisterSubjectEntity>> studentSubject =
+                  controller.rxMapSubjectList();
 
-            return Column(
-              children: studentSubject.entries
-                  .map((e) => _ItemGroupByStudentSubjectView(
-                      isLastItem: e.key.contains(studentSubject.keys.last),
-                      subjectName: e.key,
-                      itemChilds: e.value))
-                  .toList(),
-            );
-          }),
-          Obx(() => ButtonView(
-                title: controller.isShowOther.isTrue
-                    ? 'Ẩn các kỳ trước'
-                    : "Xem thêm các kì trước",
-                type: ButtonType.outline,
-                horizontalSpacing: 16,
-                verticalSpacing: 16,
-                onTap: () {
-                  controller.isShowOther.toggle();
-                },
-              )),
-          Obx(() {
-            if (controller.isShowOther.isFalse) {
-              return SizedBox.shrink();
-            }
-            Map<String, List<RegisterSubjectEntity>> studentSubject =
-                controller.rxMapSubjectList();
+              return Column(
+                children: studentSubject.entries
+                    .map((e) => _ItemGroupByStudentSubjectView(
+                        isLastItem: e.key.contains(studentSubject.keys.last),
+                        subjectName: e.key,
+                        itemChilds: e.value))
+                    .toList(),
+              );
+            }),
+            Obx(() => ButtonView(
+                  title: controller.isShowOther.isTrue
+                      ? 'Ẩn các kỳ trước'
+                      : "Xem thêm các kì trước",
+                  type: ButtonType.outline,
+                  horizontalSpacing: 16,
+                  verticalSpacing: 16,
+                  onTap: () {
+                    controller.isShowOther.toggle();
+                  },
+                )),
+            Obx(() {
+              if (controller.isShowOther.isFalse) {
+                return SizedBox.shrink();
+              }
+              Map<String, List<RegisterSubjectEntity>> studentSubject =
+                  controller.rxMapSubjectList();
 
-            return Column(
-              children: studentSubject.entries
-                  .map((e) => _ItemGroupByStudentSubjectView(
-                      isLastItem: e.key.contains(studentSubject.keys.last),
-                      subjectName: e.key,
-                      itemChilds: e.value))
-                  .toList(),
-            );
-          }),
-        ],
+              return Column(
+                children: studentSubject.entries
+                    .map((e) => _ItemGroupByStudentSubjectView(
+                        isLastItem: e.key.contains(studentSubject.keys.last),
+                        subjectName: e.key,
+                        itemChilds: e.value))
+                    .toList(),
+              );
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -253,7 +255,7 @@ class _ItemGroupByStudentSubjectView extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
           child: Text(
             subjectName,
-            style: fontInter(16,
+            style: fontInter(14,
                 color: AppColor.c4d4d4d, fontWeight: FontWeight.w600),
           ),
         ),

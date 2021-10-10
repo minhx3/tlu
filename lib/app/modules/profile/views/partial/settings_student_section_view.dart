@@ -16,9 +16,9 @@ import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/expandable_section_view.dart';
 
 // ignore: must_be_immutable
-class SettingsStudentSectionView extends StatelessWidget {
+class SettingsProfileSectionView extends StatelessWidget {
   UserSetting userSettings;
-  SettingsStudentSectionView({this.userSettings});
+  SettingsProfileSectionView({this.userSettings});
   final ProfileController controller = Get.find();
 
   @override
@@ -52,7 +52,9 @@ class SettingsStudentSectionView extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       children: [
         itemDarkModeSettingView(),
+        lineBreak(),
         _PushingNotificationView(),
+        lineBreak(),
         ItemSettingNavigateView(
           colorTitle: AppColor.c4d4d4d,
           title: 'Câu hỏi thường gặp',
@@ -61,13 +63,7 @@ class SettingsStudentSectionView extends StatelessWidget {
           trailingColor: AppColor.cd9d9d9,
           onPressed: () {},
         ),
-        Divider(
-          thickness: 1,
-          indent: 15,
-          endIndent: 15,
-          height: 5,
-          color: AppColor.lineColor,
-        ),
+        lineBreak(),
         ItemSettingNavigateView(
           colorTitle: AppColor.c4d4d4d,
           trailingWidth: 20,
@@ -76,13 +72,7 @@ class SettingsStudentSectionView extends StatelessWidget {
           title: 'Trợ giúp',
           onPressed: () {},
         ),
-        Divider(
-          thickness: 1,
-          indent: 15,
-          endIndent: 15,
-          height: 5,
-          color: AppColor.lineColor,
-        ),
+        lineBreak(),
         ItemSettingBaseView(
           onPressed: () {
             pushReplaceAllTo(Routes.AUTH);
@@ -99,27 +89,26 @@ class SettingsStudentSectionView extends StatelessWidget {
     );
   }
 
+  Widget lineBreak() {
+    return Divider(
+      thickness: 1,
+      indent: 15,
+      endIndent: 15,
+      height: 5,
+      color: AppColor.lineColor,
+    );
+  }
+
   Widget itemDarkModeSettingView() {
-    return Column(
-      children: [
-        ItemSettingsSwitchView(
-          fontSizeTitle: 13,
-          colorTitle: AppColor.c4d4d4d,
-          title: 'Dark mode',
-          isChecked: userSettings?.darkMode,
-          onChanged: (value) {
-            // print(value);
-            controller.changeDarkModeSetting();
-          },
-        ),
-        Divider(
-          thickness: 1,
-          indent: 15,
-          endIndent: 15,
-          height: 5,
-          color: AppColor.lineColor,
-        )
-      ],
+    return ItemSettingsSwitchView(
+      fontSizeTitle: 13,
+      colorTitle: AppColor.c4d4d4d,
+      title: 'Dark mode',
+      isChecked: userSettings?.darkMode,
+      onChanged: (value) {
+        // print(value);
+        controller.changeDarkModeSetting();
+      },
     );
   }
 }

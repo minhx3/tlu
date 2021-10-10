@@ -17,8 +17,7 @@ class SubjectListCartView extends GetView<SubjectListCartController> {
     return AppContainer(
       child: Obx(() {
         return Scaffold(
-          backgroundColor:
-              controller.rxEditMode() ? AppColor.whiteColor : AppColor.cf2f2f2,
+          backgroundColor: AppColor.cf2f2f2,
           body: Column(
             children: [
               // AppBarView(

@@ -34,7 +34,7 @@ class ChatListTeacherView extends StatelessWidget {
           thickness: 1.5,
           indent: 12,
           endIndent: 12,
-          color: AppColor.cbfbfbf,
+          color: AppColor.ce6e6e6,
         );
       },
     ));
@@ -59,7 +59,8 @@ class _ItemGroupBySubjectView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Text(
             subjectName,
-            style: fontInter(16, color: AppColor.labelColor),
+            style: fontInter(16,
+                color: AppColor.labelColor, fontWeight: FontWeight.w600),
           ),
         ),
         SizedBox(

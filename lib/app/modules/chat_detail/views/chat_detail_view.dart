@@ -62,7 +62,7 @@ class _AppBarView extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final GroupChatModel cg;
 
-  const _AppBarView({Key key, @required this.title,  this.cg}) : super(key: key);
+  const _AppBarView({Key key, @required this.title, this.cg}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -70,21 +70,14 @@ class _AppBarView extends StatelessWidget with PreferredSizeWidget {
       decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: AppColor.lineColor))),
       child: AppBarView(
-        type: AppBarType.detail,
-        title: title ?? '',
-        actions: [
-          IconButton(
-            icon: Image.asset(
-              Images.icPeople,
-              width: 25,
-              height: 25,
-            ),
-            onPressed: () {
-              pushTo(Routes.CHAT_GROUP_INFO, arguments: cg);
-            },
-          ),
-        ],
-      ),
+          type: AppBarType.icon,
+          title: title ?? '',
+          iconLeading: Images.icPeople,
+          iconSize: 23,
+          iconTintColor: AppColor.textColor,
+          onAction: () {
+            pushTo(Routes.CHAT_GROUP_INFO, arguments: cg);
+          }),
     );
   }
 
@@ -120,7 +113,9 @@ class BottomChatView extends GetView<ChatDetailController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _CommonAttachmentView(),
-              SizedBox(width: 6,),
+              SizedBox(
+                width: 6,
+              ),
               Expanded(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,

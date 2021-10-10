@@ -4,12 +4,10 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/configuration/constant/global.dart';
-import 'package:thanglong_university/app/model/register_subject_entity.dart';
+import 'package:thanglong_university/app/model/chat/chat.dart';
+import 'package:thanglong_university/app/model/chat/group_chat_model.dart';
 import 'package:thanglong_university/app/model/schedule_teacher_model.dart';
-import 'package:thanglong_university/app/model/score_detail_entity.dart';
-import 'package:thanglong_university/app/modules/transcript/views/detail_transcript_subject_view.dart';
 import 'package:thanglong_university/app/routes/app_pages.dart';
-import 'package:thanglong_university/app/service/api/app_client.dart';
 
 class EducationTeacherItemView extends GetView {
   final ScheduleTeacherModel item;
@@ -22,19 +20,12 @@ class EducationTeacherItemView extends GetView {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        // if (isCurrent) {
-        //   pushTo(Routes.DETAI_CLASS, arguments: {
-        //     "id": item.id,
-        //     "data": item,
-        //     'type': ClassDetailType.studying
-        //   });
-        // } else {
-        //   ScoreDetailEntity res =
-        //       await Appclient.shared.getTrascriptById(item.subjectClassId);
-        //   if (res != null) {
-        //     Get.dialog(DetailTranscriptSubjectView(res));
-        //   }
-        // }
+        ChatCrud.instance.userViewMessage(item.subjectClassId);
+        pushTo(Routes.CHAT_DETAIL,
+            arguments: GroupChatModel(
+                subjectId: item.subjectId,
+                subjectClassId: item.subjectClassId,
+                subjectClassName: item.subjectClassName));
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -71,45 +62,40 @@ class EducationTeacherItemView extends GetView {
   }
 
   Widget itemView(String title, String subTitle, {bool isLast = false}) {
-    return Container(
-      width: 85,
-      padding: EdgeInsets.only(top: 16),
+    return IntrinsicHeight(
       child: Row(
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: fontInter(11,
-                      fontWeight: FontWeight.w500, color: AppColor.c808080),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  subTitle,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: fontInter(12,
-                      fontWeight: FontWeight.w600, color: AppColor.c000333),
-                ),
-              ],
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: fontInter(11,
+                    fontWeight: FontWeight.w500, color: AppColor.c808080),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              SizedBox(
+                height: 4,
+              ),
+              Text(
+                subTitle,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: fontInter(12,
+                    fontWeight: FontWeight.w600, color: AppColor.c000333),
+              ),
+            ],
           ),
           isLast == true
               ? SizedBox()
-              : Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  width: 1,
-                  height: 35,
+              : VerticalDivider(
+                  thickness: 1,
                   color: AppColor.lineColor,
+                  width: 30,
                 ),
         ],
       ),
-    );
+    ).marginOnly(top: 10);
   }
 }
