@@ -89,7 +89,9 @@ class ChatController extends GetxController {
     try {
       List<SubjectClassEntity> res =
           await Appclient.shared.getSubjectClassList(false);
-      groupArchive(res.map((e) => GroupChatModel()).toList());
+      if (res != null) {
+        groupArchive(res.map((e) => GroupChatModel()).toList());
+      }
       // ignore: unused_catch_clause
     } on Exception catch (e) {} finally {}
   }

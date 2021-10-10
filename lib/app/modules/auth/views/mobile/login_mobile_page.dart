@@ -33,9 +33,7 @@ class LoginMobilePage extends GetView<AuthController> {
                 Container(
                   color: AppColor.whiteColor,
                   height: double.infinity,
-                  margin: EdgeInsets.only(
-                      right:
-                          Constant.designWidth - Constant.designWidth * 0.75),
+                  margin: EdgeInsets.only(right: 70),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -44,7 +42,7 @@ class LoginMobilePage extends GetView<AuthController> {
                                   child: Row(
                                 children: [
                                   Container(
-                                    width: Constant.designWidth * 0.75,
+                                    width: 300,
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 20),
                                     child: Column(

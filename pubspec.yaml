@@ -49,6 +49,8 @@ dependencies:
   graphx: 0.9.6+2
   cupertino_icons: ^1.0.0
   image_picker: ^0.6.7+15
+  flutter_screenutil: 5.0.0+2
+  screen_autosize: ^0.0.1+2
   file_picker: 2.1.7
   flutter:
     sdk: flutter
