@@ -47,10 +47,7 @@ class _ListContentView extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.zero,
       children: [
-        // _EnterChatView(),
         _SearchBoxView(),
-        // _ChatGroupView(),
-        // _AdminListView(),
         StudentGroupView(
           groupName: 'Danh sách lớp',
         )
@@ -59,12 +56,6 @@ class _ListContentView extends StatelessWidget {
   }
 }
 
-///
-/// Back lại màn hình chat
-/// Nếu có tin nhắn mới sẽ đổi màu đỏ
-/// Role: Sinh viên
-///
-// ignore: unused_element
 class _EnterChatView extends StatelessWidget {
   final bool hasNewMessage;
 

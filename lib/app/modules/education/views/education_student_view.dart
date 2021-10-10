@@ -71,6 +71,7 @@ class EducationStudentView extends GetView<EducationController> {
                 children: studentSubject.entries
                     .map((e) => _ItemGroupByStudentSubjectView(
                         isLastItem: e.key.contains(studentSubject.keys.last),
+                        isCurrent: true,
                         subjectName: e.key,
                         itemChilds: e.value))
                     .toList(),
@@ -98,6 +99,7 @@ class EducationStudentView extends GetView<EducationController> {
                 children: studentSubject.entries
                     .map((e) => _ItemGroupByStudentSubjectView(
                         isLastItem: e.key.contains(studentSubject.keys.last),
+                        isCurrent: false,
                         subjectName: e.key,
                         itemChilds: e.value))
                     .toList(),
@@ -126,7 +128,7 @@ class EducationStudentView extends GetView<EducationController> {
         decoration: boxShadow.copyWith(
             color: type == 1 ? AppColor.c000333 : AppColor.whiteColor,
             borderRadius: BorderRadius.circular(5)),
-        padding: EdgeInsets.fromLTRB(15, type == 1 ? 15 : 11, 15, 12),
+        padding: EdgeInsets.fromLTRB(15, type == 1 ? 17 : 11, 15, 12),
         child: Column(
           children: [
             Row(
@@ -237,13 +239,15 @@ class EducationStudentView extends GetView<EducationController> {
 class _ItemGroupByStudentSubjectView extends StatelessWidget {
   final String subjectName;
   final bool isLastItem;
+  final bool isCurrent;
   final List<RegisterSubjectEntity> itemChilds;
 
   const _ItemGroupByStudentSubjectView(
       {Key key,
       @required this.subjectName,
       @required this.itemChilds,
-      this.isLastItem = false})
+      this.isLastItem = false,
+      this.isCurrent})
       : super(key: key);
 
   @override
@@ -265,6 +269,7 @@ class _ItemGroupByStudentSubjectView extends StatelessWidget {
           shrinkWrap: true,
           children: itemChilds
               .map((e) => EducationSubjectItemView(
+                    isCurrent: isCurrent,
                     item: e,
                   ))
               .toList(),

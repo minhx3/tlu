@@ -42,9 +42,6 @@ class StudentGroupView extends GetView<ChatGroupInfoController> {
           indent: 12,
           endIndent: 12,
         ),
-        SizedBox(
-          height: 8,
-        ),
         Obx(() => ListView.separated(
               padding: EdgeInsets.zero,
               physics: NeverScrollableScrollPhysics(),
@@ -94,7 +91,7 @@ class _ItemStudentView extends StatelessWidget {
       backgroundColor: Colors.transparent,
       onPressed: onPressed,
       child: Container(
-        height: 70,
+        height: 60,
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

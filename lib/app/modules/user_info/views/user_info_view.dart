@@ -25,11 +25,7 @@ class _AppBarView extends StatelessWidget with PreferredSizeWidget {
     UserEntity u = Get.arguments;
     return AppBarView(
       title: u.isTeacher ? 'Thông tin giảng viên' : 'Thông tin sinh viên',
-      buttonTitle: 'Chat',
-      backgroundColor: Colors.white,
-      iconTintColor: AppColor.textColor,
-      titleColor: AppColor.textColor,
-      type: AppBarType.button,
+      type: AppBarType.detail,
     );
   }
 

@@ -65,14 +65,14 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
                             orElse: () => null)),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 5),
                       child: rowItem(
                           title: "Tổng kết",
                           value: item?.gpa?.toString() ?? ''),
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 5),
                       child: rowItem(
                           title: "Số tín chỉ",
                           value: item?.subject?.credits?.toString() ?? ''),
@@ -125,7 +125,7 @@ class DetailTranscriptSubjectView extends GetView<TranscriptController> {
       return SizedBox.shrink();
     }
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: 25),
       child: Column(
         children: [
           rowItem(title: title, value: score.scoreAvg),
