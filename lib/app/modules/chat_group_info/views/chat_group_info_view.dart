@@ -56,6 +56,7 @@ class _ListContentView extends StatelessWidget {
   }
 }
 
+// ignore: unused_element
 class _EnterChatView extends StatelessWidget {
   final bool hasNewMessage;
 

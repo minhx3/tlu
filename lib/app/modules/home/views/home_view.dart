@@ -118,9 +118,9 @@ class _TeacherDashboardView extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (c, index) {
-                        GroupChatModel g =
-                            controller.getGroupWithBadge[index];
+                        GroupChatModel g = controller.getGroupWithBadge[index];
                         return ItemGroupChatBySubjectView(
+                          isHome: true,
                           item: g,
                         );
                       },

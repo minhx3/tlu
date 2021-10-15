@@ -241,24 +241,27 @@ class _SubjectItemViewState extends State<SubjectItemView>
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ).marginOnly(bottom: 2),
-        toolTip == null
-            ? Text(
-                subTitle,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: fontInter(12,
-                    fontWeight: FontWeight.w600, color: AppColor.c000333),
-              )
-            : Tooltip(
-                message: toolTip,
-                child: Text(
+        SizedBox(
+          width: 50,
+          child: toolTip == null
+              ? Text(
                   subTitle,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: fontInter(12,
                       fontWeight: FontWeight.w600, color: AppColor.c000333),
+                )
+              : Tooltip(
+                  message: toolTip,
+                  child: Text(
+                    subTitle,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: fontInter(12,
+                        fontWeight: FontWeight.w600, color: AppColor.c000333),
+                  ),
                 ),
-              ),
+        ),
       ],
     );
   }

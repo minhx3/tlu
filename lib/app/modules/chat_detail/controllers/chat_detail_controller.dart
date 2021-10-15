@@ -16,7 +16,7 @@ import 'package:thanglong_university/app/service/storage/storage.dart';
 import 'package:tiengviet/tiengviet.dart';
 
 class ChatDetailController extends GetxController {
-  FocusNode focusNode;
+  FocusNode focusNode = FocusNode();
   final _hasFocus = false.obs;
 
   RxList<UserEntity> u = RxList();
@@ -38,6 +38,8 @@ class ChatDetailController extends GetxController {
   @override
   void onClose() {
     scrollController?.dispose();
+    focusNode.dispose();
+    tec.dispose();
     super.onClose();
   }
 
@@ -45,9 +47,11 @@ class ChatDetailController extends GetxController {
   void onInit() async {
     super.onInit();
 
-    await FirebaseMessaging.instance.subscribeToTopic(cg.subjectClassId);
-    list.bindStream(ChatCrud.instance.chatStream(cg.subjectClassId));
-    focusNode = FocusNode()
+    await FirebaseMessaging.instance
+        .subscribeToTopic(cg.subjectClassId.removeAllWhitespace);
+    list.bindStream(
+        ChatCrud.instance.chatStream(cg.subjectClassId.removeAllWhitespace));
+    focusNode
       ..addListener(() {
         _hasFocus(focusNode.hasFocus);
         showAttachment(!focusNode.hasFocus);
@@ -59,6 +63,13 @@ class ChatDetailController extends GetxController {
                 ));
       });
   }
+
+  // @override
+  // void dispose() {
+  //   focusNode.dispose();
+  //   tec.dispose();
+  //   super.dispose();
+  // }
 
   final _loading = false.obs;
 

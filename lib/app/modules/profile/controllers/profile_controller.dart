@@ -1,4 +1,6 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:thanglong_university/app/configuration/base/app_controller.dart';
 import 'package:thanglong_university/app/enums/notification_type_enum.dart';
 import 'package:thanglong_university/app/model/user_info_model.dart';
@@ -76,5 +78,49 @@ class ProfileController extends AppController {
     }).whenComplete(() {
       hideLoading();
     });
+  }
+
+  // ignore: missing_return
+  Future<PickedFile> pickFile(
+      {ImageSource source = ImageSource.gallery,
+      double maxWidth = 600,
+      double maxHeight = 600,
+      int quality = 70}) async {
+    try {
+      final ImagePicker _picker = ImagePicker();
+      if (source == ImageSource.camera) {
+        return _picker.getImage(source: source);
+      } else {
+        return _picker.getImage(
+          source: source,
+          maxWidth: maxWidth,
+          maxHeight: maxHeight,
+          imageQuality: quality,
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  sendImg(source) async {
+    try {
+      // ignore: unused_local_variable
+      PickedFile file = await pickFile(source: source);
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  sendFile() async {
+    try {
+      FilePickerResult file = await FilePicker.platform.pickFiles();
+      if (file != null) {
+      } else {
+        // User canceled the picker
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
   }
 }

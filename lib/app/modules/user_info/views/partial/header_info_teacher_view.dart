@@ -15,7 +15,7 @@ class HeaderInfoTeacherView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColor.whiteColor,
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 12),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -24,7 +24,9 @@ class HeaderInfoTeacherView extends StatelessWidget {
             isAllowEdit: isAllowEdit,
             user: user,
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           ItemInfoView(
             label: 'Số điện thoại:',
             value: "${user?.mobile ?? ""}",

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
 import 'package:thanglong_university/app/model/chat/base_model.dart';
+import 'package:thanglong_university/app/modules/profile/controllers/profile_controller.dart';
 import 'package:thanglong_university/app/views/views/value_box_view.dart';
 
 class AvatarUserNameView extends StatelessWidget {
@@ -11,6 +13,8 @@ class AvatarUserNameView extends StatelessWidget {
 
   const AvatarUserNameView({Key key, this.isAllowEdit = false, this.user})
       : super(key: key);
+
+  static final ProfileController profileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +93,9 @@ class AvatarUserNameView extends StatelessWidget {
               bottom: 0,
               right: 0,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  profileController.sendFile();
+                },
                 child: Container(
                   width: 24,
                   height: 24,

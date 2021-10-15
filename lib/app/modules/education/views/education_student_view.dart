@@ -23,7 +23,7 @@ class EducationStudentView extends GetView<EducationController> {
           padding: EdgeInsets.only(bottom: 30),
           children: [
             Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               child: Column(
                 children: [
                   Obx(() {
@@ -256,7 +256,7 @@ class _ItemGroupByStudentSubjectView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
+          padding: const EdgeInsets.fromLTRB(20, 15, 15, 10),
           child: Text(
             subjectName,
             style: fontInter(14,

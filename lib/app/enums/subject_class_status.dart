@@ -8,7 +8,7 @@ final subjectClassStatus = EnumValues({
   "ACTV": SubjectClassStatusEnum.ACTV,
 });
 
-final subjectGroupStatusSwitch = EnumValues({
+final subjectClassStatusSwitch = EnumValues({
   "Chờ đăng ký": SubjectClassStatusEnum.PENDING,
   "Cho đăng ký": SubjectClassStatusEnum.REGI,
   "Lớp đã đủ": SubjectClassStatusEnum.ACTV,
