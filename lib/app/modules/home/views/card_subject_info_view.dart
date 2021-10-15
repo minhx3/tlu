@@ -111,14 +111,17 @@ class CardSubjectInfoView extends StatelessWidget {
             mainAxisAlignment: cardSubjectType == CardSubjectType.pending
                 ? MainAxisAlignment.start
                 : MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Xếp danh sách ngay",
-                style: fontInter(14,
-                    fontWeight: FontWeight.w600, color: AppColor.whiteColor),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Xếp danh sách ngay",
+                  style: fontInter(14,
+                      fontWeight: FontWeight.w600, color: AppColor.whiteColor),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               cardSubjectType == CardSubjectType.pending
                   ? Expanded(
@@ -129,10 +132,10 @@ class CardSubjectInfoView extends StatelessWidget {
                     ),
               Image.asset(
                 Images.addNoteIcon,
-                height: 40,
+                height: 24,
                 width: 20,
                 fit: BoxFit.contain,
-              )
+              ).marginOnly(top: 9)
             ],
           ),
         )

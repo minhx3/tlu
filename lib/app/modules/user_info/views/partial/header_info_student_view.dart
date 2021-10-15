@@ -17,7 +17,7 @@ class HeaderInfoStudentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 12),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 12),
       decoration: boxShadow,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +50,7 @@ class _CommonInfoView extends StatelessWidget {
           height: 26,
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
+          padding: const EdgeInsets.only(left: 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

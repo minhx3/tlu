@@ -18,6 +18,7 @@ import 'item_group_chat_by_subject_view.dart';
 
 class ChatView extends GetView<ChatController> {
   final IndexController indexController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,9 +42,11 @@ class ChatListStudent extends StatelessWidget {
   const ChatListStudent({
     Key key,
     @required this.controller,
+    this.isHome = false,
   }) : super(key: key);
 
   final ChatController controller;
+  final bool isHome;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +62,7 @@ class ChatListStudent extends StatelessWidget {
                   GroupChatModel g = controller.getGroupWithBadge[index];
                   return ItemGroupChatBySubjectView(
                     item: g,
+                    isHome: isHome,
                     onPressed: () {
                       ChatCrud.instance.userViewMessage(g.subjectClassId);
                       pushTo(Routes.CHAT_DETAIL, arguments: g);
@@ -95,6 +99,7 @@ class ChatListStudent extends StatelessWidget {
                     GroupChatModel g = controller.groupArchive[index];
                     return ItemGroupChatBySubjectView(
                       item: g,
+                      isHome: isHome,
                       onPressed: () {
                         ChatCrud.instance.userViewMessage(g.subjectClassId);
                         pushTo(Routes.CHAT_DETAIL, arguments: g);

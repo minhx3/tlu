@@ -12,9 +12,14 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
   final VoidCallback onPressed;
   final GroupChatModel item;
   final String subjectClassId;
+  final bool isHome;
 
   const ItemGroupChatBySubjectView(
-      {Key key, this.onPressed, this.item, this.subjectClassId})
+      {Key key,
+      this.onPressed,
+      this.item,
+      this.subjectClassId,
+      this.isHome = false})
       : super(key: key);
 
   @override
@@ -33,7 +38,7 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 50,
+              width: isHome ? 40 : 50,
               child: CircleAvatar(
                 radius: 25,
                 backgroundColor: AppColor.subjectBackgroundColor,

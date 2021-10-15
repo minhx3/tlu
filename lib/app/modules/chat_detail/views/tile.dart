@@ -9,7 +9,7 @@ import 'package:thanglong_university/app/modules/chat_detail/views/messages/item
 
 enum ChatType { raw, attachment, reply }
 
-class ChatTile extends GetView<ChatDetailController> {
+class ChatTile extends StatelessWidget {
   const ChatTile({
     Key key,
     @required this.name,
@@ -21,6 +21,7 @@ class ChatTile extends GetView<ChatDetailController> {
   final String name;
   final String imageURL;
   final bool isMe;
+  static final ChatDetailController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {

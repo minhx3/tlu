@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:thanglong_university/app/modules/chat_detail/controllers/chat_detail_controller.dart';
 import 'package:thanglong_university/app/utils/screen/screen.dart';
 
-class MessageContentView extends GetView<ChatDetailController> {
+class MessageContentView extends StatelessWidget {
   final Widget child;
   final bool isReply;
   final bool isMyMessage;

@@ -47,13 +47,13 @@ class AppBarView extends StatelessWidget {
       color: AppColor.cf2f2f2,
       width: 1,
       height: 26,
-      margin: EdgeInsets.only(left: 15, right: 10));
+      margin: EdgeInsets.only(left: 10, right: 10));
 
   Widget lineDark() => Container(
       color: AppColor.c33355a,
       width: 1,
       height: 26,
-      margin: EdgeInsets.only(left: 15, right: 10));
+      margin: EdgeInsets.only(left: 10, right: 10));
 
   Widget backButton([Color color = AppColor.textColor]) {
     return automaticallyImplyLeading
@@ -221,6 +221,8 @@ class AppBarView extends StatelessWidget {
                     lineLight(),
                     Expanded(
                       child: Text(title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: fontInter(16,
                               height: 1,
                               fontWeight: FontWeight.w600,
@@ -282,7 +284,7 @@ class AppBarView extends StatelessWidget {
           case AppBarType.icon:
             return Container(
                 padding:
-                    EdgeInsets.only(left: 20, top: 22, right: 15, bottom: 17),
+                    EdgeInsets.only(left: 20, top: 17, right: 15, bottom: 12),
                 height: 60,
                 alignment: Alignment.centerLeft,
                 child: Row(
@@ -299,8 +301,8 @@ class AppBarView extends StatelessWidget {
                         ? InkWell(
                             child: Image.asset(
                               iconLeading,
-                              width: 20,
-                              height: 20,
+                              width: 36,
+                              height: 36,
                               color: iconTintColor,
                               fit: BoxFit.contain,
                             ),

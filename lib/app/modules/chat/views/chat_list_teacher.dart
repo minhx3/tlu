@@ -11,8 +11,9 @@ import 'item_group_chat_by_subject_view.dart';
 
 class ChatListTeacherView extends StatelessWidget {
   final ChatController controller;
+  final bool isHome;
 
-  ChatListTeacherView({this.controller});
+  const ChatListTeacherView({this.controller, this.isHome = false});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,7 @@ class ChatListTeacherView extends StatelessWidget {
       itemBuilder: (c, index) {
         var item = groupTeacher.entries.elementAt(index);
         return _ItemGroupBySubjectView(
+          isHome: isHome,
           subjectName: item.key,
           itemChilds: item.value,
         );
@@ -34,7 +36,7 @@ class ChatListTeacherView extends StatelessWidget {
           thickness: 1.5,
           indent: 12,
           endIndent: 12,
-          color: AppColor.ce6e6e6,
+          color: AppColor.lineColor,
         );
       },
     ));
@@ -43,11 +45,14 @@ class ChatListTeacherView extends StatelessWidget {
 
 class _ItemGroupBySubjectView extends StatelessWidget {
   final String subjectName;
-
+  final bool isHome;
   final List<GroupChatModel> itemChilds;
 
   const _ItemGroupBySubjectView(
-      {Key key, @required this.subjectName, @required this.itemChilds})
+      {Key key,
+      @required this.subjectName,
+      @required this.itemChilds,
+      this.isHome = false})
       : super(key: key);
 
   @override
@@ -74,6 +79,7 @@ class _ItemGroupBySubjectView extends StatelessWidget {
             GroupChatModel g = itemChilds[index];
             return ItemGroupChatBySubjectView(
               item: g,
+              isHome: isHome,
               onPressed: () {
                 ChatCrud.instance.userViewMessage(g.subjectClassId);
                 pushTo(Routes.CHAT_DETAIL, arguments: g);
