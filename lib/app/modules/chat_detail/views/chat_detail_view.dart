@@ -22,16 +22,13 @@ import 'package:thanglong_university/app/views/views/pressable_view.dart';
 class ChatDetailView extends GetView<ChatDetailController> {
   @override
   Widget build(BuildContext context) {
-    controller.cg = Get.arguments;
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
         appBar: _AppBarView(
-          cg: controller.cg,
-          title: controller.cg.subjectClassId,
+          title: controller.subjectClassId,
         ),
         backgroundColor: AppColor.chatBackground,
         body: SafeArea(
@@ -76,7 +73,7 @@ class _AppBarView extends StatelessWidget with PreferredSizeWidget {
           iconSize: 23,
           iconTintColor: AppColor.textColor,
           onAction: () {
-            pushTo(Routes.CHAT_GROUP_INFO, arguments: cg);
+            pushTo(Routes.CHAT_GROUP_INFO, arguments: title);
           }),
     );
   }

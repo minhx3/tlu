@@ -29,7 +29,7 @@ class ItemGroupChatBySubjectView extends StatelessWidget {
       onPressed: onPressed ??
           () {
             ChatCrud.instance.userViewMessage(subjectClassId);
-            pushTo(Routes.CHAT_DETAIL, arguments: item);
+            pushTo(Routes.CHAT_DETAIL, arguments: item.subjectClassId);
           },
       child: Container(
         height: 68,

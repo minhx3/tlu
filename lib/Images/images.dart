@@ -15,6 +15,7 @@ class Images {
   static const String dismssIcon = 'assets/images/dismssIcon.png';
   static const String arrowRight = 'assets/images/arrowRight.png';
   static const String plusButtonIcon = 'assets/images/plusButtonIcon.png';
+  static const String icChat2 = 'assets/images/icChat2.png';
   static const String iconSchedule = 'assets/images/iconSchedule.png';
   static const String arrrowTimeLeft = 'assets/images/arrrowTimeLeft.png';
   static const String dotFill = 'assets/images/dotFill.png';
@@ -26,6 +27,7 @@ class Images {
   static const String iconTraining = 'assets/images/iconTraining.png';
   static const String dismissIcon = 'assets/images/dismissIcon.png';
   static const String icAdd = 'assets/images/ic_add.png';
+  static const String icSortAsc = 'assets/images/ic_sort_asc.png';
   static const String arrowTimeRight = 'assets/images/arrowTimeRight.png';
   static const String loginBackground = 'assets/images/loginBackground.png';
   static const String menuGroup = 'assets/images/menuGroup.png';
@@ -58,12 +60,11 @@ class Images {
   static const String icGallary = 'assets/images/ic_gallary.png';
   static const String cardNotify = 'assets/images/card_Notify.png';
   static const String icSendMessage = 'assets/images/ic_send_message.png';
+  static const String camera = 'assets/images/camera.png';
   static const String iconPage = 'assets/images/iconPage.png';
   static const String notification = 'assets/images/notification.png';
   static const String chat = 'assets/images/chat.png';
   static const String unTick = 'assets/images/unTick.png';
   static const String icSort = 'assets/images/ic_sort.png';
-  static const String icSortAsc = 'assets/images/ic_sort_asc.png';
   static const String iconStar = 'assets/images/iconStar.png';
-  static const String camera = 'assets/images/camera.png';
 }

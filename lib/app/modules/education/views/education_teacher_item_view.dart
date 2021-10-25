@@ -22,10 +22,7 @@ class EducationTeacherItemView extends GetView {
       onTap: () async {
         ChatCrud.instance.userViewMessage(item.subjectClassId);
         pushTo(Routes.CHAT_DETAIL,
-            arguments: GroupChatModel(
-                subjectId: item.subjectId,
-                subjectClassId: item.subjectClassId,
-                subjectClassName: item.subjectClassName));
+            arguments: item.subjectClassId);
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),

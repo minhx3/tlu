@@ -34,19 +34,19 @@ class ChatGroupInfoController extends GetxController {
   }
 
   void getListUser() async {
-    GroupChatModel cg = Get.arguments;
+    String subjectClassId = Get.arguments;
     List<UserEntity> res =
-        await Appclient.shared.getUserList(cg.subjectClassId);
-    UserEntity tec = UserEntity(
-        id: cg.teacher?.id,
-        isTeacher: true,
-        name: cg.teacher.fullName,
-        mobile: cg.teacher.mobile,
-        email: cg.teacher.email,
-        avatar: cg.teacher.avatar,
-        faculty: cg.teacher.faculty,
-        teachingList: cg.teacher.teachingList);
-    List<UserEntity> listUserWithTeacher = isTeacher ? res : [tec, ...res];
+        await Appclient.shared.getUserList(subjectClassId);
+    // UserEntity tec = UserEntity(
+    //     id: cg.teacher?.id,
+    //     isTeacher: true,
+    //     name: cg.teacher.fullName,
+    //     mobile: cg.teacher.mobile,
+    //     email: cg.teacher.email,
+    //     avatar: cg.teacher.avatar,
+    //     faculty: cg.teacher.faculty,
+    //     teachingList: cg.teacher.teachingList);
+    List<UserEntity> listUserWithTeacher = isTeacher ? res : [...res];
     u(listUserWithTeacher);
     uf(listUserWithTeacher);
   }

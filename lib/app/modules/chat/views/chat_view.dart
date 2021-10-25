@@ -65,7 +65,7 @@ class ChatListStudent extends StatelessWidget {
                     isHome: isHome,
                     onPressed: () {
                       ChatCrud.instance.userViewMessage(g.subjectClassId);
-                      pushTo(Routes.CHAT_DETAIL, arguments: g);
+                      pushTo(Routes.CHAT_DETAIL, arguments: g.subjectClassId);
                     },
                   );
                 },
@@ -102,7 +102,7 @@ class ChatListStudent extends StatelessWidget {
                       isHome: isHome,
                       onPressed: () {
                         ChatCrud.instance.userViewMessage(g.subjectClassId);
-                        pushTo(Routes.CHAT_DETAIL, arguments: g);
+                        pushTo(Routes.CHAT_DETAIL, arguments: g.subjectClassId);
                       },
                     );
                   },

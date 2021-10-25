@@ -31,7 +31,7 @@ class ChatDetailController extends GetxController {
 
   final ScrollController scrollController = ScrollController();
 
-  GroupChatModel cg = Get.arguments;
+  String subjectClassId = Get.arguments;
 
   Rx<Chat> messageReply = Rx();
 
@@ -48,9 +48,9 @@ class ChatDetailController extends GetxController {
     super.onInit();
 
     await FirebaseMessaging.instance
-        .subscribeToTopic(cg.subjectClassId.removeAllWhitespace);
+        .subscribeToTopic(subjectClassId.removeAllWhitespace);
     list.bindStream(
-        ChatCrud.instance.chatStream(cg.subjectClassId.removeAllWhitespace));
+        ChatCrud.instance.chatStream(subjectClassId.removeAllWhitespace));
     focusNode
       ..addListener(() {
         _hasFocus(focusNode.hasFocus);
@@ -81,16 +81,16 @@ class ChatDetailController extends GetxController {
 
   void getListUser() async {
     List<UserEntity> res =
-        await Appclient.shared.getUserList(cg.subjectClassId);
+        await Appclient.shared.getUserList(subjectClassId);
     UserEntity tec = UserEntity(
-        // id: cg.teacher?.id,
+        // id: teacher?.id,
         // isTeacher: true,
-        // name: cg.teacher.fullName,
-        // mobile: cg.teacher.mobile,
-        // email: cg.teacher.email,
-        // avatar: cg.teacher.avatar,
-        // faculty: cg.teacher.faculty,
-        // teachingList: cg.teacher.teachingList
+        // name: teacher.fullName,
+        // mobile: teacher.mobile,
+        // email: teacher.email,
+        // avatar: teacher.avatar,
+        // faculty: teacher.faculty,
+        // teachingList: teacher.teachingList
         );
     u([tec, ...res]);
     uf([tec, ...res]);
@@ -113,14 +113,14 @@ class ChatDetailController extends GetxController {
               file: file,
               img: img,
               badge: 0),
-          groupId: cg.subjectClassId,
+          groupId: subjectClassId,
           listUser: u());
       await NotificationFCB.instance.sendNotificationMessageToPeerUser(
           unReadMSGCount: 0,
           messageType: getType(),
           textFromTextField: tec.text,
           myName: 'Leo Messi',
-          chatroomId: cg.subjectClassId,
+          chatroomId: subjectClassId,
           myImageUrl: '');
 
       cleanMessage();

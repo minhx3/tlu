@@ -82,7 +82,7 @@ class _ItemGroupBySubjectView extends StatelessWidget {
               isHome: isHome,
               onPressed: () {
                 ChatCrud.instance.userViewMessage(g.subjectClassId);
-                pushTo(Routes.CHAT_DETAIL, arguments: g);
+                pushTo(Routes.CHAT_DETAIL, arguments: g.subjectClassId);
               },
             );
           },

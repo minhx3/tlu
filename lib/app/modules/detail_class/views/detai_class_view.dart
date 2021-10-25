@@ -5,16 +5,20 @@ import 'package:get/get.dart';
 import 'package:thanglong_university/Images/resources.dart';
 import 'package:thanglong_university/app/configuration/constant/color.dart';
 import 'package:thanglong_university/app/configuration/constant/font_style.dart';
+import 'package:thanglong_university/app/configuration/constant/global.dart';
 import 'package:thanglong_university/app/configuration/constant/view_state.dart';
 import 'package:thanglong_university/app/configuration/extension/int.dart';
 import 'package:thanglong_university/app/enums/subject_class_status.dart';
+import 'package:thanglong_university/app/model/chat/chat.dart';
 import 'package:thanglong_university/app/modules/subject_list_cart/controllers/subject_list_cart_controller.dart';
 import 'package:thanglong_university/app/modules/subject_list_term/controllers/subject_list_term_controller.dart';
 import 'package:thanglong_university/app/modules/task/views/teacher_item_view.dart';
 import 'package:thanglong_university/app/modules/transcript/views/detail_transcript_subject_view.dart';
+import 'package:thanglong_university/app/routes/app_pages.dart';
 import 'package:thanglong_university/app/views/views/app_bar_view.dart';
 import 'package:thanglong_university/app/views/views/app_widget.dart';
 import 'package:thanglong_university/app/views/views/button_view.dart';
+import 'package:thanglong_university/app/views/views/image_view.dart';
 
 import '../controllers/detai_class_controller.dart';
 
@@ -99,7 +103,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
                                     children: [
-                                      item(
+                                      itemChat(
                                               controller
                                                           .subjectClassData
                                                           .listTimelineClass
@@ -108,6 +112,7 @@ class DetaiClassView extends GetView<DetaiClassController> {
                                                   ? "Mã lớp:"
                                                   : "Mã lớp ${e.isExerciseClass == false ? "lý thuyết" : "thực hành"}:",
                                               e?.id ?? "",
+                                              e.id,
                                               isLast: true)
                                           .paddingSymmetric(horizontal: 5),
                                       lineWidget(),
@@ -406,4 +411,43 @@ class DetaiClassView extends GetView<DetaiClassController> {
       ],
     );
   }
+
+  Widget itemChat(String title, String subTitle, String subjectClassId,
+      {bool isLast = false}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: fontInter(11,
+                  fontWeight: FontWeight.w500, color: AppColor.c808080),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ).marginOnly(bottom: 2),
+            Text(
+              subTitle,
+              softWrap: true,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: fontInter(14,
+                  fontWeight: FontWeight.w600, color: AppColor.c4d4d4d),
+            ),
+          ],
+        ),
+        InkWell(
+          onTap: () {
+            ChatCrud.instance.userViewMessage(subjectClassId);
+            pushTo(Routes.CHAT_DETAIL, arguments: subjectClassId);
+          },
+          child: ImageView(Images.icChat2,
+              type: Type.assets, height: 24, width: 24, fit: BoxFit.contain),
+        ),
+      ],
+    );
+  }
+
+  void onChatPressed() {}
 }
